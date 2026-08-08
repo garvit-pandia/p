@@ -226,12 +226,35 @@ footer a{margin:0 8px;font-size:10.5px;letter-spacing:.14em;text-transform:upper
   .btn,.spec,.contact-link,.nav-link,.stat,.glass{transition:none!important}
 }
 </style>
+<style>
+/* ============ R2 · dive-pacing corridor (ab3- prefix) ============
+   Scroll-linked hero→about descent: a vertical corridor of light
+   rays streams upward (accelerating, quadratic) as the page dives
+   past the surface; the hero content sinks away, the depth rail
+   lights up (body.ab3-diving), and arrival chirps one sonar ping
+   at the rail. Transform/opacity only. Reduced-motion: corridor
+   hidden entirely — the dive reads as a normal fade (existing
+   reveals handle it).
+   ================================================================ */
+#ab3-corridor{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden;opacity:0}
+.ab3-ray{position:absolute;top:-12vh;height:124vh;transform-origin:50% 50%}
+body.ab3-diving #rail-marker{box-shadow:0 0 16px 5px rgba(125,249,255,.9)}
+body.ab3-diving #rail-readout{color:var(--gold);text-shadow:0 0 12px rgba(255,217,122,.75)}
+@media(prefers-reduced-motion:reduce){#ab3-corridor{display:none}}
+/* R2 choreography · reveal pacing — the landing pair and the
+   descent-timeline entries stagger by index (calm, ≤.36s) so the
+   dive lands in sequence instead of all at once */
+.bio .divecard{transition-delay:.15s}
+.tl-entry:nth-child(2){transition-delay:.12s}
+.tl-entry:nth-child(3){transition-delay:.24s}
+</style>
 </head>
 <body>
 
 <canvas id="bg" aria-hidden="true"></canvas>
 <div class="vignette" aria-hidden="true"></div>
 <div id="cursor-light" aria-hidden="true"></div>
+<div id="ab3-corridor" aria-hidden="true"></div>
 
 <header class="nav" role="banner">
   <a class="brand" href="#hero">GP<span class="brand-dot">·</span>ABYSS</a>
@@ -1058,6 +1081,89 @@ footer a{margin:0 8px;font-size:10.5px;letter-spacing:.14em;text-transform:upper
     });
   }, { threshold: .25 });
   Array.prototype.forEach.call(gauges, function (g) { io.observe(g); });
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND 2 — dive-pacing corridor (ab3- prefix)
+   Scroll-linked hero→about descent. Progress p maps the first
+   stretch of scroll (0 → about top − 0.4×vh): the corridor's
+   light rays stream upward with quadratic easing (accelerating
+   dive), the hero content sinks and fades as about arrives, the
+   depth rail pulses (body.ab3-diving), and crossing 90% of the
+   dive chirps ONE sonar ping at the rail (once per descent).
+   Transform/opacity only; scroll read in rAF, never a listener;
+   passive listeners; reduced-motion returns immediately (corridor
+   is display:none in CSS — dive reads as a normal fade).
+   ============================================================ */
+(function () {
+  'use strict';
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+  var el = document.getElementById('ab3-corridor');
+  var about = document.getElementById('about');
+  var heroWrap = document.getElementById('hero-wrap');
+  var rail = document.getElementById('rail-track');
+  if (!el || !about || !heroWrap) { return; }
+  var MOBILE = matchMedia('(max-width: 760px)');
+  var COLORS = ['125,249,255', '45,212,191', '167,139,250'];
+  var rays = [], i;
+  var N = MOBILE.matches ? 8 : 12;
+  for (i = 0; i < N; i++) {
+    var ray = document.createElement('i');
+    ray.className = 'ab3-ray';
+    var near = Math.random();                    /* 0 far … 1 near  */
+    var c = Math.random() < .62 ? 0 : (Math.random() < .5 ? 1 : 2);
+    var a = .05 + near * .11;                    /* near = brighter  */
+    var w = 1.6 + near * 3.4;                    /* near = wider     */
+    ray.style.left = (Math.random() * 100).toFixed(1) + 'vw';
+    ray.style.width = w.toFixed(1) + 'vw';
+    ray.style.background = 'linear-gradient(90deg,transparent,rgba(' + COLORS[c] + ',.5) 30%,rgba(' + COLORS[c] + ',.5) 70%,transparent),linear-gradient(180deg,transparent 0%,rgba(' + COLORS[c] + ',' + a.toFixed(3) + ') 20%,rgba(' + COLORS[c] + ',' + (a * .38).toFixed(3) + ') 55%,transparent 100%)';
+    rays.push({ el: ray, sp: .45 + near * 1.05, rot: (Math.random() * 14 - 7).toFixed(2) });
+    el.appendChild(ray);
+  }
+  var zoneLen = 1;
+  function measure() {
+    var aboutTop = about.offsetTop;
+    zoneLen = Math.max(1, aboutTop - window.innerHeight * .4);
+  }
+  measure();
+  window.addEventListener('resize', measure, { passive: true });
+  function clamp01(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
+  function smooth(a, b, x) { var t = clamp01((x - a) / (b - a)); return t * t * (3 - 2 * t); }
+  var body = document.body, lastOp = -1, lastHo = -1, fired = false, raf = 0;
+  function tick() {
+    raf = requestAnimationFrame(tick);
+    if (document.hidden) { return; }
+    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var p = clamp01(y / zoneLen);
+    var e = p * p;                               /* accelerating descent */
+    var op = smooth(0, .12, p) * (1 - smooth(.6, .85, p));
+    if (op < .001) {
+      if (lastOp !== 0) {
+        el.style.opacity = '0';
+        lastOp = 0;
+        body.classList.remove('ab3-diving');
+      }
+    } else {
+      if (op !== lastOp) { el.style.opacity = op.toFixed(3); lastOp = op; }
+      body.classList.add('ab3-diving');
+      for (i = 0; i < rays.length; i++) {
+        var r = rays[i];
+        var ty = -(r.sp * 46 * e).toFixed(1);
+        r.el.style.transform = 'rotate(' + r.rot + 'deg) translate3d(0,' + ty + 'vh,0) scaleY(' + (1 + .35 * e * (r.sp - .45)).toFixed(3) + ')';
+      }
+    }
+    var ho = 1 - smooth(.45, .8, p);             /* hero sinks away */
+    if (ho !== lastHo) { heroWrap.style.opacity = ho.toFixed(3); lastHo = ho; }
+    if (p >= .9 && !fired) {                     /* arrival chirp */
+      fired = true;
+      if (rail && rail.offsetParent !== null && window.__abyssPing) {
+        window.__abyssPing(rail);
+      }
+    }
+    if (p < .6) { fired = false; }
+  }
+  raf = requestAnimationFrame(tick);
 })();
 </script>
 </body>

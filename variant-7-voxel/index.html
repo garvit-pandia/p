@@ -393,6 +393,28 @@ footer b{color:var(--warm);font-weight:700}
 .brand .cube i:nth-child(2){background:rgba(255,217,122,.4);transform:translateZ(-4px)}
 .brand .cube i:nth-child(3){background:rgba(255,217,122,.7);transform:rotateY(90deg) translateZ(4px)}
 </style>
+<style>
+/* ============================================================
+   ROUND 2 — CHOREOGRAPHY (new prefix v7c)
+   City signal readout — the text mirror of the digits the city
+   window grid spells at night (accessible counterpart; opacity
+   rides the scroll-driven --v7c-night var set by the classic
+   script, so it fades in exactly as the world turns dark).
+   ============================================================ */
+.v7c-signal{
+  position:fixed;left:18px;bottom:18px;z-index:60;pointer-events:none;
+  display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;
+  background:rgba(11,27,63,.42);border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.85);
+  text-transform:uppercase;
+  opacity:calc(var(--v7c-night,0) * 2 - 0.62);
+  transition:opacity .5s ease;
+}
+.v7c-signal b{color:var(--warm);font-weight:700;font-size:12px;letter-spacing:.1em}
+body.static-sky .v7c-signal{opacity:1}
+@media (max-width:900px){.v7c-signal{display:none}}
+</style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
 </script>
@@ -728,6 +750,7 @@ footer b{color:var(--warm);font-weight:700}
     var root = document.documentElement;
     root.style.setProperty('--sky-top', mixCss('#8ec9f2', '#0b1b3f', m));
     root.style.setProperty('--sky-bot', mixCss('#cfe8f7', '#16294f', m));
+    root.style.setProperty('--v7c-night', m);  /* v7c: city signal chip rides the same night curve */
     if (nav) { nav.classList.toggle('scrolled', window.scrollY > 24); }
     for (var i = 0; i < tags.length; i++) {
       var sec = tags[i].closest('section');
@@ -1034,6 +1057,136 @@ footer b{color:var(--warm);font-weight:700}
     function cityCellsPush(x, y, z, col) {
       cityCellsArray.push([x, y, z, col]);
     }
+    /* ============================================================
+       ROUND 2 — CHOREOGRAPHY (new prefix v7c)
+       City signal: two voxel towers rise at the back of the city
+       island; their 10x7 window grid spells the current island
+       number (00-06) at night, reusing the winList/winBase/
+       winBright/winPhase machinery (winMesh below is built after
+       this block, so its instance count covers the glyph windows).
+       Plus a budget-cheap meteor shower: 26 meteors x 5 trail
+       points in ONE additive THREE.Points with preallocated typed
+       arrays — no shadows, no per-frame allocations, night-only.
+       Both are disabled under prefers-reduced-motion (the module
+       returns before initWorld ever runs).
+       ============================================================ */
+    var v7cTowerX1 = -47, v7cTowerX2 = -41;
+    for (var v7ti = 0; v7ti < 5; v7ti++) {
+      for (var v7tj = 1; v7tj <= 7; v7tj++) {
+        cityCellsArray.push([v7cTowerX1 + v7ti, v7tj, -4.2, 3]);
+        cityCellsArray.push([v7cTowerX2 + v7ti, v7tj, -4.2, 3]);
+      }
+    }
+    var v7cDigits = [
+      ['01110','10001','10011','10101','11001','10001','01110'],
+      ['00100','01100','00100','00100','00100','00100','01110'],
+      ['01110','10001','00001','00010','00100','01000','11111'],
+      ['11111','00010','00100','00010','00001','10001','01110'],
+      ['00010','00110','01010','10010','11111','00010','00010'],
+      ['11111','10000','11110','00001','00001','10001','01110'],
+      ['01110','10000','11110','10001','10001','10001','01110']
+    ];
+    var v7cGlyphStart = winList.length;
+    var v7cGlyphMask = new Uint8Array(70);
+    for (var v7gr = 0; v7gr < 7; v7gr++) {
+      for (var v7gc = 0; v7gc < 10; v7gc++) {
+        var v7gx = v7gc < 5 ? v7cTowerX1 + v7gc : v7cTowerX2 + (v7gc - 5);
+        winList.push({ x: v7gx, y: 1 + v7gr, z: -3.62 });
+        winPhase.push(hash2(v7gx, v7gr) * TAU);
+        winBase.push(new T.Color('#8a5a1f'));
+        winBright.push(new T.Color('#ffd97a'));
+      }
+    }
+    function v7cSetDigits(n) {
+      n = Math.max(0, Math.min(9, n | 0));
+      var d1 = (n / 10) | 0, d2 = n % 10;
+      for (var r = 0; r < 7; r++) {
+        for (var c = 0; c < 5; c++) {
+          v7cGlyphMask[r * 10 + c] = v7cDigits[d1][r].charCodeAt(c) === 49 ? 1 : 0;
+          v7cGlyphMask[r * 10 + 5 + c] = v7cDigits[d2][r].charCodeAt(c) === 49 ? 1 : 0;
+        }
+      }
+    }
+    v7cSetDigits(0);
+    /* night blend — how dark the world is right now (0..1), set by applySky */
+    var v7cNightBlend = 0;
+    var v7cNightWas = false;
+    /* meteor shower */
+    var v7cMeteorCount = 26;
+    var v7cTrailPts = 5;
+    var v7cTrailT = [0, 0.06, 0.14, 0.24, 0.36];
+    var v7cTrailRGB = [
+      [1, 1, 1], [0.62, 0.66, 0.8], [0.34, 0.38, 0.5], [0.16, 0.19, 0.28], [0.06, 0.08, 0.13]
+    ];
+    var v7cMeteorPos = new Float32Array(v7cMeteorCount * v7cTrailPts * 3);
+    var v7cMeteorCol = new Float32Array(v7cMeteorCount * v7cTrailPts * 3);
+    var v7cMX = new Float32Array(v7cMeteorCount);
+    var v7cMY = new Float32Array(v7cMeteorCount);
+    var v7cMZ = new Float32Array(v7cMeteorCount);
+    var v7cVX = new Float32Array(v7cMeteorCount);
+    var v7cVY = new Float32Array(v7cMeteorCount);
+    var v7cVZ = new Float32Array(v7cMeteorCount);
+    var v7cWait = new Float32Array(v7cMeteorCount);
+    var v7cGeo = new T.BufferGeometry();
+    v7cGeo.setAttribute('position', new T.BufferAttribute(v7cMeteorPos, 3));
+    v7cGeo.setAttribute('color', new T.BufferAttribute(v7cMeteorCol, 3));
+    var v7cMat = new T.PointsMaterial({
+      size: 1.8, sizeAttenuation: true, vertexColors: true, transparent: true,
+      opacity: 0, blending: T.AdditiveBlending, depthWrite: false, fog: false
+    });
+    var v7cMeteors = new T.Points(v7cGeo, v7cMat);
+    v7cMeteors.frustumCulled = false;
+    v7cMeteors.visible = false;
+    scene.add(v7cMeteors);
+    for (var v7mi = 0; v7mi < v7cMeteorCount; v7mi++) {
+      v7cWait[v7mi] = 0.5 + Math.random() * 7.5;
+      v7cMY[v7mi] = -999;
+    }
+    function v7cSpawnMeteor(m) {
+      v7cMX[m] = -15 + Math.random() * 55;
+      v7cMY[m] = 42 + Math.random() * 22;
+      v7cMZ[m] = -42 + Math.random() * 74;
+      var sp = 15 + Math.random() * 8;
+      var ang = -0.55 + Math.random() * 0.25;
+      v7cVX[m] = Math.sin(ang) * sp * 0.45;
+      v7cVY[m] = -Math.cos(ang) * sp;
+      v7cVZ[m] = -6 + Math.random() * 12;
+      v7cWait[m] = -1;
+    }
+    function v7cUpdateMeteors(dt) {
+      for (var m = 0; m < v7cMeteorCount; m++) {
+        if (v7cWait[m] > 0) {
+          v7cWait[m] -= dt;
+          continue;
+        }
+        if (v7cWait[m] === -1) {
+          v7cMX[m] += v7cVX[m] * dt;
+          v7cMY[m] += v7cVY[m] * dt;
+          v7cMZ[m] += v7cVZ[m] * dt;
+          if (v7cMY[m] < 2 || v7cMX[m] < -195 || v7cMZ[m] < -55 || v7cMZ[m] > 55) {
+            v7cMY[m] = -999;
+            v7cWait[m] = 2 + Math.random() * 6;
+            continue;
+          }
+          var base = m * v7cTrailPts * 3;
+          for (var q = 0; q < v7cTrailPts; q++) {
+            var b2 = base + q * 3;
+            v7cMeteorPos[b2] = v7cMX[m] - v7cVX[m] * v7cTrailT[q];
+            v7cMeteorPos[b2 + 1] = v7cMY[m] - v7cVY[m] * v7cTrailT[q];
+            v7cMeteorPos[b2 + 2] = v7cMZ[m] - v7cVZ[m] * v7cTrailT[q];
+            v7cMeteorCol[b2] = v7cTrailRGB[q][0];
+            v7cMeteorCol[b2 + 1] = v7cTrailRGB[q][1];
+            v7cMeteorCol[b2 + 2] = v7cTrailRGB[q][2];
+          }
+        }
+      }
+      v7cGeo.attributes.position.needsUpdate = true;
+      v7cGeo.attributes.color.needsUpdate = true;
+    }
+    /* the city spells the island you are on */
+    window.addEventListener('island', function (ev) {
+      v7cSetDigits(ev.detail || 0);
+    });
     addIsland(cityCellsArray, cityPal, 2);
 
     var winGeo = new T.BoxGeometry(0.24, 0.3, 0.12);
@@ -1236,7 +1389,23 @@ footer b{color:var(--warm);font-weight:700}
       dirLight.color.copy(dayDir).lerp(nightDir, m);
       dirLight.intensity = 1.15 - 0.6 * m;
       ambLight.intensity = 0.5 - 0.2 * m;
-      starMat.opacity = m * 0.85;
+      /* v7c fixes: stars only once the sky is truly dark (knee), and the
+         warm sun glow fades out of the midnight sky */
+      starMat.opacity = Math.max(0, (m - 0.35) / 0.65) * 0.85;
+      sunGlow.material.opacity = 0.55 * (1 - 0.85 * m);
+      /* v7c: night blend drives the city signal + meteor shower */
+      v7cNightBlend = Math.min(1, Math.max(0, (m - 0.35) / 0.4));
+      if (v7cNightBlend > 0.02) {
+        v7cMeteors.visible = true;
+        v7cMat.opacity = v7cNightBlend * 0.9;
+        if (!v7cNightWas) {
+          /* dusk pacing: the first meteors arrive the moment night falls */
+          v7cNightWas = true;
+          for (var v7s = 0; v7s < 3; v7s++) { v7cSpawnMeteor((v7s * 9 + 4) % v7cMeteorCount); }
+        }
+      } else {
+        v7cMeteors.visible = false;
+      }
     }
 
     /* instant camera (used at boot + reduced motion) */
@@ -1265,6 +1434,7 @@ footer b{color:var(--warm);font-weight:700}
       camera.lookAt(lookCur);
 
       applySky(p);
+      if (v7cNightBlend > 0.02) { v7cUpdateMeteors(dt); }
 
       /* island activation glow — v7b: 1.6x warmGlow overshoot decays over ~600ms */
       if (glowBoost > 0) { glowBoost = Math.max(0, glowBoost - dt * GLOW_DECAY); }
@@ -1311,9 +1481,15 @@ footer b{color:var(--warm);font-weight:700}
       shimmer.position.x = Math.sin(t * 0.12) * 4;
       shimmer.position.z = Math.cos(t * 0.09) * 4;
 
-      /* window pulse (~40 instances) */
+      /* window pulse (~110 instances; glyph towers spell the island
+         number at night via v7cNightBlend x v7cGlyphMask) */
       for (var w2 = 0; w2 < winList.length; w2++) {
-        var wp = 0.5 + 0.5 * Math.sin(t * 2.2 + winPhase[w2]);
+        var wp;
+        if (w2 >= v7cGlyphStart) {
+          wp = v7cNightBlend * v7cGlyphMask[w2 - v7cGlyphStart] * (0.82 + 0.18 * Math.sin(t * 2.2 + winPhase[w2]));
+        } else {
+          wp = 0.5 + 0.5 * Math.sin(t * 2.2 + winPhase[w2]);
+        }
         scratchC.copy(winBase[w2]).lerp(winBright[w2], wp);
         winMesh.setColorAt(w2, scratchC);
       }
@@ -1377,6 +1553,13 @@ footer b{color:var(--warm);font-weight:700}
 })();
 </script>
 <!-- ============================================================
+     ROUND 2 — CHOREOGRAPHY (v7c prefix)
+     City signal readout — the text mirror of the digits the city
+     window grid spells at night (accessible; opacity rides the
+     --v7c-night var, hidden on small screens like the rail).
+     ============================================================ -->
+<div class="v7c-signal" id="v7cSignal" aria-live="polite"><span>CITY SIGNAL</span><b id="v7cSignalNum">00</b></div>
+<!-- ============================================================
      SIGNATURE ROUND — voxel progress rail (v7- prefix)
      7 mini isometric cubes, one per island; the active island's
      cube lights up (listens to the page's 'island' CustomEvent).
@@ -1435,6 +1618,22 @@ footer b{color:var(--warm);font-weight:700}
     })(tagEls[tg]);
   }
   setActive(0);
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND 2 — CHOREOGRAPHY (v7c prefix) — city signal readout
+   Mirrors the number the city window grid spells; text update
+   only, no motion, safe under prefers-reduced-motion.
+   ============================================================ */
+(function () {
+  'use strict';
+  var num = document.getElementById('v7cSignalNum');
+  if (!num) { return; }
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  window.addEventListener('island', function (ev) {
+    num.textContent = pad(ev.detail || 0);
+  });
 })();
 </script>
 </body>

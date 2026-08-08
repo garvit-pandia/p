@@ -1550,5 +1550,106 @@ try{
 }catch(err){ console.warn('field celebration disabled:', err && err.message); }
 })();
 </script>
+<style>
+/* ============================================================
+   ROUND-7 R2 ADDITIVE — journal page-turn (choreography):
+   each major section turns open like the next page of the
+   field journal as it scrolls in — a calm rotateY/skewY
+   settle from an origin-left pose with a brief warm spine
+   highlight catching the paper edge. One-shot per section,
+   staggered by section index (--jp-d). Reduced motion:
+   the journal opens flat (no flip).
+   ============================================================ */
+.jp-page{ position:relative; }
+.jp-page.jp-flip{
+  transform-origin:left center;
+  animation:jp-turn 1.05s var(--ease) var(--jp-d,0s) backwards;
+}
+@keyframes jp-turn{
+  0%{
+    opacity:0;
+    transform:perspective(1400px) rotateY(17deg) skewY(2.6deg) translateX(-2%);
+  }
+  45%{ opacity:1; }
+  58%{ transform:perspective(1400px) rotateY(-1.6deg) skewY(-.5deg) translateX(0); }
+  76%{ transform:perspective(1400px) rotateY(.9deg) skewY(.2deg); }
+  100%{ opacity:1; transform:perspective(1400px) rotateY(0deg) skewY(0deg); }
+}
+/* paper edge catching light on the spine while the page turns */
+.jp-page.jp-flip::after{
+  content:""; position:absolute; top:0; bottom:0; left:0; width:2px;
+  background:linear-gradient(180deg, rgba(232,89,12,0) 0%, rgba(232,89,12,.55) 50%, rgba(232,89,12,0) 100%);
+  box-shadow:8px 0 22px -10px rgba(34,28,20,.45);
+  pointer-events:none;
+  animation:jp-edge 1.05s var(--ease) var(--jp-d,0s) backwards;
+}
+@keyframes jp-edge{
+  0%{ opacity:0; }
+  28%{ opacity:.85; }
+  100%{ opacity:0; }
+}
+.jp-page.jp-done{ animation:none; }
+.jp-page.jp-done::after{ animation:none; opacity:0; }
+@media (prefers-reduced-motion: reduce){
+  .jp-page.jp-flip{ animation:none; }
+  .jp-page.jp-flip::after{ animation:none; opacity:0; }
+}
+
+/* ---- R2 choreography fixes (add-only overrides) ---- */
+/* FIX 1 — dead hover: the infinite chip-float animation owns
+   `transform`, so the skill-chip lift on hover never landed.
+   Dropping the float on hover lets the lift + orange ink land. */
+.skill-chip:hover{
+  animation:none;
+  border-color:var(--orange); color:var(--orange); transform:translateY(-2px);
+}
+/* FIX 2 — pacing: the reversed second marquee runs a touch
+   faster than the first (26s → 21s) so the two bands duel
+   instead of mirroring at the same speed. */
+.marquee.rev .marquee-track{ animation-duration:21s; }
+/* FIX 3 — timing polish: let the kinetic heading's letter
+   cascade get a head start; the lede joins at +.55s as the
+   second beat of the header choreography. */
+.sec-head .sec-lede.reveal,
+.sec-head .contact-lede.reveal{ transition-delay:.55s; }
+</style>
+<script>
+/* ============================================================
+   ROUND-7 R2 ADDITIVE — journal page-turn driver:
+   tags each .section with the jp-page host and turns it open
+   once when it enters the viewport (IntersectionObserver,
+   staggered per section index). Reduced motion / no IO: the
+   journal opens flat — sections are left untouched.
+   ============================================================ */
+(function(){
+'use strict';
+try{
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section.section'));
+  if (!sections.length || RM || !('IntersectionObserver' in window)) return;
+
+  sections.forEach(function(sec, i){
+    sec.classList.add('jp-page');
+    sec.style.setProperty('--jp-d', (i * 90) + 'ms');
+  });
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      el.classList.add('jp-flip');
+      io.unobserve(el);
+      el.addEventListener('animationend', function(ev){
+        if (ev.animationName !== 'jp-turn') return;
+        el.classList.remove('jp-flip');
+        el.classList.add('jp-done');
+      });
+    });
+  }, { threshold:.12, rootMargin:'0px 0px -4% 0px' });
+
+  sections.forEach(function(sec){ io.observe(sec); });
+}catch(err){ console.warn('journal page-turn disabled:', err && err.message); }
+})();
+</script>
 </body>
 </html>
