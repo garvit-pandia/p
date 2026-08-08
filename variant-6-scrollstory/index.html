@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garvit Pandia — the field journal · builds with data</title>
+<meta name="description" content="The field journal of Garvit Pandia — a final-year CS student building data pipelines, RAG systems and the stories they tell.">
+<meta property="og:title" content="Garvit Pandia — builds with data">
+<meta property="og:description" content="A field journal of data work: air-quality analytics, retrieval-augmented reading, and the clean stories in between.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#faf7f0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23faf7f0'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-style='italic' font-size='42' text-anchor='middle' fill='%23e8590c'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href='https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap' rel='stylesheet'>
+<style>
+/* ============================================================
+   THE FIELD JOURNAL — a scrollytelling portfolio
+   paper #faf7f0 · ink #221c14 · burnt orange #e8590c · teal #0f8a7d
+   ============================================================ */
+:root{
+  --paper:#faf7f0;
+  --paper-2:#f4efe4;
+  --white:#fffefb;
+  --ink:#221c14;
+  --orange:#e8590c;
+  --teal:#0f8a7d;
+  --muted:#8a8072;
+  --hair:rgba(34,28,20,.14);
+  --hair-soft:rgba(34,28,20,.09);
+  --serif:'DM Serif Display', Georgia, serif;
+  --sans:'Inter Tight', system-ui, sans-serif;
+  --mono:'Space Mono', ui-monospace, monospace;
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font:400 1.05rem/1.75 var(--sans);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{ display:block; max-width:100%; }
+a{ color:inherit; }
+button{ font:inherit; cursor:pointer; }
+::selection{ background:var(--orange); color:var(--paper); }
+:focus-visible{ outline:2px solid var(--orange); outline-offset:3px; }
+
+/* paper grain — SVG turbulence overlay, 5% */
+body::after{
+  content:""; position:fixed; inset:0; z-index:9998; pointer-events:none; opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* shared typography helpers */
+.mono{ font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; }
+.serif-it{ font-family:var(--serif); font-style:italic; }
+section[id]{ scroll-margin-top:86px; }
+
+/* scroll progress hairline (journal reading progress) */
+.progress{
+  position:fixed; top:0; left:0; right:0; height:3px; z-index:1000;
+  background:linear-gradient(90deg, var(--orange), var(--teal));
+  transform:scaleX(0); transform-origin:left; will-change:transform;
+}
+
+/* reveal-on-scroll primitives */
+.reveal{ opacity:0; transform:translateY(30px); transition:opacity .8s ease, transform .8s var(--ease); transition-delay:var(--d,0s); }
+.reveal.in{ opacity:1; transform:none; }
+.kinetic{ overflow:hidden; }
+.kinetic .ch{
+  display:inline-block; opacity:0;
+  transform:translateY(115%) rotate(9deg);
+  transition:transform .9s var(--spring), opacity .5s ease;
+  transition-delay:calc(var(--d,0s) + var(--i,0)*40ms);
+}
+.kinetic.in .ch{ transform:none; opacity:1; }
+
+/* ---------- nav ---------- */
+.nav{
+  position:fixed; inset:0 0 auto 0; z-index:900;
+  display:flex; align-items:center; justify-content:space-between; gap:1.5rem;
+  padding:1.1rem clamp(1.2rem,4vw,3rem);
+  transition:background .4s ease, border-color .4s ease, box-shadow .4s ease;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{ background:rgba(250,247,240,.88); backdrop-filter:blur(10px); border-color:var(--hair-soft); }
+.wordmark{ font:italic 500 1.35rem var(--serif); letter-spacing:.01em; text-decoration:none; }
+.wordmark b{ font-style:normal; color:var(--orange); }
+.nav-links{ display:flex; gap:1.7rem; list-style:none; }
+.nav-links a{
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:.5rem 0;
+  background-image:linear-gradient(var(--orange),var(--orange));
+  background-size:0% 1px; background-repeat:no-repeat; background-position:0 100%;
+  transition:color .3s, background-size .45s var(--ease);
+}
+.nav-links a:hover{ color:var(--ink); background-size:100% 1px; }
+.nav-cta{
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+  text-decoration:none; color:var(--paper); background:var(--ink);
+  border:1px solid var(--ink); padding:.7rem 1.1rem;
+  transition:background .3s, color .3s, transform .3s;
+}
+.nav-cta:hover{ background:var(--orange); border-color:var(--orange); transform:translateY(-1px); }
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative; min-height:100svh; display:flex; flex-direction:column;
+  justify-content:center; align-items:center; text-align:center;
+  padding:9rem 1.5rem 6.5rem; overflow:hidden;
+}
+/* faint field ring, top-right */
+.hero::before{
+  content:""; position:absolute; top:-14vw; right:-9vw; width:38vw; height:38vw;
+  border:1px solid rgba(232,89,12,.22); border-radius:50%;
+}
+.hero::after{
+  content:""; position:absolute; top:calc(-14vw + 5vw); right:calc(-9vw + 5vw); width:28vw; height:28vw;
+  border:1px solid rgba(232,89,12,.10); border-radius:50%;
+}
+.hero-top{
+  position:absolute; top:5.6rem; left:0; right:0; display:flex; justify-content:space-between;
+  padding:0 clamp(1.2rem,4vw,3rem); color:var(--muted);
+}
+.hero h1{
+  font:400 clamp(3.4rem,10.5vw,7.2rem)/1.02 var(--serif);
+  letter-spacing:-.015em; position:relative; z-index:1;
+}
+.hero-sub{
+  font:italic 400 clamp(1.7rem,3.8vw,2.8rem)/1.2 var(--serif);
+  color:var(--orange); margin-top:1.1rem; position:relative; z-index:1;
+}
+.hero-rot{
+  margin-top:2.3rem; display:flex; align-items:baseline; gap:.9rem;
+  justify-content:center; position:relative; z-index:1;
+}
+.rot-label{ color:var(--muted); }
+.rot-word{
+  font-size:.86rem; letter-spacing:.16em; color:var(--ink); font-weight:700;
+  border-bottom:2px solid var(--orange); padding-bottom:.3rem;
+  display:inline-block; opacity:1; transition:transform .45s var(--ease), opacity .45s ease;
+}
+.rot-word.swap{ transform:translateY(55%); opacity:0; }
+.rot-word::after{
+  content:""; display:inline-block; width:2px; height:1.05em; background:var(--orange);
+  margin-left:.4em; vertical-align:-.13em;
+  animation:blink 1.15s steps(2) infinite;
+}
+@keyframes blink{ 50%{ opacity:0; } }
+.hero-cta{ margin-top:3rem; display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; position:relative; z-index:1; }
+.btn{
+  display:inline-flex; align-items:center; gap:.6rem;
+  padding:1rem 1.7rem; font:500 .95rem var(--sans); text-decoration:none;
+  border:1px solid var(--ink); background:transparent; color:var(--ink);
+  transition:background .35s, color .35s, border-color .35s, transform .35s var(--ease), box-shadow .35s;
+}
+.btn:hover{ transform:translateY(-2px); box-shadow:0 10px 24px -14px rgba(34,28,20,.45); }
+.btn-primary{ background:var(--orange); border-color:var(--orange); color:var(--paper); }
+.btn-primary:hover{ background:var(--ink); border-color:var(--ink); }
+.cue{
+  position:absolute; bottom:2.2rem; left:0; right:0; display:flex; flex-direction:column;
+  align-items:center; gap:.9rem; color:var(--muted);
+}
+.cue-line{ width:1px; height:52px; background:linear-gradient(180deg, var(--orange), var(--teal)); transform-origin:top; animation:cuepulse 2.4s ease-in-out infinite; }
+@keyframes cuepulse{ 0%,100%{ transform:scaleY(.25); opacity:.5; } 50%{ transform:scaleY(1); opacity:1; } }
+.cue-text{ letter-spacing:.18em; font-size:.66rem; }
+
+/* ---------- marquee ---------- */
+.marquee{
+  overflow:hidden; border-block:1px solid var(--hair-soft);
+  padding-block:1.05rem; background:var(--paper-2);
+}
+.marquee-track{ display:flex; width:max-content; animation:mq 26s linear infinite; }
+.marquee.rev .marquee-track{ animation-direction:reverse; }
+.mq-half{ display:flex; align-items:center; white-space:nowrap; }
+.mq-half span{ font:italic 500 clamp(1.05rem,2vw,1.5rem) var(--serif); padding:0 1.1rem; }
+.mq-half i{ font-style:normal; color:var(--orange); font-size:.8em; }
+.marquee:hover .marquee-track{ animation-play-state:paused; }
+@keyframes mq{ to{ transform:translateX(-50%); } }
+
+/* ---------- sections shell ---------- */
+.section{ padding:clamp(5.5rem,11vh,8.5rem) clamp(1.4rem,6vw,5rem); max-width:1240px; margin:0 auto; }
+.sec-head{ margin-bottom:clamp(2.6rem,6vh,4rem); }
+.sec-index{ color:var(--orange); display:block; margin-bottom:1.1rem; }
+.sec-title{ font:400 clamp(2.4rem,5.4vw,4.4rem)/1.08 var(--serif); letter-spacing:-.01em; }
+.sec-lede{ margin-top:1.4rem; max-width:56ch; color:var(--muted); font-weight:300; font-size:1.02rem; }
+
+/* ---------- ABOUT — pinned scrollytelling ---------- */
+.pin{ position:relative; height:150vh; }
+.pin-stage{
+  position:sticky; top:0; height:100vh; overflow:hidden;
+  display:grid; place-items:center;
+}
+.pin-label{
+  position:absolute; top:5.2rem; left:clamp(1.2rem,4vw,3rem); color:var(--muted); z-index:3;
+}
+.pin-margin{
+  position:absolute; right:clamp(1.2rem,4vw,2.6rem); top:50%; z-index:3; color:var(--muted);
+  writing-mode:vertical-rl; transform:translateY(-50%) rotate(180deg);
+  letter-spacing:.34em; font-size:.62rem;
+}
+/* layer 2 — the orange stamp circle */
+.pin-circle{
+  position:absolute; top:16%; right:7%; z-index:0;
+  width:min(36vw,440px); aspect-ratio:1; border-radius:50%;
+  background:var(--orange); color:var(--paper);
+  display:grid; place-items:center; text-align:center;
+  transform:translate3d(-7vw,0,0) scale(1.12);
+  will-change:transform,opacity;
+}
+.pin-circle span{
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.34em;
+  text-transform:uppercase; line-height:2.2; transform:rotate(-7deg);
+}
+/* layer 1 — the paper sheet */
+.pin-sheet{
+  position:relative; z-index:1;
+  width:min(680px,90vw);
+  background:var(--white);
+  border:1px solid var(--hair);
+  box-shadow:0 30px 60px -30px rgba(34,28,20,.28), 0 2px 0 rgba(34,28,20,.04);
+  padding:clamp(1.7rem,4vw,2.8rem);
+  transform:translate3d(0,7vh,0) rotate(1.6deg);
+  will-change:transform;
+}
+.sheet-head{
+  display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  padding-bottom:1rem; border-bottom:1px solid var(--hair-soft); color:var(--muted);
+}
+.sheet-title{ font:400 clamp(1.55rem,3vw,2.25rem)/1.22 var(--serif); margin:1.5rem 0 1.1rem; }
+.sheet-title em{ color:var(--orange); }
+.sheet-body{ font-weight:300; font-size:.99rem; color:#4a4135; }
+.sheet-body p + p{ margin-top:.9rem; }
+.facts{ margin-top:1.7rem; }
+.facts-label{ display:block; margin-bottom:.8rem; color:var(--muted); }
+.facts-list{ display:flex; flex-wrap:wrap; gap:.55rem; list-style:none; }
+.facts-list li{
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase;
+  border:1px solid var(--hair); padding:.45rem .75rem; color:#57493a;
+  background:var(--paper);
+}
+.facts-list li:nth-child(2n){ border-color:rgba(15,138,125,.4); }
+.sheet-sign{ text-align:right; margin-top:1.6rem; font:italic 500 1.15rem var(--serif); color:var(--orange); }
+/* layer 3 — the sticky quote */
+.pin-quote{
+  position:absolute; z-index:2; max-width:min(720px,86vw); text-align:center;
+  opacity:0; transform:translate3d(0,46px,0);
+  will-change:transform,opacity;
+}
+.pin-quote blockquote{
+  font:italic 400 clamp(1.7rem,4.2vw,3.1rem)/1.25 var(--serif); color:var(--ink);
+}
+.pin-quote blockquote::before{
+  content:"“"; display:block; font:400 4.2rem var(--serif); color:var(--orange);
+  line-height:.5; margin-bottom:1rem;
+}
+.pin-quote figcaption{ margin-top:1.6rem; color:var(--muted); }
+
+/* ---------- PROJECTS — horizontal snap gallery ---------- */
+.gallery{
+  display:flex; gap:2rem; overflow-x:auto; scroll-snap-type:x mandatory;
+  padding:1rem 15vw 2.6rem; scrollbar-width:none; -webkit-overflow-scrolling:touch;
+}
+.gallery::-webkit-scrollbar{ display:none; }
+.g-card{
+  flex:0 0 70vw; scroll-snap-align:center;
+  background:var(--white); border:1px solid var(--hair); border-radius:3px;
+  display:flex; flex-direction:column;
+  box-shadow:0 1px 0 rgba(34,28,20,.04);
+  transition:transform .6s var(--ease), box-shadow .6s;
+}
+.g-card:hover{ transform:translateY(-6px); box-shadow:0 34px 60px -34px rgba(34,28,20,.35); }
+.g-media{ position:relative; overflow:hidden; aspect-ratio:16/10; border-bottom:1px solid var(--hair); }
+.g-media img{
+  width:100%; height:100%; object-fit:cover;
+  filter:sepia(.25) saturate(.9);
+  transform:scale(1.001);
+  transition:transform 1.2s var(--ease), filter .7s ease;
+}
+.g-card:hover .g-media img{ transform:scale(1.055); filter:sepia(.12) saturate(1.04); }
+.g-no{
+  position:absolute; top:1rem; left:1rem; z-index:1;
+  background:var(--paper); border:1px solid var(--hair);
+  color:var(--orange); padding:.4rem .7rem; font-size:.62rem;
+}
+.g-body{ padding:clamp(1.5rem,3vw,2.1rem); display:flex; flex-direction:column; gap:1.05rem; flex:1; }
+.g-meta{ color:var(--orange); }
+.g-title{ font:400 clamp(1.6rem,3vw,2.3rem)/1.15 var(--serif); }
+.g-bullets{ list-style:none; display:flex; flex-direction:column; gap:.55rem; font-weight:300; font-size:.97rem; color:#4a4135; }
+.g-bullets li{ position:relative; padding-left:1.4rem; }
+.g-bullets li::before{ content:"—"; position:absolute; left:0; color:var(--orange); }
+.g-tags{ display:flex; flex-wrap:wrap; gap:.5rem; list-style:none; }
+.g-tags li{
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.09em; text-transform:uppercase;
+  border:1px solid var(--hair); padding:.35rem .65rem; color:var(--muted);
+}
+.g-link{
+  margin-top:auto; align-self:flex-start; font:500 .98rem var(--sans);
+  color:var(--orange); text-decoration:none;
+  background-image:linear-gradient(var(--orange),var(--orange));
+  background-size:100% 1px; background-repeat:no-repeat; background-position:0 100%;
+  padding-bottom:.2rem; transition:color .3s;
+}
+.g-link:hover{ color:var(--ink); }
+.g-end{ align-items:center; justify-content:center; text-align:center; border-style:dashed; background:transparent; }
+.g-end-inner{ max-width:34ch; display:flex; flex-direction:column; align-items:center; gap:1.2rem; padding:2rem; }
+.g-end h3{ font:italic 400 clamp(1.7rem,3vw,2.4rem) var(--serif); }
+.g-end p{ color:var(--muted); font-weight:300; font-size:.95rem; }
+.g-dots{ display:flex; justify-content:center; gap:.7rem; margin-top:.6rem; }
+.g-dot{
+  width:9px; height:9px; border-radius:50%; border:1px solid var(--ink);
+  background:transparent; padding:0; transition:background .35s, transform .35s var(--spring);
+}
+.g-dot.on{ background:var(--orange); border-color:var(--orange); transform:scale(1.25); }
+
+/* ---------- SKILLS ---------- */
+.skill-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:2.4rem; }
+.skill-col{ list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+.skill-head{
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding-bottom:.8rem; margin-bottom:.4rem; border-bottom:1px solid var(--hair);
+  font-weight:700; letter-spacing:.16em; font-size:.7rem;
+}
+.skill-count{ color:var(--orange); font-weight:400; }
+.skill-chip{
+  align-self:flex-start; display:inline-block;
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase;
+  border:1px solid var(--hair); background:var(--white);
+  padding:.48rem .85rem; color:#4a4135;
+  transition:border-color .3s, transform .3s var(--ease), color .3s;
+  animation:chip-float 5.5s ease-in-out infinite;
+  animation-delay:calc(var(--d,0)*.14s);
+}
+.skill-chip:hover{ border-color:var(--orange); color:var(--orange); transform:translateY(-2px); }
+@keyframes chip-float{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
+
+/* ---------- EDUCATION — self-drawing timeline ---------- */
+.edu-wrap{ position:relative; padding-left:2.6rem; }
+.tl-line{
+  position:absolute; left:7px; top:6px; bottom:6px; width:2px;
+  background:linear-gradient(180deg, var(--orange) 0%, var(--teal) 100%);
+  transform:scaleY(0); transform-origin:top; will-change:transform;
+}
+.ed-item{ position:relative; padding:0 0 2.7rem; }
+.ed-item:last-child{ padding-bottom:.4rem; }
+.ed-dot{
+  position:absolute; left:2px; top:7px; width:14px; height:14px; border-radius:50%;
+  background:var(--paper); border:2px solid var(--orange);
+  transition:background .4s, transform .4s var(--spring);
+}
+.ed-item:nth-child(2n) .ed-dot{ border-color:var(--teal); }
+.ed-item:hover .ed-dot{ background:var(--orange); transform:scale(1.2); }
+.ed-item:nth-child(2n):hover .ed-dot{ background:var(--teal); }
+.ed-meta{ color:var(--orange); margin-bottom:.35rem; }
+.ed-title{ font:400 clamp(1.25rem,2.4vw,1.6rem)/1.2 var(--serif); margin-bottom:.2rem; }
+.ed-place{ font-weight:500; font-size:.98rem; color:#4a4135; }
+.ed-note{ margin-top:.55rem; color:var(--muted); font-size:.66rem; }
+.ed-note b{ color:var(--teal); font-weight:700; }
+.ed-tag{
+  display:inline-block; margin-left:.5rem; border:1px solid rgba(15,138,125,.45);
+  color:var(--teal); padding:.12rem .5rem; font-size:.58rem; letter-spacing:.14em;
+  text-transform:uppercase; vertical-align:middle;
+}
+
+/* ---------- PROOF — the ledger ---------- */
+.ledger{ border-top:1px solid var(--ink); }
+.ledger-group{
+  display:flex; align-items:center; gap:1rem; margin:1.8rem 0 .4rem;
+  color:var(--muted); font-weight:700;
+}
+.ledger-group::after{ content:""; flex:1; height:1px; background:var(--hair-soft); }
+.l-row{
+  position:relative; overflow:hidden;
+  display:grid; grid-template-columns:3rem 1fr auto auto; gap:1.1rem; align-items:baseline;
+  padding:1.1rem .5rem; border-bottom:1px solid var(--hair-soft);
+}
+.l-row::before{
+  content:""; position:absolute; inset:0; z-index:0;
+  background:linear-gradient(90deg, rgba(232,89,12,.08), rgba(15,138,125,.05));
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .55s var(--ease);
+}
+.l-row > *{ position:relative; z-index:1; transition:transform .5s var(--ease), color .35s; }
+.l-row:hover::before{ transform:scaleX(1); }
+.l-row:hover .l-name{ transform:translateX(8px); }
+.l-row:hover .l-date{ color:var(--orange); }
+.l-idx{ font-family:var(--mono); font-size:.68rem; color:var(--orange); }
+.l-name{ font-weight:500; font-size:1rem; }
+.l-org, .l-date{ font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+.l-date{ text-align:right; }
+
+/* ---------- CONTACT ---------- */
+.contact{ max-width:880px; }
+.contact-statement{
+  font:400 clamp(2.6rem,6vw,4.6rem)/1.08 var(--serif); letter-spacing:-.01em;
+}
+.contact-statement em{ color:var(--orange); }
+.contact-lede{ margin:1.5rem 0 3rem; max-width:52ch; color:var(--muted); font-weight:300; }
+.c-form{ display:flex; flex-direction:column; gap:1.4rem; }
+.f-row{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+.field label{
+  display:block; font-family:var(--mono); font-size:.62rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:.5rem;
+}
+.field label b{ color:var(--orange); font-weight:400; }
+.field input, .field textarea{
+  width:100%; background:var(--white); border:1px solid var(--hair);
+  padding:1rem 1.1rem; font:400 1rem/1.5 var(--sans); color:var(--ink);
+  border-radius:2px; transition:border-color .3s, box-shadow .3s;
+}
+.field textarea{ resize:vertical; min-height:150px; }
+.field input:focus, .field textarea:focus{
+  outline:none; border-color:var(--orange); box-shadow:0 0 0 3px rgba(232,89,12,.15);
+}
+.c-form .btn{ align-self:flex-start; }
+.f-note{ font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; color:var(--teal); }
+.channels{ margin-top:3.4rem; padding-top:2rem; border-top:1px solid var(--hair-soft); }
+.channels-list{ display:flex; flex-wrap:wrap; gap:1rem 2.4rem; list-style:none; }
+.channels-list a{
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted); text-decoration:none; padding:.3rem 0;
+  background-image:linear-gradient(var(--orange),var(--orange));
+  background-size:0% 1px; background-repeat:no-repeat; background-position:0 100%;
+  transition:color .3s, background-size .45s var(--ease);
+}
+.channels-list a:hover{ color:var(--orange); background-size:100% 1px; }
+
+/* ---------- footer ---------- */
+.footer{ border-top:1px solid var(--hair); padding:2.4rem clamp(1.4rem,6vw,5rem); }
+.footer-inner{
+  max-width:1240px; margin:0 auto; display:flex; align-items:center;
+  justify-content:space-between; gap:1.5rem; flex-wrap:wrap;
+}
+.foot-word{ font:italic 500 1.25rem var(--serif); }
+.foot-word b{ font-style:normal; color:var(--orange); }
+.foot-meta{ color:var(--muted); font-size:.6rem; }
+#toTop{
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+  text-decoration:none; color:var(--ink); border:1px solid var(--ink);
+  padding:.65rem 1rem; transition:background .3s, color .3s, transform .3s;
+}
+#toTop:hover{ background:var(--ink); color:var(--paper); transform:translateY(-2px); }
+
+/* ---------- responsive ---------- */
+@media (max-width:960px){
+  .skill-grid{ grid-template-columns:repeat(2,1fr); }
+  .pin-circle{ width:min(48vw,320px); top:12%; right:4%; }
+}
+@media (max-width:760px){
+  .nav-links{ display:none; }
+  .g-card{ flex:0 0 88vw; }
+  .gallery{ padding-inline:6vw; }
+  .f-row{ grid-template-columns:1fr; }
+  .l-row{ grid-template-columns:2.4rem 1fr auto; }
+  .l-org{ display:none; }
+  .pin-margin{ display:none; }
+  .pin-circle{ width:52vw; top:10%; right:-6vw; }
+  .hero-top{ top:5rem; }
+}
+
+/* ---------- prefers-reduced-motion: everything to final state ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{ animation:none !important; transition:none !important; }
+  .reveal{ opacity:1; transform:none; }
+  .kinetic .ch{ opacity:1; transform:none; }
+  .pin-sheet{ transform:translate3d(0,0,0) rotate(0); }
+  .pin-circle{ transform:none; opacity:1; }
+  .pin-quote{ transform:none; opacity:1; }
+  .tl-line{ transform:scaleY(1); }
+  .rot-word::after{ animation:none; }
+  .marquee-track{ animation:none; }
+  .cue-line{ animation:none; }
+  .skill-chip{ animation:none; }
+}
+</style>
+<style>
+/* ============================================================
+   ADDITIVE — self-sketching annotations (signature)
+   hand-drawn wavy underline that draws itself on scroll-in
+   ============================================================ */
+.sketch{ position:relative; display:inline-block; }
+.sketch svg{ position:absolute; left:-2%; bottom:-0.22em; width:104%; height:0.45em; overflow:visible; pointer-events:none; }
+.sketch svg path{
+  fill:none; stroke:#c96442; stroke-width:2.6; stroke-linecap:round;
+  stroke-dasharray:1; stroke-dashoffset:1; opacity:0;
+  transition:stroke-dashoffset 1.6s cubic-bezier(.6,.1,.2,1) .1s, opacity .2s ease .1s;
+}
+.sketch.done svg path{ stroke-dashoffset:0; opacity:1; }
+
+/* FIX 1 — bigger tap target for the gallery rail dots (was 9px) */
+.g-dot{ width:20px; height:20px; }
+
+/* FIX 2 — section anchors clear the fixed header (was 86px) */
+section[id]{ scroll-margin-top:90px; }
+</style>
+<style>
+/* ============================================================
+   ADDITIVE — field margins + journal buttons (signature)
+   fixed right-margin rail of handwritten Caveat notes, one per
+   section; the note for the section in view brightens + gets an
+   orange dot. Hidden on narrow screens / coarse pointers, static
+   under prefers-reduced-motion.
+   ============================================================ */
+.fj-rail{
+  position:fixed; right:1.2rem; top:50%; transform:translateY(-50%);
+  z-index:40; pointer-events:none;
+  display:flex; flex-direction:column; align-items:flex-end; gap:2.2rem;
+}
+.fj-note{
+  --fj-r:-4deg;
+  position:relative; white-space:nowrap;
+  font-family:'Caveat', cursive; font-size:.95rem; line-height:1.25;
+  color:var(--ink); background:var(--paper);
+  padding:.35rem .6rem; border:1px solid rgba(34,28,20,.12);
+  box-shadow:0 6px 14px -8px rgba(34,28,20,.4);
+  opacity:.25; transform:rotate(var(--fj-r));
+  transition:opacity .5s ease, transform .5s var(--ease);
+}
+.fj-note:nth-child(even){ --fj-r:3deg; }
+.fj-note.on{
+  opacity:1; transform:rotate(var(--fj-r)) scale(1.05);
+}
+.fj-note.on::before{
+  content:'●'; position:absolute; left:-.7em; top:50%;
+  transform:translateY(-50%);
+  color:var(--orange); font-size:.85rem; line-height:1;
+}
+@media (max-width:1100px), (pointer:coarse){
+  .fj-rail{ display:none; }
+}
+@media (prefers-reduced-motion: reduce){
+  .fj-rail{ transform:none; }
+  .fj-note{ opacity:.8; transition:none; }
+  .fj-note.on{ transform:rotate(var(--fj-r)); }
+}
+/* ===== round-3 polish: dimmer inactive notes + clickable anchor notes ===== */
+.fj-note{ opacity:.18; filter:grayscale(.6); pointer-events:auto; cursor:pointer; }
+.fj-note.on{ opacity:1; filter:grayscale(0); }
+.fj-note:hover{ opacity:.8; filter:grayscale(.2); }
+.fj-rail{ pointer-events:none; }
+
+/* ---------- journal buttons: hand-drawn underline + tilt ---------- */
+.btn{ position:relative; border-radius:2px; }
+.btn::after{
+  content:''; position:absolute; left:8%; right:8%; bottom:-3px; height:3px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='3' viewBox='0 0 22 3'%3E%3Cpath d='M0 2.2 Q 5.5 .4 11 2.2 T 22 2.2' fill='none' stroke='%23e8590c' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x;
+  background-size:22px 3px;
+  pointer-events:none;
+}
+.btn:hover::after{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='3' viewBox='0 0 22 3'%3E%3Cpath d='M0 2.2 Q 5.5 .4 11 2.2 T 22 2.2' fill='none' stroke='%23221c14' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.btn-primary{
+  transform:rotate(-1.2deg);
+  box-shadow:2px 2px 0 rgba(34,28,20,.25);
+}
+.btn-primary:hover{
+  transform:rotate(-1.2deg) translateY(-2px);
+  box-shadow:2px 3px 0 rgba(34,28,20,.28);
+}
+
+/* ---------- hero breathing room: air + a quieter obsession pill ---------- */
+.hero-cta{ margin-top:4.4rem; }
+.hero-rot{ margin-top:2.9rem; }
+.rot-word{
+  font-size:.74rem; letter-spacing:.2em; color:var(--muted);
+  border-bottom:1px solid rgba(232,89,12,.5);
+}
+.rot-word::after{ height:.85em; }
+/* ===== round-3 polish (post-cascade): softer journal primary button ===== */
+.btn-primary{
+  transform:rotate(-0.8deg);
+  box-shadow:1px 1px 0 rgba(34,28,20,.18);
+}
+.btn-primary:hover{
+  transform:rotate(-0.8deg) translateY(-2px);
+  box-shadow:1px 2px 0 rgba(34,28,20,.2);
+}
+</style>
+<style>
+/* ============================================================
+   ADDITIVE — pressed specimens: a specimen plate stamps onto
+   each case-file card as it scrolls into view.
+   ============================================================ */
+.g-card{ position:relative; } /* additive host: plates anchor to the card */
+.fp-spec{
+  position:absolute; top:14px; left:14px; z-index:2;
+  display:flex; align-items:center; gap:8px;
+  max-width:calc(100% - 28px);
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:#221c14;
+  background:rgba(250,247,240,.94);
+  border:1.5px solid #221c14; padding:7px 10px;
+  box-shadow:0 4px 0 rgba(34,28,20,.22);
+  pointer-events:none;
+  transform-origin:top left;
+  opacity:0; transform:scale(2.3) rotate(-14deg);
+}
+.fp-spec svg{ flex:0 0 auto; }
+.fp-spec.fp-end{ border:2px dashed #e8590c; }
+.fp-spec.fp-pressed{
+  opacity:1;
+  animation:fp-stamp .5s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes fp-stamp{
+  0%{ opacity:0; transform:scale(2.3) rotate(-14deg); }
+  60%{ opacity:1; transform:scale(1.15) rotate(-3deg); }
+  100%{ opacity:1; transform:scale(1) rotate(-3deg); }
+}
+.fp-spec::before{
+  content:""; position:absolute; top:0; right:0;
+  width:0; height:0;
+  border-style:solid;
+  border-width:0 14px 14px 0;
+  border-color:transparent rgba(34,28,20,.08) transparent transparent;
+}
+@media (prefers-reduced-motion: reduce){
+  .fp-spec{ opacity:1; transform:scale(1) rotate(-3deg); }
+  .fp-spec.fp-pressed{ animation:none; }
+}
+</style>
+</head>
+<body id="top">
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <a class="wordmark" href="#top">Garvit <b>Pandia</b></a>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#education">education</a></li>
+    <li><a href="#proof">proof</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <!-- drop Garvit_Pandia_Resume.pdf next to this file for the download to work offline -->
+  <a class="nav-cta" href="Garvit_Pandia_Resume.pdf" download>résumé ↓</a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-top mono" aria-hidden="true">
+    <span>field journal — vol. 01</span>
+    <span>india · est. 2004</span>
+  </div>
+
+  <h1 id="heroTitle">Garvit Pandia</h1>
+  <p class="hero-sub" id="heroSub">builds with data</p>
+
+  <p class="hero-rot reveal" style="--d:.55s">
+    <span class="rot-label mono">the current obsession —</span>
+    <span class="rot-word" id="rotWord">AIR QUALITY</span>
+  </p>
+
+  <div class="hero-cta reveal" style="--d:.75s">
+    <a class="btn btn-primary" href="#projects">view the work</a>
+    <a class="btn" href="Garvit_Pandia_Resume.pdf" download>download résumé</a>
+  </div>
+
+  <div class="cue reveal" style="--d:1s">
+    <span class="cue-line" aria-hidden="true"></span>
+    <span class="cue-text mono">keep scrolling — the page moves with you</span>
+  </div>
+</header>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="mq-half"><span>DATA</span><i>✦</i><span>STORIES</span><i>✦</i><span>TOOLS</span><i>✦</i></div>
+    <div class="mq-half"><span>DATA</span><i>✦</i><span>STORIES</span><i>✦</i><span>TOOLS</span><i>✦</i></div>
+  </div>
+</div>
+
+<!-- ============ ABOUT — pinned scrollytelling ============ -->
+<section class="pin" id="about">
+  <div class="pin-stage">
+    <span class="pin-label mono">( 01 ) — the field notes</span>
+    <span class="pin-margin mono" aria-hidden="true">garvit pandia — the field journal</span>
+
+    <!-- layer 2 · the orange stamp -->
+    <div class="pin-circle" id="pinCircle" aria-hidden="true"><span>field<br>note</span></div>
+
+    <!-- layer 1 · the paper sheet -->
+    <div class="pin-sheet" id="pinSheet">
+      <div class="sheet-head mono">
+        <span>entry no. 001</span>
+        <span>final year · data &amp; ai</span>
+      </div>
+      <h3 class="sheet-title">I read data the way a journalist <em>reads a room.</em></h3>
+      <div class="sheet-body">
+        <p>
+          Garvit Pandia is a final-year computer science student who treats data as source
+          material — raw, messy and full of signal. His work so far runs from air-quality
+          analytics over a national sensor network to retrieval-augmented reading over
+          resumes, each built the way a field report is: collect, clean, question, publish.
+        </p>
+        <p>
+          Right now he is deciding which story his final year will tell — and which tools
+          will tell it best.
+        </p>
+      </div>
+      <div class="facts">
+        <span class="facts-label mono">the facts</span>
+        <ul class="facts-list">
+          <li>b.tech cse — lpu</li>
+          <li>cgpa 7.79</li>
+          <li>4★ java &amp; sql</li>
+          <li>5 certificates</li>
+          <li>2 deployed apps</li>
+          <li>data &amp; ai focus</li>
+        </ul>
+      </div>
+      <div class="sheet-sign">— gp, the field journal</div>
+    </div>
+
+    <!-- layer 3 · the sticky quote -->
+    <figure class="pin-quote" id="pinQuote">
+      <blockquote>The air we breathe, the words we send, the marks we leave — all of it is data, waiting for someone to read it aloud.</blockquote>
+      <figcaption class="mono">field notes · vol. 01 — on reading data</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ PROJECTS — horizontal snap gallery ============ -->
+<section class="section" id="projects">
+  <header class="sec-head">
+    <span class="sec-index mono">( 02 ) — the case files</span>
+    <h2 class="sec-title kinetic">two shipped studies</h2>
+    <p class="sec-lede reveal" style="--d:.15s">Both projects are live, public and out in the field — built end-to-end, from messy raw data to a deployed interface. Drag or scroll sideways; the strip snaps.</p>
+  </header>
+
+  <div class="gallery" id="gallery">
+    <!-- case 01 -->
+    <article class="g-card">
+      <div class="g-media">
+        <span class="g-no mono">case 01</span>
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&auto=format&fit=crop" alt="Data analytics dashboard showing charts over a city skyline" loading="lazy" decoding="async">
+      </div>
+      <div class="g-body">
+        <span class="g-meta mono">jul 2024 — aug 2024</span>
+        <h3 class="g-title">Interactive India AQI Tracker</h3>
+        <ul class="g-bullets">
+          <li>Air-quality analytics dashboard over the real CPCB dataset — city-wise pollutant comparison with temporal trend analysis.</li>
+          <li>End-to-end pandas wrangling: datetime parsing, year/month extraction, period indexing, NA imputation across PM2.5, PM10, NO2, SO2, CO and O3.</li>
+          <li>Deployed on Hugging Face Spaces with a Streamlit wide layout.</li>
+        </ul>
+        <ul class="g-tags">
+          <li>python</li><li>pandas</li><li>streamlit</li><li>hugging face</li><li>cpcb</li>
+        </ul>
+        <a class="g-link" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">view on github →</a>
+      </div>
+    </article>
+
+    <!-- case 02 -->
+    <article class="g-card">
+      <div class="g-media">
+        <span class="g-no mono">case 02</span>
+        <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200&q=80&auto=format&fit=crop" alt="Open book with pages turning beside a pen" loading="lazy" decoding="async">
+      </div>
+      <div class="g-body">
+        <span class="g-meta mono">feb 2026 — mar 2026</span>
+        <h3 class="g-title">RAG Resume Analyzer</h3>
+        <ul class="g-bullets">
+          <li>AI-powered resume analysis with Retrieval-Augmented Generation — context-aware Q&amp;A over uploaded PDF resumes with semantic search.</li>
+          <li>Google Gemini 2.5 (Flash, Pro, Flash-Lite) LLM backend with in-app model selection.</li>
+          <li>Multi-model Streamlit interface, publicly deployed on Hugging Face Spaces.</li>
+        </ul>
+        <ul class="g-tags">
+          <li>python</li><li>rag</li><li>gemini 2.5</li><li>streamlit</li><li>hugging face</li>
+        </ul>
+        <a class="g-link" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">view on github →</a>
+      </div>
+    </article>
+
+    <!-- end card -->
+    <article class="g-card g-end">
+      <div class="g-end-inner">
+        <span class="g-no mono">the notebook</span>
+        <h3>the field is wide open</h3>
+        <p>Three more experiments sit half-cleaned and fully loved in the notebook. They meet the world on GitHub.</p>
+        <a class="btn btn-primary" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">open the notebook →</a>
+      </div>
+    </article>
+  </div>
+  <div class="g-dots" id="gDots" role="tablist" aria-label="project pages">
+    <button class="g-dot on" aria-label="go to case 01"></button>
+    <button class="g-dot" aria-label="go to case 02"></button>
+    <button class="g-dot" aria-label="go to the notebook"></button>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section class="section" id="skills">
+  <header class="sec-head">
+    <span class="sec-index mono">( 03 ) — the toolbox</span>
+    <h2 class="sec-title kinetic">the instruments I carry</h2>
+    <p class="sec-lede reveal" style="--d:.15s">Everything below has been used on a real dataset or a real deployment — nothing listed for decoration.</p>
+  </header>
+
+  <div class="skill-grid">
+    <ul class="skill-col reveal" style="--d:.05s">
+      <li class="skill-head mono"><span>languages</span><span class="skill-count">( 7 )</span></li>
+      <li class="skill-chip" style="--d:0">C++</li>
+      <li class="skill-chip" style="--d:1">Python</li>
+      <li class="skill-chip" style="--d:2">R</li>
+      <li class="skill-chip" style="--d:3">Java</li>
+      <li class="skill-chip" style="--d:4">C</li>
+      <li class="skill-chip" style="--d:5">JavaScript</li>
+      <li class="skill-chip" style="--d:6">HTML/CSS</li>
+    </ul>
+    <ul class="skill-col reveal" style="--d:.1s">
+      <li class="skill-head mono"><span>frameworks</span><span class="skill-count">( 8 )</span></li>
+      <li class="skill-chip" style="--d:0">TensorFlow</li>
+      <li class="skill-chip" style="--d:1">PyTorch</li>
+      <li class="skill-chip" style="--d:2">Hugging Face</li>
+      <li class="skill-chip" style="--d:3">React</li>
+      <li class="skill-chip" style="--d:4">Node.js</li>
+      <li class="skill-chip" style="--d:5">Express.js</li>
+      <li class="skill-chip" style="--d:6">Next.js</li>
+      <li class="skill-chip" style="--d:7">Tailwind CSS</li>
+    </ul>
+    <ul class="skill-col reveal" style="--d:.15s">
+      <li class="skill-head mono"><span>tools &amp; platforms</span><span class="skill-count">( 13 )</span></li>
+      <li class="skill-chip" style="--d:0">MySQL</li>
+      <li class="skill-chip" style="--d:1">MongoDB</li>
+      <li class="skill-chip" style="--d:2">Google Colab</li>
+      <li class="skill-chip" style="--d:3">Git</li>
+      <li class="skill-chip" style="--d:4">GitLab</li>
+      <li class="skill-chip" style="--d:5">Flask</li>
+      <li class="skill-chip" style="--d:6">Vercel</li>
+      <li class="skill-chip" style="--d:7">Docker</li>
+      <li class="skill-chip" style="--d:8">Jenkins</li>
+      <li class="skill-chip" style="--d:9">REST API</li>
+      <li class="skill-chip" style="--d:10">Streamlit</li>
+      <li class="skill-chip" style="--d:11">AWS</li>
+      <li class="skill-chip" style="--d:12">Tableau</li>
+    </ul>
+    <ul class="skill-col reveal" style="--d:.2s">
+      <li class="skill-head mono"><span>soft skills</span><span class="skill-count">( 5 )</span></li>
+      <li class="skill-chip" style="--d:0">Leadership</li>
+      <li class="skill-chip" style="--d:1">Problem-Solving</li>
+      <li class="skill-chip" style="--d:2">Team Player</li>
+      <li class="skill-chip" style="--d:3">Communication</li>
+      <li class="skill-chip" style="--d:4">Adaptability</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ EDUCATION — self-drawing timeline ============ -->
+<section class="section" id="education">
+  <header class="sec-head">
+    <span class="sec-index mono">( 04 ) — the route so far</span>
+    <h2 class="sec-title kinetic">four stops, no straight lines</h2>
+    <p class="sec-lede reveal" style="--d:.15s">From school in Rajasthan to a degree in Punjab — the line below draws itself as you pass it. Orange where it started, teal where it is now.</p>
+  </header>
+
+  <div class="edu-wrap reveal">
+    <div class="tl-line" id="tlLine" aria-hidden="true"></div>
+
+    <div class="ed-item reveal" style="--d:.05s">
+      <span class="ed-dot" aria-hidden="true"></span>
+      <p class="ed-meta mono">aug 2022 — jul 2026 · phagwara, punjab</p>
+      <h3 class="ed-title">B.Tech — Computer Science &amp; Engineering</h3>
+      <p class="ed-place">Lovely Professional University</p>
+      <p class="ed-note mono">CGPA 7.79 <span class="ed-tag">ongoing</span></p>
+    </div>
+
+    <div class="ed-item reveal" style="--d:.12s">
+      <span class="ed-dot" aria-hidden="true"></span>
+      <p class="ed-meta mono">jun 2024 — jul 2024</p>
+      <h3 class="ed-title">The Complete MySQL Developer Course</h3>
+      <p class="ed-place">E-Box · summer training</p>
+      <p class="ed-note mono">Databases, joins, indexing — the quiet backbone of every dashboard I ship</p>
+    </div>
+
+    <div class="ed-item reveal" style="--d:.19s">
+      <span class="ed-dot" aria-hidden="true"></span>
+      <p class="ed-meta mono">apr 2020 — mar 2021 · sikar, rajasthan</p>
+      <h3 class="ed-title">Intermediate — PCM</h3>
+      <p class="ed-place">Prince Career Pioneer School</p>
+      <p class="ed-note mono">85.4%</p>
+    </div>
+
+    <div class="ed-item reveal" style="--d:.26s">
+      <span class="ed-dot" aria-hidden="true"></span>
+      <p class="ed-meta mono">apr 2019 — mar 2020 · udaipur, rajasthan</p>
+      <h3 class="ed-title">Matriculation</h3>
+      <p class="ed-place">Witty International School</p>
+      <p class="ed-note mono">81.6%</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE 2 ============ -->
+<div class="marquee rev" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="mq-half"><span>DATA</span><i>✦</i><span>STORIES</span><i>✦</i><span>TOOLS</span><i>✦</i></div>
+    <div class="mq-half"><span>DATA</span><i>✦</i><span>STORIES</span><i>✦</i><span>TOOLS</span><i>✦</i></div>
+  </div>
+</div>
+
+<!-- ============ PROOF — the ledger ============ -->
+<section class="section" id="proof">
+  <header class="sec-head">
+    <span class="sec-index mono">( 05 ) — the ledger</span>
+    <h2 class="sec-title kinetic">proof of work, on record</h2>
+    <p class="sec-lede reveal" style="--d:.15s">Certificates and rankings, filed like a proper field journal. Hover a row — the ink slides in.</p>
+  </header>
+
+  <div class="ledger reveal">
+    <div class="ledger-group mono">certificates</div>
+    <div class="l-row">
+      <span class="l-idx">01</span><span class="l-name">Social Networks</span>
+      <span class="l-org">NPTEL</span><span class="l-date">nov 2024</span>
+    </div>
+    <div class="l-row">
+      <span class="l-idx">02</span><span class="l-name">Data Analysis with Tableau</span>
+      <span class="l-org">Coursera</span><span class="l-date">nov 2024</span>
+    </div>
+    <div class="l-row">
+      <span class="l-idx">03</span><span class="l-name">Supervised ML: Regression &amp; Classification</span>
+      <span class="l-org">Coursera</span><span class="l-date">oct 2024</span>
+    </div>
+    <div class="l-row">
+      <span class="l-idx">04</span><span class="l-name">Complete MySQL</span>
+      <span class="l-org">E-Box</span><span class="l-date">jul 2024</span>
+    </div>
+    <div class="l-row">
+      <span class="l-idx">05</span><span class="l-name">Mastering DSA using C and C++</span>
+      <span class="l-org">Udemy</span><span class="l-date">feb 2024</span>
+    </div>
+
+    <div class="ledger-group mono">achievements</div>
+    <div class="l-row">
+      <span class="l-idx">01</span><span class="l-name">HackerRank 4-Star Java</span>
+      <span class="l-org">HackerRank</span><span class="l-date">may 2024</span>
+    </div>
+    <div class="l-row">
+      <span class="l-idx">02</span><span class="l-name">HackerRank 4-Star SQL</span>
+      <span class="l-org">HackerRank</span><span class="l-date">feb 2024</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section contact" id="contact">
+  <header class="sec-head">
+    <span class="sec-index mono">( 06 ) — correspondence</span>
+    <h2 class="contact-statement kinetic">shall we <em>build something?</em></h2>
+    <p class="contact-lede reveal" style="--d:.15s">A one-line brief is enough — I read everything and answer within a day. Internships, collaborations, or just a question about the data: it all lands in the same inbox.</p>
+  </header>
+
+  <form class="c-form reveal" id="contactForm" novalidate>
+    <div class="f-row">
+      <div class="field">
+        <label for="fName"><b>01</b> / your name</label>
+        <input id="fName" name="name" type="text" placeholder="Ada Lovelace" required>
+      </div>
+      <div class="field">
+        <label for="fEmail"><b>02</b> / your email</label>
+        <input id="fEmail" name="email" type="email" placeholder="ada@analytical.engine" required>
+      </div>
+    </div>
+    <div class="field">
+      <label for="fMsg"><b>03</b> / the brief</label>
+      <textarea id="fMsg" name="message" placeholder="What are we building?" required></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">send the note →</button>
+    <p class="f-note mono" id="formNote" hidden>Your note is ready in your mail app — talk soon.</p>
+  </form>
+
+  <div class="channels reveal" style="--d:.1s">
+    <ul class="channels-list">
+      <li><a href="mailto:garvit9829@gmail.com">email — garvit9829@gmail.com</a></li>
+      <li><a href="tel:+918905402023">phone — +91 89054 02023</a></li>
+      <li><a href="https://linkedin.com/in/garvit-pandia" target="_blank" rel="noopener">linkedin — in/garvit-pandia</a></li>
+      <li><a href="https://github.com/garvit-pandia" target="_blank" rel="noopener">github — garvit-pandia</a></li>
+      <li><a href="https://garvitpandia.me" target="_blank" rel="noopener">site — garvitpandia.me</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="foot-word">Garvit <b>Pandia</b> <em>— the field journal</em></span>
+    <span class="foot-meta mono">© 2026 · set in dm serif display, inter tight &amp; space mono</span>
+    <a href="#top" id="toTop">back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- helpers ---------- */
+var $  = function(s, c){ return (c || document).querySelector(s); };
+var $$ = function(s, c){ return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+var clamp01 = function(v){ return Math.min(1, Math.max(0, v)); };
+var lerp = function(a, b, t){ return a + (b - a) * t; };
+var easeInOut = function(t){ return t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2; };
+var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (RM) document.documentElement.classList.add('rm');
+
+/* getProgress(el) — how far a section has scrolled through the viewport, 0..1
+   progress = (viewportBottom - elTop) / (viewportHeight + elHeight) */
+function getProgress(el){
+  var r = el.getBoundingClientRect();
+  var vh = window.innerHeight || document.documentElement.clientHeight;
+  var total = vh + r.height;
+  if (!(total > 0)) return 0;                       /* guard against NaN */
+  return clamp01((vh - r.top) / total);
+}
+
+/* ---------- kinetic type: split text into letter spans ---------- */
+function splitKinetic(el){
+  var text = el.textContent.trim();
+  var frag = document.createDocumentFragment();
+  el.textContent = '';
+  Array.prototype.forEach.call(text, function(ch, i){
+    var s = document.createElement('span');
+    s.className = 'ch';
+    s.style.setProperty('--i', i);                  /* per-letter stagger */
+    s.textContent = ch === ' ' ? '\u00A0' : ch;
+    frag.appendChild(s);
+  });
+  el.appendChild(frag);
+}
+
+/* ---------- hero: kinetic letters + rotating word ---------- */
+var heroTitle = $('#heroTitle'), heroSub = $('#heroSub');
+splitKinetic(heroTitle);
+splitKinetic(heroSub);
+setTimeout(function(){ heroTitle.classList.add('in'); }, 120);
+setTimeout(function(){ heroSub.classList.add('in'); }, 480);
+
+var WORDS = ['AIR QUALITY', 'RAG SYSTEMS', 'CLEAN STORIES', 'AI TOOLS'];
+var wi = 0, rotWord = $('#rotWord');
+if (!RM){
+  setInterval(function(){
+    rotWord.classList.add('swap');
+    setTimeout(function(){
+      wi = (wi + 1) % WORDS.length;
+      rotWord.textContent = WORDS[wi];
+      rotWord.classList.remove('swap');
+    }, 450);
+  }, 2600);
+}
+
+/* ---------- IntersectionObserver: reveals + kinetic titles ---------- */
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    io.unobserve(e.target);
+  });
+}, { threshold: .18, rootMargin: '0px 0px -7% 0px' });
+
+$$('.reveal').forEach(function(el){ io.observe(el); });
+$$('.kinetic').forEach(function(el){ io.observe(el); });
+
+/* ---------- pinned scrollytelling (about) + self-drawing timeline ----------
+   Only sections near the viewport are touched; targets are computed from
+   progress, then smoothed with a lerp inside a single rAF loop. */
+var pinSec  = $('#about');
+var sheet   = $('#pinSheet');
+var circle  = $('#pinCircle');
+var quote   = $('#pinQuote');
+var eduSec  = $('#education');
+var tlLine  = $('#tlLine');
+
+/* smoothed state, initialised to the CSS resting transforms */
+var S = { sy: 7, sr: 1.6, cs: 1.12, cx: -7, co: 1, so: 1, qo: 0, qy: 46 };
+var running = false;
+
+function layerTargets(p){
+  var e = easeInOut(p);
+  var qIn  = clamp01((p - .16) / .18);   /* quote fades in  .16 → .34 */
+  var qOut = clamp01((p - .80) / .16);   /* quote fades out .80 → .96 */
+  var qo = Math.min(qIn, 1 - qOut);
+  return {
+    sy: lerp(7, -16, e),                 /* sheet drifts up (vh)      */
+    sr: lerp(1.6, -3.4, e),              /* sheet tilts over (deg)    */
+    cs: lerp(1.12, .78, e),              /* circle shrinks            */
+    cx: lerp(-7, 13, e),                 /* circle slides right (vw)  */
+    co: p < .06 ? 1 : lerp(1, 0, clamp01((p - .06) / .08)),  /* circle fully clear before the quote lands */
+    so: p < .04 ? 1 : lerp(1, 0, clamp01((p - .04) / .10)), /* sheet fully clear before the quote lands */
+    qo: qo,
+    qy: (1 - qo) * 46                    /* quote settles then lifts  */
+  };
+}
+
+function frame(){
+  var pr = getProgress(pinSec);
+  var pe = getProgress(eduSec);
+  var prNear = pr > 0 && pr < 1;
+  var peNear = pe > 0 && pe < 1;
+
+  if (prNear){
+    var t = layerTargets(pr);
+    ['sy','sr','cs','cx','co','so','qo','qy'].forEach(function(k){
+      var tv = t[k];
+      S[k] = lerp(S[k], Number.isFinite(tv) ? tv : S[k], .09);
+    });
+    sheet.style.transform  = 'translate3d(0,' + S.sy + 'vh,0) rotate(' + S.sr + 'deg)';
+    sheet.style.opacity    = S.so;
+    circle.style.transform = 'translate3d(' + S.cx + 'vw,0,0) scale(' + S.cs + ')';
+    circle.style.opacity   = S.co;
+    quote.style.transform  = 'translate3d(0,' + S.qy + 'px,0)';
+    quote.style.opacity    = S.qo;
+  }
+  if (peNear){
+    tlLine.style.transform = 'scaleY(' + pe + ')';
+  } else if (pe >= 1){
+    tlLine.style.transform = 'scaleY(1)';            /* final state once passed */
+  }
+
+  if (prNear || peNear){ requestAnimationFrame(frame); }
+  else { running = false; }
+}
+function kick(){
+  if (RM || running) return;
+  running = true;
+  requestAnimationFrame(frame);
+}
+window.addEventListener('scroll', kick, { passive: true });
+window.addEventListener('resize', kick);
+
+/* ---------- horizontal gallery: active snap dot ---------- */
+var gallery = $('#gallery');
+var dots = $$('.g-dot');
+var dotQueued = false;
+function updateDots(){
+  var cards = $$('.g-card', gallery);
+  var mid = gallery.scrollLeft + gallery.clientWidth / 2;
+  var best = 0, bd = Infinity;
+  cards.forEach(function(c, i){
+    var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid);
+    if (d < bd){ bd = d; best = i; }
+  });
+  dots.forEach(function(d, i){ d.classList.toggle('on', i === best); });
+  dotQueued = false;
+}
+gallery.addEventListener('scroll', function(){
+  if (!dotQueued){ dotQueued = true; requestAnimationFrame(updateDots); }
+}, { passive: true });
+dots.forEach(function(d, i){
+  d.addEventListener('click', function(){
+    var cards = $$('.g-card', gallery);
+    if (!cards[i]) return;
+    cards[i].scrollIntoView({ behavior: RM ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+  });
+});
+
+/* ---------- reading progress bar + nav state (rAF-gated) ---------- */
+var progress = $('#progress'), nav = $('#nav'), scrollQueued = false;
+function onScroll(){
+  if (scrollQueued) return;
+  scrollQueued = true;
+  requestAnimationFrame(function(){
+    scrollQueued = false;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.transform = 'scaleX(' + (max > 0 ? clamp01(window.scrollY / max) : 0) + ')';
+    nav.classList.toggle('scrolled', window.scrollY > 24);
+  });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* ---------- contact form → mailto with success note ---------- */
+var form = $('#contactForm');
+var formNote = $('#formNote');
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  var d = new FormData(form);
+  var subject = 'Portfolio inquiry — ' + (d.get('name') || 'a reader');
+  var body = (d.get('message') || '') + '\n\n— ' + (d.get('name') || '') + ' (' + (d.get('email') || '') + ')';
+  window.location.href = 'mailto:garvit9829@gmail.com?subject=' +
+    encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  formNote.hidden = false;
+});
+
+/* ---------- back to top ---------- */
+$('#toTop').addEventListener('click', function(){
+  window.scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' });
+});
+
+/* kick the scrollytelling once on load in case the user reloads mid-page */
+kick();
+})();
+</script>
+<script>
+/* ============================================================
+   ADDITIVE — self-sketching annotations (signature)
+   wraps each h2's content in a .sketch span + inline wavy SVG
+   underline that draws itself when 40% of it is in view
+   ============================================================ */
+(function(){
+'use strict';
+var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function makeUnderline(){
+  var NS = 'http://www.w3.org/2000/svg';
+  var svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 300 16');
+  svg.setAttribute('preserveAspectRatio', 'none');
+  svg.setAttribute('aria-hidden', 'true');
+  var path = document.createElementNS(NS, 'path');
+  path.setAttribute('pathLength', '1');                     /* normalize: dasharray:1 spans the whole path */
+  path.setAttribute('vector-effect', 'non-scaling-stroke'); /* even pen weight when the svg stretches */
+  path.setAttribute('d', 'M2 11 C 40 3, 80 14, 130 8 S 200 12, 230 6 S 282 9, 298 7');
+  svg.appendChild(path);
+  return svg;
+}
+
+Array.prototype.slice.call(document.querySelectorAll('h2')).forEach(function(h){
+  if (h.querySelector('.sketch')) return;                   /* already annotated */
+  var span = document.createElement('span');
+  span.className = 'sketch';
+  while (h.firstChild) span.appendChild(h.firstChild);      /* move text (and any inline em) into the span */
+  span.appendChild(makeUnderline());
+  h.appendChild(span);
+});
+
+var sketches = Array.prototype.slice.call(document.querySelectorAll('.sketch'));
+if (RM || !('IntersectionObserver' in window)){
+  sketches.forEach(function(s){ s.classList.add('done'); }); /* reduced motion / no IO: show immediately */
+} else {
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      e.target.classList.add('done');
+      io.unobserve(e.target);
+    });
+  }, { threshold: .4 });
+  sketches.forEach(function(s){ io.observe(s); });
+}
+})();
+</script>
+<script>
+/* ============================================================
+   ADDITIVE — field margins (signature)
+   injects the fixed right-margin rail of Caveat notes + wires
+   the active-note IntersectionObserver. Runs at end of body,
+   so every section element already exists.
+   ============================================================ */
+(function(){
+'use strict';
+var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+var SECTIONS = [
+  { id:'about',     label:'the field notes' },
+  { id:'projects',  label:'the case files' },
+  { id:'skills',    label:'the toolbox' },
+  { id:'education', label:'the route so far' },
+  { id:'proof',     label:'the ledger' }
+];
+
+var rail = document.createElement('div');
+rail.className = 'fj-rail';
+rail.setAttribute('aria-hidden', 'true');
+var notes = {};
+SECTIONS.forEach(function(s){
+  var n = document.createElement('span');
+  n.className = 'fj-note';
+  n.textContent = s.label;
+  rail.appendChild(n);
+  notes[s.id] = n;
+});
+document.body.appendChild(rail);
+
+if (!RM && 'IntersectionObserver' in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var note = notes[e.target.id];
+      if (!note) return;
+      note.classList.toggle('on', e.isIntersecting);
+    });
+  }, { threshold:.25, rootMargin:'0px 0px -10% 0px' });
+  SECTIONS.forEach(function(s){
+    var el = document.getElementById(s.id);
+    if (el) io.observe(el);
+  });
+}
+})();
+</script>
+<script>
+/* ============================================================
+   ADDITIVE — field margins polish: make rail notes clickable
+   anchor links + lift aria-hidden (they now carry navigation).
+   ============================================================ */
+(function(){
+'use strict';
+try{
+  var rail = document.querySelector('.fj-rail');
+  if(!rail) return;
+  var ORDER = ['about','projects','skills','education','proof'];
+  var notes = Array.prototype.slice.call(rail.querySelectorAll('.fj-note'));
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  notes.forEach(function(n, i){
+    var id = ORDER[i];
+    var sec = id ? document.getElementById(id) : null;
+    if(!sec) return;
+    n.setAttribute('role','link');
+    n.setAttribute('tabindex','0');
+    n.setAttribute('aria-label','jump to section: ' + n.textContent);
+    n.title = 'jump to ' + n.textContent;
+    var go = function(){
+      sec.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block:'start' });
+    };
+    n.addEventListener('click', function(e){ e.preventDefault(); go(); });
+    n.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); }
+    });
+  });
+  rail.setAttribute('aria-hidden','false');
+  rail.setAttribute('role','navigation');
+  rail.setAttribute('aria-label','section index');
+}catch(err){ console.warn('fj-rail anchors disabled:', err.message); }
+})();
+</script>
+<script>
+/* ============================================================
+   ADDITIVE — pressed specimens: a specimen plate stamps onto
+   each case-file card as it scrolls into view.
+   ============================================================ */
+(function(){
+'use strict';
+try{
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var LEAF = '<svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" focusable="false"><path d="M13 22 C 8 16, 3 14, 3 9 C 7 9, 9 11, 10 12 C 11 8, 11 4, 13 3 C 15 4, 15 8, 16 12 C 17 11, 19 9, 23 9 C 23 14, 18 16, 13 22 Z" fill="rgba(15,138,125,.15)" stroke="#0f8a7d" stroke-width="1.4" stroke-linejoin="round"/><path d="M13 21 L13 23" stroke="#0f8a7d" stroke-width="1.2" stroke-linecap="round"/></svg>';
+  var SPECIMENS = [
+    { name:'SPECIMEN 01 — INDIA AQI · COLLECTED 2024', leaf:true },
+    { name:'SPECIMEN 02 — RAG READER · COLLECTED 2026' },
+    { name:'SPECIMEN 03 — THE OPEN FIELD · UNCOLLECTED', end:true }
+  ];
+  var cards = document.querySelectorAll('.g-card');
+  var made = 0;
+  Array.prototype.forEach.call(cards, function(card, i){
+    var spec = SPECIMENS[i];
+    if(!spec) return;
+    var plate = document.createElement('div');
+    plate.className = 'fp-spec' + (spec.end ? ' fp-end' : '');
+    plate.innerHTML = (spec.leaf ? LEAF : '') + '<span>' + spec.name + '</span>';
+    card.appendChild(plate);
+    made++;
+    if (RM || !('IntersectionObserver' in window)){
+      plate.classList.add('fp-pressed');
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){
+          plate.classList.add('fp-pressed');
+          io.disconnect();
+        }
+      });
+    }, { threshold:.35 });
+    io.observe(card);
+  });
+}catch(err){ console.warn('pressed specimens disabled:', err.message); }
+})();
+</script>
+<script>
+  /* ADDITIVE round-5: specimen tally — live 'collected' counter in the case-files
+     header that ticks up as specimen plates stamp in. */
+  (function(){
+    try{
+      var head = document.querySelector('#projects .sec-head');
+      var gallery = document.getElementById('gallery');
+      if(!head || !gallery) return;
+      var chip = document.createElement('span');
+      chip.className = 'fp-tally';
+      chip.setAttribute('aria-live', 'polite');
+      head.appendChild(chip);
+      var total = gallery.querySelectorAll('.fp-spec').length || 3;
+      var render = function(){
+        var done = gallery.querySelectorAll('.fp-spec.fp-pressed').length;
+        chip.textContent = 'SPECIMENS COLLECTED — ' + done + '/' + total +
+          (done === total ? ' · FIELD COMPLETE' : '');
+        chip.classList.toggle('fp-full', done === total);
+      };
+      render();
+      var mo = new MutationObserver(function(){ render(); });
+      mo.observe(gallery, { subtree:true, attributes:true, attributeFilter:['class'] });
+    }catch(err){ console.warn('fp tally disabled:', err && err.message); }
+  })();
+</script>
+<style>
+  /* ADDITIVE round-5: specimen tally chip */
+  .fp-tally{
+    display:inline-flex; align-items:center; margin-top:1.1rem;
+    font-family:'Space Mono',monospace; font-size:.68rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--ink);
+    background:var(--paper); border:1.5px solid var(--ink);
+    padding:.42rem .7rem; transform:rotate(-1deg);
+    box-shadow:3px 3px 0 rgba(34,28,20,.16);
+    transition:box-shadow .3s ease, transform .3s ease;
+  }
+  .fp-tally.fp-full{ border-color:var(--teal); color:var(--teal); box-shadow:3px 3px 0 rgba(15,138,125,.25); }
+</style>
+<style>
+/* ============================================================
+   ROUND-7 R1 ADDITIVE — FIELD COMPLETE celebration:
+   leaf-burst confetti from the tally chip at 3/3 (transform-
+   only bits, ~1.4s, removed after 2s) + a live field tag that
+   rides the fj-rail while the case-files section is in view.
+   ============================================================ */
+.fp2-zone{
+  position:fixed; inset:0; z-index:9990; pointer-events:none; overflow:hidden;
+}
+.fp2-bit{
+  position:absolute; display:block; pointer-events:none;
+  will-change:transform,opacity;
+  animation:fp2-fall var(--fd,1.4s) cubic-bezier(.22,.6,.4,1) var(--fdl,0s) forwards;
+}
+@keyframes fp2-fall{
+  0%{ transform:translate(0,0) rotate(0deg); opacity:1; }
+  100%{ transform:translate(var(--fx,0px),var(--fy,120px)) rotate(var(--fr,360deg)); opacity:0; }
+}
+.fp2-tag{
+  font-family:'Caveat',cursive; font-size:.92rem; line-height:1.3;
+  color:var(--ink); background:var(--paper);
+  padding:.3rem .55rem; border:1px solid rgba(34,28,20,.14);
+  box-shadow:0 6px 14px -8px rgba(34,28,20,.4);
+  transform:rotate(-2deg); white-space:nowrap;
+  opacity:.25; transition:opacity .5s ease;
+  pointer-events:none;
+}
+/* static-frame fix — reduced motion: the pinned scene reads as
+   one composed frame; the quote pins BELOW the sheet, not on it */
+@media (prefers-reduced-motion: reduce){
+  .pin-quote{ top:auto; bottom:clamp(.9rem,3vh,1.6rem); left:50%; right:auto; transform:translateX(-50%); max-width:min(600px,84vw); }
+  .pin-quote blockquote{ font-size:clamp(1.05rem,2.6vw,1.5rem); }
+}
+/* calm hovers (digest: 150-250ms ease-out, <=3px lift, glow <=.2 alpha) */
+.btn{ transition:background .2s ease-out, color .2s ease-out, border-color .2s ease-out, transform .2s ease-out, box-shadow .2s ease-out; }
+.btn:hover{ box-shadow:0 12px 22px -16px rgba(34,28,20,.2); }
+.btn-primary:hover{ transform:rotate(-0.8deg) translateY(-2px); box-shadow:1px 2px 0 rgba(34,28,20,.2); }
+.g-card{ transition:transform .25s ease-out, box-shadow .25s ease-out; }
+.g-card:hover{ transform:translateY(-3px); box-shadow:0 22px 44px -28px rgba(34,28,20,.25); }
+</style>
+<script>
+/* ============================================================
+   ROUND-7 R1 ADDITIVE — FIELD COMPLETE celebration:
+   bursts ~70 transform-only leaf/petal bits from the tally chip
+   the moment the 3rd specimen stamps in (once per page), and
+   rides a live field tag in the fj-rail while the case-files
+   section is in view. Reduced motion: tag only, no burst.
+   ============================================================ */
+(function(){
+'use strict';
+try{
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var gallery = document.getElementById('gallery');
+  var head = document.querySelector('#projects .sec-head');
+  if(!gallery || !head) return;
+
+  /* -- live field tag riding the fj-rail -- */
+  var rail = document.querySelector('.fj-rail');
+  var tag = null;
+  if (rail){
+    tag = document.createElement('span');
+    tag.className = 'fp2-tag';
+    tag.setAttribute('aria-hidden', 'true');
+    rail.insertBefore(tag, rail.firstChild);
+  }
+  var total = gallery.querySelectorAll('.fp-spec').length || 3;
+  var count = function(){
+    return gallery.querySelectorAll('.fp-spec.fp-pressed').length;
+  };
+  var setTag = function(){
+    if(!tag) return;
+    var n = count();
+    tag.textContent = 'field status — ' + n + '/' + total + (n === total ? ' · complete' : '');
+    tag.style.borderColor = n === total ? 'rgba(15,138,125,.55)' : 'rgba(34,28,20,.14)';
+  };
+  setTag();
+  if (tag && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        tag.style.opacity = e.isIntersecting ? '1' : '.25';
+      });
+    }, { threshold:.25, rootMargin:'0px 0px -10% 0px' });
+    io.observe(document.getElementById('projects'));
+  } else if (tag){
+    tag.style.opacity = '1';
+  }
+
+  /* -- confetti burst: once, at 3/3, from the tally chip -- */
+  var fired = false;
+  var COLORS = ['#e8590c','#0f8a7d','#221c14','#8a8072'];
+  function burst(){
+    if (RM || fired) return;
+    fired = true;
+    var chip = head.querySelector('.fp-tally');
+    var ox, oy;
+    var vw = window.innerWidth || document.documentElement.clientWidth;
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    if (chip){
+      var r = chip.getBoundingClientRect();
+      ox = Math.max(12, Math.min(r.left + r.width / 2, vw - 12));
+      oy = Math.max(12, Math.min(r.top + r.height / 2, vh - 12));
+    } else {
+      ox = vw / 2; oy = 120;
+    }
+    var zone = document.createElement('div');
+    zone.className = 'fp2-zone';
+    zone.setAttribute('aria-hidden', 'true');
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < 70; i++){
+      var b = document.createElement('i');
+      b.className = 'fp2-bit';
+      var w = 6 + Math.random() * 6;
+      b.style.width = w + 'px';
+      b.style.height = w + 'px';
+      b.style.background = COLORS[i % COLORS.length];
+      b.style.borderRadius = (i % 3 === 0) ? '62% 12% 62% 12% / 12% 62% 12% 62%' : '50% 50% 8% 50% / 50% 50% 8% 50%';
+      b.style.left = (ox - w / 2) + 'px';
+      b.style.top = (oy - w / 2) + 'px';
+      b.style.setProperty('--fx', (Math.random() * 260 - 130).toFixed(0) + 'px');
+      b.style.setProperty('--fy', (70 + Math.random() * 190).toFixed(0) + 'px');
+      b.style.setProperty('--fr', (180 + Math.random() * 540).toFixed(0) + 'deg');
+      b.style.setProperty('--fd', (1.1 + Math.random() * .6).toFixed(2) + 's');
+      b.style.setProperty('--fdl', (Math.random() * .25).toFixed(2) + 's');
+      frag.appendChild(b);
+    }
+    zone.appendChild(frag);
+    document.body.appendChild(zone);
+    setTimeout(function(){
+      if (zone.parentNode) zone.parentNode.removeChild(zone);
+    }, 2000);
+  }
+
+  /* watch the plates: update the tag live, burst once at 3/3 */
+  var mo = new MutationObserver(function(){
+    setTag();
+    if (count() >= total) burst();
+  });
+  mo.observe(gallery, { subtree:true, attributes:true, attributeFilter:['class'] });
+}catch(err){ console.warn('field celebration disabled:', err && err.message); }
+})();
+</script>
+</body>
+</html>

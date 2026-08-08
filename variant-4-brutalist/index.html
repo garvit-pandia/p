@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GARVIT PANDIA — MONO_FACTORY // DATA &amp; AI BUILDER</title>
+<meta name="description" content="Garvit Pandia — final-year CS student and data & AI builder. AQI analytics dashboards, RAG tooling, Streamlit deployments. Open to work.">
+<!-- OG / social -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="GARVIT PANDIA — MONO_FACTORY">
+<meta property="og:description" content="Data & AI builder. Final-year CS student. Ships real products from messy data.">
+<meta property="og:url" content="https://garvitpandia.me">
+<meta property="og:image" content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&auto=format&fit=crop">
+<meta name="theme-color" content="#d8ff3e">
+<!-- Inline SVG favicon: lime square, black M -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23d8ff3e'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='38' text-anchor='middle' fill='%23141414'%3EM%3C/text%3E%3C/svg%3E">
+<!-- Fonts: Anton (display) + IBM Plex Mono (everything else) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MONO_FACTORY — neo-brutalist portfolio
+   paper #f4f3ee · ink #141414 · lime #d8ff3e (one loud accent)
+   Rules: 2px ink borders, hard offset shadows, 0 radius,
+   hover = invert. No gradients, no glass, no emoji.
+   ============================================================ */
+:root{
+  --paper:#f4f3ee;
+  --ink:#141414;
+  --lime:#d8ff3e;
+  --red:#ff4438;
+  --muted:#6f6d66;
+  --border:2px solid var(--ink);
+  --shadow:6px 6px 0 var(--ink);
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --anton:'Anton',Impact,sans-serif;
+  --nav-h:64px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px);}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--mono);
+  font-size:14px;
+  line-height:1.6;
+  padding-top:var(--nav-h);
+  -webkit-font-smoothing:antialiased;
+}
+/* ---- paper grain overlay (SVG noise) ---- */
+body::after{
+  content:"";
+  position:fixed;inset:0;
+  z-index:9998;pointer-events:none;
+  opacity:.09;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+::selection{background:var(--lime);color:var(--ink);}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+:focus-visible{outline:3px dashed var(--ink);outline-offset:3px;}
+
+/* ---- shared layout ---- */
+.container{max-width:1240px;margin:0 auto;padding:0 24px;}
+section{padding:clamp(72px,9vw,128px) 0;border-bottom:2px solid var(--ink);}
+
+/* ---- scroll progress bar ---- */
+#progress{
+  position:fixed;top:0;left:0;z-index:1001;
+  height:4px;width:0%;
+  background:var(--lime);
+  border-bottom:2px solid var(--ink);
+}
+
+/* ============================================================
+   NAV — fixed, paper strip, wordmark + links + resume button
+   ============================================================ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  height:var(--nav-h);
+  background:var(--paper);
+  border-bottom:var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:0 24px;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo-mark{
+  width:30px;height:30px;background:var(--lime);
+  border:2px solid var(--ink);
+  display:grid;place-items:center;
+  font-family:var(--anton);font-size:18px;line-height:1;
+}
+.nav-logo-word{font-family:var(--anton);font-size:20px;letter-spacing:.04em;white-space:nowrap;}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none;}
+.nav-links a{
+  display:block;padding:8px 10px;
+  font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+}
+.nav-links a:not(.btn-resume):hover{background:var(--ink);color:var(--paper);}
+.btn-resume{
+  background:var(--ink);color:var(--lime);
+  border:2px solid var(--ink);
+  box-shadow:3px 3px 0 var(--lime);
+  margin-left:14px;
+}
+.btn-resume:hover{background:var(--lime);color:var(--ink);box-shadow:3px 3px 0 var(--ink);}
+
+/* ============================================================
+   HERO — left: terminal boot (typewriter) · right: giant name
+   ============================================================ */
+.hero{padding:clamp(56px,7vw,96px) 0 clamp(40px,5vw,64px);border-bottom:none;}
+.hero-grid{
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(32px,5vw,72px);align-items:start;
+}
+/* ---- terminal ---- */
+.term{
+  background:var(--ink);color:var(--paper);
+  border:2px solid var(--ink);
+  box-shadow:10px 10px 0 var(--ink);
+  font-size:13px;line-height:1.55;
+}
+.term-bar{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 14px;
+  border-bottom:2px solid var(--ink);
+  background:var(--paper);color:var(--ink);
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+}
+.term-dot{width:12px;height:12px;border:2px solid var(--ink);}
+.term-dot.lime{background:var(--lime);}
+.term-dot.red{background:var(--red);}
+.term-dot.paper{background:var(--paper);}
+.term-title{margin-left:6px;font-weight:500;}
+.term-body{padding:18px 16px;min-height:252px;}
+.t-line{white-space:pre-wrap;min-height:1.55em;}
+.t-prompt{color:var(--lime);font-weight:500;}
+.t-cmd{color:var(--paper);}
+.t-out{color:#b9b7ae;}
+.t-out.ok{color:var(--lime);font-weight:500;}
+.t-cursor{
+  display:inline-block;width:9px;height:1.05em;
+  background:var(--lime);vertical-align:text-bottom;
+  animation:blink 1s steps(1) infinite;
+}
+@keyframes blink{50%{opacity:0;}}
+
+/* ---- giant name + stamp ---- */
+.hero-name-wrap{position:relative;padding-top:8px;}
+.hero-name{
+  font-family:var(--anton);
+  font-size:clamp(72px,11.5vw,172px);
+  line-height:.88;letter-spacing:.005em;text-transform:uppercase;
+  margin-left:-.03em; /* bleed the type off the container edge — raw brutalism */
+}
+.hero-name .hl{
+  background:var(--lime);
+  color:var(--ink);
+  display:inline-block;
+  padding:0 .14em;margin-left:-.05em;margin-right:-.02em;
+  box-shadow:6px 6px 0 var(--ink);
+}
+.hero-meta{
+  margin-top:26px;
+  font-size:clamp(13px,1.5vw,16px);font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink);
+  display:flex;flex-wrap:wrap;gap:8px;
+}
+.hero-meta .tag{background:var(--ink);color:var(--paper);padding:7px 12px;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--red);}
+.hero-meta .tag:nth-child(2){background:var(--lime);color:var(--ink);box-shadow:3px 3px 0 var(--ink);}
+/* stamp badge — rotated, red, double border */
+.stamp{
+  position:absolute;top:-14px;right:-6px;
+  transform:rotate(7deg);
+  border:3px solid var(--red);color:var(--red);
+  background:var(--paper);
+  box-shadow:4px 4px 0 var(--red);
+  padding:10px 16px;
+  font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  z-index:2;
+}
+.stamp::after{
+  content:"";position:absolute;inset:4px;
+  border:1px dashed var(--red);pointer-events:none;
+}
+/* ---- hero buttons ---- */
+.hero-cta{display:flex;flex-wrap:wrap;gap:18px;margin-top:34px;}
+.btn{
+  display:inline-block;
+  padding:16px 28px;
+  border:2px solid var(--ink);
+  font-family:var(--mono);font-size:14px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease,color .15s ease;
+}
+.btn-solid{background:var(--ink);color:var(--lime);box-shadow:6px 6px 0 var(--lime);}
+.btn-solid:hover{transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--lime);}
+.btn-ghost{background:var(--paper);color:var(--ink);box-shadow:6px 6px 0 var(--ink);}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--lime);}
+
+/* ---- marquee ticker ---- */
+.ticker{
+  overflow:hidden;
+  border-top:var(--border);border-bottom:var(--border);
+  background:var(--ink);color:var(--lime);
+  user-select:none;
+}
+.ticker-track{
+  display:flex;width:max-content;
+  animation:ticker 26s linear infinite;
+}
+.ticker:hover .ticker-track{animation-play-state:paused;}
+.ticker-track span{
+  display:flex;align-items:center;gap:28px;
+  padding:13px 0;
+  font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  white-space:nowrap;
+}
+.ticker-track i{font-style:normal;color:var(--lime);font-size:10px;}
+@keyframes ticker{to{transform:translateX(-50%);}}
+.ticker.lime{background:var(--lime);color:var(--ink);border-color:var(--ink);}
+.ticker.lime .ticker-track i{color:var(--ink);}
+.ticker.lime .ticker-track{animation-direction:reverse;}
+
+/* ============================================================
+   SECTION HEADS — numbered lime squares + Anton titles
+   ============================================================ */
+.sec-head{display:flex;align-items:center;gap:18px;margin-bottom:clamp(36px,5vw,60px);}
+.sec-no{
+  background:var(--lime);border:2px solid var(--ink);
+  box-shadow:4px 4px 0 var(--ink);
+  font-family:var(--anton);font-size:20px;line-height:1;
+  padding:10px 12px;flex-shrink:0;
+}
+.sec-title{
+  font-family:var(--anton);text-transform:uppercase;
+  font-size:clamp(42px,6.5vw,84px);line-height:.92;letter-spacing:.01em;
+}
+.sec-sub{
+  margin-left:auto;text-align:right;
+  font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);max-width:200px;line-height:1.5;
+}
+
+/* ============================================================
+   INDEX — table-of-contents manual rows
+   ============================================================ */
+.idx-row{
+  display:grid;grid-template-columns:90px 1fr auto;
+  align-items:center;gap:20px;
+  border:2px solid var(--ink);margin-top:-2px;
+  padding:22px 26px;
+  background:var(--paper);
+  transition:background .15s ease,color .15s ease;
+}
+.idx-row:hover{background:var(--ink);color:var(--paper);}
+.idx-num{font-family:var(--anton);font-size:26px;line-height:1;}
+.idx-name{font-size:15px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;}
+.idx-desc{font-size:12px;color:var(--muted);letter-spacing:.04em;margin-top:2px;}
+.idx-row:hover .idx-desc{color:#b9b7ae;}
+.idx-arrow{font-size:20px;font-weight:500;}
+
+/* ============================================================
+   ABOUT — lede + stat boxes
+   ============================================================ */
+.about-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:clamp(28px,4vw,56px);align-items:start;}
+.about-lede{
+  font-size:clamp(20px,2.4vw,30px);
+  font-weight:500;line-height:1.45;
+}
+.about-lede em{font-style:normal;background:var(--lime);padding:0 .1em;}
+.about-lede .dim{color:var(--muted);}
+.about-sub{margin-top:22px;font-size:13px;color:var(--muted);max-width:52ch;line-height:1.7;}
+.about-sub b{color:var(--ink);}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.stat{
+  border:2px solid var(--ink);box-shadow:var(--shadow);
+  background:var(--paper);padding:18px 16px;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.stat:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--ink);}
+.stat-k{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+.stat-v{font-size:15px;font-weight:500;margin-top:8px;line-height:1.4;text-transform:uppercase;letter-spacing:.03em;}
+.stat .lime{background:var(--lime);display:inline-block;padding:2px 6px;border:2px solid var(--ink);}
+
+/* ============================================================
+   PROJECTS — two brutal cards, photos hard-framed below
+   ============================================================ */
+.projects{display:grid;gap:clamp(40px,6vw,72px);}
+.pcard{
+  border:2px solid var(--ink);box-shadow:var(--shadow);
+  background:var(--paper);
+}
+.pcard-top{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;
+  padding:22px 26px 18px;
+  border-bottom:2px solid var(--ink);
+}
+.pcard-no{font-family:var(--anton);font-size:20px;line-height:1;background:var(--ink);color:var(--lime);padding:8px 10px;}
+.pcard-dates{margin-left:auto;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.pcard-body{padding:26px 26px 30px;}
+.pcard-title{
+  font-family:var(--anton);text-transform:uppercase;
+  font-size:clamp(34px,4.6vw,58px);line-height:.95;letter-spacing:.01em;
+  margin-bottom:18px;
+}
+.pcard-title .hl{background:var(--lime);color:var(--ink);padding:0 .12em;margin-left:-.04em;}
+.pcard-list{list-style:none;display:grid;gap:9px;margin-bottom:22px;}
+.pcard-list li{
+  padding-left:22px;position:relative;
+  font-size:13.5px;line-height:1.6;
+}
+.pcard-list li::before{
+  content:"▸";position:absolute;left:0;color:var(--ink);font-weight:500;
+}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px;}
+.chip{
+  border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  background:var(--paper);
+  padding:6px 12px;
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  transition:transform .12s ease,box-shadow .12s ease,background .12s ease,color .12s ease;
+}
+.chip:hover{background:var(--ink);color:var(--lime);transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--lime);}
+.pcard-link{
+  display:inline-block;border:2px solid var(--ink);
+  padding:11px 18px;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  box-shadow:4px 4px 0 var(--ink);
+  transition:transform .12s ease,box-shadow .12s ease,background .12s ease,color .12s ease;
+}
+.pcard-link:hover{background:var(--ink);color:var(--lime);transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--lime);}
+/* hard-framed photo */
+.pcard-media{
+  border-top:2px solid var(--ink);
+  box-shadow:inset 0 0 0 0 var(--ink);
+  overflow:hidden;
+}
+.pcard-media img{
+  width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;
+  filter:grayscale(1) contrast(1.05);
+  transition:transform .45s ease,filter .45s ease;
+}
+.pcard:hover .pcard-media img{transform:scale(1.03);filter:grayscale(0);}
+.pcard-media .frame{
+  border:2px solid var(--ink);margin:18px 26px 26px;
+  box-shadow:6px 6px 0 var(--ink);
+  transition:box-shadow .25s ease;
+}
+.pcard:hover .pcard-media .frame{box-shadow:-8px 8px 0 var(--ink);}
+.pcard-fig{
+  display:flex;justify-content:space-between;gap:12px;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  padding:0 26px 26px;
+}
+
+/* ============================================================
+   SKILLS — keyboard-key chips under four headers (no bars)
+   ============================================================ */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3.5vw,40px);}
+.skill-box{border:2px solid var(--ink);box-shadow:var(--shadow);background:var(--paper);padding:24px;}
+.skill-head{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.skill-head .sq{width:14px;height:14px;background:var(--lime);border:2px solid var(--ink);flex-shrink:0;}
+.skill-head h3{font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;}
+.skill-head .cnt{margin-left:auto;font-size:11px;color:var(--muted);}
+.skill-chips{display:flex;flex-wrap:wrap;gap:10px;}
+.chip.kbd{box-shadow:0 3px 0 var(--ink);}
+.chip.kbd:hover{transform:translateY(2px);box-shadow:0 1px 0 var(--ink);background:var(--ink);color:var(--lime);}
+
+/* ============================================================
+   EDUCATION — punched-card rows
+   ============================================================ */
+.edu-row{
+  position:relative;
+  display:grid;grid-template-columns:190px 1fr auto;
+  gap:20px;align-items:baseline;
+  border:2px solid var(--ink);margin-top:-2px;
+  background:var(--paper);
+  padding:22px 26px 22px 46px;
+  transition:background .15s ease,color .15s ease;
+}
+.edu-row:hover{background:var(--ink);color:var(--paper);}
+/* punch hole */
+.edu-row::before{
+  content:"";position:absolute;left:16px;top:50%;transform:translateY(-50%);
+  width:14px;height:14px;border-radius:50%;
+  border:2px solid var(--ink);background:var(--paper);
+}
+.edu-row:hover::before{background:var(--lime);border-color:var(--lime);}
+.edu-dates{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.edu-row:hover .edu-dates{color:#b9b7ae;}
+.edu-what{font-size:15px;font-weight:500;line-height:1.45;text-transform:uppercase;letter-spacing:.04em;}
+.edu-what small{display:block;font-size:11px;font-weight:400;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:3px;}
+.edu-row:hover .edu-what small{color:#b9b7ae;}
+.edu-score{font-family:var(--anton);font-size:22px;line-height:1;white-space:nowrap;}
+
+/* ============================================================
+   PROOF — ledger rows (certs + achievements)
+   ============================================================ */
+.proof-block{margin-bottom:40px;}
+.proof-block:last-child{margin-bottom:0;}
+.proof-sub{
+  display:inline-block;background:var(--ink);color:var(--lime);
+  font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  padding:8px 14px;margin-bottom:0;box-shadow:4px 4px 0 var(--lime);
+}
+.ledger{border:2px solid var(--ink);margin-top:0;}
+.ledger-row{
+  display:grid;grid-template-columns:150px 1fr auto;
+  gap:20px;align-items:baseline;
+  border-bottom:2px solid var(--ink);
+  padding:16px 22px;
+  transition:background .15s ease,color .15s ease;
+}
+.ledger-row:last-child{border-bottom:none;}
+.ledger-row:hover{background:var(--ink);color:var(--paper);}
+.ledger-date{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.ledger-row:hover .ledger-date{color:#b9b7ae;}
+.ledger-what{font-size:13.5px;font-weight:500;letter-spacing:.03em;}
+.ledger-who{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:right;}
+.ledger-row:hover .ledger-who{color:#b9b7ae;}
+
+/* ============================================================
+   CONTACT — SAY HI + brutal form + channels
+   ============================================================ */
+.contact-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,4vw,56px);align-items:start;}
+.contact-msg{font-size:13px;color:var(--muted);max-width:46ch;line-height:1.7;margin-bottom:26px;}
+.contact-msg b{color:var(--ink);}
+.form{
+  border:2px solid var(--ink);box-shadow:var(--shadow);
+  background:var(--paper);padding:26px;
+  display:grid;gap:18px;
+}
+.form label{
+  display:block;font-size:11px;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px;
+}
+.form input,.form textarea{
+  width:100%;
+  border:3px solid var(--ink);border-radius:0;
+  background:transparent;color:var(--ink);
+  font-family:var(--mono);font-size:14px;
+  padding:13px 14px;
+  transition:background .15s ease,box-shadow .15s ease;
+}
+.form input:focus,.form textarea:focus{
+  outline:none;background:#fff;
+  box-shadow:5px 5px 0 var(--ink);
+}
+.form textarea{resize:vertical;min-height:130px;}
+.form-note{
+  display:none;margin-top:0;
+  border:2px solid var(--ink);background:var(--lime);
+  padding:12px 14px;font-size:12px;font-weight:500;letter-spacing:.08em;
+}
+.form-note.in{display:block;}
+.channels{display:grid;gap:14px;}
+.channel{
+  display:flex;align-items:center;gap:16px;
+  border:2px solid var(--ink);box-shadow:var(--shadow);
+  background:var(--paper);padding:18px 20px;
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease,color .15s ease;
+}
+.channel:hover{
+  background:var(--ink);color:var(--paper);
+  transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--lime);
+}
+.channel-k{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);width:74px;flex-shrink:0;}
+.channel:hover .channel-k{color:#b9b7ae;}
+.channel-v{font-size:13.5px;font-weight:500;letter-spacing:.02em;word-break:break-all;}
+.channel-arr{margin-left:auto;font-size:16px;}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot-bar{
+  border-top:2px solid var(--ink);
+  padding:26px 0;
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+}
+.foot-bar a:hover{background:var(--ink);color:var(--paper);padding:3px 6px;margin:-3px -6px;}
+
+/* ============================================================
+   REVEALS — brutal clip/translateY entrance
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.2,1);}
+.reveal.in{opacity:1;transform:none;}
+/* stagger for chip groups */
+.d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}.d4{transition-delay:.24s}.d5{transition-delay:.3s}
+
+/* ============================================================
+   RESPONSIVE — mobile single column, nav collapses to Resume
+   ============================================================ */
+@media (max-width:900px){
+  .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr;}
+  .skills-grid{grid-template-columns:1fr;}
+  .hero-name-wrap{order:-1;}
+  .stats{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:768px){
+  .nav-links li:not(.nav-resume){display:none;}
+  .nav-links .btn-resume{margin-left:0;}
+  .idx-row{grid-template-columns:56px 1fr auto;padding:18px 18px;gap:12px;}
+  .idx-desc{display:none;}
+  .edu-row{grid-template-columns:1fr;gap:6px;padding:18px 18px 18px 40px;}
+  .edu-score{font-size:18px;}
+  .ledger-row{grid-template-columns:1fr;gap:4px;padding:14px 16px;}
+  .ledger-who{text-align:left;}
+  .stamp{top:-8px;right:0;font-size:11px;padding:8px 12px;}
+  .term-body{min-height:0;}
+  .sec-sub{display:none;}
+  .pcard-media .frame{margin:14px 16px 18px;}
+}
+
+/* ============================================================
+   REDUCED MOTION — kill everything animated
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation:none!important;transition:none!important;}
+  .ticker-track{animation:none;flex-wrap:wrap;}
+  .reveal{opacity:1;transform:none;}
+}
+</style>
+<style>
+/* ============================================================
+   RECEIPT PRINT — dot-matrix spec sheets, appended to each
+   project card by the receipt script at the end of <body>.
+   Content is rebuilt from each article's existing meta rows.
+   ============================================================ */
+.receipt{
+  position:relative;
+  font-family:var(--mono);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  border:2px solid var(--ink);
+  background:#f7f7f2;
+  box-shadow:4px 4px 0 var(--ink);
+  padding:12px 14px;
+  max-width:420px;
+  margin-top:14px;
+  overflow:hidden;
+}
+.receipt .r-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+.receipt .r-line{
+  font-family:inherit;
+  display:block;
+  min-height:1.35em;
+  white-space:pre;
+  overflow:hidden;
+}
+.receipt .r-label{font-weight:500;flex-shrink:0;}
+.receipt .r-val{text-align:right;}
+.r-scan{
+  position:absolute;
+  left:0;right:0;
+  height:2px;
+  background:var(--ink);
+  opacity:0;
+  pointer-events:none;
+}
+.receipt.printing .r-scan{
+  animation:rscan 1.6s linear forwards;
+}
+@keyframes rscan{
+  from{top:0;opacity:.7;}
+  to{top:100%;opacity:0;}
+}
+.receipt.printed::after{
+  content:"■ END";
+  display:block;
+  text-align:right;
+  margin-top:6px;
+  letter-spacing:2px;
+}
+/* FIX 2 — footer social links: lime invert + 2px border (additive) */
+.foot-bar a:hover{
+  color:var(--ink);
+  background:var(--lime);
+  border:2px solid var(--ink);
+  padding:3px 6px;
+  margin:-5px -8px; /* compensates the added 2px border — no layout shift */
+  transition:background .15s ease,color .15s ease,border-color .15s ease;
+}
+/* mobile-safe: long stack values wrap instead of clipping */
+@media (max-width:520px){
+  .receipt .r-val{white-space:normal;}
+}
+</style>
+<style>
+/* ============================================================
+   MF-ADDON — CLI block cursor + terminal glitch + grid-break
+   (additive only; nothing below touches existing rules)
+   The cursor lives behind html.mf-cursor — a class JS adds ONLY
+   on (hover:hover) AND (pointer:fine) devices with motion
+   allowed, so coarse/touch + reduced-motion users keep the
+   native cursor. All cursor:none rules are gated by it.
+   ============================================================ */
+/* ---- F1: hide native cursor only when the addon is armed ---- */
+html.mf-cursor,
+html.mf-cursor *{cursor:none !important;}
+
+/* ---- F1: block cursor — outer shell is lerp-positioned by JS ---- */
+html.mf-cursor .mf-cursor{
+  position:fixed;top:0;left:0;
+  z-index:9999;
+  pointer-events:none;
+  will-change:transform;
+}
+/* 16px lime block; its corner sits on the pointer */
+html.mf-cursor .mf-cursor-core{
+  position:relative;
+  display:block;
+  width:16px;height:16px;
+  border:2px solid var(--lime);
+  background:transparent;
+  transition:width .15s ease,height .15s ease,
+             background .15s ease,border-color .15s ease,
+             transform .15s ease;
+}
+/* '>' prompt glyph, shown in the .mf-hover state */
+html.mf-cursor .mf-cursor-core::after{
+  content:">";
+  position:absolute;inset:0;
+  display:grid;place-items:center;
+  font-family:var(--mono);font-size:13px;font-weight:500;line-height:1;
+  color:var(--ink);
+  opacity:0;
+}
+/* over links/buttons → grows into a filled '>' prompt block */
+html.mf-cursor .mf-cursor.mf-hover .mf-cursor-core{
+  width:26px;height:26px;
+  background:var(--lime);
+  border-color:var(--ink);
+}
+html.mf-cursor .mf-cursor.mf-hover .mf-cursor-core::after{opacity:1;}
+/* while pressed → squash */
+html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
+
+/* ---- F2: terminal glitch burst on hover ---- */
+.term:hover .term-body{
+  animation:mf-glitch .45s steps(2) 2;
+}
+/* GLITCH_PROTOCOL tag — injected into .term-bar by JS */
+.mf-glitch-tag{
+  margin-left:auto;
+  font-size:10px;font-weight:500;letter-spacing:.16em;
+  color:var(--red);
+  border:1px solid var(--red);
+  background:var(--paper);
+  padding:2px 7px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease;
+}
+.term:hover .mf-glitch-tag{opacity:1;}
+@keyframes mf-glitch{
+  0%  {clip-path:inset(0 0 0 0);       transform:translateX(0);    text-shadow:none;}
+  25% {clip-path:inset(12% 0 58% 0);   transform:translateX(3px);  text-shadow:-2px 0 var(--lime),2px 0 var(--red);}
+  50% {clip-path:inset(62% 0 8% 0);    transform:translateX(-3px); text-shadow:2px 0 var(--lime),-2px 0 var(--red);}
+  75% {clip-path:inset(34% 0 36% 0);   transform:translateX(2px);  text-shadow:-1px 0 var(--lime),1px 0 var(--red);}
+  100%{clip-path:inset(0 0 0 0);       transform:translateX(0);    text-shadow:none;}
+}
+
+/* ---- FIX: hero grid-break (additive) ---- */
+/* 'data & ai builder' tag rotated off the grid line */
+.hero-meta .tag:nth-child(2){transform:rotate(2.5deg);}
+/* stamp: stronger offset shadow + lime ring (was a single 4px red) */
+.stamp{box-shadow:6px 6px 0 var(--ink),6px 6px 0 2px var(--lime);}
+</style>
+
+<style>
+/* ---- FACTORY CONSOLE (additive round 4) ---- */
+.mc-console{max-width:1080px;margin:0 auto;padding:0 24px 96px;}
+.mc-frame{background:#0a0a0a;border:2px solid #0a0a0a;box-shadow:8px 8px 0 #d4ff00;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.55;}
+.mc-bar{padding:8px 12px;display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.14em;color:#0a0a0a;background:#f7f7f2;border-bottom:2px solid #0a0a0a;}
+.mc-dot{width:12px;height:12px;border:2px solid #0a0a0a;border-radius:0;display:inline-block;}
+.mc-dot.red{background:#ff4d4d;}
+.mc-dot.lime{background:#d4ff00;}
+.mc-dot.paper{background:#f7f7f2;}
+.mc-title{margin-left:8px;font-weight:500;}
+.mc-body{padding:20px 24px;color:#f7f7f2;min-height:240px;max-height:46vh;overflow-y:auto;}
+.mc-line{margin:2px 0;white-space:pre-wrap;word-break:break-word;}
+.mc-line.cmd{color:#d4ff00;}
+.mc-line.out{color:#f7f7f2;}
+.mc-line.dim{color:#8a8a8a;}
+.mc-line.err{color:#ff4d4d;}
+.mc-line.blank{height:6px;}
+.mc-prompt{color:#d4ff00;white-space:nowrap;}
+.mc-input-row{display:flex;gap:10px;align-items:center;margin-top:10px;}
+.mc-field{flex:1;background:transparent;border:0;outline:0;color:#d4ff00;caret-color:#d4ff00;font-family:'JetBrains Mono',monospace;font-size:13px;padding:2px 0;}
+.mc-body::-webkit-scrollbar{width:8px;}
+.mc-body::-webkit-scrollbar-track{background:#0a0a0a;}
+.mc-body::-webkit-scrollbar-thumb{background:#d4ff00;border:2px solid #0a0a0a;}
+</style>
+</head>
+<body>
+
+<!-- scroll progress -->
+<div id="progress" aria-hidden="true"></div>
+
+<!-- ================= NAV ================= -->
+<nav class="nav" aria-label="Primary">
+  <a class="nav-logo" href="#top" aria-label="MONO_FACTORY — back to top">
+    <span class="nav-logo-mark" aria-hidden="true">M</span>
+    <span class="nav-logo-word">MONO_FACTORY</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#education">education</a></li>
+    <li><a href="#proof">proof</a></li>
+    <li><a href="#contact">contact</a></li>
+    <li class="nav-resume"><a class="btn-resume" href="Garvit_Pandia_Resume.pdf" download>RESUME ↓</a></li>
+  </ul>
+</nav>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero" aria-label="Intro">
+  <div class="container">
+    <div class="hero-grid">
+
+      <!-- terminal boot -->
+      <div class="term reveal in" aria-label="Terminal boot log">
+        <div class="term-bar">
+          <span class="term-dot lime"></span>
+          <span class="term-dot red"></span>
+          <span class="term-dot paper"></span>
+          <span class="term-title">garvit@factory — zsh</span>
+        </div>
+        <div class="term-body" id="term-body" aria-live="polite"></div>
+      </div>
+
+      <!-- giant name -->
+      <div class="hero-name-wrap">
+        <div class="stamp">open to work</div>
+        <h1 class="hero-name">
+          <span>garvit</span><br>
+          <span class="hl">pandia</span>
+        </h1>
+        <div class="hero-meta">
+          <span class="tag">final-year b.tech cse</span>
+          <span class="tag">data &amp; ai builder</span>
+          <span class="tag">phagwara, in</span>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn-solid" href="#projects">see the work ↓</a>
+          <a class="btn btn-ghost" href="Garvit_Pandia_Resume.pdf" download>download resume</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ticker under hero -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>open to work <i>■</i> data &amp; ai builder <i>■</i> python <i>■</i> pandas <i>■</i> streamlit <i>■</i> rag <i>■</i> gemini 2.5 <i>■</i> hugging face <i>■</i> pytorch <i>■</i> tensorflow <i>■</i> react <i>■</i> aws <i>■</i> full-time · intern · 2026 <i>■</i></span>
+    <span>open to work <i>■</i> data &amp; ai builder <i>■</i> python <i>■</i> pandas <i>■</i> streamlit <i>■</i> rag <i>■</i> gemini 2.5 <i>■</i> hugging face <i>■</i> pytorch <i>■</i> tensorflow <i>■</i> react <i>■</i> aws <i>■</i> full-time · intern · 2026 <i>■</i></span>
+  </div>
+</div>
+
+<!-- ============ FACTORY CONSOLE (additive round 4) ============ -->
+<section class="mc-console" aria-label="Interactive factory console">
+  <div class="mc-frame" id="mc-frame">
+    <div class="mc-bar">
+      <span class="mc-dot red" aria-hidden="true"></span>
+      <span class="mc-dot lime" aria-hidden="true"></span>
+      <span class="mc-dot paper" aria-hidden="true"></span>
+      <span class="mc-title">FACTORY CONSOLE v2.1 — type help</span>
+    </div>
+    <div class="mc-body" id="mc-body">
+      <div class="mc-line dim">garvit@factory:~$ — interactive console online. type 'help' to begin.</div>
+      <div id="mc-out"></div>
+      <div class="mc-input-row">
+        <span class="mc-prompt" aria-hidden="true">garvit@factory:~$</span>
+        <input class="mc-field" id="mc-field" type="text" autocomplete="off" spellcheck="false" aria-label="console command" aria-describedby="mc-out">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INDEX ================= -->
+<section id="index" aria-label="Index">
+  <div class="container">
+    <header class="sec-head reveal">
+      <span class="sec-no">00</span>
+      <h2 class="sec-title">index</h2>
+      <span class="sec-sub">table of contents<br>read in any order</span>
+    </header>
+    <nav aria-label="Table of contents">
+      <a class="idx-row reveal" href="#about">
+        <span class="idx-num">01</span>
+        <span><span class="idx-name">about</span><span class="idx-desc">who runs this factory</span></span>
+        <span class="idx-arrow">→</span>
+      </a>
+      <a class="idx-row reveal d1" href="#projects">
+        <span class="idx-num">02</span>
+        <span><span class="idx-name">projects</span><span class="idx-desc">shipped &amp; deployed, end to end</span></span>
+        <span class="idx-arrow">→</span>
+      </a>
+      <a class="idx-row reveal d2" href="#skills">
+        <span class="idx-num">03</span>
+        <span><span class="idx-name">skills</span><span class="idx-desc">the toolbelt</span></span>
+        <span class="idx-arrow">→</span>
+      </a>
+      <a class="idx-row reveal d3" href="#education">
+        <span class="idx-num">04</span>
+        <span><span class="idx-name">education</span><span class="idx-desc">the paper trail</span></span>
+        <span class="idx-arrow">→</span>
+      </a>
+      <a class="idx-row reveal d4" href="#proof">
+        <span class="idx-num">05</span>
+        <span><span class="idx-name">proof</span><span class="idx-desc">certificates &amp; ledger</span></span>
+        <span class="idx-arrow">→</span>
+      </a>
+      <a class="idx-row reveal d5" href="#contact">
+        <span class="idx-num">06</span>
+        <span><span class="idx-name">contact</span><span class="idx-desc">say hi</span></span>
+        <span class="idx-arrow">→</span>
+      </a>
+    </nav>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" aria-label="About">
+  <div class="container">
+    <header class="sec-head reveal">
+      <span class="sec-no">01</span>
+      <h2 class="sec-title">about</h2>
+      <span class="sec-sub">the operator<br>since 2004</span>
+    </header>
+    <div class="about-grid">
+      <div>
+        <p class="about-lede reveal">
+          I'm Garvit — a final-year CS student who takes <em>messy, real-world data</em>
+          and turns it into working AI products: wrangle it, model it, ship it.
+          <span class="dim">No demos that die on a localhost. Everything here runs in public.</span>
+        </p>
+        <p class="about-sub reveal d1">
+          Currently finishing my <b>B.Tech CSE (CGPA 7.79)</b> at Lovely Professional University.
+          My pipeline is <b>Pandas → model → Streamlit → Hugging Face Spaces</b> — from CPCB
+          air-quality dumps to RAG apps on Gemini 2.5. Looking for a <b>full-time or intern
+          role</b> in data engineering / AI application development, starting 2026.
+        </p>
+      </div>
+      <div class="stats">
+        <div class="stat reveal">
+          <div class="stat-k">status</div>
+          <div class="stat-v"><span class="lime">open to work</span></div>
+        </div>
+        <div class="stat reveal d1">
+          <div class="stat-k">focus</div>
+          <div class="stat-v">data · ai apps · rag</div>
+        </div>
+        <div class="stat reveal d2">
+          <div class="stat-k">degree</div>
+          <div class="stat-v">b.tech cse — 2026</div>
+        </div>
+        <div class="stat reveal d3">
+          <div class="stat-k">base</div>
+          <div class="stat-v">phagwara, in<br>open to relocate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section id="projects" aria-label="Projects">
+  <div class="container">
+    <header class="sec-head reveal">
+      <span class="sec-no">02</span>
+      <h2 class="sec-title">projects</h2>
+      <span class="sec-sub">two shipped builds<br>public, live, deployed</span>
+    </header>
+    <div class="projects">
+
+      <!-- PROJECT 01 — AQI -->
+      <article class="pcard reveal">
+        <div class="pcard-top">
+          <span class="pcard-no">P/01</span>
+          <span class="pcard-dates">jul 2024 → aug 2024</span>
+        </div>
+        <div class="pcard-body">
+          <h3 class="pcard-title">interactive india <span class="hl">aqi</span> tracker</h3>
+          <ul class="pcard-list">
+            <li>Air-quality analytics dashboard over the real CPCB dataset — 6 pollutants tracked city-wise</li>
+            <li>City-wise pollutant comparison + temporal trend analysis in a single view</li>
+            <li>End-to-end Pandas wrangling: datetime parsing, year/month extraction, period indexing, NA imputation across PM2.5, PM10, NO2, SO2, CO, O3</li>
+            <li>Deployed on Hugging Face Spaces with a Streamlit wide layout</li>
+          </ul>
+          <div class="pcard-tags">
+            <span class="chip">python</span>
+            <span class="chip">pandas</span>
+            <span class="chip">streamlit</span>
+            <span class="chip">hugging face</span>
+            <span class="chip">cpcb</span>
+          </div>
+          <a class="pcard-link" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">view on github ↗</a>
+        </div>
+        <figure class="pcard-media">
+          <div class="frame">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&auto=format&fit=crop" alt="Analytics dashboard charts — Interactive India AQI Tracker" loading="lazy" decoding="async">
+          </div>
+          <figcaption class="pcard-fig">
+            <span>fig. 01 — the dashboard</span>
+            <span>streamlit · hf spaces</span>
+          </figcaption>
+        </figure>
+      </article>
+
+      <!-- PROJECT 02 — RAG -->
+      <article class="pcard reveal">
+        <div class="pcard-top">
+          <span class="pcard-no">P/02</span>
+          <span class="pcard-dates">feb 2026 → mar 2026</span>
+        </div>
+        <div class="pcard-body">
+          <h3 class="pcard-title">rag <span class="hl">resume</span> analyzer</h3>
+          <ul class="pcard-list">
+            <li>AI-powered resume analysis with Retrieval-Augmented Generation — context-aware Q&amp;A over uploaded PDF resumes</li>
+            <li>Semantic search over document chunks for grounded, source-accurate answers</li>
+            <li>Google Gemini 2.5 backend with model selection — Flash, Pro, Flash-Lite</li>
+            <li>Multi-model Streamlit UI, public Hugging Face Spaces deployment</li>
+          </ul>
+          <div class="pcard-tags">
+            <span class="chip">python</span>
+            <span class="chip">rag</span>
+            <span class="chip">gemini 2.5</span>
+            <span class="chip">streamlit</span>
+            <span class="chip">hugging face</span>
+          </div>
+          <a class="pcard-link" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">view on github ↗</a>
+        </div>
+        <figure class="pcard-media">
+          <div class="frame">
+            <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200&q=80&auto=format&fit=crop" alt="Documents and resume on a desk — RAG Resume Analyzer" loading="lazy" decoding="async">
+          </div>
+          <figcaption class="pcard-fig">
+            <span>fig. 02 — the analyzer</span>
+            <span>gemini 2.5 · hf spaces</span>
+          </figcaption>
+        </figure>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section id="skills" aria-label="Skills">
+  <div class="container">
+    <header class="sec-head reveal">
+      <span class="sec-no">03</span>
+      <h2 class="sec-title">skills</h2>
+      <span class="sec-sub">the toolbelt<br>no progress bars, ever</span>
+    </header>
+    <div class="skills-grid">
+
+      <div class="skill-box reveal">
+        <div class="skill-head"><span class="sq"></span><h3>languages</h3><span class="cnt">[07]</span></div>
+        <div class="skill-chips">
+          <span class="chip kbd">c++</span><span class="chip kbd">python</span><span class="chip kbd">r</span>
+          <span class="chip kbd">java</span><span class="chip kbd">c</span><span class="chip kbd">javascript</span>
+          <span class="chip kbd">html/css</span>
+        </div>
+      </div>
+
+      <div class="skill-box reveal d1">
+        <div class="skill-head"><span class="sq"></span><h3>frameworks</h3><span class="cnt">[08]</span></div>
+        <div class="skill-chips">
+          <span class="chip kbd">tensorflow</span><span class="chip kbd">pytorch</span><span class="chip kbd">hugging face</span>
+          <span class="chip kbd">react</span><span class="chip kbd">node.js</span><span class="chip kbd">express.js</span>
+          <span class="chip kbd">next.js</span><span class="chip kbd">tailwind css</span>
+        </div>
+      </div>
+
+      <div class="skill-box reveal d2">
+        <div class="skill-head"><span class="sq"></span><h3>tools &amp; platforms</h3><span class="cnt">[13]</span></div>
+        <div class="skill-chips">
+          <span class="chip kbd">mysql</span><span class="chip kbd">mongodb</span><span class="chip kbd">google colab</span>
+          <span class="chip kbd">git</span><span class="chip kbd">gitlab</span><span class="chip kbd">flask</span>
+          <span class="chip kbd">vercel</span><span class="chip kbd">docker</span><span class="chip kbd">jenkins</span>
+          <span class="chip kbd">rest api</span><span class="chip kbd">streamlit</span><span class="chip kbd">aws</span>
+          <span class="chip kbd">tableau</span>
+        </div>
+      </div>
+
+      <div class="skill-box reveal d3">
+        <div class="skill-head"><span class="sq"></span><h3>soft skills</h3><span class="cnt">[05]</span></div>
+        <div class="skill-chips">
+          <span class="chip kbd">leadership</span><span class="chip kbd">problem-solving</span><span class="chip kbd">team player</span>
+          <span class="chip kbd">communication</span><span class="chip kbd">adaptability</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= EDUCATION ================= -->
+<section id="education" aria-label="Education">
+  <div class="container">
+    <header class="sec-head reveal">
+      <span class="sec-no">04</span>
+      <h2 class="sec-title">education</h2>
+      <span class="sec-sub">punched cards<br>of record</span>
+    </header>
+
+    <div class="edu-row reveal">
+      <span class="edu-dates">aug 2022 — jul 2026</span>
+      <span class="edu-what">b.tech — computer science &amp; engineering<small>lovely professional university · phagwara, punjab</small></span>
+      <span class="edu-score">7.79</span>
+    </div>
+    <div class="edu-row reveal d1">
+      <span class="edu-dates">apr 2020 — mar 2021</span>
+      <span class="edu-what">intermediate — pcm<small>prince career pioneer school · sikar, rajasthan</small></span>
+      <span class="edu-score">85.4%</span>
+    </div>
+    <div class="edu-row reveal d2">
+      <span class="edu-dates">apr 2019 — mar 2020</span>
+      <span class="edu-what">matriculation<small>witty international school · udaipur, rajasthan</small></span>
+      <span class="edu-score">81.6%</span>
+    </div>
+    <div class="edu-row reveal d3">
+      <span class="edu-dates">jun 2024 — jul 2024</span>
+      <span class="edu-what">summer training — the complete mysql developer course<small>e-box · certified</small></span>
+      <span class="edu-score">MYSQL</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= PROOF ================= -->
+<section id="proof" aria-label="Proof — certificates and achievements">
+  <div class="container">
+    <header class="sec-head reveal">
+      <span class="sec-no">05</span>
+      <h2 class="sec-title">proof</h2>
+      <span class="sec-sub">ledger of<br>certificates</span>
+    </header>
+
+    <div class="proof-block reveal">
+      <div class="proof-sub">certificates</div>
+      <div class="ledger">
+        <div class="ledger-row">
+          <span class="ledger-date">nov 2024</span>
+          <span class="ledger-what">social networks</span>
+          <span class="ledger-who">nptel</span>
+        </div>
+        <div class="ledger-row">
+          <span class="ledger-date">nov 2024</span>
+          <span class="ledger-what">data analysis with tableau</span>
+          <span class="ledger-who">coursera</span>
+        </div>
+        <div class="ledger-row">
+          <span class="ledger-date">oct 2024</span>
+          <span class="ledger-what">supervised ml — regression &amp; classification</span>
+          <span class="ledger-who">coursera</span>
+        </div>
+        <div class="ledger-row">
+          <span class="ledger-date">jul 2024</span>
+          <span class="ledger-what">complete mysql</span>
+          <span class="ledger-who">e-box</span>
+        </div>
+        <div class="ledger-row">
+          <span class="ledger-date">feb 2024</span>
+          <span class="ledger-what">mastering dsa using c and c++</span>
+          <span class="ledger-who">udemy</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proof-block reveal d1">
+      <div class="proof-sub">achievements</div>
+      <div class="ledger">
+        <div class="ledger-row">
+          <span class="ledger-date">may 2024</span>
+          <span class="ledger-what">hackerrank 4-star java</span>
+          <span class="ledger-who">hackerrank</span>
+        </div>
+        <div class="ledger-row">
+          <span class="ledger-date">feb 2024</span>
+          <span class="ledger-what">hackerrank 4-star sql</span>
+          <span class="ledger-who">hackerrank</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" aria-label="Contact">
+  <div class="container">
+    <header class="sec-head reveal">
+      <span class="sec-no">06</span>
+      <h2 class="sec-title">say <span style="background:var(--lime);padding:0 .12em;margin-left:-.04em;">hi</span></h2>
+      <span class="sec-sub">inbox open<br>reply within 24h</span>
+    </header>
+    <div class="contact-grid">
+
+      <div class="reveal">
+        <p class="contact-msg">
+          Got a <b>role</b>, a <b>dataset</b>, or a weird idea that needs building?
+          Drop a transmission — the form opens your mail client, zero servers involved.
+          Or write directly: <b>garvit9829@gmail.com</b>
+        </p>
+        <form class="form" id="contact-form" novalidate>
+          <div>
+            <label for="cf-name">name</label>
+            <input type="text" id="cf-name" name="name" placeholder="YOUR NAME" required autocomplete="name">
+          </div>
+          <div>
+            <label for="cf-email">email</label>
+            <input type="email" id="cf-email" name="email" placeholder="YOU@EXAMPLE.COM" required autocomplete="email">
+          </div>
+          <div>
+            <label for="cf-msg">message</label>
+            <textarea id="cf-msg" name="message" placeholder="TYPE YOUR MESSAGE HERE…" required></textarea>
+          </div>
+          <button class="btn btn-solid" type="submit" style="justify-self:start;cursor:pointer;">send transmission →</button>
+          <p class="form-note" id="form-note" role="status"></p>
+        </form>
+      </div>
+
+      <div class="channels">
+        <a class="channel reveal" href="mailto:garvit9829@gmail.com">
+          <span class="channel-k">email</span><span class="channel-v">garvit9829@gmail.com</span><span class="channel-arr">↗</span>
+        </a>
+        <a class="channel reveal d1" href="tel:+918905402023">
+          <span class="channel-k">phone</span><span class="channel-v">+91-8905402023</span><span class="channel-arr">↗</span>
+        </a>
+        <a class="channel reveal d2" href="https://linkedin.com/in/garvit-pandia" target="_blank" rel="noopener">
+          <span class="channel-k">linkedin</span><span class="channel-v">linkedin.com/in/garvit-pandia</span><span class="channel-arr">↗</span>
+        </a>
+        <a class="channel reveal d3" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">
+          <span class="channel-k">github</span><span class="channel-v">github.com/garvit-pandia</span><span class="channel-arr">↗</span>
+        </a>
+        <a class="channel reveal d4" href="https://garvitpandia.me" target="_blank" rel="noopener">
+          <span class="channel-k">web</span><span class="channel-v">garvitpandia.me</span><span class="channel-arr">↗</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="ticker lime" aria-hidden="true">
+    <div class="ticker-track">
+      <span>mono_factory <i>■</i> garvit pandia <i>■</i> © 2026 <i>■</i> built by hand — zero frameworks <i>■</i> html · css · js only <i>■</i> no trackers <i>■</i> no templates <i>■</i></span>
+      <span>mono_factory <i>■</i> garvit pandia <i>■</i> © 2026 <i>■</i> built by hand — zero frameworks <i>■</i> html · css · js only <i>■</i> no trackers <i>■</i> no templates <i>■</i></span>
+    </div>
+  </div>
+  <div class="container">
+    <div class="foot-bar">
+      <span>© 2026 garvit pandia — mono_factory</span>
+      <a href="#top">back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   MONO_FACTORY — interactions
+   1. scroll progress bar
+   2. terminal typewriter boot
+   3. IntersectionObserver reveals
+   4. contact form → mailto
+   All guard against prefers-reduced-motion.
+   ============================================================ */
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- 1. scroll progress ---- */
+  var bar = document.getElementById("progress");
+  function paintProgress(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    bar.style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + "%";
+  }
+  window.addEventListener("scroll", paintProgress, {passive:true});
+  paintProgress();
+
+  /* ---- 2. terminal typewriter boot ---- */
+  var BOOT = [
+    {kind:"cmd", text:"whoami"},
+    {kind:"out", text:"garvit — data & AI builder · final-year B.Tech CSE"},
+    {kind:"cmd", text:"cat ./focus.txt"},
+    {kind:"out", text:"turn messy real-world data into working products"},
+    {kind:"cmd", text:"ls ./stack"},
+    {kind:"out", text:"python pandas streamlit pytorch tensorflow rag react"},
+    {kind:"cmd", text:"./status --open-to-work"},
+    {kind:"out", text:"[OK] accepting full-time & intern roles — 2026", ok:true}
+  ];
+  var termBody = document.getElementById("term-body");
+  var lineEls = [];
+  var PROMPT = '<span class="t-prompt">garvit@factory:~$</span> ';
+
+  function buildLine(line){
+    var el = document.createElement("div");
+    el.className = "t-line";
+    if(line.kind === "cmd"){
+      el.innerHTML = PROMPT + '<span class="t-cmd"></span>';
+    }else{
+      el.className += line.ok ? " t-out ok" : " t-out";
+      el.textContent = line.text;
+    }
+    termBody.appendChild(el);
+    return el;
+  }
+
+  function typeInto(el, text, speed, done){
+    var i = 0;
+    (function tick(){
+      if(i <= text.length){
+        el.textContent = text.slice(0, i);
+        i++;
+        setTimeout(tick, speed);
+      }else{
+        done();
+      }
+    })();
+  }
+
+  function bootTerminal(){
+    var idx = 0;
+    function next(){
+      if(idx >= BOOT.length){
+        /* idle prompt with blinking cursor */
+        var idle = document.createElement("div");
+        idle.className = "t-line";
+        idle.innerHTML = PROMPT + '<span class="t-cursor" aria-hidden="true"></span>';
+        termBody.appendChild(idle);
+        return;
+      }
+      var line = BOOT[idx];
+      if(line.kind === "out"){
+        buildLine(line);
+        idx++;
+        setTimeout(next, 220);
+      }else{
+        var el = buildLine(line);
+        var cmd = el.querySelector(".t-cmd");
+        typeInto(cmd, line.text, 30, function(){
+          idx++;
+          setTimeout(next, 320);
+        });
+      }
+    }
+    next();
+  }
+
+  if(reduceMotion){
+    /* instant boot — all lines at once, static cursor */
+    BOOT.forEach(function(l){ buildLine(l); });
+    var idle = document.createElement("div");
+    idle.className = "t-line";
+    idle.innerHTML = PROMPT + '<span class="t-cursor" aria-hidden="true"></span>';
+    termBody.appendChild(idle);
+  }else if("IntersectionObserver" in window){
+    /* choreography (R2): boot only when the terminal is on screen —
+       never plays unseen, never blocks the name side */
+    var tio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          tio.disconnect();
+          bootTerminal();
+        }
+      });
+    }, {threshold:0.25});
+    tio.observe(termBody);
+  }else{
+    bootTerminal();
+  }
+
+  /* ---- 3. scroll reveals ---- */
+  var revealEls = document.querySelectorAll(".reveal");
+  if(reduceMotion || !("IntersectionObserver" in window)){
+    revealEls.forEach(function(el){ el.classList.add("in"); });
+  }else{
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12, rootMargin:"0px 0px -40px 0px"});
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---- 4. contact form → mailto ---- */
+  var form = document.getElementById("contact-form");
+  var note = document.getElementById("form-note");
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var name = document.getElementById("cf-name").value.trim();
+    var email = document.getElementById("cf-email").value.trim();
+    var msg = document.getElementById("cf-msg").value.trim();
+    var subject = encodeURIComponent("Portfolio contact — " + (name || "anonymous"));
+    var body = encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\n" + msg);
+    window.location.href = "mailto:garvit9829@gmail.com?subject=" + subject + "&body=" + body;
+    note.textContent = "// TRANSMISSION OPENED — YOUR MAIL CLIENT SHOULD HAVE LAUNCHED. THANKS, GARVIT WILL REPLY.";
+    note.classList.add("in");
+  });
+})();
+</script>
+<script>
+/* ============================================================
+   RECEIPT PRINT — dot-matrix spec sheets
+   Builds a .receipt from each project article's existing meta
+   (.pcard-no, .pcard-dates, .pcard-tags .chip; data-r-* attrs as
+   fallback sources), then prints it char-by-char when the
+   article scrolls into view. Static (instant) under
+   prefers-reduced-motion and on coarse pointers.
+   ============================================================ */
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var coarsePointer = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+  var STATIC = reduceMotion || coarsePointer;
+  var PER_CHAR = 12;    /* ms per character */
+  var ROW_STAGGER = 80; /* ms between row starts */
+  var STATUS_BY_REF = {"P/01":"ARCHIVED","P/02":"ACTIVE"};
+
+  /* row sources — first selector that yields nodes wins */
+  var ROW_SPECS = [
+    {label:"REF",    sel:[".pcard-no", "[data-r-ref]"]},
+    {label:"CLIENT", sel:["[data-r-client]"]},
+    {label:"PERIOD", sel:[".pcard-dates", "[data-r-period]"]},
+    {label:"STACK",  sel:[".pcard-tags .chip", "[data-r-stack]"], join:" · "}
+  ];
+
+  function buildReceipt(article, idx){
+    var rows = [];
+    ROW_SPECS.forEach(function(spec){
+      var nodes = null;
+      for(var s = 0; s < spec.sel.length; s++){
+        nodes = article.querySelectorAll(spec.sel[s]);
+        if(nodes.length){ break; }
+      }
+      if(!nodes || !nodes.length){ return; }
+      var text = Array.prototype.map.call(nodes, function(n){
+        return n.textContent.replace(/\s+/g, " ").trim();
+      }).join(spec.join || " ");
+      if(!text){ return; }
+      rows.push({label:spec.label, value:text});
+    });
+    /* literal status row, chosen per article */
+    var refEl = article.querySelector(".pcard-no");
+    var ref = refEl ? refEl.textContent.trim() : "P/0" + (idx + 1);
+    rows.push({label:"STATUS", value:STATUS_BY_REF[ref] || "ACTIVE"});
+
+    var receipt = document.createElement("div");
+    receipt.className = "receipt";
+    receipt.setAttribute("role", "note");
+    receipt.setAttribute("aria-label", "Project spec sheet");
+    rows.forEach(function(r){
+      var row = document.createElement("div");
+      row.className = "r-row";
+      var lab = document.createElement("span");
+      lab.className = "r-line r-label";
+      lab.textContent = r.label;
+      var val = document.createElement("span");
+      val.className = "r-line r-val";
+      val.textContent = r.value;
+      row.appendChild(lab);
+      row.appendChild(val);
+      receipt.appendChild(row);
+    });
+    var scan = document.createElement("span");
+    scan.className = "r-scan";
+    scan.setAttribute("aria-hidden", "true");
+    receipt.appendChild(scan);
+    article.appendChild(receipt);
+    return receipt;
+  }
+
+  function startPrint(article){
+    var receipt = article.querySelector(".receipt");
+    if(!receipt || receipt.classList.contains("printed")){ return; }
+    var lines = Array.prototype.slice.call(receipt.querySelectorAll(".r-line"));
+    if(STATIC || lines.length === 0){
+      receipt.classList.add("printed");
+      return;
+    }
+    receipt.classList.add("printing");
+    var done = 0;
+    function finish(){
+      done++;
+      if(done >= lines.length){
+        receipt.classList.remove("printing");
+        receipt.classList.add("printed");
+      }
+    }
+    lines.forEach(function(line, li){
+      var full = line.textContent;
+      line.textContent = "";
+      var i = 0;
+      setTimeout(function tick(){
+        if(i <= full.length){
+          line.textContent = full.slice(0, i);
+          i++;
+          if(i <= full.length){ setTimeout(tick, PER_CHAR); }
+          else{ finish(); }
+        }else{
+          finish();
+        }
+      }, li * ROW_STAGGER);
+    });
+  }
+
+  var articles = document.querySelectorAll("#projects article");
+  articles.forEach(function(article, idx){
+    buildReceipt(article, idx);
+  });
+  if(STATIC || !("IntersectionObserver" in window)){
+    /* reduced motion / coarse pointer / no IO — static receipt */
+    articles.forEach(function(article){
+      var receipt = article.querySelector(".receipt");
+      if(receipt){ receipt.classList.add("printed"); }
+    });
+  }else{
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          /* choreography (R2): receipts print in queue order —
+             index stagger so a fast scroll still sequences them */
+          var idx = idxByArticle.get(entry.target) || 0;
+          setTimeout(function(){ startPrint(entry.target); }, idx * 240);
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.35});
+    var idxByArticle = new Map();
+    articles.forEach(function(article, idx){
+      idxByArticle.set(article, idx);
+      io.observe(article);
+    });
+  }
+})();
+</script>
+<script>
+/* ============================================================
+   MF-ADDON — CLI block cursor + terminal glitch tag (additive)
+   1. injects the GLITCH_PROTOCOL tag into the term bar (always)
+   2. custom CLI block cursor, only when (hover:hover) AND
+      (pointer:fine) AND motion allowed — adds html.mf-cursor
+      which gates every cursor:none rule in the MF-ADDON CSS
+   ============================================================ */
+(function(){
+  "use strict";
+
+  /* ---- F2: glitch tag (static injection; CSS animates it) ---- */
+  var termBar = document.querySelector(".term-bar");
+  if(termBar && !termBar.querySelector(".mf-glitch-tag")){
+    var tag = document.createElement("span");
+    tag.className = "mf-glitch-tag";
+    tag.textContent = "GLITCH_PROTOCOL";
+    termBar.appendChild(tag);
+  }
+
+  /* ---- F1: CLI block cursor ---- */
+  var fine = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(!fine || reduce){ return; }
+
+  var root = document.documentElement;
+  root.classList.add("mf-cursor");
+
+  var cur = document.createElement("div");
+  cur.className = "mf-cursor";
+  cur.setAttribute("aria-hidden", "true");
+  var core = document.createElement("span");
+  core.className = "mf-cursor-core";
+  cur.appendChild(core);
+  document.body.appendChild(cur);
+
+  var mx = -100, my = -100, cx = -100, cy = -100, raf = null;
+
+  function loop(){
+    cx += (mx - cx) * 0.18;
+    cy += (my - cy) * 0.18;
+    cur.style.transform = "translate3d(" + cx + "px," + cy + "px,0)";
+    if(Math.abs(mx - cx) < 0.1 && Math.abs(my - cy) < 0.1){
+      raf = null;
+      return;
+    }
+    raf = requestAnimationFrame(loop);
+  }
+  window.addEventListener("pointermove", function(e){
+    mx = e.clientX;
+    my = e.clientY;
+    if(raf === null){ raf = requestAnimationFrame(loop); }
+  }, {passive:true});
+
+  function isLink(t){
+    return !!(t && t.closest && t.closest("a,button,.btn,[role=button]"));
+  }
+  document.addEventListener("pointerover", function(e){
+    if(isLink(e.target)){ cur.classList.add("mf-hover"); }
+  }, {passive:true});
+  document.addEventListener("pointerout", function(e){
+    if(isLink(e.target) && !isLink(e.relatedTarget)){ cur.classList.remove("mf-hover"); }
+  }, {passive:true});
+  window.addEventListener("pointerdown", function(){ cur.classList.add("mf-down"); }, {passive:true});
+  window.addEventListener("pointerup", function(){ cur.classList.remove("mf-down"); }, {passive:true});
+  window.addEventListener("pointercancel", function(){ cur.classList.remove("mf-down"); }, {passive:true});
+})();
+</script>
+
+<script>
+/* ================= FACTORY CONSOLE — interactive terminal (additive round 4) ================= */
+(function(){
+  try{
+    var body  = document.getElementById("mc-body");
+    var out   = document.getElementById("mc-out");
+    var field = document.getElementById("mc-field");
+    if(!body || !out || !field){ return; }
+
+    var hist = [];
+    var hIdx = -1;
+    var MAX_HIST = 20;
+
+    function line(text, cls){
+      var d = document.createElement("div");
+      d.className = "mc-line" + (cls ? " " + cls : "");
+      d.textContent = text;
+      out.appendChild(d);
+      return d;
+    }
+
+    function blank(){
+      var d = document.createElement("div");
+      d.className = "mc-line blank";
+      out.appendChild(d);
+    }
+
+    function scrollBottom(){
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function focusField(){
+      try{ field.focus({preventScroll:true}); }
+      catch(e){ field.focus(); }
+    }
+
+    var DATA = {
+      whoami: [
+        "garvit pandia — final-year b.tech cse @ lpu · data & ai builder",
+        "base: phagwara, in · open to relocate · open to work from 2026"
+      ],
+      ls: [
+        "about/     projects/  skills/",
+        "education/ proof/     contact/"
+      ],
+      boot: [
+        "> whoami",
+        "garvit — data & AI builder · final-year B.Tech CSE",
+        "> cat ./focus.txt",
+        "turn messy real-world data into working products",
+        "> ls ./stack",
+        "python pandas streamlit pytorch tensorflow rag react",
+        "> ./status --open-to-work",
+        "[OK] accepting full-time & intern roles — 2026"
+      ],
+      projects: [
+        "P/01 — interactive india aqi tracker  ·  jul 2024 → aug 2024",
+        "      air-quality analytics over real cpcb data · pandas → streamlit → hf spaces",
+        "      → github.com/garvit-pandia",
+        "",
+        "P/02 — rag resume analyzer  ·  feb 2026 → mar 2026",
+        "      context-aware q&a over uploaded pdf resumes · gemini 2.5 backend",
+        "      → github.com/garvit-pandia"
+      ],
+      skills: [
+        "languages  [07]  c++ · python · r · java · c · javascript · html/css",
+        "frameworks [08]  tensorflow · pytorch · hugging face · react · node.js · express.js · next.js · tailwind css",
+        "tools      [13]  mysql · mongodb · google colab · git · gitlab · flask · vercel · docker · jenkins · rest api · streamlit · aws · tableau",
+        "soft       [05]  leadership · problem-solving · team player · communication · adaptability"
+      ],
+      contact: [
+        "email     garvit9829@gmail.com",
+        "phone     +91-8905402023",
+        "linkedin  linkedin.com/in/garvit-pandia",
+        "github    github.com/garvit-pandia",
+        "— inbox open · reply within 24h"
+      ],
+      education: [
+        "aug 2022 → jul 2026   b.tech cse @ lovely professional university, phagwara · cgpa 7.79",
+        "jun 2024 → jul 2024   summer training — complete mysql developer course @ e-box · certified",
+        "apr 2020 → mar 2021   intermediate (pcm) @ prince career pioneer school, sikar · 85.4%",
+        "apr 2019 → mar 2020   matriculation @ witty international school, udaipur · 81.6%"
+      ],
+      certs: [
+        "nov 2024   social networks — nptel",
+        "nov 2024   data analysis with tableau — coursera",
+        "oct 2024   supervised ml: regression & classification — coursera",
+        "jul 2024   complete mysql — e-box",
+        "feb 2024   mastering dsa using c and c++ — udemy"
+      ],
+      achievements: [
+        "may 2024   hackerrank 4★ java",
+        "feb 2024   hackerrank 4★ sql",
+        "— hackerrank"
+      ],
+      resume: [
+        "the one-pager is the page you are already scrolling.",
+        "— for the pdf, write to garvit9829@gmail.com"
+      ],
+      sudo: [
+        "permission denied: you are already the operator."
+      ],
+      matrix: [
+        "follow the white rabbit.",
+        "the factory has you.",
+        "wake up, garvit."
+      ]
+    };
+
+    var HELP = [
+      ["help",            "show this grid"],
+      ["whoami",          "who runs this factory"],
+      ["ls",              "browse the factory"],
+      ["boot",            "replay the factory boot log"],
+      ["projects",        "two shipped builds"],
+      ["skills",          "the toolbelt"],
+      ["contact",         "inbox + lines"],
+      ["education",       "punched cards of record"],
+      ["certs",           "ledger of certificates"],
+      ["achievements",    "stars earned"],
+      ["resume",          "the one-pager"],
+      ["sudo",            "try it. you won't."],
+      ["matrix",          "follow the white rabbit"],
+      ["date",            "factory clock"],
+      ["echo <text>",     "repeat after me"],
+      ["clear",           "wipe the console"]
+    ];
+
+    function printHelp(){
+      blank();
+      for(var i = 0; i < HELP.length; i++){
+        var row = document.createElement("div");
+        row.className = "mc-line out";
+        var a = document.createElement("span");
+        a.className = "mc-line cmd";
+        a.textContent = HELP[i][0];
+        var b = document.createElement("span");
+        b.textContent = "  —  " + HELP[i][1];
+        row.appendChild(a);
+        row.appendChild(b);
+        out.appendChild(row);
+      }
+      blank();
+    }
+
+    function run(raw){
+      var text = (raw || "").trim();
+      line("garvit@factory:~$ " + text, "cmd");
+      if(!text){ return; }
+      var parts = text.split(/\s+/);
+      var cmd = parts[0].toLowerCase();
+      var arg = parts.slice(1).join(" ");
+      var resp = null;
+
+      switch(cmd){
+        case "help":         printHelp(); return;
+        case "clear":        out.innerHTML = ""; return;
+        case "whoami":       resp = DATA.whoami; break;
+        case "ls":           resp = DATA.ls; break;
+        case "projects":     resp = DATA.projects; break;
+        case "skills":       resp = DATA.skills; break;
+        case "contact":      resp = DATA.contact; break;
+        case "education":    resp = DATA.education; break;
+        case "certs":        resp = DATA.certs; break;
+        case "achievements": resp = DATA.achievements; break;
+        case "resume":       resp = DATA.resume; break;
+        case "sudo":         resp = DATA.sudo; break;
+        case "matrix":       resp = DATA.matrix; break;
+        case "date":         resp = [new Date().toLocaleString()]; break;
+        case "echo":         resp = arg ? [arg] : []; break;
+        default:
+          line("command not found: " + cmd + " — type help", "err");
+          return;
+      }
+
+      if(resp){
+        for(var j = 0; j < resp.length; j++){
+          if(resp[j] === ""){ blank(); }
+          else{ line(resp[j], "out"); }
+        }
+      }
+    }
+
+    function pushHist(v){
+      if(!v || hist[hist.length - 1] === v){ return; }
+      hist.push(v);
+      if(hist.length > MAX_HIST){ hist.shift(); }
+    }
+
+    field.addEventListener("keydown", function(e){
+      if(e.key === "Enter"){
+        var v = field.value;
+        pushHist(v);
+        hIdx = hist.length;
+        run(v);
+        field.value = "";
+        scrollBottom();
+        focusField();
+        e.preventDefault();
+      } else if(e.key === "ArrowUp"){
+        if(hist.length){
+          hIdx = Math.max(0, hIdx - 1);
+          field.value = hist[hIdx];
+          e.preventDefault();
+        }
+      } else if(e.key === "ArrowDown"){
+        if(hist.length){
+          hIdx = Math.min(hist.length, hIdx + 1);
+          field.value = hIdx < hist.length ? hist[hIdx] : "";
+          e.preventDefault();
+        }
+      }
+    });
+
+    var frame = document.getElementById("mc-frame");
+    if(frame){
+      frame.addEventListener("click", function(e){
+        if(e.target !== field){ focusField(); }
+      });
+    }
+
+    scrollBottom();
+    focusField();
+  }catch(err){
+    console.warn("factory console init failed:", err);
+  }
+})();
+</script>
+<script>
+  /* ADDITIVE round-4 polish: terminal-first navigation — section commands
+     smooth-scroll the page AND flash the target with a lime 'hack' pulse. */
+  (function(){
+    try{
+      var field = document.getElementById('mc-field');
+      if(!field) return;
+      var MAP = {
+        about:'about', projects:'projects', skills:'skills',
+        education:'education', proof:'proof', certs:'proof',
+        contact:'contact', home:'top', top:'top'
+      };
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var flash = function(id){
+        var el = document.getElementById(id);
+        if(!el) return;
+        el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block:'start' });
+        el.classList.remove('mc-flash');
+        void el.offsetWidth; /* restart animation */
+        el.classList.add('mc-flash');
+        setTimeout(function(){ el.classList.remove('mc-flash'); }, 1400);
+      };
+      field.addEventListener('keydown', function(e){
+        if(e.key !== 'Enter') return;
+        var cmd = field.value.trim().toLowerCase().split(/\s+/)[0];
+        var id = MAP[cmd];
+        if(id) setTimeout(function(){ flash(id); }, 120);
+      }, true); /* capture: runs BEFORE the console's own handler clears the field */
+    }catch(err){ console.warn('mc-nav disabled:', err.message); }
+  })();
+</script>
+<style>
+  /* ADDITIVE round-4 polish: section flash on terminal navigation */
+  .mc-flash{ animation:mcHack 1.3s ease-out; }
+  @keyframes mcHack{
+    0%{ box-shadow:0 0 0 0 rgba(212,255,0,.0); }
+    25%{ box-shadow:0 0 0 4px rgba(212,255,0,.55), 0 0 34px rgba(212,255,0,.28); }
+    100%{ box-shadow:0 0 0 0 rgba(212,255,0,.0); }
+  }
+</style>
+<script>
+  /* ADDITIVE round-5: command flicker — every console command makes the page
+     glitch for 160ms, like the terminal is hacking the DOM. */
+  (function(){
+    try{
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var field = document.getElementById('mc-field');
+      if(!field) return;
+      var fx = document.createElement('div');
+      fx.className = 'mc-flicker';
+      fx.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(fx);
+      field.addEventListener('keydown', function(e){
+        if(e.key !== 'Enter') return;
+        if(!field.value.trim()) return;
+        if(reduced) return;
+        fx.classList.remove('go');
+        void fx.offsetWidth;
+        fx.classList.add('go');
+      }, true); /* capture: before the console clears the field */
+    }catch(err){ console.warn('mc flicker disabled:', err && err.message); }
+  })();
+</script>
+<style>
+  /* ADDITIVE round-5: command flicker overlay */
+  .mc-flicker{
+    position:fixed; inset:0; z-index:9998; pointer-events:none; opacity:0;
+    background:linear-gradient(100deg, rgba(212,255,0,.10), rgba(0,0,0,.25) 55%, rgba(212,255,0,.08));
+  }
+  .mc-flicker.go{ animation:mcFlick .16s steps(3) 1 forwards; }
+  @keyframes mcFlick{
+    0%{ opacity:.85; clip-path:inset(0 0 0 0); }
+    33%{ opacity:.45; clip-path:inset(8% 0 58% 0); transform:translateX(2px); }
+    66%{ opacity:.7; clip-path:inset(62% 0 4% 0); transform:translateX(-2px); }
+    100%{ opacity:0; clip-path:inset(0 0 0 0); transform:translateX(0); }
+  }
+</style>
+<style>
+/* ============================================================
+   MF2-ADDON — machine boot sequences (additive R1)
+   Each project card is wrapped in a .mf2-unit with a one-line
+   power-on strip above it. The strip types its boot lines when
+   scrolled into view, then the card's existing .reveal plays
+   (gated by --mf2-delay set inline by JS). The strip stays as
+   a caption. Lime-on-black, mechanical, mono.
+   ============================================================ */
+.mf2-unit{display:block;}
+.mf2-strip{
+  display:flex;align-items:center;gap:10px;
+  background:var(--ink);color:var(--lime);
+  border:2px solid var(--ink);
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 14px;
+  margin-bottom:-2px; /* merges with the card's top border */
+  overflow:hidden;white-space:nowrap;
+  user-select:none;
+  min-height:calc(1.6em + 16px); /* fixed height — no shift while typing */
+}
+.mf2-led{
+  width:9px;height:9px;flex-shrink:0;
+  background:#555;border:1px solid #222;
+  transition:background .2s ease;
+}
+.mf2-strip.mf2-done .mf2-led{background:var(--lime);}
+.mf2-line{
+  flex:1;overflow:hidden;text-overflow:ellipsis;
+  font-family:inherit;font-size:inherit;letter-spacing:inherit;
+}
+.mf2-idle{color:#8a8a8a;}
+.mf2-cursor{
+  display:inline-block;width:8px;height:1.05em;
+  background:var(--lime);vertical-align:text-bottom;
+  margin-left:3px;
+  animation:blink 1s steps(1) infinite;
+}
+/* hover = invert, like every other mechanical control on the page */
+.mf2-strip:hover{background:var(--lime);color:var(--ink);}
+.mf2-strip:hover .mf2-cursor,.mf2-strip:hover .mf2-led{background:var(--ink);}
+/* boot gate — card waits for its strip (delay value set by JS) */
+.pcard.mf2-booting{transition-delay:var(--mf2-delay,1.1s);}
+/* ---- static-frame fixes (additive) ---- */
+/* hero terminal reads designed even paused (pre-boot / no JS) */
+.term-body:empty::before{
+  content:"> STANDBY — BOOT SEQUENCE PENDING";
+  color:#8a8a8a;font-size:12px;letter-spacing:.08em;
+}
+/* glitch protocol tag visible at rest, lights up on hover */
+.mf-glitch-tag{opacity:.45;}
+/* receipt print states read intentional when static */
+.receipt.printing::after{content:"■ PRINTING";display:block;text-align:right;margin-top:6px;letter-spacing:2px;color:#8a8a8a;}
+.receipt:not(.printed):not(.printing)::after{content:"■ AWAITING PRINT";display:block;text-align:right;margin-top:6px;letter-spacing:2px;color:#8a8a8a;}
+@media (max-width:520px){
+  .mf2-strip{font-size:10px;padding:7px 10px;}
+}
+</style>
+<script>
+/* ============================================================
+   MF2-ADDON — machine boot sequences (additive R1)
+   Wraps each #projects article in a .mf2-unit, inserts a
+   one-line .mf2-strip above it, and types the boot lines
+   (STANDBY → INIT MEM → LOAD → RUN) when the strip scrolls
+   into view. The card's existing .reveal is gated via
+   --mf2-delay so the content boots in AFTER the strip.
+   Reduced motion / no IO: instant — final line shown, card
+   revealed immediately. Zero deps, follows the hero terminal's
+   setTimeout typing pattern.
+   ============================================================ */
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var noIO = !("IntersectionObserver" in window);
+  var PER_CHAR = 14;    /* ms per character, matches terminal cadence */
+  var LINE_PAUSE = 160; /* ms between boot lines */
+  var BOOT_BY_REF = {
+    "P/01": ["> INIT MEM 0x9A4F · OK", "> LOAD AQI.DASH", "> RUN"],
+    "P/02": ["> INIT MEM 0xB7C2 · OK", "> LOAD RAG.ENG", "> RUN"]
+  };
+  var DEFAULT_BOOT = ["> INIT MEM 0x0000 · OK", "> LOAD UNIT.BIN", "> RUN"];
+
+  function bootMs(lines){
+    var total = 0;
+    for(var i = 0; i < lines.length; i++){ total += lines[i].length; }
+    return total * PER_CHAR + (lines.length - 1) * LINE_PAUSE;
+  }
+
+  var articles = document.querySelectorAll("#projects article");
+  articles.forEach(function(article, idx){
+    var refEl = article.querySelector(".pcard-no");
+    var ref = refEl ? refEl.textContent.trim() : "P/0" + (idx + 1);
+    var lines = BOOT_BY_REF[ref] || DEFAULT_BOOT;
+
+    /* wrap card + strip so the projects grid gap stays outside */
+    var unit = document.createElement("div");
+    unit.className = "mf2-unit";
+    article.parentNode.insertBefore(unit, article);
+    unit.appendChild(article);
+
+    /* one-line status strip */
+    var strip = document.createElement("div");
+    strip.className = "mf2-strip";
+    strip.setAttribute("aria-hidden", "true");
+    var led = document.createElement("span");
+    led.className = "mf2-led";
+    var line = document.createElement("span");
+    line.className = "mf2-line";
+    var idle = document.createElement("span");
+    idle.className = "mf2-idle";
+    idle.textContent = "STANDBY";
+    line.appendChild(idle);
+    strip.appendChild(led);
+    strip.appendChild(line);
+    unit.insertBefore(strip, article);
+
+    /* gate the card's existing reveal on the boot duration */
+    article.classList.add("mf2-booting");
+    if(!reduce && !noIO){
+      article.style.setProperty("--mf2-delay", (bootMs(lines) / 1000 + 0.18) + "s");
+    }
+
+    function finish(){
+      line.textContent = lines[lines.length - 1];
+      var cur = document.createElement("span");
+      cur.className = "mf2-cursor";
+      cur.setAttribute("aria-hidden", "true");
+      line.appendChild(cur);
+      strip.classList.add("mf2-done");
+      article.classList.add("in");
+    }
+
+    var started = false;
+    function run(){
+      if(started){ return; }
+      started = true;
+      if(reduce || noIO){ finish(); return; }
+      var li = 0;
+      function typeLine(){
+        if(li >= lines.length){ finish(); return; }
+        var full = lines[li];
+        line.textContent = "";
+        var i = 0;
+        (function tick(){
+          if(i <= full.length){
+            line.textContent = full.slice(0, i);
+            i++;
+            if(i <= full.length){ setTimeout(tick, PER_CHAR); }
+            else{ li++; setTimeout(typeLine, LINE_PAUSE); }
+          }
+        })();
+      }
+      typeLine();
+    }
+
+    if(reduce || noIO){
+      finish();
+    }else{
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            io.unobserve(entry.target);
+            run();
+          }
+        });
+      }, {threshold:0.25});
+      io.observe(strip);
+      /* safety net: fast scroll jumps still boot the machine */
+      var onScroll = function(){
+        var r = strip.getBoundingClientRect();
+        if(r.top < window.innerHeight * 0.95){
+          window.removeEventListener("scroll", onScroll);
+          run();
+        }
+      };
+      window.addEventListener("scroll", onScroll, {passive:true});
+    }
+  });
+})();
+</script>
+<style>
+/* ============================================================
+   MC2-ADDON — hack the DOM + boot replay (additive R2)
+   .mc2-glitch: 180ms clip-path slice + hue-rotate flash on the
+     target section when its nav command runs in the console
+     (targeted cousin of the full-screen mc-flicker).
+   .mc2-stamp: section numbers stamp in after header reveals —
+     mechanical beat, part number meets the page.
+   .mc2-ok: boot replay's final [OK] line glows lime, echoing
+     the hero terminal's .t-out.ok.
+   ============================================================ */
+.mc2-glitch{animation:mc2Glitch .18s steps(3) 1;}
+@keyframes mc2Glitch{
+  0%{clip-path:inset(0 0 0 0);filter:none;transform:translateX(0);}
+  33%{clip-path:inset(9% 0 52% 0);filter:hue-rotate(85deg) saturate(1.7);transform:translateX(2px);}
+  66%{clip-path:inset(56% 0 7% 0);filter:hue-rotate(-75deg) saturate(1.4);transform:translateX(-2px);}
+  100%{clip-path:inset(0 0 0 0);filter:none;transform:translateX(0);}
+}
+.mc2-stamp{animation:mc2Stamp .24s cubic-bezier(.18,1.6,.4,1) 1;}
+@keyframes mc2Stamp{
+  0%{transform:scale(2.2) rotate(-9deg);}
+  100%{transform:scale(1) rotate(0);}
+}
+.mc2-ok{color:#d4ff00;}
+</style>
+<script>
+/* ============================================================
+   MC2-ADDON — hack the DOM + boot replay (additive R2)
+   1. Section nav commands (about/projects/skills/education/
+      proof/certs/contact) ALSO glitch the target section: a
+      180ms clip-path slice + hue-rotate flash. Capture-phase
+      keydown hook — runs before the console clears the input,
+      same pattern as the terminal-first nav and flicker hooks.
+   2. 'boot' replays the hero terminal's boot log in the
+      console, typed at the same cadence. Intercepts the
+      console's own handler via stopImmediatePropagation so
+      'command not found' never prints (DATA.boot stays as the
+      instant fallback if this hook ever fails to load).
+   3. Section numbers stamp in after their headers reveal
+      (MutationObserver on .sec-head.reveal -> .mc2-stamp).
+   Reduced motion: glitch, stamp and typing all skipped.
+   ============================================================ */
+(function(){
+  "use strict";
+  try{
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var field = document.getElementById("mc-field");
+    if(!field){ return; }
+
+    /* ---- 1. targeted section glitch on nav commands ---- */
+    var GLITCH_MAP = {
+      about:"about", projects:"projects", skills:"skills",
+      education:"education", proof:"proof", certs:"proof",
+      contact:"contact"
+    };
+    var LAND_MS = 420; /* glitch lands ~when the smooth scroll arrives */
+    function glitchSection(id){
+      var el = document.getElementById(id);
+      if(!el){ return; }
+      el.classList.remove("mc2-glitch");
+      void el.offsetWidth; /* restart the animation */
+      el.classList.add("mc2-glitch");
+      setTimeout(function(){ el.classList.remove("mc2-glitch"); }, 260);
+    }
+
+    /* ---- 2. boot replay (typed, hero cadence) ---- */
+    var BOOT_LINES = [
+      {cmd:true,  text:"whoami"},
+      {cmd:false, text:"garvit — data & AI builder · final-year B.Tech CSE"},
+      {cmd:true,  text:"cat ./focus.txt"},
+      {cmd:false, text:"turn messy real-world data into working products"},
+      {cmd:true,  text:"ls ./stack"},
+      {cmd:false, text:"python pandas streamlit pytorch tensorflow rag react"},
+      {cmd:true,  text:"./status --open-to-work"},
+      {cmd:false, text:"[OK] accepting full-time & intern roles — 2026", ok:true}
+    ];
+    var body = document.getElementById("mc-body");
+    var out = document.getElementById("mc-out");
+    function appendBootLine(b){
+      var d = document.createElement("div");
+      d.className = b.cmd ? "mc-line cmd" : (b.ok ? "mc-line out mc2-ok" : "mc-line out");
+      d.textContent = (b.cmd ? "garvit@factory:~$ " : "") + b.text;
+      out.appendChild(d);
+      body.scrollTop = body.scrollHeight;
+      return d;
+    }
+    function replayBoot(){
+      if(!body || !out){ return; }
+      var echo = document.createElement("div");
+      echo.className = "mc-line cmd";
+      echo.textContent = "garvit@factory:~$ boot";
+      out.appendChild(echo);
+      body.scrollTop = body.scrollHeight;
+      if(reduced){
+        /* instant — all lines at once */
+        BOOT_LINES.forEach(appendBootLine);
+        return;
+      }
+      var li = 0;
+      function nextLine(){
+        if(li >= BOOT_LINES.length){ return; }
+        var b = BOOT_LINES[li];
+        var d = appendBootLine(b);
+        d.textContent = (b.cmd ? "garvit@factory:~$ " : "") + b.text.slice(0, 1);
+        var i = 1;
+        (function tick(){
+          if(i <= b.text.length){
+            d.textContent = (b.cmd ? "garvit@factory:~$ " : "") + b.text.slice(0, i);
+            i++;
+            if(i <= b.text.length){ setTimeout(tick, 11); }
+            else{ li++; setTimeout(nextLine, 90); }
+          }
+        })();
+      }
+      nextLine();
+    }
+
+    field.addEventListener("keydown", function(e){
+      if(e.key !== "Enter"){ return; }
+      var cmd = field.value.trim().toLowerCase().split(/\s+/)[0];
+      if(!cmd){ return; }
+      if(cmd === "boot"){
+        /* own the command: block the console's 'command not found' */
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        replayBoot();
+        return;
+      }
+      var id = GLITCH_MAP[cmd];
+      if(id && !reduced){
+        setTimeout(function(){ glitchSection(id); }, LAND_MS);
+      }
+    }, true);
+
+    /* ---- 3. section numbers stamp in after header reveals ---- */
+    if(!reduced && window.MutationObserver){
+      var heads = document.querySelectorAll(".sec-head.reveal");
+      heads.forEach(function(head){
+        var num = head.querySelector(".sec-no");
+        if(!num){ return; }
+        if(head.classList.contains("in")){
+          num.classList.add("mc2-stamp");
+          return;
+        }
+        var mo = new MutationObserver(function(muts){
+          for(var m = 0; m < muts.length; m++){
+            if(muts[m].type === "attributes" && muts[m].attributeName === "class" && head.classList.contains("in")){
+              mo.disconnect();
+              setTimeout(function(){ num.classList.add("mc2-stamp"); }, 150);
+              return;
+            }
+          }
+        });
+        mo.observe(head, {attributes:true, attributeFilter:["class"]});
+      });
+    }
+  }catch(err){ console.warn("mc2 addon disabled:", err && err.message); }
+})();
+</script>
+</body>
+</html>

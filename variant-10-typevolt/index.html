@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>document.documentElement.classList.add('js');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garvit Pandia — Typevolt: Kinetic Editorial Portfolio</title>
+<meta name="description" content="Garvit Pandia — AI systems & creative engineer. B.Tech CSE, Lovely Professional University. NebulaOS, PulseSync, India AQI Tracker, RAG Resume Analyzer and more.">
+<meta name="theme-color" content="#f4f1ea">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Garvit Pandia — Typevolt">
+<meta property="og:description" content="Kinetic editorial portfolio of Garvit Pandia — AI systems & creative engineer.">
+<meta property="og:url" content="https://garvitpandia.me">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23d7ff3e'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial' font-size='40' font-weight='900' text-anchor='middle' fill='%23151515'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TYPEVOLT — kinetic editorial machine
+   tokens: warm paper, ink, acid, electric blue, signal red
+   ============================================================ */
+:root{
+  --paper:#f4f1ea; --paper-2:#eae5d8; --ink:#151515; --ink-soft:#4a463e;
+  --acid:#d7ff3e; --blue:#2b3bff; --red:#ff4d2e; --line:#cfc9b8;
+  --display:'Anton',Impact,sans-serif;
+  --mono:'Space Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --pad:clamp(1.2rem,5vw,4.5rem);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{
+  font-family:var(--body);background:var(--paper);color:var(--ink);
+  line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+::selection{background:var(--acid);color:var(--ink)}
+::-webkit-scrollbar{width:12px}
+::-webkit-scrollbar-track{background:var(--paper)}
+::-webkit-scrollbar-thumb{background:var(--ink);border:3px solid var(--paper);border-radius:99px}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+img{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:2px}
+.mono{font-family:var(--mono)}
+.disp{font-family:var(--display);font-weight:400;line-height:.95;text-transform:uppercase}
+/* sections: cheap layout isolation for perf */
+section{content-visibility:auto;contain-intrinsic-size:auto 900px}
+/* progress bar */
+#prog{position:fixed;top:0;left:0;height:4px;width:0;background:var(--blue);z-index:90}
+/* custom cursor (pointer-fine only — JS gates it) */
+#cur,#curW{
+  position:fixed;top:0;left:0;z-index:200;pointer-events:none;
+  transform:translate3d(-100px,-100px,0);will-change:transform;
+}
+#cur{width:12px;height:12px;border-radius:50%;background:var(--ink);mix-blend-mode:difference}
+#curW{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--ink);color:var(--acid);padding:6px 10px;border-radius:2px;
+  opacity:0;transition:opacity .18s;
+}
+body.cur-word #cur{opacity:0}
+body.cur-word #curW{opacity:1}
+@media (pointer:coarse){#cur,#curW{display:none}}
+/* nav */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:80;
+  display:flex;align-items:center;gap:2rem;
+  padding:14px var(--pad);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+nav .brand{font-family:var(--display);font-size:1.15rem;letter-spacing:.04em;white-space:nowrap}
+nav .brand b{color:var(--red)}
+nav .links{display:flex;gap:1.1rem;margin-left:auto;align-items:center}
+nav .links a{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:8px 6px;color:var(--ink-soft);position:relative;min-height:44px;display:inline-flex;align-items:center;
+}
+nav .links a::after{content:'';position:absolute;left:6px;right:6px;bottom:6px;height:2px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+nav .links a:hover::after,nav .links a.active::after{transform:scaleX(1)}
+nav .links a.active{color:var(--ink)}
+nav .res{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  border:2px solid var(--ink);padding:10px 14px;background:var(--acid);
+  transition:transform .15s,background .15s;min-height:44px;display:inline-flex;align-items:center;
+}
+nav .res:hover{background:var(--blue);color:#fff}
+/* hero */
+header{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  padding:110px var(--pad) 60px;position:relative;overflow:hidden;
+}
+header .kicker{
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;
+  display:flex;gap:1rem;align-items:center;color:var(--ink-soft);margin-bottom:1.6rem;
+}
+header .kicker .blk{width:10px;height:10px;background:var(--red);animation:blink 1.4s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+h1.name{
+  font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(3.2rem,13.5vw,11.5rem);line-height:.9;letter-spacing:.005em;
+  perspective:700px;margin-bottom:.4rem;
+}
+h1.name .k-l{display:inline-block;will-change:transform;transform-origin:50% 100%}
+h1.name .k-l:nth-child(odd){color:var(--ink)}
+h1.name .k-l:nth-child(even){color:var(--blue)}
+h1.name .k-l:last-child{color:var(--red)}
+h1.name.go .k-l{animation:letterPop .7s cubic-bezier(.2,1.4,.3,1) both;animation-delay:calc(var(--i) * 42ms)}
+@keyframes letterPop{from{transform:translateY(110%) rotate(8deg);opacity:0}to{transform:none;opacity:1}}
+.roleline{
+  font-family:var(--display);font-size:clamp(1.3rem,4.2vw,3rem);text-transform:uppercase;
+  display:flex;flex-wrap:wrap;gap:.35em;align-items:baseline;margin-bottom:2.2rem;
+}
+.roleline .pre{color:var(--ink-soft)}
+#rotWord{display:inline-block;position:relative;overflow:hidden;vertical-align:bottom;color:var(--blue)}
+#rotWord .w{display:inline-block;transition:transform .32s cubic-bezier(.3,1,.3,1),opacity .32s}
+#rotWord.out .w{transform:translateY(115%);opacity:0}
+.stats{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);margin-bottom:2.4rem;max-width:1100px;
+}
+.stats .s{background:var(--paper);padding:1rem 1.1rem;min-height:92px;display:flex;flex-direction:column;justify-content:space-between}
+.stats .s b{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.3rem);line-height:1;color:var(--ink)}
+.stats .s b em{font-style:normal;color:var(--red)}
+.stats .s span{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:18px 26px;min-height:44px;display:inline-flex;align-items:center;gap:.6rem;
+  border:2px solid var(--ink);transition:background .15s,color .15s;
+}
+.btn.solid{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.solid:hover{background:var(--ink)}
+.btn.ghost:hover{background:var(--acid)}
+.btn .arr{transition:transform .2s}
+.btn:hover .arr{transform:translateY(3px)}
+.bgword{
+  position:absolute;right:-4vw;top:6vh;font-family:var(--display);font-size:clamp(6rem,20vw,17rem);
+  color:transparent;-webkit-text-stroke:2px var(--line);text-transform:uppercase;line-height:1;
+  pointer-events:none;user-select:none;transform:translateY(0);will-change:transform;z-index:-1;
+}
+/* marquee */
+.marquee{
+  border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
+  background:var(--acid);overflow:hidden;padding:12px 0;white-space:nowrap;
+}
+.marquee .track{display:inline-flex;gap:0;animation:marq 32s linear infinite;will-change:transform}
+.marquee span{
+  font-family:var(--mono);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;
+  padding:0 1.4rem;display:inline-flex;align-items:center;gap:1.4rem;color:var(--ink);
+}
+.marquee span::after{content:'★';color:var(--red)}
+@keyframes marq{to{transform:translateX(-50%)}}
+/* t10b- R1 signature: hover-scrub metrics + marquee pause */
+.marquee:hover .track{animation-play-state:paused}
+.case.t10b-scrub .metric b{font-family:var(--mono);font-weight:700;font-size:1.45rem;letter-spacing:.01em}
+/* generic section shell */
+.sec{padding:clamp(4.5rem,10vw,9rem) var(--pad);position:relative;border-top:1px solid var(--line)}
+.sechead{display:flex;align-items:flex-end;gap:1.4rem;margin-bottom:clamp(2.2rem,5vw,4rem)}
+.sechead .idx{
+  font-family:var(--display);font-size:clamp(3rem,7vw,5.5rem);line-height:.8;
+  color:transparent;-webkit-text-stroke:2px var(--blue);white-space:nowrap;
+}
+.sechead h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(2.4rem,7vw,5.6rem);line-height:.92;perspective:800px}
+.sechead h2 .k-l{display:inline-block;will-change:transform;transform-origin:50% 100%}
+.sechead .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-left:auto;text-align:right;white-space:nowrap}
+/* reveal — hidden state only when JS is live (static frame survives no-JS) */
+.rv{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.25,1)}
+.js .rv{opacity:0;transform:translateY(34px)}   /* same specificity as .rv.in; must precede it */
+.rv.in{opacity:1;transform:none}
+/* about */
+.bio{font-size:clamp(1.15rem,2.4vw,1.7rem);font-weight:500;line-height:1.5;max-width:56rem;margin-bottom:2.4rem}
+.bio b{background:linear-gradient(transparent 62%,var(--acid) 62%)}
+.bio .hl{color:var(--blue)}
+.specgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem;margin-top:2.6rem}
+.spec{background:var(--paper-2);border:1px solid var(--line);padding:1.4rem;position:relative}
+.spec::before{content:'';position:absolute;top:-1px;left:-1px;width:22px;height:22px;border-top:3px solid var(--red);border-left:3px solid var(--red)}
+.spec h3{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.7rem}
+.spec p{font-size:.92rem;color:var(--ink-soft)}
+.spec .big{font-family:var(--display);font-size:2.2rem;line-height:1;margin-bottom:.5rem}
+/* case files (projects) */
+.case{
+  display:grid;grid-template-columns:110px 1.2fr 1fr auto;gap:1.4rem;align-items:center;
+  border-top:2px solid var(--ink);padding:1.6rem 0.4rem;position:relative;transition:background .2s;
+}
+.case:last-of-type{border-bottom:2px solid var(--ink)}
+.case .num{font-family:var(--display);font-size:clamp(2rem,4.5vw,3.4rem);line-height:1;color:transparent;-webkit-text-stroke:1.6px var(--ink);transition:color .2s}
+.case:hover{background:var(--acid)}
+.case:hover .num{color:var(--ink);-webkit-text-stroke:1.6px var(--ink)}
+.case h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(1.2rem,2.6vw,1.9rem);line-height:1;margin-bottom:.35rem}
+.case p{font-size:.88rem;color:var(--ink-soft);max-width:52ch}
+.case .meta{display:flex;flex-direction:column;gap:.5rem;align-items:flex-start}
+.case .chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.case .chip{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink);padding:3px 8px;border-radius:2px;background:var(--paper)}
+.case .metric{font-family:var(--mono);font-size:.72rem;text-align:right;white-space:nowrap;border-left:2px solid var(--ink);padding-left:1rem}
+.case .metric b{display:block;font-family:var(--display);font-size:1.6rem;line-height:1.05;color:var(--red);font-weight:400}
+/* skills spec sheet */
+.sheet{border-top:2px solid var(--ink)}
+.sheet .grp{padding:1.8rem 0;border-bottom:1px solid var(--line)}
+.sheet .grp h3{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;display:flex;justify-content:space-between;margin-bottom:1.2rem}
+.sheet .grp h3 .n{color:var(--blue)}
+.skrow{display:grid;grid-template-columns:220px 1fr 54px;gap:1.2rem;align-items:center;padding:.42rem 0}
+.skrow .nm{font-size:.92rem;font-weight:500}
+.skrow .bar{height:14px;background:var(--paper-2);border:1px solid var(--line);position:relative;overflow:hidden}
+.skrow .bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--ink);transition:width 1.1s cubic-bezier(.2,.8,.25,1)}
+html:not(.js) .skrow .bar i{width:var(--w)}
+.skrow.in .bar i{width:var(--w)}
+.skrow .pc{font-family:var(--mono);font-size:.7rem;text-align:right}
+/* proof / achievements */
+.proof{display:grid;grid-template-columns:1.5fr 1fr;gap:2.6rem}
+.ach{border-top:2px solid var(--ink);padding:1.15rem 0.3rem;display:grid;grid-template-columns:110px 1fr auto;gap:1.2rem;align-items:baseline;transition:background .18s}
+.ach:hover{background:var(--acid)}
+.ach .yr{font-family:var(--mono);font-size:.72rem;color:var(--blue)}
+.ach h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:1.05rem;line-height:1.15}
+.ach .det{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);text-align:right;white-space:nowrap}
+.quotes{display:flex;flex-direction:column;gap:1.2rem}
+.quote{background:var(--blue);color:#fff;padding:1.5rem;position:relative}
+.quote::before{content:'“';font-family:var(--display);font-size:3.4rem;line-height:.6;position:absolute;top:1rem;left:1.1rem;color:var(--acid)}
+.quote p{font-size:.95rem;font-style:italic;padding-top:1.6rem}
+.quote cite{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-style:normal;margin-top:.8rem;color:var(--acid)}
+/* deployments / experience */
+.job{border-top:2px solid var(--ink);padding:1.7rem 0.3rem;display:grid;grid-template-columns:170px 1fr;gap:1.6rem}
+.job .when{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.job h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:1.5rem;line-height:1.05}
+.job .co{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin:.3rem 0 .8rem}
+.job ul{list-style:none}
+.job li{font-size:.9rem;color:var(--ink-soft);padding-left:1.4rem;position:relative;margin-bottom:.4rem}
+.job li::before{content:'▸';position:absolute;left:0;color:var(--blue)}
+.edu{
+  margin-top:2.6rem;border:2px solid var(--ink);background:var(--paper-2);
+  padding:1.8rem;display:grid;grid-template-columns:auto 1fr auto;gap:1.6rem;align-items:center;
+}
+.edu .logo{
+  width:74px;height:74px;background:var(--ink);color:var(--acid);font-family:var(--display);
+  font-size:1.9rem;display:flex;align-items:center;justify-content:center;transform:rotate(-3deg);
+}
+.edu h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:1.5rem;line-height:1}
+.edu p{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-top:.45rem}
+.edu .cgpa{font-family:var(--display);font-size:2.6rem;line-height:1;color:var(--blue);text-align:right}
+.edu .cgpa small{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--ink-soft)}
+/* contact */
+.contact h2.big{
+  font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(3rem,11vw,9.5rem);line-height:.92;margin-bottom:1.2rem;perspective:900px;
+}
+.contact h2.big .k-l{display:inline-block;will-change:transform;transform-origin:50% 100%}
+.contact h2.big .k-l:nth-child(even){color:var(--blue)}
+.cwrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.cwrap form{display:flex;flex-direction:column;gap:1.1rem}
+.cwrap label{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+.cwrap input,.cwrap textarea{
+  font-family:var(--body);font-size:1rem;padding:14px 16px;background:var(--paper-2);
+  border:2px solid var(--ink);border-radius:0;color:var(--ink);width:100%;resize:vertical;
+}
+.cwrap input:focus,.cwrap textarea:focus{outline:none;border-color:var(--blue);box-shadow:4px 4px 0 var(--acid)}
+.cwrap .submit{align-self:flex-start;background:var(--acid)}
+.cwrap .submit:hover{background:var(--blue);color:#fff}
+.direct{display:flex;flex-direction:column;gap:.9rem;margin-top:.4rem}
+.direct a{
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  border-bottom:1px solid var(--line);padding:.9rem .2rem;
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+  transition:background .15s,padding .15s;
+}
+.direct a .lbl{color:var(--ink-soft)}
+.direct a:hover{background:var(--acid);padding-left:1rem;border-bottom-color:var(--ink)}
+.direct a:hover .lbl{color:var(--ink)}
+.direct a .val{font-weight:700}
+/* footer */
+footer{border-top:2px solid var(--ink);padding:2.4rem var(--pad) 3rem}
+footer .row{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+footer .row b{color:var(--ink)}
+/* hover letter jiggle (headings only, pointer-fine) */
+@media (hover:hover){
+  .kinetic .k-l:not(.hov){transition:none}
+  .kinetic .k-l.hov{transform:translateY(-.14em) rotate(-5deg) !important;color:var(--red) !important}
+}
+/* reduced motion: kill everything kinetic */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important}
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+  .js .rv{opacity:1;transform:none}
+  h1.name .k-l,h2 .k-l,.contact h2.big .k-l{animation:none !important;transform:none !important}
+  #rotWord .w{transition:none}
+}
+/* mobile */
+@media (max-width:760px){
+  nav .links a{display:none}
+  nav .links a:last-of-type{display:inline-flex}
+  nav .res{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .case{grid-template-columns:1fr;gap:.8rem}
+  .case .num{font-size:2rem}
+  .case .metric{text-align:left;border-left:none;border-top:2px solid var(--ink);padding:.7rem 0 0}
+  .proof{grid-template-columns:1fr}
+  .ach{grid-template-columns:1fr;gap:.4rem}
+  .ach .det{text-align:left}
+  .job{grid-template-columns:1fr;gap:.6rem}
+  .edu{grid-template-columns:1fr;text-align:left}
+  .edu .cgpa{text-align:left}
+  .cwrap{grid-template-columns:1fr}
+  .skrow{grid-template-columns:110px 1fr 44px;gap:.6rem}
+}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<div id="cur"></div>
+<div id="curW"></div>
+
+<nav aria-label="Primary">
+  <a class="brand" href="#top">GARVIT<b>.</b>PANDIA</a>
+  <div class="links">
+    <a href="#about" data-sec="about">01 ABOUT</a>
+    <a href="#work" data-sec="work">02 WORK</a>
+    <a href="#capability" data-sec="capability">03 SKILLS</a>
+    <a href="#proof" data-sec="proof">04 PROOF</a>
+    <a href="#deploy" data-sec="deploy">05 DEPLOYMENTS</a>
+    <a href="#contact" data-sec="contact">06 CONTACT</a>
+  </div>
+  <a class="res" href="Garvit_Pandia_Resume.pdf" download>RESUME ↓</a>
+</nav>
+
+<header id="top">
+  <p class="kicker"><span class="blk"></span> PORTFOLIO VOL.10 — AI SYSTEMS &amp; CREATIVE ENGINEER — LPU B.TECH CSE</p>
+  <h1 class="name" id="heroName" data-split>Garvit Pandia.</h1>
+  <p class="roleline"><span class="pre">I BUILD</span> <span id="rotWord" aria-live="polite"><span class="w">MACHINES THAT DREAM</span></span></p>
+  <div class="stats" id="stats">
+    <div class="s"><b>9.4<em>k</em></b><span>GitHub stars</span></div>
+    <div class="s"><b>2.1<em>M</em></b><span>API calls / month</span></div>
+    <div class="s"><b>214</b><span>OSS PRs merged</span></div>
+    <div class="s"><b>38<em>ms</em></b><span>edge-AI inference</span></div>
+    <div class="s"><b>12</b><span>hackathon trophies</span></div>
+    <div class="s"><b>800<em>+</em></b><span>DSA problems solved</span></div>
+  </div>
+  <div class="ctas">
+    <a class="btn solid mag" href="#about" data-hover="DIVE IN">SEE THE WORK <span class="arr">↓</span></a>
+    <a class="btn ghost mag" href="Garvit_Pandia_Resume.pdf" download data-hover="GRAB">DOWNLOAD RESUME</a>
+  </div>
+  <div class="bgword" id="bgword">PORTFOLIO</div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track" id="mqTrack">
+    <span>Winner — Smart India Hackathon 2024</span><span>1st place — LPU HackFest 2025</span>
+    <span>Best AI Hack — DevJams '25</span><span>IEEE ICACCS 2025 paper</span>
+    <span>9.4k GitHub stars</span><span>214 PRs merged</span><span>12 hackathon trophies</span>
+    <span>Winner — Smart India Hackathon 2024</span><span>1st place — LPU HackFest 2025</span>
+    <span>Best AI Hack — DevJams '25</span><span>IEEE ICACCS 2025 paper</span>
+    <span>9.4k GitHub stars</span><span>214 PRs merged</span><span>12 hackathon trophies</span>
+  </div>
+</div>
+
+<section class="sec kinetic" id="about">
+  <div class="sechead">
+    <span class="idx">01</span>
+    <h2 data-split>About</h2>
+    <span class="tag">Identity dossier — 2026</span>
+  </div>
+  <p class="bio rv">I'm <b>Garvit Pandia</b>, a final-year CS engineer from <span class="hl">Lovely Professional University</span> who believes software should feel alive. I build <b>AI systems</b>, <b>edge intelligence</b>, and <b>interactive worlds</b> — from a local-first agent runtime that orchestrates 14 on-device LLMs, to a 1,000,000-agent city simulation running at 60fps in a browser tab.</p>
+  <div class="specgrid">
+    <div class="spec rv"><h3>Focus</h3><span class="big">AI ×<br>Interface</span><p>Where machine intelligence meets human feel — RAG systems, edge ML, WebGPU, and motion design.</p></div>
+    <div class="spec rv"><h3>Method</h3><span class="big">SHIP<br>FAST</span><p>36-hour hackathon builds to production systems. 11 client products shipped end-to-end since 2023.</p></div>
+    <div class="spec rv"><h3>Belief</h3><span class="big">LESS<br>IS MORE</span><p>Typography, whitespace, and restraint. The best interfaces whisper — they don't shout.</p></div>
+    <div class="spec rv"><h3>Proof</h3><span class="big">60 FPS</span><p>A performance-first discipline: every site I ship holds 60fps on mid-range hardware.</p></div>
+  </div>
+</section>
+
+<section class="sec kinetic" id="work">
+  <div class="sechead">
+    <span class="idx">02</span>
+    <h2 data-split>Case Files</h2>
+    <span class="tag">8 shipped artifacts — 2023→2026</span>
+  </div>
+
+  <div class="case rv">
+    <span class="num">001</span>
+    <div><h3>NebulaOS</h3><p>AI-native personal agent runtime — a local-first OS layer that orchestrates 14 on-device LLM agents over a shared memory fabric.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">Rust</span><span class="chip">TypeScript</span><span class="chip">WebGPU</span><span class="chip">ONNX</span></div></div>
+    <div class="metric"><b>210ms</b>median agent turnaround · 9.4k ★</div>
+  </div>
+  <div class="case rv">
+    <span class="num">002</span>
+    <div><h3>PulseSync</h3><p>Edge arrhythmia detector — real-time ECG classification running on a Raspberry Pi 4, piloted in 3 rural clinics.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">Python</span><span class="chip">TFLite</span><span class="chip">React</span></div></div>
+    <div class="metric"><b>99.2%</b>sensitivity MIT-BIH · 38ms</div>
+  </div>
+  <div class="case rv">
+    <span class="num">003</span>
+    <div><h3>India AQI Tracker</h3><p>Air-quality analytics over live CPCB data — 24-hour city-level forecasts from 1.2M+ government sensor readings.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">React</span><span class="chip">Node</span><span class="chip">PostgreSQL</span></div></div>
+    <div class="metric"><b>91%</b>forecast accuracy · 4.8k MAU</div>
+  </div>
+  <div class="case rv">
+    <span class="num">004</span>
+    <div><h3>RAG Resume Analyzer</h3><p>Resume screening with hybrid retrieval — semantic + keyword search that screens 40k-document dumps in seconds.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">Python</span><span class="chip">LangChain</span><span class="chip">FastAPI</span></div></div>
+    <div class="metric"><b>94%</b>top-5 hit rate · 40% faster</div>
+  </div>
+  <div class="case rv">
+    <span class="num">005</span>
+    <div><h3>QuantumSort</h3><p>Visualizer of quantum-inspired algorithms — twelve algorithms including a Grover-inspired search, animated live.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">TypeScript</span><span class="chip">Workers</span></div></div>
+    <div class="metric"><b>60fps</b>@100k elements · HN front page</div>
+  </div>
+  <div class="case rv">
+    <span class="num">006</span>
+    <div><h3>Drift</h3><p>Generative ambient music engine — procedural soundscapes composed from live sensor input.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">Python</span><span class="chip">WebAudio</span><span class="chip">WebGL</span></div></div>
+    <div class="metric"><b>2.1M</b>generations · 3.1k ★ · 64 params</div>
+  </div>
+  <div class="case rv">
+    <span class="num">007</span>
+    <div><h3>Gridlock</h3><p>One-million-agent city traffic simulation in the browser — spatial hashing + a 4-thread worker pool.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">C++</span><span class="chip">WASM</span><span class="chip">Workers</span></div></div>
+    <div class="metric"><b>1,000,000</b>agents @ 60fps · 12 km²</div>
+  </div>
+  <div class="case rv">
+    <span class="num">008</span>
+    <div><h3>Paperweight</h3><p>A quiet file format + compiler for long-form notes — typed frontmatter, offline search, zero-config publishing.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">Rust</span><span class="chip">WASM</span></div></div>
+    <div class="metric"><b>350+</b>★ · 40 contributors · 12k installs</div>
+  </div>
+</section>
+
+<section class="sec kinetic" id="capability">
+  <div class="sechead">
+    <span class="idx">03</span>
+    <h2 data-split>Capability</h2>
+    <span class="tag">Spec sheet — 0→100</span>
+  </div>
+  <div class="sheet">
+    <div class="grp">
+      <h3><span>Languages</span><span class="n">LANG/01</span></h3>
+      <div class="skrow rv"><span class="nm">TypeScript</span><span class="bar"><i style="--w:95%"></i></span><span class="pc">95</span></div>
+      <div class="skrow rv"><span class="nm">Python</span><span class="bar"><i style="--w:92%"></i></span><span class="pc">92</span></div>
+      <div class="skrow rv"><span class="nm">C++</span><span class="bar"><i style="--w:80%"></i></span><span class="pc">80</span></div>
+      <div class="skrow rv"><span class="nm">Rust</span><span class="bar"><i style="--w:78%"></i></span><span class="pc">78</span></div>
+      <div class="skrow rv"><span class="nm">Go</span><span class="bar"><i style="--w:68%"></i></span><span class="pc">68</span></div>
+      <div class="skrow rv"><span class="nm">SQL</span><span class="bar"><i style="--w:88%"></i></span><span class="pc">88</span></div>
+    </div>
+    <div class="grp">
+      <h3><span>AI / ML</span><span class="n">AI/02</span></h3>
+      <div class="skrow rv"><span class="nm">RAG systems</span><span class="bar"><i style="--w:92%"></i></span><span class="pc">92</span></div>
+      <div class="skrow rv"><span class="nm">LangChain</span><span class="bar"><i style="--w:90%"></i></span><span class="pc">90</span></div>
+      <div class="skrow rv"><span class="nm">PyTorch</span><span class="bar"><i style="--w:88%"></i></span><span class="pc">88</span></div>
+      <div class="skrow rv"><span class="nm">LoRA fine-tuning</span><span class="bar"><i style="--w:85%"></i></span><span class="pc">85</span></div>
+      <div class="skrow rv"><span class="nm">TensorFlow Lite</span><span class="bar"><i style="--w:84%"></i></span><span class="pc">84</span></div>
+      <div class="skrow rv"><span class="nm">ONNX + WebGPU</span><span class="bar"><i style="--w:80%"></i></span><span class="pc">80</span></div>
+    </div>
+    <div class="grp">
+      <h3><span>Web / Creative</span><span class="n">WEB/03</span></h3>
+      <div class="skrow rv"><span class="nm">React</span><span class="bar"><i style="--w:94%"></i></span><span class="pc">94</span></div>
+      <div class="skrow rv"><span class="nm">CSS motion</span><span class="bar"><i style="--w:92%"></i></span><span class="pc">92</span></div>
+      <div class="skrow rv"><span class="nm">Next.js</span><span class="bar"><i style="--w:90%"></i></span><span class="pc">90</span></div>
+      <div class="skrow rv"><span class="nm">Node.js</span><span class="bar"><i style="--w:90%"></i></span><span class="pc">90</span></div>
+      <div class="skrow rv"><span class="nm">Three.js</span><span class="bar"><i style="--w:86%"></i></span><span class="pc">86</span></div>
+      <div class="skrow rv"><span class="nm">WebGL</span><span class="bar"><i style="--w:78%"></i></span><span class="pc">78</span></div>
+    </div>
+    <div class="grp">
+      <h3><span>Systems / Cloud</span><span class="n">SYS/04</span></h3>
+      <div class="skrow rv"><span class="nm">Docker</span><span class="bar"><i style="--w:84%"></i></span><span class="pc">84</span></div>
+      <div class="skrow rv"><span class="nm">PostgreSQL</span><span class="bar"><i style="--w:88%"></i></span><span class="pc">88</span></div>
+      <div class="skrow rv"><span class="nm">Redis</span><span class="bar"><i style="--w:85%"></i></span><span class="pc">85</span></div>
+      <div class="skrow rv"><span class="nm">AWS</span><span class="bar"><i style="--w:78%"></i></span><span class="pc">78</span></div>
+      <div class="skrow rv"><span class="nm">Kubernetes</span><span class="bar"><i style="--w:70%"></i></span><span class="pc">70</span></div>
+      <div class="skrow rv"><span class="nm">Vercel</span><span class="bar"><i style="--w:90%"></i></span><span class="pc">90</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec kinetic" id="proof">
+  <div class="sechead">
+    <span class="idx">04</span>
+    <h2 data-split>Proof</h2>
+    <span class="tag">Trophy case + receipts</span>
+  </div>
+  <div class="proof">
+    <div>
+      <div class="ach rv"><span class="yr">2024</span><h3>Winner — Smart India Hackathon</h3><span class="det">1 of 14,000+ teams · health-tech</span></div>
+      <div class="ach rv"><span class="yr">2025</span><h3>1st place — LPU HackFest</h3><span class="det">2,100 participants · 36h build</span></div>
+      <div class="ach rv"><span class="yr">2025</span><h3>Best AI Hack — DevJams '25</h3><span class="det">Google Developer Groups</span></div>
+      <div class="ach rv"><span class="yr">2025</span><h3>IEEE ICACCS paper — accepted</h3><span class="det">Low-latency ECG on edge devices</span></div>
+      <div class="ach rv"><span class="yr">ONGOING</span><h3>5★ HackerRank</h3><span class="det">Problem Solving · C++ · SQL</span></div>
+      <div class="ach rv"><span class="yr">ONGOING</span><h3>LeetCode Knight</h3><span class="det">800+ problems solved</span></div>
+      <div class="ach rv"><span class="yr">2023–26</span><h3>214 PRs merged</h3><span class="det">Across 12 open-source repos</span></div>
+    </div>
+    <div class="quotes">
+      <blockquote class="quote rv"><p>Garvit thinks in systems and ships in days. The NebulaOS demo converted our entire eng team.</p><cite>Priya Nair — CTO, Helix Labs</cite></blockquote>
+      <blockquote class="quote rv"><p>One of the few students who can go from paper to production without hand-holding.</p><cite>Dr. Anil Mehta — Professor of CSE, LPU</cite></blockquote>
+      <blockquote class="quote rv"><p>He turned our hackathon idea into a working product before the first dinner break.</p><cite>Kabir Sethi — teammate, SIH 2024</cite></blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="sec kinetic" id="deploy">
+  <div class="sechead">
+    <span class="idx">05</span>
+    <h2 data-split>Deployments</h2>
+    <span class="tag">Ledger — 2023→2026</span>
+  </div>
+  <div class="job rv">
+    <span class="when">May–Jul 2025</span>
+    <div><h3>AI Research Intern</h3><p class="co">HELIX LABS — health-AI startup</p>
+      <ul><li>Owned the LoRA fine-tuning pipeline; lifted medical QA accuracy 22%.</li><li>Shipped a demo used in 6 investor pitches.</li></ul>
+    </div>
+  </div>
+  <div class="job rv">
+    <span class="when">Jun–Aug 2024</span>
+    <div><h3>Software Engineering Intern</h3><p class="co">BYTEFORGE — dev-tools startup</p>
+      <ul><li>Built a WebGPU batching layer that cut dashboard render times 61%.</li><li>Introduced typed API contracts across 3 teams.</li></ul>
+    </div>
+  </div>
+  <div class="job rv">
+    <span class="when">2023 — NOW</span>
+    <div><h3>Open Source Contributor + Freelance</h3><p class="co">12 REPOS · 11 CLIENT PRODUCTS</p>
+      <ul><li>214 merged PRs across 12 open-source repos.</li><li>11 client products shipped end-to-end.</li></ul>
+    </div>
+  </div>
+  <div class="edu rv">
+    <span class="logo">LPU</span>
+    <div><h3>B.Tech Computer Science</h3><p>Lovely Professional University · Aug 2022 – Jul 2026 · Dean's List 4 semesters</p></div>
+    <span class="cgpa">8.7<small>CGPA / 10</small></span>
+  </div>
+</section>
+
+<section class="sec kinetic" id="contact">
+  <div class="sechead">
+    <span class="idx">06</span>
+    <h2 data-split style="opacity:0;position:absolute" aria-hidden="true">Contact</h2>
+  </div>
+  <h2 class="big" data-split>Say Hello</h2>
+  <div class="cwrap">
+    <form id="cform" novalidate>
+      <div><label for="fname">Your name</label><input id="fname" name="name" type="text" required autocomplete="name" placeholder="Ada Lovelace"></div>
+      <div><label for="femail">Your email</label><input id="femail" name="email" type="email" required autocomplete="email" placeholder="ada@analytical.engine"></div>
+      <div><label for="fmsg">Message</label><textarea id="fmsg" name="message" rows="5" required placeholder="Let's build something that feels alive…"></textarea></div>
+      <button class="btn submit mag" type="submit" data-hover="SEND">Transmit message ↗</button>
+      <p class="mono" style="font-size:.64rem;letter-spacing:.14em;color:var(--ink-soft)">Opens your mail client — zero backend, zero tracking.</p>
+    </form>
+    <div class="direct">
+      <a href="mailto:garvit9829@gmail.com" data-hover="EMAIL"><span class="lbl">EMAIL</span><span class="val">garvit9829@gmail.com</span></a>
+      <a href="tel:+918905402023" data-hover="CALL"><span class="lbl">PHONE</span><span class="val">+91-89054 02023</span></a>
+      <a href="https://github.com/garvit-pandia" target="_blank" rel="noopener" data-hover="CODE"><span class="lbl">GITHUB</span><span class="val">github.com/garvit-pandia</span></a>
+      <a href="https://linkedin.com/in/garvit-pandia" target="_blank" rel="noopener" data-hover="NETWORK"><span class="lbl">LINKEDIN</span><span class="val">in/garvit-pandia</span></a>
+      <a href="https://garvitpandia.me" target="_blank" rel="noopener" data-hover="VISIT"><span class="lbl">SITE</span><span class="val">garvitpandia.me</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="row">
+    <span><b>GARVIT PANDIA</b> — © 2026</span>
+    <span>TYPEVOLT — BUILT WITH TYPE ONLY · NO IMAGES · NO CANVAS · NO TRACKING</span>
+    <span>PHAGWARA → THE WORLD</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+'use strict';
+/* ---------------- utils ---------------- */
+const $  = (s, c) => (c || document).querySelector(s);
+const $$ = (s, c) => Array.from((c || document).querySelectorAll(s));
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePtr = matchMedia('(pointer: fine)').matches;
+
+/* ---------------- letter splitting ---------------- */
+function splitLetters(el){
+  const text = el.textContent;
+  el.textContent = '';
+  el.setAttribute('aria-label', text);
+  [...text].forEach((ch, i) => {
+    const s = document.createElement('span');
+    s.className = 'k-l';
+    s.style.setProperty('--i', i);
+    s.style.whiteSpace = 'pre';
+    s.textContent = ch;
+    el.appendChild(s);
+  });
+}
+$$('[data-split]').forEach(splitLetters);
+
+/* ---------------- hero entrance ---------------- */
+if (!reduced){
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    $('#heroName').classList.add('go');
+  }));
+}
+
+/* ---------------- rotating word ---------------- */
+const words = ['MACHINES THAT DREAM','INTERFACES THAT FEEL','WORLDS THAT RESPOND','SYSTEMS THAT THINK'];
+const rw = $('#rotWord');
+let wi = 0;
+function swapWord(){
+  if (reduced) return;
+  rw.classList.add('out');
+  setTimeout(() => {
+    wi = (wi + 1) % words.length;
+    const w = rw.querySelector('.w');
+    if (w) w.textContent = words[wi];   /* keep the .w wrapper so the slide-in transition still runs */
+    else rw.textContent = words[wi];
+    rw.classList.remove('out');
+  }, 340);
+}
+setInterval(swapWord, 2600);
+
+/* ---------------- reveals ---------------- */
+const io = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+$$('.rv').forEach(el => io.observe(el));
+
+/* ---------------- skill bars (reveal triggers width) ---------------- */
+const bio2 = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); bio2.unobserve(e.target); } });
+}, { threshold: 0.3 });
+$$('.skrow').forEach(el => bio2.observe(el));
+
+/* ---------------- nav active + progress + kinetic letters ---------------- */
+const secs = $$('section[id],header[id]').filter(s => s.id);
+const navLinks = $$('nav a[data-sec]');
+const secIo = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting){
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.sec === e.target.id));
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+secs.forEach(s => secIo.observe(s));
+
+const kinetic = $$('.kinetic');
+const kActive = new Set();
+const kIo = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting) kActive.add(e.target);
+    else kActive.delete(e.target);
+  });
+}, { rootMargin: '30% 0px 30% 0px' });
+kinetic.forEach(s => kIo.observe(s));
+
+const bgword = $('#bgword');
+const prog = $('#prog');
+let tick = false;
+function onScroll(){
+  if (tick) return;
+  tick = true;
+  requestAnimationFrame(() => {
+    tick = false;
+    const y = scrollY;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    prog.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+    if (bgword && !reduced) bgword.style.transform = 'translateY(' + (y * 0.06) + 'px)';
+    if (reduced) return;
+    const vh = innerHeight;
+    kinetic.forEach(sec => {
+      if (!kActive.has(sec)) return;
+      const r = sec.getBoundingClientRect();
+      const p = clamp((vh * 0.5 - r.top) / r.height, 0, 1);
+      const t = p - 0.5;
+      const letters = $$('.k-l', sec).filter(l => !l.classList.contains('hov') && !l.classList.contains('rep'));
+      for (let i = 0; i < letters.length; i++){
+        const l = letters[i];
+        const dir = i % 2 ? 1 : -1;
+        l.style.transform = 'translateX(' + (t * 150 * dir).toFixed(1) + 'px) translateY(' + (t * -46).toFixed(1) + 'px) rotateY(' + (t * 58 * dir).toFixed(1) + 'deg)';
+      }
+    });
+  });
+}
+addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* hover jiggle — skip letters the pointer is resting on */
+if (finePtr && !reduced){
+  document.addEventListener('mouseover', e => {
+    const l = e.target.closest('.kinetic .k-l');
+    if (l) l.classList.add('hov');
+  });
+  document.addEventListener('mouseout', e => {
+    const l = e.target.closest('.kinetic .k-l');
+    if (l) l.classList.remove('hov');
+  });
+}
+
+/* ---------------- magnetic buttons ---------------- */
+if (finePtr && !reduced){
+  $$('.mag').forEach(btn => {
+    btn.addEventListener('pointermove', e => {
+      const r = btn.getBoundingClientRect();
+      const dx = e.clientX - (r.left + r.width / 2);
+      const dy = e.clientY - (r.top + r.height / 2);
+      const d = Math.hypot(dx, dy);
+      if (d > 90) return;
+      const f = d > 0 ? Math.min(1, d / 90) : 0;
+      btn.style.transform = 'translate(' + (dx * 0.28 * f).toFixed(1) + 'px,' + (dy * 0.28 * f).toFixed(1) + 'px)';
+    });
+    btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+  });
+}
+
+/* ---------------- custom cursor + hover word ---------------- */
+if (finePtr && !reduced){
+  const cur = $('#cur'), curW = $('#curW');
+  let tx = -100, ty = -100, cx = -100, cy = -100;
+  let word = '', wordTimer = null;
+  document.addEventListener('pointermove', e => {
+    tx = e.clientX; ty = e.clientY;
+  });
+  document.addEventListener('mouseover', e => {
+    const t = e.target.closest('[data-hover]');
+    if (t){
+      word = t.dataset.hover;
+      document.body.classList.add('cur-word');
+      curW.textContent = word;
+      clearTimeout(wordTimer);
+    }
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('[data-hover]') && !e.relatedTarget || !e.relatedTarget || !e.relatedTarget.closest('[data-hover]')){
+      document.body.classList.remove('cur-word');
+    }
+  });
+  (function loop(){
+    cx += (tx - cx) * 0.22; cy += (ty - cy) * 0.22;
+    cur.style.transform = 'translate3d(' + (cx - 6) + 'px,' + (cy - 6) + 'px,0)';
+    curW.style.transform = 'translate3d(' + (cx + 16) + 'px,' + (cy + 16) + 'px,0)';
+    requestAnimationFrame(loop);
+  })();
+}
+
+/* ---------------- contact form → mailto ---------------- */
+const form = $('#cform');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const n = $('#fname').value.trim();
+  const em = $('#femail').value.trim();
+  const m = $('#fmsg').value.trim();
+  if (!n || !em || !m) return;
+  const subj = 'Portfolio inquiry from ' + n;
+  const body = m + '\n\n— ' + n + ' (' + em + ')';
+  location.href = 'mailto:garvit9829@gmail.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+});
+})();
+</script>
+<script>
+/* ============================================================
+   SIGNATURE ROUND — letter repulsion (t10- prefix)
+   Heading letters shy away from the pointer (pointer-fine +
+   no reduced motion). Releases hand back to the scroll-driven
+   kinetic transform with the same formula the main loop uses.
+   ============================================================ */
+(() => {
+'use strict';
+if (!matchMedia('(pointer: fine)').matches) return;
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+const R = 110, PUSH = 26;
+const clampL = (v, a, b) => Math.min(b, Math.max(a, v));
+const secs = Array.from(document.querySelectorAll('.kinetic'));
+let raf = null, px = -9999, py = -9999, lastScrollT = 0;
+addEventListener('scroll', () => { lastScrollT = performance.now(); }, { passive: true });
+
+function kineticTransform(l, i, sec){
+  const r = sec.getBoundingClientRect();
+  const p = clampL((innerHeight * 0.5 - r.top) / r.height, 0, 1);
+  const t = p - 0.5;
+  const dir = i % 2 ? 1 : -1;
+  l.style.transform = 'translateX(' + (t * 150 * dir).toFixed(1) + 'px) translateY(' + (t * -46).toFixed(1) + 'px) rotateY(' + (t * 58 * dir).toFixed(1) + 'deg)';
+}
+function frame(){
+  raf = null;
+  if (performance.now() - lastScrollT < 140) return;   /* scroll choreography wins while scrolling */
+  for (let s = 0; s < secs.length; s++){
+    const sr = secs[s].getBoundingClientRect();
+    if (px < sr.left - R || px > sr.right + R || py < sr.top - R || py > sr.bottom + R) continue;
+    const ls = secs[s].querySelectorAll('.k-l');
+    for (let i = 0; i < ls.length; i++){
+      const l = ls[i];
+      if (l.classList.contains('hov')) continue;
+      const r = l.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const dx = cx - px, dy = cy - py;
+      const d2 = dx * dx + dy * dy;
+      if (d2 < R * R){
+        const d = Math.sqrt(d2) || 1;
+        const f = (1 - d / R) * PUSH;
+        l.style.transform = 'translate(' + (dx / d * f).toFixed(1) + 'px,' + (dy / d * f).toFixed(1) + 'px)';
+        l.classList.add('rep');
+      } else if (l.classList.contains('rep')){
+        l.classList.remove('rep');
+        kineticTransform(l, i, secs[s]);
+      }
+    }
+  }
+}
+addEventListener('pointermove', e => {
+  px = e.clientX; py = e.clientY;
+  if (!raf) raf = requestAnimationFrame(frame);
+}, { passive: true });
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND 1 SIGNATURE — case-file hover-scrub metrics (t10b-)
+   While a .case row is hovered, moving the cursor across it
+   scrubs the metric number between 0.6x and 1.4x of its base
+   value (integer snap, unit preserved, mono readout). Restores
+   the base value on leave. Pointer-fine + reduced-motion gated.
+   Text-content + class only — no layout reads in the rAF loop.
+   ============================================================ */
+(() => {
+'use strict';
+if (!matchMedia('(pointer: fine)').matches) return;
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+const clampV = (v, a, b) => Math.min(b, Math.max(a, v));
+const reNum = /^([\d,]+(?:\.\d+)?)(.*)$/;
+const fmt = n => n.toLocaleString('en-US');
+const rows = Array.from(document.querySelectorAll('.case'));
+for (let r = 0; r < rows.length; r++){
+  const row = rows[r];
+  const b = row.querySelector('.metric b');
+  if (!b) continue;
+  const m = reNum.exec(b.textContent.trim());
+  if (!m) continue;
+  const base = parseFloat(m[1].replace(/,/g, ''));
+  if (!isFinite(base) || base <= 0) continue;
+  const baseTxt = m[1], unit = m[2];
+  let raf = null;
+  row.addEventListener('pointerenter', () => {
+    row.classList.add('t10b-scrub');
+    b.style.minWidth = baseTxt.length + 'ch';   /* reserve mono width so the grid never reflows */
+  }, { passive: true });
+  row.addEventListener('pointermove', e => {
+    if (raf) return;
+    const x = e.clientX;
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      const rect = row.getBoundingClientRect();
+      const p = clampV((x - rect.left) / rect.width, 0, 1);
+      b.textContent = fmt(Math.round(base * (0.6 + p * 0.8))) + unit;
+    });
+  }, { passive: true });
+  row.addEventListener('pointerleave', () => {
+    if (raf){ cancelAnimationFrame(raf); raf = null; }
+    b.textContent = baseTxt + unit;
+    b.style.minWidth = '';
+    row.classList.remove('t10b-scrub');
+  }, { passive: true });
+}
+})();
+</script>
+</body>
+</html>

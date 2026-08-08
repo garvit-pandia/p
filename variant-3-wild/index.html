@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garvit Pandia — Dream Loom | Living CV</title>
+<meta name="description" content="Garvit Pandia — a living CV made of data and dreams. AQI dashboards, RAG systems, and interfaces that feel alive.">
+<meta property="og:title" content="Garvit Pandia — Dream Loom">
+<meta property="og:description" content="A living, breathing CV — made of data & dreams.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#faf7f2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23faf7f2'/%3E%3Cpath d='M32 10c10 8 12 18 4 26-8 8-18 6-24-2 10-4 12-14 4-22 4-2 10-4 16-2z' fill='%23ff7a59'/%3E%3Ccircle cx='46' cy='42' r='8' fill='%238b6cff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf7f2; --ink:#221f33; --ink-soft:#5c5875; --muted:#9b95b0;
+  --coral:#ff7a59; --violet:#8b6cff; --aqua:#5fd8c9; --gold:#f2b84b;
+  --display:'Unbounded',sans-serif;
+  --serif:'Instrument Serif',Georgia,serif;
+  --body:'Outfit',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--body); font-size:16px; line-height:1.6;
+  overflow-x:hidden; cursor:none;
+}
+@media(pointer:coarse){body{cursor:auto}}
+::selection{background:var(--violet); color:#fff}
+:focus-visible{outline:3px solid var(--violet); outline-offset:3px; border-radius:4px}
+a{color:inherit}
+
+#aurora{position:fixed; inset:0; width:100vw; height:100vh; z-index:0; display:block}
+.grain-soft{
+  position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+}
+.veil{
+  position:fixed; inset:0; z-index:1; pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 40%, rgba(250,247,242,0) 62%, rgba(250,247,242,.42) 100%);
+}
+.wrap{position:relative; z-index:2}
+
+/* ---- progress thread ---- */
+#progress{
+  position:fixed; top:0; left:0; height:4px; width:0%; z-index:3000;
+  background:linear-gradient(90deg, var(--coral), var(--violet), var(--aqua), var(--gold));
+  border-radius:0 4px 4px 0;
+}
+
+/* ---- cursor ---- */
+.cursor-dot,.cursor-ring{position:fixed; top:0; left:0; z-index:3000; pointer-events:none; border-radius:50%; transform:translate(-50%,-50%)}
+.cursor-dot{width:8px; height:8px; background:var(--ink); mix-blend-mode:difference}
+.cursor-ring{
+  width:38px; height:38px; border:1.5px solid var(--violet);
+  transition:width .3s ease, height .3s ease, border-color .3s ease, opacity .3s ease; opacity:.65;
+}
+.cursor-ring.grow{width:64px; height:64px; border-color:var(--coral); opacity:1}
+@media(pointer:coarse){.cursor-dot,.cursor-ring{display:none}}
+
+/* ---- shuffle sky button ---- */
+#shuffleBtn{
+  position:fixed; bottom:24px; right:24px; z-index:150;
+  font-family:var(--display); font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  border:2px solid var(--ink); background:rgba(250,247,242,.85); backdrop-filter:blur(8px);
+  color:var(--ink); padding:13px 20px; border-radius:999px; cursor:pointer;
+  display:flex; align-items:center; gap:9px; transition:all .3s ease;
+  box-shadow:0 10px 30px -12px rgba(34,31,51,.35);
+}
+#shuffleBtn:hover{background:var(--ink); color:#fff; transform:translateY(-3px) rotate(-2deg)}
+#shuffleBtn .swirl{display:inline-block; font-size:14px; transition:transform .6s ease}
+#shuffleBtn.spinning .swirl{transform:rotate(360deg)}
+
+/* ---- nav ---- */
+nav{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:24px clamp(20px,5vw,64px);
+}
+.brand{font-family:var(--display); font-size:14px; font-weight:600; letter-spacing:.04em; text-decoration:none}
+.brand i{font-family:var(--serif); font-style:italic; font-weight:400; color:var(--coral); font-size:18px}
+.nav-links{display:flex; gap:20px; align-items:center}
+.nav-links a{
+  font-size:13px; font-weight:500; color:var(--ink-soft); text-decoration:none;
+  padding:8px 14px; border-radius:999px; transition:all .25s ease;
+}
+.nav-links a:hover{background:rgba(139,108,255,.12); color:var(--violet)}
+.nav-dl{background:var(--ink) !important; color:#fff !important; padding:10px 18px !important}
+.nav-dl:hover{background:var(--violet) !important; color:#fff !important; transform:translateY(-1px)}
+
+/* ---- hero ---- */
+.hero{
+  min-height:100svh; display:flex; flex-direction:column; justify-content:center;
+  padding:150px clamp(20px,6vw,80px) 80px; position:relative;
+}
+.hero .tagline{
+  font-family:var(--serif); font-style:italic; font-size:clamp(19px,2.5vw,28px);
+  color:var(--coral); margin-bottom:30px; display:flex; align-items:center; gap:14px;
+  text-shadow:0 2px 22px rgba(250,247,242,.9);
+}
+.hero .tagline::before{content:''; width:54px; height:2px; background:var(--coral); border-radius:2px}
+.hero h1{font-family:var(--display); font-weight:800; line-height:1.02; letter-spacing:-.01em}
+.h-line{display:block; overflow:hidden; padding-bottom:.08em; margin-bottom:-.08em}
+.h-line .ch{display:inline-block; transform:translateY(120%) rotate(4deg); opacity:0; animation:riseIn .9s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes riseIn{to{transform:translateY(0) rotate(0); opacity:1}}
+.h-name{font-size:clamp(56px,12.5vw,190px)}
+.h-name .ch:nth-child(3n){color:var(--coral)}
+.h-name .ch:nth-child(3n+1){color:var(--violet)}
+.h-name .ch:nth-child(3n+2){color:var(--aqua)}
+.h-role{font-size:clamp(22px,4.6vw,64px); font-weight:600; margin-top:6px}
+.h-role .ch{animation-delay:.35s}
+.h-role .serif-word{font-family:var(--serif); font-style:italic; font-weight:400; color:var(--coral)}
+.hero .rotator{
+  margin-top:34px; display:inline-flex; align-items:center; gap:12px;
+  font-size:clamp(15px,1.8vw,20px); color:var(--ink-soft);
+}
+.hero .rotator .rot{color:var(--violet); font-weight:600; min-width:11ch; text-align:left}
+.hero-cta{display:flex; gap:14px; margin-top:44px; flex-wrap:wrap}
+.btn{
+  font-family:var(--body); font-size:14px; font-weight:600; letter-spacing:.02em;
+  padding:16px 30px; border-radius:999px; text-decoration:none; cursor:pointer;
+  border:2px solid var(--ink); background:transparent; color:var(--ink);
+  transition:all .25s ease; display:inline-flex; align-items:center; gap:10px;
+}
+.btn-primary{background:var(--ink); color:#fff; border-color:var(--ink)}
+.btn-primary:hover{background:var(--coral); border-color:var(--coral); transform:translateY(-3px) rotate(-1deg); box-shadow:0 14px 30px rgba(255,122,89,.35)}
+.btn-ghost:hover{border-color:var(--violet); color:var(--violet); transform:translateY(-3px) rotate(1deg)}
+.hero-note{margin-top:56px; font-family:var(--serif); font-style:italic; font-size:17px; color:var(--muted); max-width:52ch}
+/* floating abstract deco */
+.hero-deco{
+  position:absolute; right:clamp(10px,4vw,60px); top:22%; width:clamp(120px,16vw,220px);
+  border-radius:58% 42% 55% 45%/45% 60% 40% 55%; overflow:hidden;
+  border:3px solid rgba(34,31,51,.15);
+  animation:blobmorph 12s ease-in-out infinite, drift 9s ease-in-out infinite;
+  mix-blend-mode:multiply; opacity:.9; box-shadow:0 30px 60px -30px rgba(34,31,51,.35);
+  pointer-events:none;
+}
+.hero-deco img{width:100%; height:100%; object-fit:cover; display:block}
+@keyframes drift{0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-22px) rotate(4deg)}}
+
+/* ---- marquee ---- */
+.mq{overflow:hidden; padding:18px 0; position:relative; z-index:2}
+.mq-track{display:flex; width:max-content; animation:slide 30s linear infinite}
+.mq.rev .mq-track{animation-direction:reverse}
+.mq:hover .mq-track{animation-play-state:paused}
+.mq span{
+  font-family:var(--display); font-weight:600; font-size:clamp(15px,2.2vw,24px);
+  white-space:nowrap; padding:0 18px; color:var(--ink);
+  display:flex; align-items:center; gap:36px;
+}
+.mq span i{font-style:normal; font-size:12px}
+.mq.alt .mq span{color:var(--ink-soft)}
+.mq .m1{color:var(--coral)} .mq .m2{color:var(--violet)} .mq .m3{color:var(--aqua)} .mq .m4{color:var(--gold)}
+@keyframes slide{to{transform:translateX(-50%)}}
+.mq-border{border-top:2px solid var(--ink); border-bottom:2px solid var(--ink)}
+
+/* ---- sections ---- */
+section{padding:clamp(90px,13vw,170px) clamp(20px,6vw,80px); position:relative}
+section::before{ /* aurora-tinted aura per section */
+  content:''; position:absolute; inset:0; pointer-events:none; z-index:-1;
+  background:radial-gradient(60% 45% at 15% 12%, rgba(255,122,89,.09), transparent 70%),
+             radial-gradient(50% 40% at 85% 30%, rgba(139,108,255,.08), transparent 70%),
+             radial-gradient(55% 45% at 50% 90%, rgba(95,216,201,.07), transparent 70%);
+}
+.shell{max-width:1180px; margin:0 auto}
+.sec-label{
+  font-family:var(--display); font-size:12px; font-weight:600; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--violet); margin-bottom:24px; display:flex; align-items:center; gap:14px;
+}
+.sec-label::before{
+  content:''; width:38px; height:2px; background:var(--violet); border-radius:2px;
+}
+.sec-label::after{
+  content:''; width:12px; height:12px; border-radius:48% 52% 55% 45%/50% 45% 55% 50%;
+  background:linear-gradient(135deg, var(--coral), var(--violet));
+  animation:blobmorph 6s ease-in-out infinite;
+}
+.sec-title{
+  font-family:var(--display); font-weight:800; font-size:clamp(34px,7vw,88px);
+  line-height:1.04; letter-spacing:-.01em; margin-bottom:clamp(36px,5vw,64px);
+}
+.sec-title .ch{display:inline-block; opacity:0; transform:translateY(60%) rotate(6deg); transition:opacity .5s ease, transform .5s cubic-bezier(.22,1,.36,1)}
+.sec-title.in .ch{opacity:1; transform:none}
+.sec-title .sw{font-family:var(--serif); font-style:italic; font-weight:400; color:var(--coral)}
+.sec-title .sw2{font-family:var(--serif); font-style:italic; font-weight:400; color:var(--violet)}
+.sec-title .sw3{font-family:var(--serif); font-style:italic; font-weight:400; color:var(--aqua)}
+
+/* ---- about ---- */
+.about-grid{display:grid; grid-template-columns:minmax(0,6fr) minmax(0,5fr); gap:clamp(30px,6vw,80px)}
+.about-lede{font-family:var(--serif); font-style:italic; font-size:clamp(24px,3.2vw,40px); line-height:1.4; color:var(--ink)}
+.about-lede b{font-style:normal; font-family:var(--display); font-weight:600; font-size:.72em; color:var(--violet)}
+.about-body p{color:var(--ink-soft); font-size:16px; margin-bottom:20px; text-shadow:0 1px 14px rgba(250,247,242,.8)}
+.about-body p b{color:var(--ink); font-weight:600}
+.blob-facts{display:flex; gap:16px; flex-wrap:wrap; margin-top:34px}
+.blob{
+  border-radius:45% 55% 60% 40%/50% 45% 55% 50%; padding:22px 26px;
+  color:#fff; text-align:center; min-width:130px;
+  animation:blobmorph 9s ease-in-out infinite;
+}
+.blob .n{font-family:var(--display); font-weight:800; font-size:24px}
+.blob .k{font-size:11px; letter-spacing:.1em; text-transform:uppercase; opacity:.9; margin-top:4px}
+.blob.b1{background:var(--coral); animation-delay:0s}
+.blob.b2{background:var(--violet); animation-delay:-3s}
+.blob.b3{background:var(--aqua); animation-delay:-6s}
+@keyframes blobmorph{
+  0%,100%{border-radius:45% 55% 60% 40%/50% 45% 55% 50%; transform:rotate(0deg)}
+  33%{border-radius:60% 40% 45% 55%/45% 60% 40% 55%; transform:rotate(3deg)}
+  66%{border-radius:40% 60% 55% 45%/55% 40% 60% 45%; transform:rotate(-3deg)}
+}
+
+/* ---- projects ---- */
+.dreamlog{
+  position:relative; border-top:2px solid var(--ink); padding:clamp(36px,5vw,64px) 0;
+  display:grid; grid-template-columns:minmax(0,4fr) minmax(0,8fr); gap:clamp(24px,4vw,60px);
+  align-items:start; transition:background .5s ease;
+}
+.dreamlog:last-of-type{border-bottom:2px solid var(--ink)}
+.dreamlog:hover{background:rgba(139,108,255,.07)}
+.dreamlog .num{
+  font-family:var(--display); font-weight:800; font-size:clamp(64px,9vw,130px);
+  line-height:.9; color:transparent; -webkit-text-stroke:2px var(--ink);
+  transition:all .4s ease; user-select:none;
+}
+.dreamlog:hover .num{color:var(--coral); -webkit-text-stroke:0; transform:rotate(-4deg)}
+.dreamlog .when{font-family:var(--serif); font-style:italic; font-size:18px; color:var(--muted); margin-top:10px; display:block}
+.dreamlog h3{font-family:var(--display); font-weight:600; font-size:clamp(26px,4vw,52px); line-height:1.08; margin-bottom:20px}
+.dreamlog h3 .sw{font-family:var(--serif); font-style:italic; font-weight:400; color:var(--violet)}
+.dreamlog ul{list-style:none; margin-bottom:26px}
+.dreamlog ul li{position:relative; padding-left:30px; margin-bottom:12px; color:var(--ink-soft); font-size:15.5px; text-shadow:0 1px 14px rgba(250,247,242,.8)}
+.dreamlog ul li::before{content:'✦'; position:absolute; left:0; color:var(--coral); font-size:13px; top:2px}
+.tags{display:flex; flex-wrap:wrap; gap:9px}
+.tags span{
+  font-family:var(--body); font-size:12.5px; font-weight:500; padding:8px 16px; border-radius:999px;
+  background:rgba(34,31,51,.06); border:1.5px solid rgba(34,31,51,.14); color:var(--ink-soft);
+  transition:all .25s ease;
+}
+.tags span:hover{background:var(--ink); color:#fff; transform:translateY(-2px) rotate(-2deg)}
+.dreamlog .go{
+  display:inline-flex; align-items:center; gap:12px; margin-top:28px;
+  font-weight:600; font-size:14.5px; color:var(--ink); text-decoration:none;
+  border-bottom:2px solid var(--coral); padding-bottom:4px;
+}
+.dreamlog .go:hover{color:var(--coral)}
+.dreamlog .go .a{transition:transform .3s ease; display:inline-block}
+.dreamlog .go:hover .a{transform:translateX(8px)}
+/* floating photo blobs inside dream logs */
+.dreamlog .imgs{position:relative; height:220px; margin-bottom:26px}
+.dreamlog .imgs img{
+  position:absolute; object-fit:cover; border-radius:50% 42% 55% 45%/45% 55% 40% 60%;
+  border:3px solid rgba(34,31,51,.18);
+  animation:blobmorph 11s ease-in-out infinite, drift 8s ease-in-out infinite;
+  box-shadow:0 24px 50px -24px rgba(34,31,51,.4);
+}
+.dreamlog .imgs img.a{width:58%; height:100%; left:0; top:0; mix-blend-mode:multiply}
+.dreamlog .imgs img.b{
+  width:44%; height:78%; right:6%; bottom:0;
+  animation-delay:-4s,-3s; mix-blend-mode:multiply; opacity:.92;
+}
+.dreamlog[data-tint="coral"] .imgs img{border-color:rgba(255,122,89,.45)}
+.dreamlog[data-tint="violet"] .imgs img{border-color:rgba(139,108,255,.45)}
+
+/* ---- skills ---- */
+.thread-groups{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px}
+.thread-group{
+  border:2px solid rgba(34,31,51,.12); border-radius:22px; padding:22px 20px;
+  background:rgba(250,247,242,.55); backdrop-filter:blur(6px);
+  transition:border-color .3s ease, transform .3s ease;
+}
+.thread-group:hover{border-color:rgba(139,108,255,.4); transform:translateY(-3px)}
+.thread-group h4{
+  font-family:var(--display); font-size:11px; font-weight:600; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--violet); margin-bottom:16px; display:flex; align-items:center; gap:10px;
+}
+.thread-group h4::before{content:'✦'; color:var(--coral); font-size:12px}
+.thread-group .float-field{min-height:0; justify-content:flex-start; padding:0; gap:10px}
+.fchip{
+  font-weight:500; font-size:clamp(12.5px,1.4vw,15px); padding:11px 20px; border-radius:999px;
+  border:2px solid var(--ink); background:rgba(250,247,242,.85); backdrop-filter:blur(4px);
+  display:inline-block; position:relative;
+  animation:floaty 6s ease-in-out infinite; transition:all .25s ease;
+}
+.fchip:hover{background:var(--ink); color:#fff; transform:scale(1.1) rotate(-3deg) !important}
+.fchip.g1{color:var(--coral); border-color:var(--coral)}
+.fchip.g2{color:var(--violet); border-color:var(--violet)}
+.fchip.g3{color:var(--aqua); border-color:var(--aqua)}
+.fchip.g4{color:var(--gold); border-color:var(--gold)}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-1.5deg)} 50%{transform:translateY(-14px) rotate(1.5deg)}}
+.soft-line{
+  text-align:center; font-family:var(--serif); font-style:italic; font-size:clamp(18px,2.4vw,28px);
+  color:var(--ink-soft); margin-top:34px; text-shadow:0 1px 14px rgba(250,247,242,.8);
+}
+.soft-line b{color:var(--coral); font-weight:400}
+
+/* ---- education ---- */
+.thread{position:relative; max-width:820px; padding-left:44px}
+.thread::before{
+  content:''; position:absolute; left:12px; top:10px; bottom:10px; width:3px; border-radius:3px;
+  background:linear-gradient(var(--coral), var(--violet), var(--aqua), var(--gold));
+  opacity:.55;
+}
+.tl{position:relative; padding-bottom:48px}
+.tl:last-child{padding-bottom:0}
+.tl::before{
+  content:''; position:absolute; left:-40px; top:8px; width:19px; height:19px; border-radius:50%;
+  background:var(--bg); border:3px solid var(--violet);
+}
+.tl:nth-child(2)::before{border-color:var(--coral)}
+.tl:nth-child(3)::before{border-color:var(--aqua)}
+.tl:nth-child(4)::before{border-color:var(--gold)}
+.tl:hover::before{background:var(--violet); transform:scale(1.25); transition:all .3s ease}
+.tl .when{font-family:var(--serif); font-style:italic; font-size:17px; color:var(--coral); margin-bottom:6px}
+.tl h4{font-family:var(--display); font-weight:600; font-size:clamp(19px,2.6vw,26px); margin-bottom:4px}
+.tl .where{color:var(--violet); font-size:14px; font-weight:500; margin-bottom:8px}
+.tl p{color:var(--ink-soft); font-size:15px}
+
+/* ---- certs ---- */
+.cert-wrap{padding:30px 0}
+.cert-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(24px,4vw,60px); margin-top:40px}
+.cert-col h4{
+  font-family:var(--display); font-size:13px; font-weight:600; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:22px;
+}
+.cert-row{
+  display:flex; align-items:baseline; gap:14px; padding:16px 6px; border-bottom:1.5px dashed rgba(34,31,51,.18);
+  transition:all .25s ease;
+}
+.cert-row:hover{padding-left:16px; background:rgba(255,122,89,.07); border-bottom-color:var(--coral)}
+.cert-row .name{font-size:15px; font-weight:500; flex:1; text-shadow:0 1px 14px rgba(250,247,242,.8)}
+.cert-row .who{font-size:13px; color:var(--muted)}
+.cert-row .when{font-family:var(--serif); font-style:italic; font-size:15px; color:var(--violet); white-space:nowrap}
+.stars{color:var(--gold); letter-spacing:3px; font-size:13px}
+
+/* ---- contact ---- */
+.contact-grid{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:clamp(30px,6vw,80px); align-items:start}
+.contact-lede{font-family:var(--serif); font-style:italic; font-size:clamp(26px,3.4vw,44px); line-height:1.35; margin-bottom:36px}
+.contact-lede b{font-family:var(--display); font-style:normal; font-weight:600; color:var(--violet); font-size:.6em}
+.channels{display:flex; flex-direction:column}
+.ch{
+  display:flex; align-items:center; gap:16px; padding:16px 4px; border-bottom:2px solid rgba(34,31,51,.12);
+  text-decoration:none; transition:all .25s ease;
+}
+.ch:hover{padding-left:14px; background:rgba(139,108,255,.08); border-bottom-color:var(--violet)}
+.ch .l{font-family:var(--display); font-size:10.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); width:90px; flex-shrink:0}
+.ch .v{font-size:15.5px; font-weight:500; word-break:break-all}
+.ch:hover .v{color:var(--violet)}
+form.msg{
+  display:flex; flex-direction:column; gap:16px;
+  background:rgba(250,247,242,.72); backdrop-filter:blur(14px);
+  border:2px solid rgba(34,31,51,.14); border-radius:26px; padding:clamp(24px,3.4vw,38px);
+  box-shadow:0 24px 60px -24px rgba(34,31,51,.25);
+}
+form.msg label{font-family:var(--display); font-size:10.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--muted)}
+form.msg input,form.msg textarea{
+  font-family:var(--body); font-size:15.5px; color:var(--ink); background:#fff;
+  border:2px solid rgba(34,31,51,.12); border-radius:14px; padding:14px 16px; width:100%;
+  transition:all .25s ease; resize:vertical;
+}
+form.msg input:focus,form.msg textarea:focus{outline:none; border-color:var(--violet); box-shadow:0 0 0 4px rgba(139,108,255,.15)}
+.form-row{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.form-status{
+  display:none; font-family:var(--serif); font-style:italic; font-size:17px; color:#fff;
+  background:var(--aqua); border-radius:999px; padding:12px 20px;
+}
+.form-status.show{display:inline-block; animation:riseIn .5s ease}
+
+/* ---- footer ---- */
+footer{
+  padding:48px clamp(20px,6vw,80px); display:flex; justify-content:space-between; align-items:center;
+  gap:20px; flex-wrap:wrap; border-top:2px solid var(--ink);
+}
+footer .big{font-family:var(--display); font-weight:600; font-size:15px}
+footer .big i{font-family:var(--serif); font-style:italic; color:var(--coral); font-weight:400}
+footer small{font-size:13px; color:var(--muted)}
+footer .top{border-bottom:2px solid var(--violet); color:var(--violet); text-decoration:none; font-weight:600; font-size:13px}
+
+/* ---- responsive ---- */
+@media(max-width:920px){
+  .hero h1{font-size:clamp(44px,14vw,92px)}
+  .hero-deco{display:none}
+  .about-grid,.contact-grid,.dreamlog{grid-template-columns:1fr}
+  .cert-grid{grid-template-columns:1fr}
+  .nav-links a:not(.nav-dl){display:none}
+  .form-row{grid-template-columns:1fr}
+  .dreamlog .num{font-size:64px}
+  .dreamlog .imgs{height:170px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}
+  .h-line .ch,.sec-title .ch{opacity:1; transform:none; animation:none}
+}
+</style>
+<style>
+/* ================= silk threads canvas (cursor weaves silk — the loom) ================= */
+#silk{
+  position:fixed; inset:0; width:100vw; height:100vh;
+  z-index:2500; pointer-events:none; display:block;
+}
+
+/* ---- fix: hero sub-headline contrast (was --muted ≈2.7:1, now --ink-soft ≈6.3:1) ---- */
+.hero-note{color:var(--ink-soft); text-shadow:0 1px 18px rgba(250,247,242,.95), 0 1px 2px rgba(250,247,242,.55)}
+
+/* ---- fix: breathing room between hero and the first marquee ---- */
+.mq.mq-border{margin-top:clamp(48px,6vw,96px)}
+
+/* ---- fix: fine dither over the orb to break gradient banding ---- */
+.dither{
+  position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.05;
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23d)' opacity='0.9'/%3E%3C/svg%3E");
+}
+@media(max-width:920px){.dither{display:none}}
+/* ---- round-3 polish: aurora-synced thread/eyelets + chip breathing room + eyelet hover pulse ---- */
+.wv-eye{transition:fill .45s ease}
+.wv-eye:not(.wv-lit){stroke:var(--wv-a3,var(--violet,#7c5cff))}
+.wv-eye:hover{fill:var(--wv-a1,var(--coral,#ff7a59)); filter:drop-shadow(0 0 6px var(--wv-a1,var(--coral,#ff7a59)))}
+.thread-groups{gap:22px}
+.fchip{padding:10px 16px; margin:3px}
+</style>
+<style>
+/* ================= woven thread overlay · aurora-linked chips · hero glow soften (add-only) ================= */
+#wvThread{position:fixed; inset:0; width:100vw; height:100vh; z-index:1500; pointer-events:none; display:block}
+#wvThread .wv-line{
+  fill:none; stroke:var(--wv-a2,var(--coral,#ff7a59)); stroke-width:2.5; stroke-linecap:round; opacity:.5;
+  stroke-dasharray:1; stroke-dashoffset:1;
+}
+.wv-eye{
+  fill:var(--bg,#faf7f2); stroke:var(--coral,#ff7a59); stroke-width:2;
+  transition:fill .45s ease;
+}
+.wv-eye.wv-lit{fill:var(--coral,#ff7a59); animation:wvPulse 1.6s ease-in-out infinite}
+@keyframes wvPulse{0%,100%{opacity:1} 50%{opacity:.55}}
+
+/* ---- aurora-linked skill chips (vars set by the new script; fallbacks keep the originals if missing) ---- */
+.fchip.g1,.fchip.g2,.fchip.g3,.fchip.g4{border-color:var(--wv-a2,currentColor)}
+.fchip:hover{background:var(--wv-a1,transparent); color:var(--ink,#221f33)}
+.sec-label{color:var(--wv-a3,var(--violet))}
+.sec-label::before{background:var(--wv-a3,var(--violet))}
+
+/* ---- fix: soften the hero name glow (additive override — single subtle shadow, keeps legibility) ---- */
+.h-name,.h-name .ch{text-shadow:0 2px 22px rgba(250,247,242,.55)}
+</style>
+<style>
+/* ================= LIVING-PALETTE SECTIONS — the loom powers the whole journey (add-only) ================= */
+/* Per-section faint tints: hue from --wv-a1/2/3 (synced to the aurora by the round-3 script), fixed .07
+   opacity, layered under content via the existing section::before mechanics (absolute, inset:0, z-index:-1,
+   pointer-events:none). Gradients can't transition, so tints snap on shuffle — intended; accents ease at .8s. */
+
+/* ---- section tints (about=a1 · dreams=a2 · threads=a3 · education=a1 · proofs=a2 · write me=a3) ---- */
+#about::before{
+  background:radial-gradient(60% 40% at 20% 10%, var(--wv-a1, #ff7a59), transparent 70%);
+  opacity:.07;
+}
+#projects::before{
+  background:radial-gradient(55% 45% at 80% 15%, var(--wv-a2, #ffb3a0), transparent 70%);
+  opacity:.07;
+}
+#skills::before{
+  background:radial-gradient(60% 45% at 50% 18%, var(--wv-a3, #c9b8ff), transparent 70%);
+  opacity:.07;
+}
+#education::before{
+  background:radial-gradient(55% 40% at 15% 20%, var(--wv-a1, #ff7a59), transparent 70%);
+  opacity:.07;
+}
+#certs::before{
+  background:radial-gradient(55% 40% at 85% 20%, var(--wv-a2, #ffb3a0), transparent 70%);
+  opacity:.07;
+}
+#contact::before{
+  background:radial-gradient(60% 45% at 20% 30%, var(--wv-a3, #c9b8ff), transparent 70%);
+  opacity:.07;
+}
+
+/* ---- accent propagation: hero name glow picks up the palette (keeps the cream legibility layer) ---- */
+.h-name,.h-name .ch{
+  text-shadow:0 2px 22px rgba(250,247,242,.55), 0 0 42px var(--wv-a1, rgba(255,122,89,.24));
+  transition:text-shadow .8s ease;
+}
+
+/* ---- blob stat cards: palette border + palette numerals (fallbacks keep the originals) ---- */
+.blob{border:2px solid var(--wv-a2, transparent); transition:background .8s ease, border-color .8s ease, box-shadow .8s ease}
+.blob .n{color:var(--wv-a3, #fff); transition:color .8s ease}
+
+/* ---- project dream-logs: palette frame on hover (left/right borders added; hover colors the whole frame) ---- */
+.dreamlog{border-left:2px solid transparent; border-right:2px solid transparent; transition:background .8s ease, border-color .8s ease, box-shadow .8s ease}
+.dreamlog:hover{border-color:var(--wv-a2, rgba(139,108,255,.4))}
+
+/* ---- marquee ticker text follows the palette at ~60% (✦ icons keep their token colors) ---- */
+.mq span{color:var(--wv-a3, var(--ink, #221f33)); opacity:.6; transition:color .8s ease}
+
+/* ---- form focus border follows the palette ---- */
+form.msg input,form.msg textarea{transition:all .8s ease}
+form.msg input:focus,form.msg textarea:focus{border-color:var(--wv-a1, var(--violet, #8b6cff))}
+
+/* ---- reduced motion: the global reduce rule already forces instant transitions with !important;
+        this defensive block makes the no-smooth-shift intent explicit (instant is fine) ---- */
+@media(prefers-reduced-motion:reduce){
+  .h-name,.h-name .ch,.blob,.blob .n,.dreamlog,.mq span,form.msg input,form.msg textarea{transition:none}
+}
+</style>
+</head>
+<body>
+<canvas id="aurora"></canvas>
+<div class="veil"></div>
+<div class="grain-soft"></div>
+<canvas id="silk"></canvas>
+<div id="progress"></div>
+<div class="cursor-dot" id="cDot"></div>
+<div class="cursor-ring" id="cRing"></div>
+<button id="shuffleBtn" type="button" aria-label="Shuffle the sky colors"><span class="swirl">✦</span> shuffle sky</button>
+
+<nav>
+  <a class="brand" href="#top">Garvit<i>&nbsp;·&nbsp;</i>Pandia</a>
+  <div class="nav-links">
+    <a href="#about">about</a>
+    <a href="#projects">dreams</a>
+    <a href="#skills">threads</a>
+    <a href="#contact">write me</a>
+    <a class="nav-dl" href="Garvit_Pandia_Resume.pdf" download>↧ resume</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="dither" aria-hidden="true"></div>
+  <div class="hero-deco">
+    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=700&q=75&auto=format&fit=crop" alt="" loading="lazy" decoding="async">
+  </div>
+  <div class="tagline">a living, breathing cv — made of data &amp; dreams</div>
+  <h1>
+    <span class="h-line h-name" data-split>GARVIT</span>
+    <span class="h-line h-name" data-split style="margin-left:clamp(10px,8vw,120px)">PANDIA</span>
+    <span class="h-line h-role" data-split>weaves <span class="serif-word">data</span> into <span class="serif-word">tools</span></span>
+  </h1>
+  <div class="rotator">currently dreaming about <span class="rot"><i id="rotWord">AIR QUALITY</i></span></div>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#projects">wander the dreams</a>
+    <a class="btn btn-ghost" href="Garvit_Pandia_Resume.pdf" download>grab the pdf</a>
+  </div>
+  <p class="hero-note">— B.Tech CSE @ LPU, class of 2026. Python, SQL, machine learning, and a soft spot for interfaces that feel alive.</p>
+</header>
+
+<div class="mq mq-border" aria-hidden="true">
+  <div class="mq-track">
+    <span><i class="m1">✦</i> MESSY DATA <i class="m2">✦</i> CLEAN STORIES <i class="m3">✦</i> AI TOOLS <i class="m4">✦</i> RAG SYSTEMS <i class="m1">✦</i> AQI DASHBOARDS <i class="m2">✦</i> STREAMLIT <i class="m3">✦</i> GEMINI <i class="m4">✦</i></span>
+    <span><i class="m1">✦</i> MESSY DATA <i class="m2">✦</i> CLEAN STORIES <i class="m3">✦</i> AI TOOLS <i class="m4">✦</i> RAG SYSTEMS <i class="m1">✦</i> AQI DASHBOARDS <i class="m2">✦</i> STREAMLIT <i class="m3">✦</i> GEMINI <i class="m4">✦</i></span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="shell">
+    <div class="sec-label">01 — who is this</div>
+    <h2 class="sec-title" data-split>a builder with a <span class="sw">soft spot</span> for the messiest data</h2>
+    <div class="about-grid">
+      <p class="about-lede">I'm a final-year CS undergrad who believes every ugly dataset hides something <b>beautiful</b> — I just have to clean it, model it, and put it in front of people.</p>
+      <div class="about-body">
+        <p><b>Right now:</b> B.Tech CSE at Lovely Professional University, CGPA 7.79, graduating July 2026.</p>
+        <p><b>Making:</b> a RAG resume analyzer (Gemini 2.5, semantic search, Q&amp;A over PDFs) and an India AQI tracker (CPCB data, city-wise pollution insight).</p>
+        <p><b>Proven:</b> HackerRank 4-star in Java and SQL, five certifications, one stubborn belief that shipping beats perfection.</p>
+        <div class="blob-facts">
+          <div class="blob b1"><div class="n"><b class="count" data-count="7">7</b>.79</div><div class="k">CGPA</div></div>
+          <div class="blob b2"><div class="n"><b class="count" data-count="2">2</b></div><div class="k">live tools</div></div>
+          <div class="blob b3"><div class="n"><b class="count" data-count="4">4</b>★</div><div class="k">Java + SQL</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mq rev" aria-hidden="true">
+  <div class="mq-track">
+    <span><i class="m4">❀</i> PYTHON <i class="m1">❀</i> PANDAS <i class="m2">❀</i> RAG <i class="m3">❀</i> STREAMLIT <i class="m4">❀</i> REACT <i class="m1">❀</i> MYSQL <i class="m2">❀</i> TENSORFLOW <i class="m3">❀</i> DOCKER <i class="m4">❀</i> AWS <i class="m1">❀</i> TABLEAU <i class="m2">❀</i></span>
+    <span><i class="m4">❀</i> PYTHON <i class="m1">❀</i> PANDAS <i class="m2">❀</i> RAG <i class="m3">❀</i> STREAMLIT <i class="m4">❀</i> REACT <i class="m1">❀</i> MYSQL <i class="m2">❀</i> TENSORFLOW <i class="m3">❀</i> DOCKER <i class="m4">❀</i> AWS <i class="m1">❀</i> TABLEAU <i class="m2">❀</i></span>
+  </div>
+</div>
+
+<section id="projects">
+  <div class="shell">
+    <div class="sec-label">02 — dream logs</div>
+    <h2 class="sec-title" data-split>two worlds I <span class="sw2">built</span> (hover them — the sky shifts)</h2>
+
+    <article class="dreamlog reveal" data-tint="coral">
+      <div>
+        <div class="num">01</div>
+        <span class="when">jul 2024 — aug 2024</span>
+      </div>
+      <div>
+        <div class="imgs">
+          <img class="a" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=75&auto=format&fit=crop" alt="Analytics dashboard" loading="lazy" decoding="async">
+          <img class="b" src="https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?w=600&q=70&auto=format&fit=crop" alt="City skyline" loading="lazy" decoding="async">
+        </div>
+        <h3>India AQI <span class="sw">Tracker</span></h3>
+        <ul>
+          <li>Interactive air-quality dashboard over the real CPCB dataset — city-wise pollutant comparison and temporal trends across AQI categories.</li>
+          <li>Pandas end-to-end: datetime parsing, year/month extraction, period indexing, NA imputation for PM2.5, PM10, NO2, SO2, CO, O3.</li>
+          <li>Shipped on Hugging Face Spaces with a Streamlit frontend — wide layout, fast loads on big CSVs.</li>
+        </ul>
+        <div class="tags"><span>Python</span><span>Pandas</span><span>Streamlit</span><span>Hugging Face</span><span>CPCB</span></div>
+        <a class="go" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">see it on github <span class="a">→</span></a>
+      </div>
+    </article>
+
+    <article class="dreamlog reveal" data-tint="violet">
+      <div>
+        <div class="num">02</div>
+        <span class="when">feb 2026 — mar 2026</span>
+      </div>
+      <div>
+        <div class="imgs">
+          <img class="a" src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=75&auto=format&fit=crop" alt="Resume documents on a desk" loading="lazy" decoding="async">
+          <img class="b" src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&q=70&auto=format&fit=crop" alt="Code on a screen" loading="lazy" decoding="async">
+        </div>
+        <h3>RAG <span class="sw">Resume Analyzer</span></h3>
+        <ul>
+          <li>AI resume analyst using Retrieval-Augmented Generation — ask questions over uploaded PDF resumes, answered with semantic search.</li>
+          <li>Google Gemini 2.5 Flash / Pro / Flash-Lite as the brain — pick your speed or your depth.</li>
+          <li>Multi-model Streamlit UI, custom page config, public deployment with zero infrastructure.</li>
+        </ul>
+        <div class="tags"><span>Python</span><span>RAG</span><span>Gemini 2.5</span><span>Streamlit</span><span>Hugging Face</span></div>
+        <a class="go" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">see it on github <span class="a">→</span></a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="shell">
+    <div class="sec-label">03 — threads in the loom</div>
+    <h2 class="sec-title" data-split>the <span class="sw3">palette</span> I weave with</h2>
+    <div class="thread-groups">
+      <div class="thread-group">
+        <h4>Languages</h4>
+        <div class="float-field">
+          <span class="fchip g1" style="animation-delay:-0s">C++</span>
+          <span class="fchip g2" style="animation-delay:-1.2s">Python</span>
+          <span class="fchip g3" style="animation-delay:-2.4s">R</span>
+          <span class="fchip g4" style="animation-delay:-3.6s">Java</span>
+          <span class="fchip g1" style="animation-delay:-4.8s">C</span>
+          <span class="fchip g2" style="animation-delay:-1.8s">JavaScript</span>
+          <span class="fchip g3" style="animation-delay:-3s">HTML/CSS</span>
+        </div>
+      </div>
+      <div class="thread-group">
+        <h4>Frameworks</h4>
+        <div class="float-field">
+          <span class="fchip g4" style="animation-delay:-4.2s">TensorFlow</span>
+          <span class="fchip g1" style="animation-delay:-5.4s">PyTorch</span>
+          <span class="fchip g2" style="animation-delay:-0.6s">Hugging Face</span>
+          <span class="fchip g3" style="animation-delay:-2.2s">React</span>
+          <span class="fchip g4" style="animation-delay:-3.8s">Node.js</span>
+          <span class="fchip g1" style="animation-delay:-5s">Express</span>
+          <span class="fchip g2" style="animation-delay:-1.4s">Next.js</span>
+          <span class="fchip g3" style="animation-delay:-2.8s">Tailwind</span>
+        </div>
+      </div>
+      <div class="thread-group">
+        <h4>Tools &amp; Platforms</h4>
+        <div class="float-field">
+          <span class="fchip g4" style="animation-delay:-4.4s">MySQL</span>
+          <span class="fchip g1" style="animation-delay:-0.9s">MongoDB</span>
+          <span class="fchip g2" style="animation-delay:-3.3s">Flask</span>
+          <span class="fchip g3" style="animation-delay:-4.9s">Docker</span>
+          <span class="fchip g4" style="animation-delay:-1.6s">Jenkins</span>
+          <span class="fchip g1" style="animation-delay:-3.9s">REST API</span>
+          <span class="fchip g2" style="animation-delay:-5.6s">Streamlit</span>
+          <span class="fchip g3" style="animation-delay:-0.3s">AWS</span>
+          <span class="fchip g4" style="animation-delay:-2.6s">Tableau</span>
+          <span class="fchip g1" style="animation-delay:-4.6s">Git</span>
+          <span class="fchip g2" style="animation-delay:-6s">GitLab</span>
+          <span class="fchip g3" style="animation-delay:-1s">Google Colab</span>
+        </div>
+      </div>
+      <div class="thread-group">
+        <h4>Soft threads</h4>
+        <div class="float-field">
+          <span class="fchip g1" style="animation-delay:-2s">Leadership</span>
+          <span class="fchip g2" style="animation-delay:-3.4s">Problem-solving</span>
+          <span class="fchip g3" style="animation-delay:-1.2s">Team player</span>
+          <span class="fchip g4" style="animation-delay:-4.8s">Communication</span>
+          <span class="fchip g1" style="animation-delay:-2.9s">Adaptability</span>
+        </div>
+      </div>
+    </div>
+    <p class="soft-line">weaving it all into tools that <b>feel alive</b></p>
+  </div>
+</section>
+
+<div class="mq" aria-hidden="true">
+  <div class="mq-track">
+    <span><i class="m3">✧</i> CERTIFICATES <i class="m4">✧</i> NPTEL <i class="m1">✧</i> COURSERA <i class="m2">✧</i> E-BOX <i class="m3">✧</i> UDEMY <i class="m4">✧</i> HACKERRANK 4★ <i class="m1">✧</i> JAVA <i class="m2">✧</i> SQL <i class="m3">✧</i></span>
+    <span><i class="m3">✧</i> CERTIFICATES <i class="m4">✧</i> NPTEL <i class="m1">✧</i> COURSERA <i class="m2">✧</i> E-BOX <i class="m3">✧</i> UDEMY <i class="m4">✧</i> HACKERRANK 4★ <i class="m1">✧</i> JAVA <i class="m2">✧</i> SQL <i class="m3">✧</i></span>
+  </div>
+</div>
+
+<section id="education">
+  <div class="shell">
+    <div class="sec-label">04 — the thread of time</div>
+    <h2 class="sec-title" data-split>where I've <span class="sw">grown</span></h2>
+    <div class="thread">
+      <div class="tl reveal">
+        <div class="when">aug 2022 — jul 2026</div>
+        <h4>B.Tech — Computer Science &amp; Engineering</h4>
+        <div class="where">Lovely Professional University · Phagwara, Punjab</div>
+        <p>CGPA 7.79 — ML, databases and software engineering, plus shipping real tools on the side.</p>
+      </div>
+      <div class="tl reveal">
+        <div class="when">jun 2024 — jul 2024</div>
+        <h4>The Complete MySQL Developer Course — Summer Training</h4>
+        <div class="where">E-Box · online</div>
+        <p>ER modeling, DDL/DML, joins, nested queries, aggregate functions; Git/GitHub collaboration.</p>
+      </div>
+      <div class="tl reveal">
+        <div class="when">apr 2020 — mar 2021</div>
+        <h4>Intermediate — PCM</h4>
+        <div class="where">Prince Career Pioneer School · Sikar, Rajasthan</div>
+        <p>85.4% — physics, chemistry, mathematics.</p>
+      </div>
+      <div class="tl reveal">
+        <div class="when">apr 2019 — mar 2020</div>
+        <h4>Matriculation</h4>
+        <div class="where">Witty International School · Udaipur, Rajasthan</div>
+        <p>81.6%.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="shell">
+    <div class="sec-label">05 — little proofs</div>
+    <h2 class="sec-title" data-split>badges &amp; <span class="sw2">beams</span></h2>
+    <div class="cert-grid">
+      <div class="cert-col reveal">
+        <h4>Certificates</h4>
+        <div class="cert-row"><span class="name">Social Networks</span><span class="who">NPTEL</span><span class="when">nov 2024</span></div>
+        <div class="cert-row"><span class="name">Data Analysis with Tableau</span><span class="who">Coursera</span><span class="when">nov 2024</span></div>
+        <div class="cert-row"><span class="name">Supervised ML: Regression &amp; Classification</span><span class="who">Coursera</span><span class="when">oct 2024</span></div>
+        <div class="cert-row"><span class="name">Complete MySQL</span><span class="who">E-Box</span><span class="when">jul 2024</span></div>
+        <div class="cert-row"><span class="name">Mastering DSA using C &amp; C++</span><span class="who">Udemy</span><span class="when">feb 2024</span></div>
+      </div>
+      <div class="cert-col reveal">
+        <h4>Achievements</h4>
+        <div class="cert-row"><span class="name">HackerRank 4-Star — Java <span class="stars">★★★★</span></span><span class="when">may 2024</span></div>
+        <div class="cert-row"><span class="name">HackerRank 4-Star — SQL <span class="stars">★★★★</span></span><span class="when">feb 2024</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="shell">
+    <div class="sec-label">06 — the invitation</div>
+    <h2 class="sec-title" data-split>say <span class="sw3">hello</span>, make it weird</h2>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-lede">Got a wild idea, a noisy dataset, or a team that needs a weaver? <b>My inbox is a loom too.</b></p>
+        <div class="channels reveal">
+          <a class="ch" href="mailto:garvit9829@gmail.com"><span class="l">email</span><span class="v">garvit9829@gmail.com</span></a>
+          <a class="ch" href="tel:+918905402023"><span class="l">phone</span><span class="v">+91 89054 02023</span></a>
+          <a class="ch" href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener"><span class="l">linkedin</span><span class="v">linkedin.com/in/garvit-pandia</span></a>
+          <a class="ch" href="https://github.com/garvit-pandia" target="_blank" rel="noopener"><span class="l">github</span><span class="v">github.com/garvit-pandia</span></a>
+          <a class="ch" href="https://garvitpandia.me" target="_blank" rel="noopener"><span class="l">website</span><span class="v">garvitpandia.me</span></a>
+        </div>
+      </div>
+      <div class="reveal">
+        <form class="msg" id="contactForm" novalidate>
+          <div class="form-row">
+            <div><label for="cf-name">name</label><input id="cf-name" name="name" type="text" placeholder="your name" required></div>
+            <div><label for="cf-email">email</label><input id="cf-email" name="email" type="email" placeholder="you@somewhere.com" required></div>
+          </div>
+          <div><label for="cf-msg">message</label><textarea id="cf-msg" name="message" rows="5" placeholder="tell me everything..." required></textarea></div>
+          <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap">
+            <button class="btn btn-primary" type="submit">send it</button>
+            <span class="form-status" id="formStatus">✉ woven! your email app will open — just hit send.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="big">Garvit <i>·</i> Pandia — dream weaver of data</span>
+  <small>© 2026 · woven by hand in Punjab, India · <a class="top" href="#top">back up ↑</a></small>
+</footer>
+
+<script>
+/* ================= AURORA SHADER (raw WebGL2) ================= */
+(() => {
+  const canvas = document.getElementById('aurora');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const gl = canvas.getContext('webgl2', {antialias:false});
+  if(!gl){ canvas.style.display='none'; return; }
+
+  const VS = `#version 300 es
+  layout(location=0) in vec2 aPos;
+  out vec2 vUv;
+  void main(){ vUv = aPos*0.5+0.5; gl_Position = vec4(aPos,0.0,1.0); }`;
+
+  const FS = `#version 300 es
+  precision highp float;
+  in vec2 vUv;
+  out vec4 fragColor;
+  uniform float uTime;
+  uniform vec2 uMouse;
+  uniform float uAspect;
+  uniform vec3 uA,uB,uC,uD;
+  uniform vec3 uA2,uB2,uC2,uD2;
+  uniform float uMix;
+
+  float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7)))*43758.5453123); }
+  float noise(vec2 p){
+    vec2 i = floor(p), f = fract(p);
+    f = f*f*(3.0-2.0*f);
+    float a = hash(i), b = hash(i+vec2(1,0)), c = hash(i+vec2(0,1)), d = hash(i+vec2(1,1));
+    return mix(mix(a,b,f.x), mix(c,d,f.x), f.y);
+  }
+  float fbm(vec2 p){
+    float v = 0.0, a = 0.5;
+    for(int i=0;i<5;i++){ v += a*noise(p); p *= 2.03; a *= 0.5; }
+    return v;
+  }
+  void main(){
+    vec2 uv = vUv;
+    uv.x *= uAspect;
+
+    vec2 p = uv*1.7;
+    p += vec2(fbm(p + vec2(uTime*0.12, 0.0)), fbm(p + vec2(0.0, uTime*0.09) + 5.2)) * 1.9;
+
+    float n = fbm(p*1.35 + uTime*0.055);
+    float n2 = fbm(p*2.6 - uTime*0.04 + 3.7);
+
+    float t = clamp(n*0.5+0.5 + (n2-0.5)*0.35, 0.0, 1.0);
+    vec3 colA = mix(uA, uB, smoothstep(0.18,0.5,t));
+    colA = mix(colA, uC, smoothstep(0.42,0.75,t));
+    colA = mix(colA, uD, smoothstep(0.68,1.0,t));
+    vec3 colB = mix(uA2, uB2, smoothstep(0.18,0.5,t));
+    colB = mix(colB, uC2, smoothstep(0.42,0.75,t));
+    colB = mix(colB, uD2, smoothstep(0.68,1.0,t));
+    vec3 col = mix(colA, colB, uMix);
+
+    vec2 m = uMouse; m.x *= uAspect;
+    float d = distance(uv, m);
+    col += vec3(0.75,0.55,0.95) * exp(-d*2.6) * 0.16;
+    col += vec3(1.0,0.72,0.6)  * exp(-d*6.0) * 0.10;
+
+    float vig = 1.0 - dot(uv - vec2(uAspect*0.5,0.5), uv - vec2(uAspect*0.5,0.5))*0.35;
+    col *= clamp(vig, 0.72, 1.0);
+
+    fragColor = vec4(col, 1.0);
+  }`;
+
+  const prog = gl.createProgram();
+  const vs = gl.createShader(gl.VERTEX_SHADER); gl.shaderSource(vs, VS); gl.compileShader(vs);
+  const fs = gl.createShader(gl.FRAGMENT_SHADER); gl.shaderSource(fs, FS); gl.compileShader(fs);
+  if(!gl.getShaderParameter(fs, gl.COMPILE_STATUS)){ console.warn('aurora shader:', gl.getShaderInfoLog(fs)); }
+  gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog); gl.useProgram(prog);
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0);
+  gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+
+  const U = {};
+  for(const n of ['uTime','uMouse','uAspect','uA','uB','uC','uD','uA2','uB2','uC2','uD2','uMix'])
+    U[n] = gl.getUniformLocation(prog, n);
+
+  const hex = h => [parseInt(h.slice(1,3),16)/255, parseInt(h.slice(3,5),16)/255, parseInt(h.slice(5,7),16)/255];
+  const PALETTES = [
+    [['#f7e3cd','#ffb3a0','#c9b8ff','#a8e6d8'], ['#efe6ff','#b9a6ff','#ffd9a0','#ff9d76']],
+    [['#e8f4ff','#b8e0ff','#ffd1e8','#fff3c9'], ['#d1f7ea','#9ff0dc','#ffb8c8','#ffe0a3']],
+    [['#fdeee3','#ffc7a8','#b9a6ff','#9fd8c8'], ['#fff1d6','#ffc98a','#f2b8c6','#a3c9ff']],
+    [['#f0f7e8','#d4edbc','#ffe3b3','#ffc4c4'], ['#e3f2fd','#b3e0ff','#d8c4ff','#ffd6a5']],
+    [['#fbe8e4','#ffb3ab','#d9c6ff','#a8e0d8'], ['#fde7d3','#ffc08a','#c9a8ff','#ff9d9d']]
+  ];
+  let PA = PALETTES[0][0].map(hex), PB = PALETTES[0][1].map(hex), pi = 0;
+  window.__shuffleSky = () => {
+    pi = (pi + 1) % PALETTES.length;
+    PA = PALETTES[pi][0].map(hex); PB = PALETTES[pi][1].map(hex);
+  };
+  /* draw loop reads PA/PB each frame, so shuffling swaps the sky instantly */
+
+  let W=0, H=0;
+  const resize = () => {
+    const dpr = Math.min(window.devicePixelRatio, 1.5);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W*dpr; canvas.height = H*dpr;
+    canvas.style.width = W+'px'; canvas.style.height = H+'px';
+    gl.viewport(0,0,canvas.width,canvas.height);
+  };
+  resize();
+  window.addEventListener('resize', resize);
+
+  let mx=0.5, my=0.5, mixVal=0, targetMix=0;
+  window.addEventListener('pointermove', e => {
+    mx = e.clientX/W; my = 1 - e.clientY/H;
+  }, {passive:true});
+
+  const logs = document.querySelectorAll('.dreamlog');
+  const ioLogs = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if(e.isIntersecting){ logs.forEach(l => l.classList.remove('hovered')); e.target.classList.add('hovered'); targetMix = 1; }
+      else if(![...logs].some(l => l.classList.contains('hovered'))) targetMix = 0;
+    });
+  }, {threshold:0.45});
+  logs.forEach(l => ioLogs.observe(l));
+
+  let running = true;
+  const draw = (now) => {
+    if(!running) return;
+    const t = now*0.001;
+    mixVal += (targetMix - mixVal)*0.02;
+    gl.uniform1f(U.uTime, t);
+    gl.uniform2f(U.uMouse, mx, my);
+    gl.uniform1f(U.uAspect, W/H);
+    gl.uniform3fv(U.uA, PA[0]); gl.uniform3fv(U.uB, PA[1]);
+    gl.uniform3fv(U.uC, PA[2]); gl.uniform3fv(U.uD, PA[3]);
+    gl.uniform3fv(U.uA2, PB[0]); gl.uniform3fv(U.uB2, PB[1]);
+    gl.uniform3fv(U.uC2, PB[2]); gl.uniform3fv(U.uD2, PB[3]);
+    gl.uniform1f(U.uMix, mixVal);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    requestAnimationFrame(draw);
+  };
+  if(reduced){
+    gl.uniform1f(U.uTime, 1.7); gl.uniform2f(U.uMouse, 0.5, 0.5);
+    gl.uniform1f(U.uAspect, W/H);
+    gl.uniform3fv(U.uA, PA[0]); gl.uniform3fv(U.uB, PA[1]);
+    gl.uniform3fv(U.uC, PA[2]); gl.uniform3fv(U.uD, PA[3]);
+    gl.uniform3fv(U.uA2, PB[0]); gl.uniform3fv(U.uB2, PB[1]);
+    gl.uniform3fv(U.uC2, PB[2]); gl.uniform3fv(U.uD2, PB[3]);
+    gl.uniform1f(U.uMix, 0);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  } else {
+    requestAnimationFrame(draw);
+  }
+  document.addEventListener('visibilitychange', () => {
+    running = !document.hidden;
+    if(running) requestAnimationFrame(draw);
+  });
+})();
+
+/* ================= kinetic type split ================= */
+const splitChars = (el) => {
+  if(el.dataset.done) return;
+  el.dataset.done = '1';
+  const text = el.innerHTML;
+  el.innerHTML = '';
+  const frag = document.createDocumentFragment();
+  const tmp = document.createElement('span');
+  tmp.innerHTML = text;
+  const walk = (node) => {
+    if(node.nodeType === 3){
+      for(const c of node.textContent){
+        if(c === ' '){ frag.appendChild(document.createTextNode(' ')); continue; }
+        const s = document.createElement('span');
+        s.className = 'ch'; s.textContent = c;
+        frag.appendChild(s);
+      }
+    } else if(node.nodeType === 1){
+      const clone = node.cloneNode(false);
+      [...node.childNodes].forEach(walk);
+      clone.append(...frag.childNodes);
+      node.replaceWith(clone);
+    }
+  };
+  [...tmp.childNodes].forEach(walk);
+  el.replaceChildren(...frag.childNodes);
+};
+document.querySelectorAll('[data-split]').forEach(el => splitChars(el));
+
+document.querySelectorAll('.h-line[data-split] .ch').forEach((ch, i) => {
+  ch.style.animationDelay = `${(i*0.028) + 0.15}s`;
+});
+
+/* ================= scroll reveals ================= */
+const io = new IntersectionObserver(entries => {
+  for(const e of entries){
+    if(e.isIntersecting){
+      if(e.target.classList.contains('sec-title')){
+        e.target.classList.add('in');
+        const chs = e.target.querySelectorAll('.ch');
+        chs.forEach((c, i) => c.style.transitionDelay = `${i*0.02}s`);
+      }
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  }
+}, {threshold:0.15, rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.sec-title, .reveal, .cert-col').forEach(el => io.observe(el));
+
+/* ================= scroll progress ================= */
+const prog = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
+  prog.style.width = (pct * 100) + '%';
+}, {passive:true});
+
+/* ================= count-up ================= */
+const countIO = new IntersectionObserver(entries => {
+  for(const e of entries){
+    if(!e.isIntersecting) continue;
+    const el = e.target;
+    countIO.unobserve(el);
+    const target = parseFloat(el.dataset.count);
+    const dur = 1200, t0 = performance.now();
+    (function tick(now){
+      const p = Math.min(1, (now - t0) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased);
+      if(p < 1) requestAnimationFrame(tick);
+    })(performance.now());
+  }
+}, {threshold:0.6});
+document.querySelectorAll('.count').forEach(el => countIO.observe(el));
+
+/* ================= word rotator ================= */
+const words = ['AIR QUALITY', 'RAG SYSTEMS', 'CLEAN DATA', 'AI TOOLS', 'DASHBOARDS', 'SEMANTIC SEARCH'];
+let wi = 0;
+const rotWord = document.getElementById('rotWord');
+setInterval(() => {
+  wi = (wi+1) % words.length;
+  rotWord.textContent = words[wi];
+}, 2200);
+
+/* ================= custom cursor ================= */
+if(window.matchMedia('(pointer:fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const dot = document.getElementById('cDot'), ring = document.getElementById('cRing');
+  let dx=0, dy=0, rx=0, ry=0;
+  window.addEventListener('pointermove', e => {
+    dx = e.clientX; dy = e.clientY;
+    dot.style.left = dx+'px'; dot.style.top = dy+'px';
+  }, {passive:true});
+  (function ringLoop(){
+    rx += (dx-rx)*0.16; ry += (dy-ry)*0.16;
+    ring.style.left = rx+'px'; ring.style.top = ry+'px';
+    requestAnimationFrame(ringLoop);
+  })();
+  document.querySelectorAll('a, button, .fchip, .dreamlog').forEach(el => {
+    el.addEventListener('pointerenter', () => ring.classList.add('grow'));
+    el.addEventListener('pointerleave', () => ring.classList.remove('grow'));
+  });
+}
+
+/* ================= contact form → mailto ================= */
+document.getElementById('contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const name = document.getElementById('cf-name').value.trim();
+  const email = document.getElementById('cf-email').value.trim();
+  const msg = document.getElementById('cf-msg').value.trim();
+  const subject = encodeURIComponent(`Portfolio inquiry from ${name || 'a visitor'}`);
+  const body = encodeURIComponent(`Hi Garvit,\n\n${msg}\n\n— ${name}\n${email}`);
+  window.location.href = `mailto:garvit9829@gmail.com?subject=${subject}&body=${body}`;
+  document.getElementById('formStatus').classList.add('show');
+});
+
+/* ================= shuffle sky button ================= */
+const shuffleBtn = document.getElementById('shuffleBtn');
+shuffleBtn.addEventListener('click', () => {
+  if(window.__shuffleSky) window.__shuffleSky();
+  shuffleBtn.classList.add('spinning');
+  setTimeout(() => shuffleBtn.classList.remove('spinning'), 650);
+});
+</script>
+
+<script>
+/* ================= silk threads (cursor weaves silk — the loom) ================= */
+(() => {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const coarse  = window.matchMedia('(pointer: coarse)').matches;
+  if(reduced || coarse) return; /* reduced motion + touch devices: skip entirely */
+
+  const canvas = document.getElementById('silk');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if(!ctx) return;
+
+  const COLORS     = ['#ff7a59', '#8b6cff', '#5fd8c9']; /* coral, violet, aqua tokens */
+  const MAX_POINTS = 30;      /* perf guard: cap the trail length */
+  const LIFETIME   = 900;     /* ms — a thread dissolves this long after it's woven */
+  const RIBBONS    = 3;       /* three ribbons of silk */
+  const STEP       = 4;       /* ribbon k samples points offset back by k*4 */
+
+  let pts = [];
+  let W = 0, H = 0;
+  let rafId = null;
+
+  const resize = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5); /* DPR cap for perf */
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width  = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  resize();
+  window.addEventListener('resize', resize, {passive:true});
+
+  window.addEventListener('pointermove', e => {
+    pts.push({x: e.clientX, y: e.clientY, t: performance.now()});
+    if(pts.length > MAX_POINTS) pts.shift();
+  }, {passive:true});
+
+  const frame = (now) => {
+    pts = pts.filter(p => now - p.t < LIFETIME); /* expire old points → threads dissolve */
+    ctx.clearRect(0, 0, W, H);
+    if(pts.length >= 4){
+      ctx.globalCompositeOperation = 'lighter'; /* glow feel */
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      for(let k = 0; k < RIBBONS; k++){
+        const start = k * STEP;
+        if(pts.length - start < 4) continue; /* need at least 4 sampled points */
+        ctx.strokeStyle = COLORS[k % COLORS.length];
+        ctx.lineWidth   = 3.5 - k * 1.1;
+        const n = pts.length;
+        for(let i = start; i < n - 1; i++){
+          /* alpha: 0.28 at the cursor head → 0 at the tail, scaled by point age */
+          const f       = (i - start) / (n - 1 - start);
+          const ageFade = 1 - (now - pts[i].t) / LIFETIME;
+          ctx.globalAlpha = 0.28 * f * Math.max(0, ageFade);
+          const mx = (pts[i].x + pts[i + 1].x) / 2;
+          const my = (pts[i].y + pts[i + 1].y) / 2;
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.quadraticCurveTo(pts[i].x, pts[i].y, mx, my); /* smooth midpoint curve */
+          ctx.stroke();
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+    rafId = requestAnimationFrame(frame);
+  };
+  rafId = requestAnimationFrame(frame);
+
+  /* pause the weave when the tab is hidden */
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden){
+      cancelAnimationFrame(rafId);
+    } else {
+      rafId = requestAnimationFrame(frame);
+    }
+  });
+})();
+</script>
+<script>
+/* ================= THE WOVEN THREAD — signature feature (add-only) ================= */
+(() => {
+  'use strict';
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const NS = 'http://www.w3.org/2000/svg';
+
+  /* ---------- 1 · woven thread overlay (fixed SVG, injected into body) ---------- */
+  const svg = document.createElementNS(NS, 'svg');
+  svg.id = 'wvThread';
+  svg.setAttribute('viewBox', '0 0 1440 4000');
+  svg.setAttribute('preserveAspectRatio', 'none');
+  svg.setAttribute('aria-hidden', 'true');
+
+  const group = document.createElementNS(NS, 'g');
+  svg.appendChild(group);
+
+  /* one long squiggle: hero (top) → contact (bottom), weaving past about/projects/skills */
+  const path = document.createElementNS(NS, 'path');
+  path.setAttribute('class', 'wv-line');
+  path.setAttribute('pathLength', '1');
+  path.setAttribute('vector-effect', 'non-scaling-stroke');
+  path.setAttribute('d', 'M 760 240 C 800 420 1210 380 1170 600 C 1130 820 430 760 400 980 C 370 1200 1200 1160 1160 1400 C 1120 1640 400 1580 400 1820 C 400 2060 1180 2040 1150 2300 C 1120 2560 420 2540 440 2800 C 460 3060 1140 3040 1100 3300 C 1060 3560 420 3520 460 3760');
+  group.appendChild(path);
+
+  /* eyelet dots sit on the thread at each section anchor */
+  const EYELETS = [
+    { anchor: 'about',    x: 400,  y: 980  },
+    { anchor: 'projects', x: 1160, y: 1400 },
+    { anchor: 'skills',   x: 1150, y: 2300 },
+    { anchor: 'contact',  x: 460,  y: 3760 }
+  ];
+  const eyes = [];
+  for(const e of EYELETS){
+    const c = document.createElementNS(NS, 'ellipse');
+    c.setAttribute('class', 'wv-eye');
+    c.setAttribute('data-anchor', e.anchor);
+    c.setAttribute('cx', String(e.x));
+    c.setAttribute('cy', String(e.y));
+    c.setAttribute('rx', '4');
+    c.setAttribute('ry', '4');
+    c.setAttribute('vector-effect', 'non-scaling-stroke');
+    group.appendChild(c);
+    eyes.push(c);
+  }
+  document.body.appendChild(svg);
+
+  /* ---------- 2 · scroll-driven reveal (dashoffset) + page-anchored positioning ---------- */
+  const doc = document.documentElement;
+  let scrollable = 1;
+  const xScale = () => window.innerWidth / 1440;          /* viewBox x → px */
+  const yScale = () => scrollable / 4000;                 /* viewBox y → document px */
+
+  const layout = () => {
+    scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+    for(const c of eyes){                                 /* counter-stretch: eyelets stay round */
+      c.setAttribute('rx', String(4 / xScale()));
+      c.setAttribute('ry', String(4 / yScale()));
+    }
+  };
+
+  const update = () => {
+    const p = Math.min(1, Math.max(0, window.scrollY / scrollable));
+    if(!reduced){
+      const reveal = Math.min(1, p + window.innerHeight / scrollable);
+      path.style.strokeDashoffset = String(1 - reveal);
+    }
+    group.setAttribute('transform',
+      'translate(0, ' + (-window.scrollY) + 'px) scale(1, ' + (scrollable / window.innerHeight) + ')');
+  };
+
+  window.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', () => { layout(); update(); }, {passive:true});
+  layout(); update();
+  if(reduced) path.style.strokeDashoffset = '0';          /* reduced motion: thread fully woven, static */
+
+  /* ---------- 3 · eyelets light up (fill coral + pulse) when their section is in view ---------- */
+  if('IntersectionObserver' in window){
+    const ioEyes = new IntersectionObserver(entries => {
+      for(const en of entries){
+        const c = eyes.find(el => el.getAttribute('data-anchor') === en.target.id);
+        if(c) c.classList.toggle('wv-lit', en.isIntersecting);
+      }
+    }, {threshold: 0.12});
+    for(const e of EYELETS){
+      const sec = document.getElementById(e.anchor);
+      if(sec) ioEyes.observe(sec);
+    }
+  }
+
+  /* ---------- 4 · aurora-linked skill chips (vars synced from the 5-palette list) ---------- */
+  const WV_PALETTES = [
+    ['#f7e3cd', '#ffb3a0', '#c9b8ff', '#a8e6d8'],
+    ['#e8f4ff', '#b8e0ff', '#ffd1e8', '#fff3c9'],
+    ['#fdeee3', '#ffc7a8', '#b9a6ff', '#9fd8c8'],
+    ['#f0f7e8', '#d4edbc', '#ffe3b3', '#ffc4c4'],
+    ['#fbe8e4', '#ffb3ab', '#d9c6ff', '#a8e0d8']
+  ];
+  const rootEl = document.documentElement;
+  let wvPi = 0;
+  const syncVars = () => {
+    const p = WV_PALETTES[wvPi % WV_PALETTES.length];
+    rootEl.style.setProperty('--wv-a1', p[0]);
+    rootEl.style.setProperty('--wv-a2', p[1]);
+    rootEl.style.setProperty('--wv-a3', p[2]);
+  };
+  syncVars();
+
+  const shuffleBtn = document.getElementById('shuffleBtn');
+  if(shuffleBtn){
+    shuffleBtn.addEventListener('click', () => {
+      wvPi = (wvPi + 1) % WV_PALETTES.length;
+      syncVars();
+    });
+  }
+  /* wrap the existing sky-shuffle so palette vars follow it too (guarded against double-wrap) */
+  if(window.__shuffleSky && !window.__shuffleSky.__wvWrapped){
+    const origShuffle = window.__shuffleSky;
+    const wrapped = function(){
+      const r = origShuffle.apply(this, arguments);
+      syncVars();
+      return r;
+    };
+    wrapped.__wvWrapped = true;
+    window.__shuffleSky = wrapped;
+  }
+})();
+</script>
+<script>
+  /* ADDITIVE round-5: thread tension — the woven thread tightens (thicker, brighter)
+     on fast scroll and hums at high velocity, like silk being pulled through the loom. */
+  (function(){
+    try{
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduced) return;
+      var svg = document.getElementById('wvThread');
+      if(!svg) return;
+      var ten = 0, lastY = window.scrollY, lastT = performance.now(), raf = null;
+      function frame(now){
+        var dy = Math.abs(window.scrollY - lastY);
+        var dt = now - lastT;
+        lastY = window.scrollY; lastT = now;
+        var target = dt > 0 ? Math.min(1, dy / (dt * 0.9)) : 0;
+        ten += (target - ten) * 0.3;
+        if(ten < 0.02) ten = 0;
+        svg.style.setProperty('--wv-ten', ten.toFixed(3));
+        svg.classList.toggle('wv-hum', ten > 0.55);
+        raf = null;
+      }
+      window.addEventListener('scroll', function(){
+        if(!raf) raf = requestAnimationFrame(frame);
+      }, {passive:true});
+    }catch(err){ console.warn('wv tension disabled:', err && err.message); }
+  })();
+</script>
+<style>
+  /* ADDITIVE round-5: thread tension styles (driven by --wv-ten set in JS) */
+  #wvThread .wv-line{
+    stroke-width:calc(2.5px + var(--wv-ten,0)*1.6px);
+    opacity:calc(.5 + var(--wv-ten,0)*.3);
+  }
+  #wvThread.wv-hum{ animation:wvHum .18s linear infinite; }
+  @keyframes wvHum{
+    0%{ transform:translateX(0); } 25%{ transform:translateX(-1.5px); }
+    75%{ transform:translateX(1.5px); } 100%{ transform:translateX(0); }
+  }
+</style>
+<script>
+/* ================= ROUND-1 · THREAD SAG — gravity bows the woven thread between its eyelets =================
+   The taut path is rebuilt with a cheap bezier midpoint offset: every cubic segment between eyelet
+   anchors (about → projects → skills → contact) is split at its t=0.5 midpoint and that midpoint is
+   pushed DOWN by the sag depth. Sag is tension-linked to the existing --wv-ten scroll-velocity var
+   (set by the round-5 tension script on the same SVG element): at rest the thread hangs ~8px, under high
+   tension it tightens toward straight — sag→0 exactly reconstructs the original curve (a de Casteljau
+   split at t=0.5 reproduces it, so the taut state is pixel-identical to round-5). Same path element,
+   same drawing code path; pathLength/dash-reveal/tension styles all keep working. */
+(function(){
+  try{
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var svg = document.getElementById('wvThread');
+    if(!svg) return;
+    var path = svg.querySelector('.wv-line');
+    if(!path) return;
+
+    var ORIG = path.getAttribute('d') || '';
+    var cmds = ORIG.trim().split(/(?=[MC])/).filter(Boolean); /* drop leading '' when the path starts with M */
+    if(cmds.length < 3 || cmds[0].charAt(0) !== 'M' || cmds[1].charAt(0) !== 'C') return; /* shape guard */
+
+    var nums = function(s){ return s.replace(/[MC]/g, '').trim().split(/[\s,]+/).map(Number); };
+    var start = nums(cmds[0]);
+    var segs = cmds.slice(1).map(function(c){
+      var n = nums(c);
+      return {x1:n[0], y1:n[1], x2:n[2], y2:n[3], x:n[4], y:n[5]};
+    });
+    var SAG_FROM = 2; /* segment index where sag starts — the segment leaving the 'about' eyelet */
+    var r = function(v){ return Math.round(v * 100) / 100; };
+
+    var build = function(sagVb){
+      var out = 'M ' + r(start[0]) + ' ' + r(start[1]);
+      for(var i = 0; i < segs.length; i++){
+        var s = segs[i];
+        var ax = i === 0 ? start[0] : segs[i - 1].x;
+        var ay = i === 0 ? start[1] : segs[i - 1].y;
+        var p01x = (ax + s.x1) / 2, p01y = (ay + s.y1) / 2;
+        var p12x = (s.x1 + s.x2) / 2, p12y = (s.y1 + s.y2) / 2;
+        var p23x = (s.x2 + s.x) / 2, p23y = (s.y2 + s.y) / 2;
+        var p012x = (p01x + p12x) / 2, p012y = (p01y + p12y) / 2;
+        var p123x = (p12x + p23x) / 2, p123y = (p12y + p23y) / 2;
+        var mx = (p012x + p123x) / 2, my = (p012y + p123y) / 2 + (i >= SAG_FROM ? sagVb : 0);
+        out += ' C ' + r(p01x) + ' ' + r(p01y) + ' ' + r(p012x) + ' ' + r(p012y) + ' ' + r(mx) + ' ' + r(my)
+             + ' C ' + r(p123x) + ' ' + r(p123y) + ' ' + r(p23x) + ' ' + r(p23y) + ' ' + r(s.x) + ' ' + r(s.y);
+      }
+      return out;
+    };
+
+    var REST_SAG_PX = 8; /* spec: 6–10px at rest */
+    var lastSag = -1, lastBuild = null;
+    var rebuild = function(){
+      var scrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      var yScale = scrollable / 4000; /* same viewBox→document mapping as the wvThread layout code */
+      var ten = parseFloat(svg.style.getPropertyValue('--wv-ten')) || 0;
+      var sagPx = REST_SAG_PX * (1 - Math.min(1, Math.max(0, ten)));
+      if(Math.abs(sagPx - lastSag) < 0.15) return; /* skip rebuilds while sag is ~unchanged */
+      lastSag = sagPx;
+      var d = build(sagPx / yScale);
+      if(d !== lastBuild){ lastBuild = d; path.setAttribute('d', d); }
+    };
+
+    svg.classList.add('wv-sag'); /* sag-live marker (styled in the R1 style block) */
+    rebuild();
+    if(reduced) return; /* reduced motion: thread static, frozen at its rest sag */
+
+    var raf = null;
+    var onScroll = function(){
+      if(!raf) raf = requestAnimationFrame(function(){ raf = null; rebuild(); });
+    };
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', function(){ lastSag = -1; onScroll(); }, {passive:true});
+    window.addEventListener('load', function(){ lastSag = -1; onScroll(); }, {passive:true});
+  }catch(err){ console.warn('wv sag disabled:', err && err.message); }
+})();
+</script>
+<script>
+/* ================= ROUND-1 · WET-INK DREAMLOGS — text smudges like fresh ink on hover =================
+   Pointer-fine + reduced-motion gated: adds .wv-ink to each .dreamlog so on hover the text blurs
+   a hair (0.6px) and a soft ink-pool glow soaks in beneath the card, both 200ms ease. A localStorage
+   force-key (wvInkForce=1) lets pointer-less/headless verification drive the gate. */
+(function(){
+  try{
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var fine = window.matchMedia('(pointer: fine)').matches || localStorage.getItem('wvInkForce') === '1';
+    if(reduced || !fine) return;
+    var logs = document.querySelectorAll('.dreamlog');
+    for(var i = 0; i < logs.length; i++) logs[i].classList.add('wv-ink');
+  }catch(err){ console.warn('wv ink disabled:', err && err.message); }
+})();
+</script>
+<style>
+/* ================= ROUND-1 · THREAD SAG + WET-INK DREAMLOGS (add-only, wv- prefix) ================= */
+
+/* wv-sag — gravity sag between eyelets: the thread hangs below its taut path at rest and straightens
+   under scroll tension. Geometry is rebuilt per-frame in the sag script (an SVG path `d` cannot
+   transition); this rule only documents the live state. */
+#wvThread.wv-sag .wv-line{stroke-dasharray:1}
+
+/* ---- wv-ink — wet-ink hover on dreamlog text: 0.6px smudge + ink pool, 200ms, calm ---- */
+.wv-ink .num,.wv-ink .when,.wv-ink h3,.wv-ink ul,.wv-ink .tags,.wv-ink .go{transition:filter .2s ease}
+.wv-ink:hover .num,.wv-ink:hover .when,.wv-ink:hover h3,.wv-ink:hover ul,.wv-ink:hover .tags,.wv-ink:hover .go{filter:blur(.6px)}
+.wv-ink::after{
+  content:''; position:absolute; left:5%; right:5%; bottom:-16px; height:52px;
+  background:radial-gradient(60% 100% at 50% 0%, rgba(34,31,51,.12), rgba(139,108,255,.07) 55%, transparent 75%);
+  border-radius:50%; opacity:0; transform:translateY(4px);
+  transition:opacity .2s ease, transform .2s ease; pointer-events:none;
+}
+.wv-ink:hover::after{opacity:1; transform:translateY(0)}
+
+/* ---- R1 static-frame + calm-hover fixes (additive overrides) ---- */
+
+/* fix 1 · hero name halo: stronger cream scrim so the rainbow letters hold on the PAUSED aurora
+   (static-frame rule — the aurora's brightest static gradient colors sit directly behind the name) */
+.h-name,.h-name .ch{
+  text-shadow:0 2px 22px rgba(250,247,242,.8), 0 0 46px rgba(250,247,242,.55), 0 0 42px var(--wv-a1, rgba(255,122,89,.24));
+}
+
+/* fix 2 · calm, layout-free hovers: cert rows + contact channels glide on transform only
+   (no padding animation → zero reflow; 10px slide matches the previous indent look) */
+.cert-row:hover{padding-left:6px; transform:translateX(10px)}
+.ch:hover{padding-left:4px; transform:translateX(10px)}
+
+/* fix 3 · ease-out on BOTH hover directions: timeline dots settle back (was an instant snap on
+   leave), dreamlog "see it" links fade color instead of snapping */
+.tl::before{transition:all .25s ease}
+.tl:hover::before{transition:all .25s ease}
+.dreamlog .go{transition:color .2s ease}
+</style>
+</body>
+</html>

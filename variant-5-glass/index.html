@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garvit Pandia — Data & AI Builder</title>
+<meta name="description" content="Portfolio of Garvit Pandia — final-year CS undergrad building data & AI products: air-quality analytics over real CPCB data and RAG systems that read resumes.">
+<meta name="theme-color" content="#0b0d2a">
+<!-- OG / social -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Garvit Pandia — Data & AI Builder">
+<meta property="og:description" content="Final-year CS undergrad building data & AI products — analytics dashboards and RAG systems, shipped.">
+<meta property="og:url" content="https://garvitpandia.me">
+<meta property="og:image" content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&auto=format&fit=crop">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Inline SVG favicon: gradient circle -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236be8ff'/%3E%3Cstop offset='.5' stop-color='%23a78bff'/%3E%3Cstop offset='1' stop-color='%23ff7a6b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Three.js via import map (jsdelivr sends ACAO:*, works from file://) -->
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+<style>
+/* ============================================================
+   GLASS HORIZON — tokens
+   ============================================================ */
+:root{
+  --sky-0:#0b0d2a; --sky-1:#1a1245; --sky-2:#2a0f3d;
+  --txt:#f4f5ff; --txt-2:rgba(244,245,255,.72); --txt-3:rgba(244,245,255,.5);
+  --coral:#ff7a6b; --cyan:#6be8ff; --violet:#a78bff; --gold:#ffd97a;
+  --grad:linear-gradient(90deg,#6be8ff,#a78bff,#ff7a6b);
+  --glass:rgba(255,255,255,.08);
+  --glass-strong:rgba(255,255,255,.1);
+  --line:rgba(255,255,255,.18);
+  --line-soft:rgba(255,255,255,.1);
+  --radius:24px;
+  --shadow:inset 0 1px 0 rgba(255,255,255,.25), 0 24px 60px rgba(2,4,32,.45);
+  --font:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'Geist Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+}
+/* ============================================================
+   Base
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+body{
+  font-family:var(--font); color:var(--txt); background:var(--sky-0);
+  -webkit-font-smoothing:antialiased; overflow-x:hidden; line-height:1.6;
+}
+::selection{background:rgba(107,232,255,.35);color:#fff}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:99px;border:3px solid var(--sky-0)}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+.mono{font-family:var(--mono)}
+.grad{
+  background:linear-gradient(90deg,#6be8ff,#a78bff,#ff7a6b);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-fill-color:transparent;
+}
+/* Animated sky — slow gradient drift, sits behind everything */
+.sky{
+  position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:linear-gradient(160deg,var(--sky-0) 0%,var(--sky-1) 48%,var(--sky-2) 100%);
+  background-size:150% 150%;
+  animation:skyShift 26s ease-in-out infinite alternate;
+}
+@keyframes skyShift{0%{background-position:0% 0%}100%{background-position:100% 100%}}
+/* ============================================================
+   Floating gradient orbs — blur(60px) + screen blend; the reason
+   the glass panels exist: they sit ON these fields of colour.
+   ============================================================ */
+.orb{position:fixed;border-radius:50%;filter:blur(60px);mix-blend-mode:screen;z-index:0;pointer-events:none;will-change:transform}
+.orb-1{width:480px;height:480px;background:var(--coral);top:-9%;left:-7%;opacity:.5;animation:drift1 22s ease-in-out infinite alternate}
+.orb-2{width:400px;height:400px;background:var(--cyan);top:20%;right:-9%;opacity:.45;animation:drift2 26s ease-in-out infinite alternate}
+.orb-3{width:540px;height:540px;background:var(--violet);bottom:-12%;left:26%;opacity:.45;animation:drift3 30s ease-in-out infinite alternate}
+.orb-4{width:300px;height:300px;background:var(--gold);top:54%;left:56%;opacity:.32;animation:drift2 20s ease-in-out infinite alternate}
+@keyframes drift1{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(140px,-90px,0) scale(1.15)}}
+@keyframes drift2{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-120px,110px,0) scale(1.1)}}
+@keyframes drift3{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(100px,70px,0) scale(1.2)}}
+/* ============================================================
+   Glass recipe — every panel on the page uses this
+   ============================================================ */
+.glass{
+  background:var(--glass);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+/* Scroll progress glow bar */
+#progress{
+  position:fixed;top:0;left:0;height:3px;width:0%;z-index:100;
+  background:linear-gradient(90deg,#6be8ff,#a78bff,#ff7a6b);
+  box-shadow:0 0 14px rgba(167,139,255,.8),0 0 30px rgba(107,232,255,.4);
+}
+/* ============================================================
+   Nav — fixed glass pill
+   ============================================================ */
+.nav{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;
+  display:flex;align-items:center;gap:26px;padding:10px 12px 10px 22px;
+  border-radius:999px;background:rgba(11,13,42,.42);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 16px 40px rgba(2,4,32,.5);
+  width:max-content;max-width:calc(100% - 24px);
+}
+.wordmark{font-weight:800;font-size:14.5px;letter-spacing:.04em;white-space:nowrap}
+.wordmark b{font-weight:800}
+.nav-links{display:flex;gap:22px;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:12px;color:var(--txt-2);transition:color .25s;white-space:nowrap}
+.nav-links a:hover{color:var(--cyan)}
+.nav .btn{padding:9px 18px;font-size:13px}
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;padding:14px 27px;border-radius:999px;
+  font-family:var(--font);font-size:15px;font-weight:600;letter-spacing:.01em;
+  border:1px solid transparent;cursor:pointer;color:var(--txt);
+  transition:transform .3s,box-shadow .3s,border-color .3s,background .3s;white-space:nowrap;
+}
+.btn-solid{background:linear-gradient(90deg,#6be8ff,#a78bff 55%,#ff7a6b);color:#0b0d2a;box-shadow:0 8px 28px rgba(107,232,255,.28)}
+.btn-solid:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(167,139,255,.42)}
+.btn-ghost{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.28);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn-ghost:hover{border-color:rgba(107,232,255,.65);box-shadow:0 0 26px rgba(107,232,255,.2);transform:translateY(-2px)}
+/* ============================================================
+   Layout shell
+   ============================================================ */
+.container{max-width:1140px;margin:0 auto;padding:0 clamp(22px,5vw,44px)}
+section{padding:clamp(72px,8vw,108px) 0 0;position:relative;z-index:2}
+.eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.22em;color:var(--txt-2);text-transform:uppercase}
+.eyebrow::before{content:'';width:26px;height:2px;border-radius:2px;background:var(--grad);box-shadow:0 0 10px rgba(107,232,255,.6)}
+.sec-title{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;letter-spacing:-.02em;line-height:1.12;margin:14px 0 10px}
+.sec-sub{color:var(--txt-2);max-width:560px;font-size:16px;font-weight:300}
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(26px);filter:blur(7px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1),filter .8s ease}
+.reveal.in{opacity:1;transform:none;filter:none}
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero{
+  min-height:100svh;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;
+  padding-top:clamp(120px,16vh,170px);padding-bottom:60px;gap:20px;
+}
+/* Three.js canvas — transparent overlay, prisms float on the right */
+#hero-scene{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;display:block}
+.hero-left{position:relative;z-index:2}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.26em;color:var(--txt-2)}
+.hero-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hero-name{
+  font-size:clamp(3.1rem,8.4vw,6.6rem);font-weight:800;letter-spacing:-.035em;
+  line-height:.98;margin:22px 0 20px;text-transform:uppercase;
+}
+.hero-sub{color:var(--txt-2);font-size:clamp(1rem,1.5vw,1.15rem);font-weight:300;max-width:480px;margin-bottom:38px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+/* Floating stat chips — glass pills drifting over the prisms */
+.chips{
+  position:absolute;right:2%;bottom:24%;z-index:2;display:flex;flex-direction:column;
+  align-items:flex-end;gap:12px;
+}
+.chip{
+  display:inline-flex;align-items:center;gap:9px;padding:10px 17px;border-radius:999px;
+  font-family:var(--mono);font-size:12.5px;color:var(--txt);
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 30px rgba(2,4,32,.35);
+  animation:chipFloat 6s ease-in-out infinite alternate;white-space:nowrap;
+}
+.chip i{width:7px;height:7px;border-radius:50%;flex:none}
+.chip-1{animation-delay:0s}.chip-2{animation-delay:-1.6s}.chip-3{animation-delay:-3.1s}.chip-4{animation-delay:-4.4s}
+@keyframes chipFloat{from{transform:translateY(-4px)}to{transform:translateY(6px)}}
+/* Scroll indicator */
+.scroll-hint{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.3em;color:var(--txt-3);text-transform:uppercase;
+}
+.scroll-hint::after{content:'';width:1px;height:44px;background:linear-gradient(180deg,var(--cyan),transparent);animation:drip 2.2s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}56%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;padding:38px 40px;margin-top:44px}
+.about-statement{font-size:clamp(1.05rem,1.6vw,1.22rem);font-weight:300;line-height:1.75;color:var(--txt)}
+.about-statement strong{font-weight:600;color:#fff}
+.about-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(107,232,255,.65),rgba(167,139,255,.65),rgba(255,122,107,.65),transparent);margin:0 0 26px}
+.about-details{display:grid;gap:15px}
+.about-row{display:flex;justify-content:space-between;gap:18px;font-size:13.5px}
+.about-row .k{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--txt-3);text-transform:uppercase;padding-top:2px;flex:none}
+.about-row .v{color:var(--txt-2);text-align:right}
+.about-row .v b{color:var(--txt);font-weight:600}
+/* ============================================================
+   PROJECTS
+   ============================================================ */
+.projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:44px}
+.project{padding:20px;display:flex;flex-direction:column;transition:transform .4s,border-color .4s,box-shadow .4s}
+.project:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 30px 70px rgba(2,4,32,.55)}
+.project-media{
+  position:relative;border-radius:16px;overflow:hidden;aspect-ratio:16/9;margin-bottom:22px;
+  transition:box-shadow .4s;
+}
+.project-media img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,.61,.36,1)}
+.project-media::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(11,13,42,0) 38%,rgba(11,13,42,.62) 100%);
+}
+.project:hover .project-media{box-shadow:0 0 0 1px rgba(107,232,255,.4),0 0 46px rgba(107,232,255,.24)}
+.project:hover .project-media img{transform:scale(1.05)}
+.project-meta{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--cyan);text-transform:uppercase;margin-bottom:10px}
+.project h3{font-size:1.42rem;font-weight:800;letter-spacing:-.015em;margin-bottom:14px;line-height:1.25}
+.project ul{list-style:none;display:grid;gap:9px;margin-bottom:20px}
+.project li{color:var(--txt-2);font-size:14px;font-weight:300;padding-left:20px;position:relative}
+.project li::before{content:'';position:absolute;left:2px;top:9px;width:8px;height:8px;border-radius:2px;background:var(--grad);opacity:.85}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.tag{
+  font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:6px 12px;border-radius:999px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:rgba(244,245,255,.82);
+}
+.tag:hover{border-color:rgba(107,232,255,.55);color:var(--cyan)}
+.project-link{margin-top:auto;font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;color:var(--txt-2);display:inline-flex;align-items:center;gap:8px;transition:color .25s,gap .25s}
+.project-link:hover{color:var(--cyan);gap:12px}
+/* ============================================================
+   SKILLS — 2x2 glass tiles
+   ============================================================ */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:44px}
+.skill-tile{padding:28px 30px;transition:transform .35s,border-color .35s}
+.skill-tile:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.3)}
+.tile-bar{width:30px;height:3px;border-radius:3px;background:var(--grad);box-shadow:0 0 12px rgba(167,139,255,.55);margin-bottom:16px}
+.skill-tile h3{font-family:var(--mono);font-size:12px;letter-spacing:.24em;color:var(--txt-2);text-transform:uppercase;font-weight:500;margin-bottom:18px}
+.skill-tile .tags{row-gap:10px;margin-bottom:0}
+/* ============================================================
+   EDUCATION — vertical glass timeline
+   ============================================================ */
+.timeline{position:relative;padding-left:44px;margin-top:44px}
+.timeline::before{
+  content:'';position:absolute;left:6px;top:8px;bottom:8px;width:2px;border-radius:2px;
+  background:linear-gradient(180deg,rgba(107,232,255,.55),rgba(167,139,255,.55),rgba(255,122,107,.55));
+  box-shadow:0 0 14px rgba(167,139,255,.35);
+}
+.tl-item{position:relative;margin-bottom:24px}
+.tl-node{
+  position:absolute;left:-44px;top:26px;width:14px;height:14px;border-radius:50%;
+  background:linear-gradient(135deg,#6be8ff,#a78bff,#ff7a6b);
+  box-shadow:0 0 16px rgba(167,139,255,.9),0 0 42px rgba(107,232,255,.45);
+}
+.tl-card{
+  background:rgba(255,255,255,.05);border:1px solid var(--line-soft);border-radius:18px;
+  padding:22px 26px;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 14px 34px rgba(2,4,32,.35);
+  transition:border-color .3s,transform .3s;
+}
+.tl-card:hover{border-color:rgba(255,255,255,.24);transform:translateX(4px)}
+.tl-top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.tl-date{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--cyan);text-transform:uppercase}
+.tl-now{font-family:var(--mono);font-size:10px;letter-spacing:.18em;padding:4px 11px;border-radius:999px;background:rgba(107,232,255,.12);border:1px solid rgba(107,232,255,.4);color:var(--cyan)}
+.tl-card h3{font-size:1.12rem;font-weight:700;letter-spacing:-.01em}
+.tl-card p{color:var(--txt-2);font-size:13.5px;font-weight:300}
+/* ============================================================
+   PROOF — certificates + achievements
+   ============================================================ */
+.proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:44px}
+.proof-panel{padding:30px 32px}
+.proof-panel h3{font-family:var(--mono);font-size:12px;letter-spacing:.24em;color:var(--txt-2);text-transform:uppercase;font-weight:500;margin-bottom:8px}
+.proof-panel .tile-bar{margin-bottom:22px}
+.cert-row{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.cert-row:last-child{border-bottom:none;padding-bottom:2px}
+.cert-row .c-name{font-size:14.5px;font-weight:600}
+.cert-row .c-issuer{font-family:var(--mono);font-size:11px;color:var(--txt-3);letter-spacing:.06em;margin-top:2px;text-transform:uppercase}
+.cert-row .c-date{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:none}
+.achv{display:flex;gap:18px;align-items:flex-start;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.achv:last-child{border-bottom:none;padding-bottom:2px}
+.achv-stars{font-size:15px;letter-spacing:5px;color:var(--gold);text-shadow:0 0 14px rgba(255,217,122,.75);flex:none;margin-top:2px}
+.achv h4{font-size:15px;font-weight:700}
+.achv p{font-family:var(--mono);font-size:11.5px;color:var(--txt-3);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;margin-top:44px}
+.form-panel{padding:32px 34px}
+.form-panel h3{font-size:1.3rem;font-weight:800;letter-spacing:-.01em;margin-bottom:6px}
+.form-panel .form-note{font-size:13.5px;color:var(--txt-2);font-weight:300;margin-bottom:26px}
+.field{width:100%;margin-bottom:16px}
+.field label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--txt-3);text-transform:uppercase;margin-bottom:8px}
+.field input,.field textarea{
+  width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;padding:13px 16px;color:var(--txt);font:inherit;font-size:14.5px;
+  transition:border-color .25s,box-shadow .25s;resize:vertical;
+}
+.field input::placeholder,.field textarea::placeholder{color:rgba(244,245,255,.32)}
+.field input:focus,.field textarea:focus{
+  outline:none;border-color:rgba(107,232,255,.7);
+  box-shadow:0 0 0 4px rgba(107,232,255,.13),0 0 24px rgba(107,232,255,.12);
+  background:rgba(255,255,255,.07);
+}
+.form-ok{
+  display:none;margin-top:16px;padding:12px 16px;border-radius:12px;font-size:13.5px;color:var(--cyan);
+  background:rgba(107,232,255,.09);border:1px solid rgba(107,232,255,.35);
+  font-family:var(--mono);letter-spacing:.02em;
+}
+.form-ok.show{display:block}
+.channels{padding:32px 34px;display:flex;flex-direction:column}
+.channels h3{font-family:var(--mono);font-size:12px;letter-spacing:.24em;color:var(--txt-2);text-transform:uppercase;font-weight:500;margin-bottom:8px}
+.channels .tile-bar{margin-bottom:14px}
+.ch-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.ch-row:last-child{border-bottom:none}
+.ch-row .k{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--txt-3);text-transform:uppercase;flex:none}
+.ch-row a{font-size:14px;font-weight:500;text-align:right;transition:color .25s}
+.ch-row a:hover{color:var(--cyan)}
+.channels .btn-solid{margin-top:auto;align-self:flex-start}
+/* ============================================================
+   FOOTER — glass strip
+   ============================================================ */
+footer{position:relative;z-index:2;padding:90px 0 46px}
+.foot{
+  display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
+  padding:24px 30px;border-radius:20px;
+}
+.foot .mono{font-size:11.5px;letter-spacing:.1em;color:var(--txt-3)}
+.foot a{transition:color .25s}
+.foot a:hover{color:var(--cyan)}
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width:900px){
+  #hero{grid-template-columns:1fr;padding-top:150px}
+  .chips{position:static;flex-direction:row;flex-wrap:wrap;align-items:center;margin-top:34px}
+  .about-grid,.projects-grid,.skills-grid,.proof-grid,.contact-grid{grid-template-columns:1fr}
+  .nav{gap:14px}
+  .nav-links{display:none}
+  .nav{justify-content:space-between;width:max-content}
+}
+@media (max-width:640px){
+  .hero-cta .btn{width:100%;justify-content:center}
+  .about-grid{padding:28px 22px}
+  .project,.form-panel,.channels,.proof-panel{padding:22px}
+  .scroll-hint{display:none}
+}
+@media (max-height:640px){.scroll-hint{display:none}}
+/* ============================================================
+   Reduced motion — static sky, no orb drift, reveals shown
+   instantly, hero renders a single still frame
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .sky{animation:none}
+  .reveal{opacity:1;transform:none;filter:none}
+}
+</style>
+<style>
+/* ============================================================
+   GLASS DEPTH UPGRADE — additive override (v2)
+   The base .glass recipe (above) has no position/transform/
+   transition/::before/:hover rules, so the gradient fill, inner
+   bevels, top-edge highlight and hover lift below are safe adds.
+   The transition list also carries the .reveal opacity/filter
+   timings so panels using both classes keep their reveal fade.
+   ============================================================ */
+.glass{
+  position:relative;
+  background:linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.04) 40%, rgba(255,255,255,.02));
+  border-top-color:rgba(255,255,255,.22);
+  box-shadow:0 8px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.18), inset 0 -1px 0 rgba(0,0,0,.12);
+  transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease,
+             opacity .8s cubic-bezier(.22,.61,.36,1), filter .8s ease;
+}
+.glass::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(120deg, rgba(255,255,255,.14), transparent 30%);
+  pointer-events:none;z-index:1;
+}
+.glass:hover{
+  transform:translateY(-3px);
+  border-color:rgba(255,255,255,.3);
+}
+</style>
+<style>
+/* ============================================================
+   SUNBEAM SCROLL RAY + GLASS DEPTH + SECTION ORBS (v3, additive)
+   New ids/classes only (gh- prefix). Nothing existing is
+   modified; stacking respects the page's existing order:
+   sky(-2) < orbs(0) < ray(1) < sections(2) < nav(60) < bar(100).
+   ============================================================ */
+/* --- F1: fixed diagonal sunbeam, swept by scrollY (JS) --- */
+#gh-ray{
+  position:fixed;top:0;left:0;z-index:1;pointer-events:none;
+  width:34vw;height:140vh;transform-origin:top left;
+  transform:translate3d(-14vw,-40vh,0) rotate(18deg);
+  background:linear-gradient(105deg,transparent 0%,rgba(107,232,255,.14) 45%,rgba(124,92,255,.10) 55%,transparent 100%);
+  filter:blur(18px);mix-blend-mode:screen;will-change:transform;
+}
+#gh-ray::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.09) 46%,rgba(167,139,255,.07) 54%,transparent 100%);
+  opacity:.5;
+}
+/* shimmer class added by JS only when motion is allowed */
+.gh-ray-anim::after{animation:ghShimmer 2.8s ease-in-out infinite alternate}
+@keyframes ghShimmer{from{opacity:.2}to{opacity:.8}}
+/* --- F2: glass depth upgrade — stamped onto .glass panels by JS --- */
+.gh-deep{
+  box-shadow:0 0 0 1px rgba(255,255,255,.07),0 24px 60px -24px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.12);
+}
+.gh-deep::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;
+  background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,transparent 40%);
+}
+/* --- F3: drifting gradient orbs behind about/projects/skills --- */
+.gh-orb{
+  position:absolute;z-index:-1;border-radius:50%;pointer-events:none;
+  filter:blur(60px);mix-blend-mode:screen;will-change:transform;opacity:.35;
+}
+.gh-orb-a{width:44vh;height:44vh;top:6%;right:-6%;background:radial-gradient(circle at 35% 35%,#6be8ff,transparent 70%);animation:ghDriftA 22s ease-in-out infinite alternate}
+.gh-orb-b{width:38vh;height:38vh;top:34%;left:-9%;background:radial-gradient(circle at 60% 40%,#a78bff,transparent 70%);animation:ghDriftB 26s ease-in-out infinite alternate}
+.gh-orb-c{width:30vh;height:30vh;bottom:-5%;right:14%;opacity:.28;background:radial-gradient(circle at 40% 60%,#ff7a6b,transparent 70%);animation:ghDriftA 19s ease-in-out infinite alternate}
+@keyframes ghDriftA{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(90px,-70px,0) scale(1.15)}}
+@keyframes ghDriftB{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-80px,60px,0) scale(1.12)}}
+/* --- small screens: hide section orbs, soften the ray --- */
+@media (max-width:700px){
+  .gh-orb{display:none}
+  #gh-ray{opacity:.55}
+}
+/* ===== round-3 polish: header reveal + glint sweep + orb scroll parallax (add-only) ===== */
+html.gh-js .sec-title{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1)}
+html.gh-js .sec-title.gh-in{opacity:1; transform:none}
+.sec-title{position:relative; overflow:hidden}
+.sec-title::after{content:''; position:absolute; top:-12%; bottom:-12%; left:-55%; width:36%;
+  background:linear-gradient(100deg, transparent, rgba(190,205,255,.20), rgba(255,255,255,.26), transparent);
+  transform:skewX(-18deg); opacity:0; pointer-events:none; z-index:2}
+.sec-title.gh-in::after{animation:ghSweep 1.15s cubic-bezier(.4,0,.2,1) .3s forwards}
+@keyframes ghSweep{0%{left:-55%; opacity:0} 12%{opacity:1} 100%{left:125%; opacity:0}}
+.gh-orbwrap{position:absolute; inset:0; pointer-events:none; z-index:-1; will-change:transform}
+@media (prefers-reduced-motion:reduce){ html.gh-js .sec-title{opacity:1; transform:none} .sec-title::after{display:none} }
+</style>
+<style>
+/* ============================================================
+   3D TILT GLASS CARDS — .tt-zone is added by JS to each .project
+   card once revealed: pointer-tracked perspective tilt + a
+   light-catch sheen (.tt-zone::after) that follows the cursor.
+   Fine-pointer + non-reduced-motion only (JS is gated).
+   ============================================================ */
+.tt-zone{position:relative;transform-style:preserve-3d;will-change:transform;transition:transform .12s ease-out,box-shadow .3s ease}
+.tt-zone .project-media{transform:translateZ(18px)}
+.tt-zone .project-body{transform:translateZ(8px)}
+.tt-zone::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(420px circle at var(--tt-x,50%) var(--tt-y,50%),rgba(255,255,255,.14),transparent 55%);
+  opacity:0;transition:opacity .3s;
+}
+.tt-zone:hover::after{opacity:1}
+</style>
+<style>
+/* ============================================================
+   ROUND 1 — PRISM SPOTLIGHT + GLASS EDGE HIGHLIGHT
+   Additive block, placed LAST so equal-specificity refinements
+   (calm hover timings) win over earlier glass/tile rules. Uses
+   the free .sec-title::before (::after is the round-3 one-shot
+   glint sweep), the free #hero::after, and the .grad fallback.
+   Zero backdrop-filter additions (mobile blur budget untouched).
+   ============================================================ */
+/* --- F1: prism spotlight — refraction band across section headers.
+        Band centre tracks pointer X (px var set by JS, like the
+        tilt sheen's coords); skew reads as light through glass;
+        200ms ease-out fade on leave via the hot class. --- */
+.sec-title::before{
+  content:'';position:absolute;top:-12%;bottom:-12%;left:0;width:38%;
+  background:linear-gradient(100deg,transparent 0%,rgba(190,205,255,.16) 34%,rgba(255,255,255,.42) 50%,rgba(190,205,255,.16) 66%,transparent 100%);
+  transform:translateX(calc(var(--gh2-x,50%) - 50%)) skewX(-14deg);
+  opacity:0;pointer-events:none;z-index:1;
+  transition:opacity .2s ease-out,transform .15s ease-out;
+}
+.sec-title.gh2-hot::before{opacity:1}
+/* --- F2: glass edge highlight — brighter 1px top line + inner top
+        highlight + subtle bottom inner shadow on every panel
+        (stamped by JS). Static on purpose: panels read as
+        physical glass even with motion paused. --- */
+.gh2-edge{
+  border-top-color:rgba(255,255,255,.42);
+  box-shadow:0 0 0 1px rgba(255,255,255,.09),0 24px 60px -24px rgba(0,0,0,.55),
+             inset 0 1px 0 rgba(255,255,255,.34),inset 0 -1px 0 rgba(0,0,0,.16);
+}
+/* --- F3: calm hover pass (digest: 150-250ms ease-out, 1-3px lift,
+        glow <= .25 alpha). Reveal timings preserved where the
+        element also carries the reveal class. --- */
+.btn{transition:transform .2s ease-out,box-shadow .2s ease-out,border-color .2s ease-out,background .2s ease-out}
+.btn-solid:hover{box-shadow:0 10px 30px rgba(167,139,255,.24)}
+.tl-card{transition:border-color .25s ease-out,transform .25s ease-out}
+.tl-card:hover{transform:translateX(3px)}
+.skill-tile{transition:transform .3s ease-out,border-color .3s ease-out,box-shadow .3s ease-out,opacity .8s cubic-bezier(.22,.61,.36,1),filter .8s ease}
+/* --- F4: hero static-frame anchor — spectrum ring on the prism
+        side. Renders with or without the WebGL scene (canvas z1,
+        ring z0, so prisms float inside it; paused = designed). --- */
+#hero::after{
+  content:'';position:absolute;right:4%;top:50%;width:min(30vw,340px);height:min(30vw,340px);
+  transform:translateY(-50%);border-radius:50%;z-index:0;pointer-events:none;opacity:.5;
+  background:radial-gradient(circle,transparent 50%,rgba(107,232,255,.3) 51%,rgba(167,139,255,.32) 59%,rgba(255,122,107,.3) 68%,rgba(255,217,122,.24) 77%,transparent 79%);
+  filter:blur(1.5px);
+}
+/* --- F5: gradient-text fallback — never render transparent glyphs
+        in browsers without background-clip:text support --- */
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .grad{color:var(--txt);-webkit-text-fill-color:var(--txt)}
+}
+/* --- reduced motion: prism band off; ring + edge stay (static) --- */
+@media (prefers-reduced-motion:reduce){
+  .sec-title::before{display:none}
+}
+@media (max-width:700px){
+  #hero::after{display:none}
+}
+</style>
+<style>
+/* ============================================================
+   ROUND 2 — CAMERA-MOVE SECTION TRANSITIONS (gh3- prefix)
+   Sections dolly like a camera move: scroll-linked translateY
+   from +1.5% (entering, anticipating) to -3% (exiting, lifting
+   clear of the incoming section) — the By-Kin/Uncommon
+   continuous-surface pattern from the research digest.
+   .gh3-sec is stamped by JS onto every main > section; the
+   JS drives transform-only translate3d via rAF-throttled
+   passive scroll. Zero backdrop-filter additions.
+   ============================================================ */
+.gh3-sec{will-change:transform}
+/* reduced motion: dolly off — static frame, transforms cleared */
+@media (prefers-reduced-motion:reduce){.gh3-sec{transform:none!important}}
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"></div>
+<div class="orb orb-1" aria-hidden="true"></div>
+<div class="orb orb-2" aria-hidden="true"></div>
+<div class="orb orb-3" aria-hidden="true"></div>
+<div class="orb orb-4" aria-hidden="true"></div>
+<div id="progress" aria-hidden="true"></div>
+<div class="gh-ray" id="gh-ray" aria-hidden="true"></div>
+
+<!-- ================= NAV ================= -->
+<header class="nav" role="banner">
+  <a class="wordmark" href="#hero">GARVIT<b class="grad">&nbsp;PANDIA</b></a>
+  <nav aria-label="Primary">
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#education">education</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+  <a class="btn btn-ghost" href="Garvit_Pandia_Resume.pdf" download>↧ Resume</a>
+</header>
+
+<main>
+  <!-- ================= HERO ================= -->
+  <section id="hero" aria-label="Intro">
+    <canvas id="hero-scene" aria-hidden="true"></canvas>
+    <div class="hero-left container">
+      <p class="hero-tag"><span class="dot"></span>PORTFOLIO — 2026</p>
+      <h1 class="hero-name">GARVIT<br><span class="grad">PANDIA</span></h1>
+      <p class="hero-sub">Final-year CS undergrad building data &amp; AI products — from air-quality analytics over real CPCB data to RAG systems that actually read your resume.</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="#projects">view work</a>
+        <a class="btn btn-ghost" href="Garvit_Pandia_Resume.pdf" download>download resume</a>
+      </div>
+    </div>
+    <!-- floating stat chips (over the prisms) -->
+    <div class="chips" aria-hidden="true">
+      <span class="chip chip-1"><i style="background:#6be8ff;box-shadow:0 0 10px #6be8ff"></i>B.Tech CSE 7.79</span>
+      <span class="chip chip-2"><i style="background:#a78bff;box-shadow:0 0 10px #a78bff"></i>4★ Java</span>
+      <span class="chip chip-3"><i style="background:#ff7a6b;box-shadow:0 0 10px #ff7a6b"></i>4★ SQL</span>
+      <span class="chip chip-4"><i style="background:#ffd97a;box-shadow:0 0 10px #ffd97a"></i>2 shipped</span>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">scroll</div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <div class="gh-orb gh-orb-a" aria-hidden="true"></div>
+    <div class="container">
+      <p class="eyebrow">01 / About</p>
+      <h2 class="sec-title">Builder of <span class="grad">data products</span>, start to ship</h2>
+      <p class="sec-sub">Analytics, applied ML, and a growing obsession with retrieval-augmented systems.</p>
+      <div class="about-grid glass reveal">
+        <div>
+          <p class="about-statement">I'm <strong>Garvit</strong> — a final-year B.Tech CSE student at Lovely Professional University who builds with data and AI. My work sits where analytics meets applied machine learning: I turn messy real-world datasets into shipped products, and I go end-to-end — from Pandas wrangling to public Hugging Face deployments. Currently exploring retrieval-augmented generation, model selection, and what makes LLM systems reliable in production.</p>
+          <div class="about-divider" style="margin-top:26px"></div>
+          <p class="about-statement" style="font-size:1rem">Open to internships and full-time roles where I can keep shipping things people actually use.</p>
+        </div>
+        <div class="about-details">
+          <div class="about-row"><span class="k">Degree</span><span class="v"><b>B.Tech CSE</b> · CGPA 7.79</span></div>
+          <div class="about-row"><span class="k">Location</span><span class="v">Phagwara, Punjab · India</span></div>
+          <div class="about-row"><span class="k">Email</span><span class="v"><b>garvit9829@gmail.com</b></span></div>
+          <div class="about-row"><span class="k">Focus</span><span class="v">Data analytics · Applied AI · RAG</span></div>
+          <div class="about-row"><span class="k">Available</span><span class="v"><b>Internships &amp; full-time — 2026</b></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects">
+    <div class="gh-orb gh-orb-b" aria-hidden="true"></div>
+    <div class="container">
+      <p class="eyebrow">02 / Projects</p>
+      <h2 class="sec-title">Shipped, not <span class="grad">staged</span></h2>
+      <p class="sec-sub">Two end-to-end builds — real datasets, real deployments, public on Hugging Face Spaces.</p>
+      <div class="projects-grid">
+        <!-- AQI Tracker -->
+        <article class="project glass reveal">
+          <a class="project-media" href="https://github.com/garvit-pandia" target="_blank" rel="noopener" aria-label="Interactive India AQI Tracker on GitHub">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&auto=format&fit=crop" alt="Dashboard analytics charts on a dark screen — Interactive India AQI Tracker" loading="lazy" decoding="async">
+          </a>
+          <div class="project-body">
+            <p class="project-meta">Jul 2024 — Aug 2024 · Data Analytics</p>
+            <h3>Interactive <span class="grad">India AQI Tracker</span></h3>
+            <ul>
+              <li>Air-quality analytics dashboard over the real CPCB dataset — city-wise pollutant comparison plus temporal trend analysis.</li>
+              <li>End-to-end Pandas wrangling: datetime parsing, year/month extraction, period indexing, NA imputation across PM2.5, PM10, NO2, SO2, CO, O3.</li>
+              <li>Deployed on Hugging Face Spaces with a Streamlit wide layout.</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Streamlit</span><span class="tag">Hugging Face</span><span class="tag">CPCB</span>
+            </div>
+            <a class="project-link" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">view on github →</a>
+          </div>
+        </article>
+        <!-- RAG Resume Analyzer -->
+        <article class="project glass reveal" style="transition-delay:.1s">
+          <a class="project-media" href="https://github.com/garvit-pandia" target="_blank" rel="noopener" aria-label="RAG Resume Analyzer on GitHub">
+            <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200&q=80&auto=format&fit=crop" alt="Documents and paper files on a desk — RAG Resume Analyzer" loading="lazy" decoding="async">
+          </a>
+          <div class="project-body">
+            <p class="project-meta">Feb 2026 — Mar 2026 · Applied AI</p>
+            <h3>RAG <span class="grad">Resume Analyzer</span></h3>
+            <ul>
+              <li>AI-powered resume analysis with Retrieval-Augmented Generation — context-aware Q&amp;A over uploaded PDF resumes with semantic search.</li>
+              <li>Google Gemini 2.5 (Flash, Pro, Flash-Lite) LLM backend with in-app model selection.</li>
+              <li>Multi-model Streamlit UI, publicly deployed on Hugging Face Spaces.</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">Python</span><span class="tag">RAG</span><span class="tag">Gemini 2.5</span><span class="tag">Streamlit</span><span class="tag">Hugging Face</span>
+            </div>
+            <a class="project-link" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">view on github →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SKILLS ================= -->
+  <section id="skills">
+    <div class="gh-orb gh-orb-c" aria-hidden="true"></div>
+    <div class="container">
+      <p class="eyebrow">03 / Skills</p>
+      <h2 class="sec-title">The <span class="grad">stack</span> I build with</h2>
+      <p class="sec-sub">Languages, frameworks, platforms and the soft skills that make the hard ones useful.</p>
+      <div class="skills-grid">
+        <div class="skill-tile glass reveal">
+          <div class="tile-bar"></div>
+          <h3>Languages</h3>
+          <div class="tags">
+            <span class="tag">C++</span><span class="tag">Python</span><span class="tag">R</span><span class="tag">Java</span><span class="tag">C</span><span class="tag">JavaScript</span><span class="tag">HTML/CSS</span>
+          </div>
+        </div>
+        <div class="skill-tile glass reveal" style="transition-delay:.08s">
+          <div class="tile-bar"></div>
+          <h3>Frameworks</h3>
+          <div class="tags">
+            <span class="tag">TensorFlow</span><span class="tag">PyTorch</span><span class="tag">Hugging Face</span><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Express.js</span><span class="tag">Next.js</span><span class="tag">Tailwind CSS</span>
+          </div>
+        </div>
+        <div class="skill-tile glass reveal" style="transition-delay:.04s">
+          <div class="tile-bar"></div>
+          <h3>Tools &amp; Platforms</h3>
+          <div class="tags">
+            <span class="tag">MySQL</span><span class="tag">MongoDB</span><span class="tag">Google Colab</span><span class="tag">Git</span><span class="tag">GitLab</span><span class="tag">Flask</span><span class="tag">Vercel</span><span class="tag">Docker</span><span class="tag">Jenkins</span><span class="tag">REST API</span><span class="tag">Streamlit</span><span class="tag">AWS</span><span class="tag">Tableau</span>
+          </div>
+        </div>
+        <div class="skill-tile glass reveal" style="transition-delay:.12s">
+          <div class="tile-bar"></div>
+          <h3>Soft Skills</h3>
+          <div class="tags">
+            <span class="tag">Leadership</span><span class="tag">Problem-Solving</span><span class="tag">Team Player</span><span class="tag">Communication</span><span class="tag">Adaptability</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EDUCATION ================= -->
+  <section id="education">
+    <div class="container">
+      <p class="eyebrow">04 / Education</p>
+      <h2 class="sec-title">The <span class="grad">path</span> so far</h2>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <span class="tl-node"></span>
+          <div class="tl-card">
+            <div class="tl-top">
+              <span class="tl-date">Aug 2022 — Jul 2026</span>
+              <span class="tl-now">NOW</span>
+            </div>
+            <h3>B.Tech in Computer Science &amp; Engineering</h3>
+            <p>Lovely Professional University · Phagwara, Punjab · CGPA 7.79</p>
+          </div>
+        </div>
+        <div class="tl-item reveal">
+          <span class="tl-node"></span>
+          <div class="tl-card">
+            <div class="tl-top"><span class="tl-date">Jun 2024 — Jul 2024</span></div>
+            <h3>Summer Training — The Complete MySQL Developer Course</h3>
+            <p>E-Box · hands-on database design, queries and developer workflows</p>
+          </div>
+        </div>
+        <div class="tl-item reveal">
+          <span class="tl-node"></span>
+          <div class="tl-card">
+            <div class="tl-top"><span class="tl-date">Apr 2020 — Mar 2021</span></div>
+            <h3>Intermediate — PCM · 85.4%</h3>
+            <p>Prince Career Pioneer School · Sikar, Rajasthan</p>
+          </div>
+        </div>
+        <div class="tl-item reveal">
+          <span class="tl-node"></span>
+          <div class="tl-card">
+            <div class="tl-top"><span class="tl-date">Apr 2019 — Mar 2020</span></div>
+            <h3>Matriculation · 81.6%</h3>
+            <p>Witty International School · Udaipur, Rajasthan</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROOF ================= -->
+  <section id="proof">
+    <div class="container">
+      <p class="eyebrow">05 / Proof</p>
+      <h2 class="sec-title">Certificates &amp; <span class="grad">achievements</span></h2>
+      <div class="proof-grid">
+        <div class="proof-panel glass reveal">
+          <div class="tile-bar"></div>
+          <h3>Certificates</h3>
+          <div class="cert-row">
+            <div><div class="c-name">Social Networks</div><div class="c-issuer">NPTEL</div></div>
+            <span class="c-date">Nov 2024</span>
+          </div>
+          <div class="cert-row">
+            <div><div class="c-name">Data Analysis with Tableau</div><div class="c-issuer">Coursera</div></div>
+            <span class="c-date">Nov 2024</span>
+          </div>
+          <div class="cert-row">
+            <div><div class="c-name">Supervised ML: Regression &amp; Classification</div><div class="c-issuer">Coursera</div></div>
+            <span class="c-date">Oct 2024</span>
+          </div>
+          <div class="cert-row">
+            <div><div class="c-name">Complete MySQL Developer</div><div class="c-issuer">E-Box</div></div>
+            <span class="c-date">Jul 2024</span>
+          </div>
+          <div class="cert-row">
+            <div><div class="c-name">Mastering DSA using C and C++</div><div class="c-issuer">Udemy</div></div>
+            <span class="c-date">Feb 2024</span>
+          </div>
+        </div>
+        <div class="proof-panel glass reveal" style="transition-delay:.1s">
+          <div class="tile-bar"></div>
+          <h3>Achievements</h3>
+          <div class="achv">
+            <span class="achv-stars">★★★★</span>
+            <div><h4>HackerRank 4-Star Java</h4><p>May 2024</p></div>
+          </div>
+          <div class="achv">
+            <span class="achv-stars">★★★★</span>
+            <div><h4>HackerRank 4-Star SQL</h4><p>Feb 2024</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact">
+    <div class="container">
+      <p class="eyebrow">06 / Contact</p>
+      <h2 class="sec-title">Let's <span class="grad">build</span> something</h2>
+      <p class="sec-sub">Have a role, a dataset, or an idea worth shipping? My inbox is open.</p>
+      <div class="contact-grid">
+        <div class="form-panel glass reveal">
+          <h3>Send a message</h3>
+          <p class="form-note">Straight to my inbox — no backend, no tracking.</p>
+          <form id="contact-form" novalidate>
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input id="f-name" name="name" type="text" placeholder="Your name" required>
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+              <label for="f-msg">Message</label>
+              <textarea id="f-msg" name="message" rows="5" placeholder="What are we building?" required></textarea>
+            </div>
+            <button class="btn btn-solid" type="submit">send message</button>
+            <p class="form-ok" id="form-ok" role="status">Opening your mail app — thanks for reaching out.</p>
+          </form>
+        </div>
+        <div class="channels glass reveal" style="transition-delay:.1s">
+          <div class="tile-bar"></div>
+          <h3>Channels</h3>
+          <div class="ch-row"><span class="k">Email</span><a href="mailto:garvit9829@gmail.com">garvit9829@gmail.com</a></div>
+          <div class="ch-row"><span class="k">Phone</span><a href="tel:+918905402023">+91-8905402023</a></div>
+          <div class="ch-row"><span class="k">LinkedIn</span><a href="https://linkedin.com/in/garvit-pandia" target="_blank" rel="noopener">linkedin.com/in/garvit-pandia</a></div>
+          <div class="ch-row"><span class="k">GitHub</span><a href="https://github.com/garvit-pandia" target="_blank" rel="noopener">github.com/garvit-pandia</a></div>
+          <div class="ch-row"><span class="k">Web</span><a href="https://garvitpandia.me" target="_blank" rel="noopener">garvitpandia.me</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="foot glass">
+      <span class="wordmark">GARVIT <b class="grad">PANDIA</b></span>
+      <span class="mono">Data · AI · Web</span>
+      <span class="mono">© 2026 — glass horizon</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   Vanilla interactions — progress bar, reveals, form, nav.
+   ============================================================ */
+(function () {
+  'use strict';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- Scroll progress glow bar --- */
+  var bar = document.getElementById('progress');
+  function onScroll() {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    bar.style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* --- Scroll-triggered reveals (IntersectionObserver) --- */
+  var reveals = document.querySelectorAll('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    reveals.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+  }
+
+  /* --- Contact form → mailto with success note --- */
+  var form = document.getElementById('contact-form');
+  var ok = document.getElementById('form-ok');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('f-name').value.trim();
+    var email = document.getElementById('f-email').value.trim();
+    var msg = document.getElementById('f-msg').value.trim();
+    var subject = encodeURIComponent('Portfolio contact from ' + (name || 'someone'));
+    var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + msg);
+    window.location.href = 'mailto:garvit9829@gmail.com?subject=' + subject + '&body=' + body;
+    ok.classList.add('show');
+  });
+})();
+</script>
+
+<script type="module">
+/* ============================================================
+   GLASS HORIZON hero — three.js floating glass prisms.
+   Fully guarded: any failure hides the canvas; the page is
+   complete without WebGL.
+   ============================================================ */
+import * as THREE from 'three';
+
+const canvas = document.getElementById('hero-scene');
+const hero = document.getElementById('hero');
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+try {
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(0, 0, 7);
+
+  /* Lights — the glass fill needs them to read as translucent */
+  scene.add(new THREE.AmbientLight(0xffffff, 1.0));
+  const key = new THREE.DirectionalLight(0x6be8ff, 1.4); key.position.set(4, 5, 6); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xff7a6b, 0.7); rim.position.set(-5, -3, 4); scene.add(rim);
+  const glow = new THREE.PointLight(0xa78bff, 1.2, 24); glow.position.set(0, 2, 3); scene.add(glow);
+
+  /* Prism group — offset right so prisms float over the empty hero half */
+  const group = new THREE.Group();
+  group.position.set(1.5, 0, 0);
+  scene.add(group);
+
+  const glassMat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff, transparent: true, opacity: 0.18,
+    roughness: 0.1, metalness: 0.1, side: THREE.DoubleSide, depthWrite: false
+  });
+
+  const prisms = [];
+  function makePrism(geo, x, y, z, wireColor, wireOpacity, fillOpacity) {
+    const mesh = new THREE.Mesh(geo, glassMat.clone());
+    mesh.material.opacity = fillOpacity;
+    mesh.position.set(x, y, z);
+    const wire = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
+      color: wireColor, wireframe: true, transparent: true, opacity: wireOpacity
+    }));
+    wire.scale.setScalar(1.03);              // avoid z-fighting with the fill
+    wire.position.copy(mesh.position);
+    group.add(mesh, wire);
+    prisms.push({ mesh, wire, baseY: y, speed: 0.22 + Math.random() * 0.18, phase: Math.random() * Math.PI * 2 });
+  }
+
+  /* 3 prisms: two icosahedra (glass + wireframe), one coral octahedron */
+  makePrism(new THREE.IcosahedronGeometry(1.1), 0.25, 0.45, 0, 0x6be8ff, 0.35, 0.18);
+  makePrism(new THREE.IcosahedronGeometry(1.0), -1.75, -1.05, -0.9, 0xa78bff, 0.32, 0.13);
+  makePrism(new THREE.OctahedronGeometry(0.7), 1.7, -1.15, -1.3, 0xff7a6b, 0.5, 0.1);
+
+  /* Size to the hero box (canvas is stretched by CSS; match aspect) */
+  function resize() {
+    const r = hero.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2) return;
+    renderer.setSize(r.width, r.height, false);
+    camera.aspect = r.width / r.height;
+    camera.updateProjectionMatrix();
+    /* On narrow screens pull prisms toward centre so they stay visible */
+    group.position.x = r.width < 760 ? 0.55 : 1.5;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  /* Mouse parallax — lerped camera drift */
+  let mx = 0, my = 0, camX = 0, camY = 0;
+  window.addEventListener('pointermove', (e) => {
+    mx = e.clientX / window.innerWidth - 0.5;
+    my = e.clientY / window.innerHeight - 0.5;
+  }, { passive: true });
+
+  const clock = new THREE.Clock();
+  let rafId = 0;
+
+  function tick() {
+    rafId = requestAnimationFrame(tick);
+    const t = clock.getElapsedTime();
+    for (const p of prisms) {
+      p.mesh.rotation.x = t * p.speed + p.phase;
+      p.mesh.rotation.y = t * p.speed * 1.35 + p.phase;
+      p.wire.rotation.copy(p.mesh.rotation);
+      p.mesh.position.y = p.baseY + Math.sin(t * 0.55 + p.phase) * 0.16;
+      p.wire.position.copy(p.mesh.position);
+    }
+    camX += (mx * 1.1 - camX) * 0.045;
+    camY += (-my * 0.7 - camY) * 0.045;
+    camera.position.x = camX;
+    camera.position.y = camY;
+    camera.lookAt(0, 0, 0);
+    renderer.render(scene, camera);
+  }
+
+  /* Pause RAF when the tab is hidden */
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(rafId);
+    } else if (!reduced) {
+      tick();
+    }
+  });
+
+  if (reduced) {
+    /* Static frame only — no loop, no parallax */
+    clock.getDelta();
+    tick();
+    cancelAnimationFrame(rafId);
+  } else {
+    tick();
+  }
+} catch (err) {
+  /* WebGL unavailable or script failed — hide canvas, page still works */
+  canvas.style.display = 'none';
+  console.warn('Hero 3D disabled:', err);
+}
+</script>
+
+<script type="module">
+/* ============================================================
+   SIGNATURE — cursor-reactive prism rig + glint bursts.
+   Purely additive: captures the existing scene through a one-shot
+   wrapper on THREE.WebGLRenderer.prototype.render (the hero module
+   above exposes no handle to its `group`), then lerps the prism
+   GROUP rotation toward the cursor NDC and spawns a tiny fading
+   particle burst on pointerdown. Guarded: prefers-reduced-motion
+   and coarse pointers attach no listeners at all; if the hero
+   scene failed, the wrapper never fires and nothing happens.
+   ============================================================ */
+import * as THREE from 'three';
+
+(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  const canvas = document.getElementById('hero-scene');
+  if (!canvas) return;
+
+  /* --- one-shot capture of the existing scene/group/camera --- */
+  const origRender = THREE.WebGLRenderer.prototype.render;
+  let group = null, scene = null, camera = null;
+
+  THREE.WebGLRenderer.prototype.render = function (s, c) {
+    if (!group) {
+      const g = s && s.children ? s.children.find((o) => o.isGroup) : null;
+      if (g) {
+        scene = s; camera = c; group = g;
+        THREE.WebGLRenderer.prototype.render = origRender;  /* restore */
+        start();
+      }
+    }
+    return origRender.apply(this, arguments);
+  };
+
+  /* --- pointer tracking, throttled to ~30fps via timestamp --- */
+  let ndcX = 0, ndcY = 0, lastMove = 0, rafId = 0, running = false;
+  const bursts = [];
+
+  function start() {
+    window.addEventListener('pointermove', (e) => {
+      const now = performance.now();
+      if (now - lastMove < 33) return;          /* ~30fps throttle */
+      lastMove = now;
+      ndcX = (e.clientX / window.innerWidth) * 2 - 1;
+      ndcY = -((e.clientY / window.innerHeight) * 2 - 1);
+    }, { passive: true });
+
+    window.addEventListener('pointerdown', (e) => {
+      if (e.button !== undefined && e.button !== 0) return;
+      spawnGlint((e.clientX / window.innerWidth) * 2 - 1,
+                 -((e.clientY / window.innerHeight) * 2 - 1));
+    }, { passive: true });
+
+    running = true;
+    rafId = requestAnimationFrame(loop);
+  }
+
+  /* --- additive lerp loop: the hero tick() never touches
+         group.rotation, so this stacks cleanly on top --- */
+  function loop() {
+    rafId = requestAnimationFrame(loop);
+    if (group) {
+      group.rotation.y += (ndcX * 1.2 - group.rotation.y) * 0.08;
+      group.rotation.x += (ndcY * 0.6 - group.rotation.x) * 0.08;
+    }
+    const now = performance.now();
+    for (let i = bursts.length - 1; i >= 0; i--) {
+      const b = bursts[i];
+      const p = Math.min((now - b.t0) / 900, 1);   /* ~900ms life */
+      const grow = 1 + p * 2.4;
+      for (let j = 0; j < b.seed.length; j += 3) {
+        b.attr.array[j]     = b.seed[j] * grow;
+        b.attr.array[j + 1] = b.seed[j + 1] * grow;
+        b.attr.array[j + 2] = b.seed[j + 2] * grow;
+      }
+      b.attr.needsUpdate = true;
+      b.mat.opacity = 1 - p;
+      if (p >= 1) {
+        scene.remove(b.points);
+        b.geo.dispose();
+        b.mat.dispose();
+        bursts.splice(i, 1);
+      }
+    }
+  }
+
+  /* --- glint burst: 12-18 particles, violet/cyan/gold --- */
+  function spawnGlint(nx, ny) {
+    if (!scene || !camera) return;
+    const n = 12 + Math.floor(Math.random() * 7);            /* 12..18 */
+    camera.updateMatrixWorld();
+    const anchor = new THREE.Vector3(nx, ny, 0.5).unproject(camera);
+    const pos = new Float32Array(n * 3);
+    const col = new Float32Array(n * 3);
+    const palette = [0x8b5cf6, 0x22d3ee, 0xfbbf24];          /* violet/cyan/gold */
+    const c = new THREE.Color();
+    for (let i = 0; i < n; i++) {
+      pos[i * 3]     = anchor.x + (Math.random() - 0.5) * 1.1;
+      pos[i * 3 + 1] = anchor.y + (Math.random() - 0.5) * 1.1;
+      pos[i * 3 + 2] = anchor.z + (Math.random() - 0.5) * 0.7;
+      c.setHex(palette[(Math.random() * 3) | 0]);
+      col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
+    }
+    const geo = new THREE.BufferGeometry();
+    const attr = new THREE.BufferAttribute(pos, 3);
+    geo.setAttribute('position', attr);
+    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+    const mat = new THREE.PointsMaterial({
+      size: 0.08, vertexColors: true, transparent: true, opacity: 1,
+      depthWrite: false, blending: THREE.AdditiveBlending
+    });
+    const points = new THREE.Points(geo, mat);
+    scene.add(points);
+    bursts.push({ points, geo, mat, attr, seed: pos.slice(), t0: performance.now() });
+  }
+
+  /* pause with the tab, mirroring the hero loop's behaviour */
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(rafId);
+    } else if (running) {
+      rafId = requestAnimationFrame(loop);
+    }
+  });
+})();
+</script>
+<script>
+/* ============================================================
+   SUNBEAM SCROLL RAY + GLASS DEPTH (v3-additive)
+   Drives the #gh-ray transform from scrollY and stamps the
+   .gh-deep depth class onto every existing .glass panel.
+   Fully guarded for prefers-reduced-motion: static beam, no
+   shimmer class, no scroll listener.
+   ============================================================ */
+(function () {
+  'use strict';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- FEATURE 1: sunbeam scroll ray --- */
+  var ray = document.getElementById('gh-ray');
+  if (ray) {
+    if (reduced) {
+      /* static beam parked mid-page; no shimmer, no scroll hook */
+      ray.style.transform = 'translate3d(0px, 45vh, 0) rotate(18deg)';
+    } else {
+      ray.classList.add('gh-ray-anim');
+      function updateRay() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var p = max > 0 ? Math.min(1, Math.max(0, doc.scrollTop / max)) : 0;
+        var y = -40 + 180 * p;  /* beam top travels -40vh -> +140vh */
+        var x = -14 + 28 * p;   /* diagonal left->right sweep */
+        ray.style.transform = 'translate3d(' + x + 'vw, ' + y + 'vh, 0) rotate(18deg)';
+      }
+      window.addEventListener('scroll', updateRay, { passive: true });
+      window.addEventListener('resize', updateRay, { passive: true });
+      updateRay();
+    }
+  }
+
+  /* --- FEATURE 2: glass depth — stamp .gh-deep on every glass panel --- */
+  document.querySelectorAll('.glass').forEach(function (el) {
+    el.classList.add('gh-deep');
+  });
+})();
+</script>
+<script>
+  /* ADDITIVE round-3 polish: header glint reveals + orb scroll parallax */
+  (function(){
+    try{
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduced) return;
+      document.documentElement.classList.add('gh-js');
+      /* header reveal + glint sweep */
+      var titles = Array.prototype.slice.call(document.querySelectorAll('.sec-title'));
+      if('IntersectionObserver' in window && titles.length){
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(en){
+            if(en.isIntersecting){ en.target.classList.add('gh-in'); io.unobserve(en.target); }
+          });
+        }, {threshold:0.4});
+        titles.forEach(function(t){ io.observe(t); });
+      }else{
+        titles.forEach(function(t){ t.classList.add('gh-in'); });
+      }
+      /* orb parallax: wrap each orb, translate wrapper on scroll */
+      var orbs = Array.prototype.slice.call(document.querySelectorAll('.gh-orb'));
+      var factors = [0.05, 0.09, 0.13];
+      orbs.forEach(function(orb, i){
+        var wrap = document.createElement('div');
+        wrap.className = 'gh-orbwrap';
+        orb.parentNode.insertBefore(wrap, orb);
+        wrap.appendChild(orb);
+        wrap.dataset.f = String(factors[i % factors.length]);
+      });
+      var raf = null;
+      var apply = function(){
+        var y = window.scrollY || 0;
+        orbs.forEach(function(orb){
+          var w = orb.parentNode;
+          if(w && w.classList.contains('gh-orbwrap')){
+            w.style.transform = 'translate3d(0,' + (y * parseFloat(w.dataset.f)) + 'px,0)';
+          }
+        });
+      };
+      window.addEventListener('scroll', function(){
+        if(raf) return;
+        raf = requestAnimationFrame(function(){ raf = null; apply(); });
+      }, {passive:true});
+      apply();
+    }catch(err){ console.warn('gh polish disabled:', err.message); }
+  })();
+</script>
+<script>
+/* ============================================================
+   3D TILT GLASS CARDS — pointer-tracked perspective tilt on
+   the .project cards (adds .tt-zone once the card is revealed).
+   Fine-pointer + non-reduced-motion only; sheen follows the
+   cursor via --tt-x/--tt-y; pointerleave resets the transform.
+   ============================================================ */
+(function () {
+  'use strict';
+  try {
+    var fine = window.matchMedia('(hover:hover) and (pointer:fine)');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!fine.matches || reduced.matches) return;
+
+    var cards = document.querySelectorAll('.project');
+    if (!cards.length) return;
+
+    function onMove(e) {
+      var card = e.currentTarget;
+      if (!card.classList.contains('in')) return;
+      if (!card.classList.contains('tt-zone')) card.classList.add('tt-zone');
+      var rect = card.getBoundingClientRect();
+      var px = e.clientX - rect.left;
+      var py = e.clientY - rect.top;
+      var rx = -((py / rect.height) - 0.5) * 8;
+      var ry = ((px / rect.width) - 0.5) * 10;
+      card.style.transform = 'perspective(900px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+      card.style.setProperty('--tt-x', px + 'px');
+      card.style.setProperty('--tt-y', py + 'px');
+    }
+    function onLeave(e) {
+      e.currentTarget.style.transform = '';
+    }
+    cards.forEach(function (card) {
+      card.addEventListener('pointermove', onMove);
+      card.addEventListener('pointerleave', onLeave);
+    });
+  } catch (err) {
+    console.warn('3D tilt disabled:', err.message);
+  }
+})();
+</script>
+<script>
+  /* ADDITIVE round-5: gentle 3D tilt on proof + form glass panels (max 4deg —
+     subtler than the project cards) reusing the .tt-zone machinery. */
+  (function(){
+    try{
+      var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(!fine || reduced) return;
+      var panels = Array.prototype.slice.call(
+        document.querySelectorAll('.proof-panel, .form-panel'));
+      if(!panels.length) return;
+      var MAX = 4;
+      var move = function(e){
+        var card = e.currentTarget;
+        var r = card.getBoundingClientRect();
+        var rx = -((e.clientY - r.top) / r.height - .5) * MAX;
+        var ry = ((e.clientX - r.left) / r.width - .5) * MAX;
+        card.style.transform = 'perspective(900px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+        card.style.setProperty('--tt-x', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--tt-y', (e.clientY - r.top) + 'px');
+      };
+      var leave = function(e){
+        var card = e.currentTarget;
+        card.style.transform = '';
+      };
+      panels.forEach(function(p){
+        p.addEventListener('pointermove', move, {passive:true});
+        p.addEventListener('pointerleave', leave, {passive:true});
+        p.classList.add('tt-zone');
+      });
+    }catch(err){ console.warn('tt panels disabled:', err && err.message); }
+  })();
+</script>
+<script>
+/* ============================================================
+   ROUND 1 — PRISM SPOTLIGHT + GLASS EDGE HIGHLIGHT
+   A) Edge pass: stamps the edge class on every glass panel —
+      brighter 1px top line + inner highlight. Static on purpose
+      (no gates), so the physical-glass read survives motion
+      being paused or reduced-motion mode.
+   B) Prism spotlight: refraction band tracks pointer X across
+      each section header (px var drives the skewed band).
+      Fine-pointer + non-reduced-motion only; 33ms throttle;
+      passive listeners; scroll/resize clears the hot state so
+      the band fades out with the 200ms ease-out transition.
+   ============================================================ */
+(function () {
+  'use strict';
+  /* --- A: glass edge highlight (no gates — static frame) --- */
+  try {
+    document.querySelectorAll('.glass').forEach(function (el) {
+      el.classList.add('gh2-edge');
+    });
+  } catch (err) {
+    console.warn('glass edge disabled:', err.message);
+  }
+  /* --- B: prism spotlight (pointer-gated) --- */
+  try {
+    var fine = window.matchMedia('(hover:hover) and (pointer:fine)');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!fine.matches || reduced.matches) return;
+    var titles = document.querySelectorAll('.sec-title');
+    if (!titles.length) return;
+    var HOT = 'gh2-hot';
+    var hot = null;
+    var last = 0;
+    function setHot(el) {
+      if (hot) hot.classList.toggle(HOT, false);
+      hot = el;
+      if (hot) hot.classList.toggle(HOT, true);
+    }
+    function clearHot() { setHot(null); }
+    function onMove(e) {
+      var now = performance.now();
+      if (now - last < 33) return;
+      last = now;
+      var next = null;
+      for (var i = 0; i < titles.length; i++) {
+        var t = titles[i];
+        var r = t.getBoundingClientRect();
+        if (e.clientX >= r.left && e.clientX <= r.right &&
+            e.clientY >= r.top && e.clientY <= r.bottom) {
+          t.style.setProperty('--gh2-x', (e.clientX - r.left) + 'px');
+          next = t;
+          break;
+        }
+      }
+      if (next !== hot) setHot(next);
+    }
+    window.addEventListener('pointermove', onMove, { passive: true });
+    window.addEventListener('scroll', clearHot, { passive: true });
+    window.addEventListener('resize', clearHot, { passive: true });
+  } catch (err) {
+    console.warn('prism spotlight disabled:', err.message);
+  }
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND 2 — CAMERA-MOVE SECTION TRANSITIONS (gh3- prefix)
+   A) Camera dolly: every main > section gets a scroll-linked
+      translateY (transform-only) — +1.5% while entering, 0 at
+      rest, -3% while exiting — so sections read as one
+      continuous surface (By-Kin/Uncommon weighted-scroll
+      pattern from the digest). rAF-throttled, passive scroll,
+      clamped to [-3%, +1.5%]; fully off under reduced motion.
+   B) Focus-pull support: orb parallax retuned to TWO rates
+      (near 0.06 / far 0.11) so mid-page sections sit at
+      slightly different depths beside the existing header
+      glint sweep + prism sheen.
+   C) Choreography fix: reveals stagger by index — each grid's
+      .reveal children get a 50ms-per-index inline delay
+      (0/50/100/150ms…), cleared on transitionend so hover
+      transitions never inherit the stagger delay.
+   ============================================================ */
+(function () {
+  'use strict';
+  try {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
+    /* --- A: camera dolly on every section --- */
+    var sections = Array.prototype.slice.call(document.querySelectorAll('main > section'));
+    var raf = null;
+    if (sections.length) {
+      sections.forEach(function (s) { s.classList.add('gh3-sec'); });
+      function apply() {
+        raf = null;
+        var vh = window.innerHeight || 1;
+        for (var i = 0; i < sections.length; i++) {
+          var r = sections[i].getBoundingClientRect();
+          if (r.height < 2) continue;
+          var p = (vh - (r.top + r.height * 0.5)) / vh; /* 0 = entering, 1 = exiting */
+          if (p < 0) p = 0; else if (p > 1) p = 1;
+          var ty = 1.5 - 4.5 * p;                        /* +1.5% -> -3%, clamped */
+          sections[i].style.transform = 'translate3d(0,' + ty.toFixed(2) + '%,0)';
+        }
+      }
+      function onScroll() {
+        if (raf) return;
+        raf = requestAnimationFrame(apply);
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      apply();
+    }
+
+    /* --- B: orb parallax — two rates (near 0.06 / far 0.11) --- */
+    var wraps = document.querySelectorAll('.gh-orbwrap');
+    var rates = [0.06, 0.11];
+    for (var i = 0; i < wraps.length; i++) {
+      wraps[i].dataset.f = String(rates[i % 2]);
+    }
+
+    /* --- C: reveal stagger by index (50ms steps), cleared after reveal --- */
+    var groups = document.querySelectorAll('.about-grid,.projects-grid,.skills-grid,.timeline,.proof-grid,.contact-grid');
+    for (var g = 0; g < groups.length; g++) {
+      var kids = groups[g].children;
+      var idx = 0;
+      for (var k = 0; k < kids.length; k++) {
+        var el = kids[k];
+        if (!el.classList || !el.classList.contains('reveal') || el.classList.contains('in')) continue;
+        el.style.transitionDelay = (idx * 50) + 'ms';
+        (function (node) {
+          node.addEventListener('transitionend', function (ev) {
+            if (ev.propertyName === 'opacity' && node.classList.contains('in')) {
+              node.style.transitionDelay = '';
+            }
+          });
+        })(el);
+        idx++;
+      }
+    }
+  } catch (err) {
+    console.warn('gh3 dolly disabled:', err.message);
+  }
+})();
+</script>
+</body>
+</html>
