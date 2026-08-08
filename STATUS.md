@@ -10,7 +10,7 @@ Session: Aug 07 2026 — ROUND 7+ CAMPAIGN STARTED: 5 rounds × 10 variants, ref
 | W2 | v1 R1 (retry), v4 R1, v5 R1 | DONE — all verified ✓ v1: Archive TOC (toc2-, fixed right 18px, 6 items, sliding marker, 1363→1549) · v4: machine boot sequences (mf2-, 12 units, 1808→1989) · v5: prism spotlight + edge highlight (gh2-, sheen live on all 6 .sec-title ::before, 1225→1349) · all zero console errors |
 | W3 | v6 R1, v7 R1, v8 R1 | DONE — all verified ✓ v6: FIELD COMPLETE celebration (fp2-: 70 leaf-bits confetti at 3/3 — forced state → zone+70 bits+“3/3 · FIELD COMPLETE”; fp2-tag rides fj-rail, opacity via IO) · v7: island spotlight (v7b: glowBoost 1.6× overshoot + beacon burst on 'island' event; tag click → rail cube .v7b-pulse, verified fires + decays) · v8: pressure gauges (ab2-: 28 nodes, .ab2-on sweep + count-up “1,086 atm” on reveal) + jellyfish steer (closure) · all zero console errors |
 | W4 | v9 R1, v10 R1, v2 R2 | DONE — all verified ✓ v9: command depth (g9b-: history ↑/↓ live — ArrowUp restored 'jump work'; whoami prints SUBJECT/ROLE/NODE dump; hologram recolor per sector; 1621→1839) · v10: hover-scrub metrics + marquee pause (t10b-: pointer-gated per source, width-reserved scrub 0.6×–1.4×, marquee :hover pause rule; 796→856) · v2: constellation journey (sd4-: 9 stars + 8 connecting SVG lines live, 22 nodes) · all zero console errors |
-| W5 | v3 R2, v4 R2, v5 R2 | IN PROGRESS (claimed 2026-08-07 ~22:45 UTC, this session) |
+| W5 | v3 R2, v4 R2, v5 R2 | DONE — all verified ✓ (claim 08-08 09:12 died post-write; controller took over, browser-verified all three) · v3: scroll-weave selvedge (sl-: 7 palette-linked bands, scroll-map + .sl-live, RM + no-JS fallback; 1447→1582) + controller fix — resting opacity 0.14→0.5 (was invisible on cream; pixels confirm band paints, live marker moves with scroll) · v4: hack-the-DOM machine loading (hd-: console nav → .hd-loading + 2px ink scanline sweep steps(6) + staggered 1px block jitter at +420ms, teardown at +1120ms verified clean; 2178→2309) · v5: camera-move dolly (gm-: sections ±2.5% entering/exiting alternating + pane drift 0.5/0.32 rates, transform-only; verified live at scrollY 2500) · all zero console errors |
 | W6 | v6 R2, v7 R2, v8 R2 | |
 | W7 | v9 R2, v10 R2, v1 R3 | |
 | W8 | v2 R3, v3 R3, v4 R3 | |
@@ -69,6 +69,19 @@ Plus controller-side fix on V7: **hero-name contrast scrim** (#hero::before radi
 - V10: hero 8.4 avg (type 9); case-file section 9 avg (type 10, uniqueness 10); contact 8.5. Kinetic math asserted exactly (translateX 21.2 px / rotateY 8.2° at p=0.359).
 - Existing six (round 5): V1 8.2 · V3 8.2 · V4 7.8 · V6 7.8 · V2 7.4 · V5 7.4.
 
+## W5 vision scores + lessons (controller pass, 2026-08-08)
+
+- v3 hero 9/10 (selvedge reads as a subtle edge detail; pixels confirm 7 colored segments paint x0–14 — vision LLMs missed the 14px strip twice: sample pixels, don't trust the narrative for thin edge elements).
+- v4 hero 9/10 ("top-tier… communicates technical proficiency through design language"; console area clean).
+- v5 hero 9/10 (camera dolly clean at rest; nav weight noted as minor a11y nit only).
+
+### W5 lessons banked
+
+- **Vision LLMs miss thin low-contrast edge elements.** Two consecutive vision passes said the v3 selvedge band "didn't exist" while it was painting fine. PIL pixel-sampling the saved screenshot (x=3–11 rows) is the ground truth — do that before "fixing" an invisible edge feature. The real bug was legibility, not existence: resting opacity 0.14 on cream ≈ invisible → floored at 0.5.
+- **`elementFromPoint` ignores `pointer-events:none` elements** — it returned the hero for a decorative fixed overlay (band has pointer-events:none by design). Invalid probe for decorative layers; pixel-sampling or getBoundingClientRect + computed style are the valid probes.
+- **Transient-class timing**: hd- teardown is scheduled inside `hackDOM` (fires at Enter+420ms), so classes live Enter+420 → Enter+1120, not +700. Probe inside the real window; verify zero stranded nodes after.
+- **Stale-claim recovery works**: claim 09:12, subagent writes 09:18–09:19, session died pre-verification. Files mtime-check + git diff showed landed work → browser-verify path (not re-dispatch) recovered the wave. Recipe files for all three features already existed (scroll-weave-selvedge, camera-move-dolly, machine-loading-glitch).
+
 ## Round-6 lessons banked
 
 - **var-hoisting trap in subagent three.js code**: `cityCellsPush()` ran before `var cityCellsArray = []` executed → TypeError inside initWorld → caught → staticFallback silently hid the ENTIRE voxel world. Symptom: canvas `display:none`/`static-sky` with zero console errors. Lesson: a caught-error fallback can mask a broken primary path — always visually confirm the primary (WebGL) path renders, and watch hoisting when an array is declared after a function that pushes into it.
@@ -99,5 +112,5 @@ All 4 new variants browser-verified: zero console errors on every page; V7 world
 - V8: jellyfish follow cursor (pointer-fine); depth record cards → pressure gauge sweep on reveal.
 - V9: command bar history (↑/↓); 'whoami' easter egg; hologram recolors per section (violet in PROOF, amber in CONTACT).
 - V10: case-file rows → hover-scrub metric counter (number scrubs with cursor X); marquee pause on hover.
-- Old-variant round-6 candidates from STATUS v5 still open: V4 hack-the-DOM, V2 twinkle layer, V3 thread sag, V6 FIELD COMPLETE confetti + rail integration.
+- Old-variant round-6 candidates from STATUS v5 still open: V2 twinkle layer, V3 thread sag, V6 FIELD COMPLETE confetti + rail integration. ~~V4 hack-the-DOM~~ → DELIVERED in W5 R2 (mc2-glitch + hd- machine-loading layer, see references/machine-loading-glitch-recipe.md).
 - Project "view on github" links still placeholder (github.com/garvit-pandia) — swap for real URLs when supplied.

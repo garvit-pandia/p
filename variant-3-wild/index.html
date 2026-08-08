@@ -503,6 +503,49 @@ form.msg input:focus,form.msg textarea:focus{border-color:var(--wv-a1, var(--vio
   .h-name,.h-name .ch,.blob,.blob .n,.dreamlog,.mq span,form.msg input,form.msg textarea{transition:none}
 }
 </style>
+<style>
+/* ================= ROUND-2 · SCROLL-WEAVE SELVEDGE (sl- prefix, add-only) =================
+   The loom's selvedge: a fixed woven band down the page's left edge. Each chapter of the
+   journey (hero → about → projects → skills → education → certs → contact) weaves one color
+   band into it, drawn from the SAME --wv-a1/2/3 palette vars as the section tints — so
+   'shuffle sky' re-colors the band live and every color stays theme-native. No-JS: the band
+   is a static column of all seven colors (safe frame, nothing hidden). JS (sl-js gate on the
+   root element) turns the column into a scroll map: each band tracks its section's real document
+   position, fades in as its section approaches the viewport, and the band nearest the
+   viewport center glows (sl-live). Reduced-motion: one static layout pass, all bands
+   visible, no scroll listeners. */
+.sl-band{
+  position:fixed; top:0; left:0; bottom:0; width:14px; z-index:90;
+  pointer-events:none; overflow:hidden;
+  border-right:1px solid rgba(34,31,51,.14);
+  border-radius:0 10px 10px 0;
+  background:rgba(250,247,242,.4);
+}
+.sl-weave{display:flex; flex-direction:column; height:100%; padding:3px 0; gap:2px}
+.sl-seg{
+  flex:1 1 auto; min-height:7px; margin:0 3px; border-radius:999px;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.22) 0 1px, rgba(255,255,255,0) 1px 3px),
+    linear-gradient(90deg, rgba(255,255,255,.16), rgba(255,255,255,0) 38%, rgba(255,255,255,0) 62%, rgba(255,255,255,.16)),
+    var(--c, #c9b8ff);
+  box-shadow:inset 0 0 3px rgba(34,31,51,.1);
+  transition:opacity .45s ease, box-shadow .45s ease;
+}
+.sl-seg.sl-live{box-shadow:0 0 10px var(--c, #c9b8ff), inset 0 0 3px rgba(255,255,255,.5)}
+/* JS mode: bands become a scroll-positioned map (the script sets transform + height each frame) */
+.sl-js .sl-weave{position:absolute; inset:0; display:block; padding:0}
+.sl-js .sl-seg{position:absolute; left:3px; right:3px; flex:none; margin:0; min-height:0; will-change:transform}
+@media(max-width:640px){.sl-band{width:9px}}
+@media(prefers-reduced-motion:reduce){.sl-seg{transition:none}}
+
+/* ---- R2 fix 2 · reduced-motion + fine pointer: the custom-cursor script is gated off under
+        reduced motion, so the blanket body{cursor:none} would leave users with NO cursor at all.
+        Restore the system cursor on the same gate (add-only override). ---- */
+@media(prefers-reduced-motion:reduce){body{cursor:auto}}
+
+/* ---- R2 fix 3 · tiny screens: the two-column skill-chip grid cramps below ~480px — one column ---- */
+@media(max-width:480px){.thread-groups{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <canvas id="aurora"></canvas>
@@ -1443,5 +1486,97 @@ shuffleBtn.addEventListener('click', () => {
 .tl:hover::before{transition:all .25s ease}
 .dreamlog .go{transition:color .2s ease}
 </style>
+<!-- ROUND-2 · scroll-weave selvedge — the loom's edge: one woven color band per chapter of the
+     journey (colors = the same --wv-a1/2/3 palette vars as the section tints; no-JS renders a
+     static column of all seven bands, nothing hidden) -->
+<div class="sl-band" id="slBand" aria-hidden="true">
+  <div class="sl-weave">
+    <i class="sl-seg" data-seg="top"       style="--c:var(--wv-a2,#ffb3a0)"></i>
+    <i class="sl-seg" data-seg="about"     style="--c:var(--wv-a1,#ff7a59)"></i>
+    <i class="sl-seg" data-seg="projects"  style="--c:var(--wv-a2,#ffb3a0)"></i>
+    <i class="sl-seg" data-seg="skills"    style="--c:var(--wv-a3,#c9b8ff)"></i>
+    <i class="sl-seg" data-seg="education" style="--c:var(--wv-a1,#ff7a59)"></i>
+    <i class="sl-seg" data-seg="certs"     style="--c:var(--wv-a2,#ffb3a0)"></i>
+    <i class="sl-seg" data-seg="contact"   style="--c:var(--wv-a3,#c9b8ff)"></i>
+  </div>
+</div>
+<script>
+/* ================= ROUND-2 · SCROLL-WEAVE SELVEDGE DRIVER (sl- prefix, add-only) =================
+   Scroll choreography for the selvedge: on every scroll frame (rAF-coalesced, passive) each band
+   is translated to mirror its section's document position on the fixed band, fades in as its
+   section approaches the viewport (0.5 → 1.0), and the band nearest the viewport center is marked
+   .sl-live. Reads scrollHeight per frame like the wvThread layout code; never touches --wv-ten or
+   the thread path. Reduced-motion: one static layout pass, all bands fully visible, no listeners. */
+(function(){
+  try{
+    var band = document.getElementById('slBand');
+    if(!band) return;
+    var reduced = ('matchMedia' in window) && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var segs = band.querySelectorAll('.sl-seg');
+    if(!segs.length) return;
+    var doc = document.documentElement;
+    doc.classList.add('sl-js');   /* switch the CSS column into map mode (no-JS keeps the static column) */
+
+    var CHAPTERS = ['top','about','projects','skills','education','certs','contact'];
+    var lookup = {};
+    for(var i = 0; i < segs.length; i++) lookup[segs[i].getAttribute('data-seg')] = segs[i];
+
+    var vh = 1, targets = [], lastLive = null, lastVH = 0, lastDocH = 0;
+
+    function layout(){
+      vh = window.innerHeight;
+      lastVH = vh;
+      lastDocH = Math.max(1, doc.scrollHeight);
+      targets = [];
+      for(var i = 0; i < CHAPTERS.length; i++){
+        var el = document.getElementById(CHAPTERS[i]);
+        if(!el) continue;
+        var r = el.getBoundingClientRect();
+        targets.push({ seg: lookup[CHAPTERS[i]] || null, top: r.top + window.scrollY, h: Math.max(1, r.height) });
+      }
+    }
+
+    function frame(){
+      vh = window.innerHeight;
+      var docH = Math.max(1, doc.scrollHeight);
+      if(vh !== lastVH || Math.abs(docH - lastDocH) > 2){ layout(); docH = lastDocH; }
+      var scale = vh / docH;
+      var sy = window.scrollY;
+      var midY = sy + vh * 0.5;
+      var live = null, liveBest = Infinity, i, t, d;
+      for(i = 0; i < targets.length; i++){
+        t = targets[i];
+        if(!t.seg) continue;
+        var hPx = Math.max(9, t.h * scale);
+        var y = (t.top - sy) * scale;
+        t.seg.style.height = hPx.toFixed(1) + 'px';
+        t.seg.style.transform = 'translate3d(0,' + (y - hPx / 2).toFixed(1) + 'px,0)';
+        if(!reduced){
+          var o = 1 - (t.top - sy - vh * 0.22) / (vh * 0.78);
+          if(o < 0) o = 0; else if(o > 1) o = 1;
+          t.seg.style.opacity = (0.5 + o * 0.5).toFixed(2);
+        }
+        d = Math.abs(t.top + t.h / 2 - midY);
+        if(d < liveBest){ liveBest = d; live = t.seg; }
+      }
+      if(live && live !== lastLive){
+        if(lastLive) lastLive.classList.remove('sl-live');
+        live.classList.add('sl-live');
+        lastLive = live;
+      }
+    }
+
+    layout();
+    frame();
+    if(reduced) return;   /* reduced motion: static safe frame, no scroll listeners */
+
+    var raf = null;
+    var schedule = function(){ if(!raf) raf = requestAnimationFrame(function(){ raf = null; frame(); }); };
+    window.addEventListener('scroll', schedule, {passive:true});
+    window.addEventListener('resize', function(){ layout(); schedule(); }, {passive:true});
+    window.addEventListener('load', function(){ layout(); schedule(); }, {passive:true});
+  }catch(err){ console.warn('sl selvedge disabled:', err && err.message); }
+})();
+</script>
 </body>
 </html>

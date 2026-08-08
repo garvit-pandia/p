@@ -1635,6 +1635,11 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
         "follow the white rabbit.",
         "the factory has you.",
         "wake up, garvit."
+      ],
+      boot: [
+        "[OK] factory boot replayed — see the console addon.",
+        "garvit — data & AI builder · final-year B.Tech CSE",
+        "[OK] accepting full-time & intern roles — 2026"
       ]
     };
 
@@ -1697,6 +1702,7 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
         case "resume":       resp = DATA.resume; break;
         case "sudo":         resp = DATA.sudo; break;
         case "matrix":       resp = DATA.matrix; break;
+        case "boot":         resp = DATA.boot; break;
         case "date":         resp = [new Date().toLocaleString()]; break;
         case "echo":         resp = arg ? [arg] : []; break;
         default:
@@ -2141,6 +2147,7 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
         e.stopImmediatePropagation();
         e.preventDefault();
         replayBoot();
+        field.value = ""; /* the console's own handler never runs for boot */
         return;
       }
       var id = GLITCH_MAP[cmd];
@@ -2172,6 +2179,130 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
       });
     }
   }catch(err){ console.warn("mc2 addon disabled:", err && err.message); }
+})();
+</script>
+<style>
+/* ============================================================
+   HD-ADDON — hack the DOM: machine 'loading' of target sections
+   (additive R2, hd- prefix)
+   When a console nav command jumps to a section, the section
+   gets the machine-loading pass on top of the mc2 clip-slice
+   flash: a 2px ink scanline sweeps the section top-to-bottom
+   (receipt-printer language, cousin of .r-scan) while the
+   section's blocks jitter 1px on a stepped grid — steps(), no
+   organic easing. Motion is transform/opacity only; the sweep
+   distance is measured by JS (--hd-h) so no layout runs per
+   frame. Reduced motion: JS skips the whole pass. Nothing here
+   hides or moves content at rest — no-JS users see the plain
+   section. Keyboard-driven (console), so no pointer gate needed.
+   ============================================================ */
+.hd-loading{position:relative;} /* layout-neutral anchor for the scan overlay */
+.hd-scan{
+  position:absolute;left:0;right:0;top:0;bottom:0;
+  pointer-events:none;overflow:hidden;
+}
+.hd-scan::before{ /* ink line — the print head */
+  content:"";position:absolute;left:0;right:0;top:-2px;
+  height:2px;background:var(--ink);
+  transform:translateY(0);
+}
+.hd-scan::after{ /* lime ghost band under the head */
+  content:"";position:absolute;left:0;right:0;top:-2px;
+  height:9px;background:rgba(216,255,62,.32);
+  transform:translateY(0);
+}
+.hd-scan::before,
+.hd-scan::after{
+  animation:hdScan 240ms steps(6) 1 forwards;
+}
+@keyframes hdScan{
+  from{transform:translateY(0);}
+  to{transform:translateY(var(--hd-h, 800px));}
+}
+.hd-bit{animation:hdBit 140ms steps(2) 1 both;}
+@keyframes hdBit{
+  0%{transform:translate(0,0);}
+  50%{transform:translate(1px,-1px);}
+  100%{transform:translate(0,0);}
+}
+</style>
+<script>
+/* ============================================================
+   HD-ADDON — hack the DOM (additive R2)
+   Hooks the SAME capture-phase keydown dispatch the terminal
+   nav (mc-nav flash), the flicker and the mc2 section glitch
+   use — so every nav-command Enter lands here BEFORE the
+   console clears the field. At LAND_MS, when the smooth scroll
+   arrives, the target section gets the machine-loading pass:
+   scanline sweep + 1px stepped jitter on its blocks. This
+   layers ON TOP of mc2-glitch (clip slices + hue flash on the
+   section itself) — sweep + per-block jitter are the hd- part.
+   Reduced motion: skipped entirely (static safe frame). Cleanup
+   timer guarantees nothing is left behind. Transform/opacity
+   only. Zero deps, no throw paths.
+   ============================================================ */
+(function(){
+  "use strict";
+  try{
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var field = document.getElementById("mc-field");
+    if(!field){ return; }
+    var MAP = {
+      about:"about", projects:"projects", skills:"skills",
+      education:"education", proof:"proof", certs:"proof",
+      contact:"contact"
+    };
+    var LAND_MS = 420;  /* matches the mc2 glitch landing window */
+    var SWEEP_MS = 240; /* scanline pass duration */
+    var BIT_MS = 140;   /* per-block jitter duration */
+    var STAGGER = 28;   /* ms between block jitter starts */
+    var CLEAN_MS = 700; /* full teardown after the pass */
+
+    function hackDOM(id){
+      var sec = document.getElementById(id);
+      if(!sec){ return; }
+      var kids = sec.querySelectorAll(".container > *");
+      var i;
+
+      /* one scan overlay per pass — drop any stale one */
+      var old = sec.querySelector(".hd-scan");
+      if(old && old.parentNode){ old.parentNode.removeChild(old); }
+
+      sec.classList.add("hd-loading");
+      var scan = document.createElement("div");
+      scan.className = "hd-scan";
+      scan.setAttribute("aria-hidden", "true");
+      scan.style.setProperty("--hd-h", (sec.offsetHeight + 2) + "px");
+      sec.appendChild(scan);
+
+      /* stepped jitter on the section's blocks, staggered */
+      for(i = 0; i < kids.length; i++){
+        kids[i].classList.remove("hd-bit");
+        kids[i].style.animationDelay = (i * STAGGER) + "ms";
+      }
+      void sec.offsetWidth; /* one reflow — restart animations */
+      for(i = 0; i < kids.length; i++){
+        kids[i].classList.add("hd-bit");
+      }
+
+      /* teardown — no stranded classes, overlays or delays */
+      setTimeout(function(){
+        sec.classList.remove("hd-loading");
+        if(scan.parentNode){ scan.parentNode.removeChild(scan); }
+        for(i = 0; i < kids.length; i++){
+          kids[i].classList.remove("hd-bit");
+          kids[i].style.animationDelay = "";
+        }
+      }, CLEAN_MS);
+    }
+
+    field.addEventListener("keydown", function(e){
+      if(e.key !== "Enter"){ return; }
+      var cmd = field.value.trim().toLowerCase().split(/\s+/)[0];
+      var id = MAP[cmd];
+      if(id && !reduced){ setTimeout(function(){ hackDOM(id); }, LAND_MS); }
+    }, true); /* capture: same dispatch as mc-nav / flicker / mc2 */
+  }catch(err){ console.warn("hd addon disabled:", err && err.message); }
 })();
 </script>
 </body>

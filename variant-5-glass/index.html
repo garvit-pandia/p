@@ -531,6 +531,38 @@ html.gh-js .sec-title.gh-in{opacity:1; transform:none}
 /* reduced motion: dolly off — static frame, transforms cleared */
 @media (prefers-reduced-motion:reduce){.gh3-sec{transform:none!important}}
 </style>
+<style>
+/* ============================================================
+   ROUND 2 — REFRACTION DEPTH LAYER (gm- prefix)
+   Completes the camera move in the glass narrative: while
+   gh3- dollies each section (the pane itself), this layer
+   drifts each section's CONTENT pane — its .container, or the
+   hero's .hero-left — at alternating near/far rates (0.5 / 0.32
+   of the dolly amplitude) so adjacent sections read at two
+   glass depths: light bending through stacked panes. A 1px
+   prism glint on each pane's top edge catches light as the
+   pane enters/exits the viewport (--gm-g set by JS, smoothed
+   by the opacity transition). Transform-only; applied to
+   .container / .hero-left wrappers ONLY — never to .tt-zone
+   tilt cards or .reveal elements (their transforms stay
+   untouched). JS-gated: reduced motion, coarse pointers and
+   <=768px viewports skip the layer (static frame unchanged;
+   no-JS renders the plain page).
+   ============================================================ */
+.gm-sec::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 6%,rgba(150,215,255,.55) 42%,rgba(255,255,255,.8) 50%,rgba(167,139,255,.5) 58%,transparent 94%);
+  opacity:var(--gm-g,0);pointer-events:none;z-index:3;
+  transition:opacity .25s ease;
+}
+.gm-pane{will-change:transform}
+/* fix: .tt-zone's transition shorthand dropped the reveal
+   opacity/filter timings on proof/form panels (tt-zone is
+   added at load there) — carry them so those panels still
+   dissolve in, while tilt stays snappy at 120ms. */
+.tt-zone.glass{transition:transform .12s ease-out,box-shadow .3s ease,opacity .8s cubic-bezier(.22,.61,.36,1),filter .8s ease}
+@media (prefers-reduced-motion:reduce),(max-width:640px){.gm-sec::before{display:none}}
+</style>
 </head>
 <body>
 <div class="sky" aria-hidden="true"></div>
@@ -1364,11 +1396,13 @@ import * as THREE from 'three';
 /* ============================================================
    ROUND 2 — CAMERA-MOVE SECTION TRANSITIONS (gh3- prefix)
    A) Camera dolly: every main > section gets a scroll-linked
-      translateY (transform-only) — +1.5% while entering, 0 at
-      rest, -3% while exiting — so sections read as one
-      continuous surface (By-Kin/Uncommon weighted-scroll
-      pattern from the digest). rAF-throttled, passive scroll,
-      clamped to [-3%, +1.5%]; fully off under reduced motion.
+      translateY (transform-only) — +2.5% while entering,
+      exactly 0 when centered, -2.5% while exiting — so
+      sections read as one continuous surface (By-Kin/Uncommon
+      weighted-scroll pattern from the digest). rAF-throttled,
+      passive scroll, clamped to [-2.5%, +2.5%] of each
+      section's own height (halved on coarse-pointer / narrow
+      screens); fully off under reduced motion.
    B) Focus-pull support: orb parallax retuned to TWO rates
       (near 0.06 / far 0.11) so mid-page sections sit at
       slightly different depths beside the existing header
@@ -1387,6 +1421,9 @@ import * as THREE from 'three';
     /* --- A: camera dolly on every section --- */
     var sections = Array.prototype.slice.call(document.querySelectorAll('main > section'));
     var raf = null;
+    var amp = 2.5;   /* % of own height — +amp entering, 0 centered, -amp exiting */
+    var small = window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768;
+    if (small) amp = 1.25;   /* halve the dolly on touch / narrow screens */
     if (sections.length) {
       sections.forEach(function (s) { s.classList.add('gh3-sec'); });
       function apply() {
@@ -1397,7 +1434,7 @@ import * as THREE from 'three';
           if (r.height < 2) continue;
           var p = (vh - (r.top + r.height * 0.5)) / vh; /* 0 = entering, 1 = exiting */
           if (p < 0) p = 0; else if (p > 1) p = 1;
-          var ty = 1.5 - 4.5 * p;                        /* +1.5% -> -3%, clamped */
+          var ty = amp * (0.5 - p) * 2;                 /* rests exactly at 0 when centered */
           sections[i].style.transform = 'translate3d(0,' + ty.toFixed(2) + '%,0)';
         }
       }
@@ -1438,6 +1475,72 @@ import * as THREE from 'three';
     }
   } catch (err) {
     console.warn('gh3 dolly disabled:', err.message);
+  }
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND 2 — REFRACTION DEPTH (gm- prefix)
+   A) Content-pane drift: each section's .container (hero:
+      .hero-left) gets a scroll-linked translateY at alternating
+      near/far rates (0.5 / 0.32 of the gh3- dolly amplitude) —
+      transform-only, px-based on the section rect — so content
+      lags its pane like light bending through stacked glass.
+   B) Prism edge glint: sets --gm-g (0..1) on each section so
+      its top edge catches light while entering (p<0.3) or
+      exiting (p>0.7) — the pane passing the camera.
+   Gates: reduced motion, coarse pointer and <=768px viewports
+   skip everything (the gh3- dolly is halved there already).
+   rAF-throttled passive scroll, one rect read per section per
+   frame. Touches ONLY .container / .hero-left wrappers — never
+   .tt-zone tilt cards or .reveal elements.
+   ============================================================ */
+(function () {
+  'use strict';
+  try {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+    var coarse = window.matchMedia('(pointer: coarse)').matches;
+    if (coarse || window.innerWidth <= 768) return;   /* touch/narrow: static panes */
+
+    var sections = Array.prototype.slice.call(document.querySelectorAll('main > section'));
+    if (!sections.length) return;
+    sections.forEach(function (s) { s.classList.add('gm-sec'); });
+
+    var panes = [];
+    sections.forEach(function (s) {
+      var el = s.querySelector('.container') || (s.id === 'hero' ? s.querySelector('.hero-left') : null);
+      if (!el) return;
+      el.classList.add('gm-pane');
+      panes.push({ el: el, rate: panes.length % 2 ? 0.32 : 0.5 });   /* far / near, alternating */
+    });
+    if (!panes.length) return;
+
+    var raf = null;
+    function apply() {
+      raf = null;
+      var vh = window.innerHeight || 1;
+      for (var i = 0; i < panes.length; i++) {
+        var p = panes[i];
+        var sec = p.el.parentElement;
+        var r = sec.getBoundingClientRect();
+        if (r.height < 2) continue;
+        var prog = (vh - (r.top + r.height * 0.5)) / vh;   /* 0 = entering, 1 = exiting */
+        if (prog < 0) prog = 0; else if (prog > 1) prog = 1;
+        var tyPx = p.rate * 0.025 * r.height * (0.5 - prog) * 2;   /* pane lags its section */
+        p.el.style.transform = 'translate3d(0,' + tyPx.toFixed(1) + 'px,0)';
+        var g = 0;
+        if (prog < 0.3) g = 1 - prog / 0.3;
+        else if (prog > 0.7) g = (1 - prog) / 0.3;
+        sec.style.setProperty('--gm-g', g.toFixed(3));
+      }
+    }
+    function onScroll() { if (raf) return; raf = requestAnimationFrame(apply); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    apply();
+  } catch (err) {
+    console.warn('gm refraction disabled:', err.message);
   }
 })();
 </script>
