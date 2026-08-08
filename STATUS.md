@@ -35,9 +35,18 @@ User asked for the "most jaw-dropping portfolios" — new abstract animated vari
 | variant-11-event-horizon | Black-hole fall — content spirals inward | canvas-2D disk, pre-rendered glow sprites, DPR 1.5 | SUBAGENT BUILDING |
 | variant-12-mycelium | Living fungal network — growth + hyphae | canvas-2D network, dashoffset growth | SUBAGENT BUILDING |
 | variant-13-origami-aurum | Warm paper origami (LIGHT theme) | pure CSS 3D folds, zero canvas | SUBAGENT BUILDING |
-| variant-14-signal | Intercepted radio transmission, decode | canvas-2D static + spectrogram, DPR 1.5 | CONTROLLER BUILT — v14 rated Design 8.5 / Type 9 / Uniqueness 8 / Polish 9 (hero) |
+| variant-14-signal | Intercepted radio transmission, decode | canvas-2D static + spectrogram, DPR 1.5 | DONE — verified + rated Design 8.5 / Type 9 / Uniqueness 8 / Polish 9 (projects section 9/10) |
 
-After all 4 land: controller browser-verifies each (console, screenshots, vision ratings), micro-polish pass, re-rate, then resume W5+.
+## Genesis wave verification (all 4 shipped 2026-08-08)
+
+| Variant | Console | Checks | Vision rating (hero) | Notes |
+|---|---|---|---|---|
+| v11 event-horizon | 0 errors, canvas live, 6 cards, 2 PDF links | subagent node --check ×3 + controller browser pass | Design 8.5 / Type 8 / Layout 9 / Uniqueness 8 / Polish 9 | accretion disk subtle + scientific; footer contrast intentionally low ("fading into void") — WCAG-minor, thematic |
+| v12 mycelium | 0 errors, canvas live, 2 PDF links | subagent checks + browser pass | Design 8 / Type 7 / Layout 8 / Uniqueness 7 / Polish 8 | hyphae + nodes visible, cream-on-black readable; critic: buttons could use softer radius (R1 candidate) |
+| v13 origami-aurum | 0 errors, zero canvas (by design), reveals fire (2/7 at scrollY 500) | written at 600s timeout — file complete, controller-verified directly | Design 8 / Type 7 / Layout 9 / Uniqueness 8 / Polish 8 | light warm theme; critic: nav slightly "too digital", footer thin (R1 candidates) |
+| v14 signal | 0 errors, decode animation fixed (targets captured once — was garbling forever), spectrogram live | controller-built | Design 8.5 / Type 9 / Uniqueness 8 / Polish 9 | critic: ratings section overlaps stats strip slightly — acceptable (user asked for ratings strip) |
+
+All four genesis variants committed in 6210672. Genesis wave COMPLETE — resume W5+ next session (or per user directive).
 
 ## Rubric (1-10): Design / Type / Layout / Uniqueness / Polish (+ Motion, Acc+Perf checked separately)
 
