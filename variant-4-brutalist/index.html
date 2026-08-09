@@ -714,13 +714,13 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
     <span class="nav-logo-word">MONO_FACTORY</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#about">about</a></li>
-    <li><a href="#projects">projects</a></li>
-    <li><a href="#skills">skills</a></li>
-    <li><a href="#education">education</a></li>
-    <li><a href="#proof">proof</a></li>
-    <li><a href="#contact">contact</a></li>
-    <li class="nav-resume"><a class="btn-resume" href="Garvit_Pandia_Resume.pdf" download>RESUME ↓</a></li>
+    <li><a href="#about" data-word="LOAD">about</a></li>
+    <li><a href="#projects" data-word="LOAD">projects</a></li>
+    <li><a href="#skills" data-word="LOAD">skills</a></li>
+    <li><a href="#education" data-word="LOAD">education</a></li>
+    <li><a href="#proof" data-word="LOAD">proof</a></li>
+    <li><a href="#contact" data-word="LOAD">contact</a></li>
+    <li class="nav-resume"><a class="btn-resume" href="Garvit_Pandia_Resume.pdf" download data-word="PULL">RESUME ↓</a></li>
   </ul>
 </nav>
 
@@ -755,8 +755,8 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
           <span class="tag">phagwara, in</span>
         </div>
         <div class="hero-cta">
-          <a class="btn btn-solid" href="#projects">see the work ↓</a>
-          <a class="btn btn-ghost" href="Garvit_Pandia_Resume.pdf" download>download resume</a>
+          <a class="btn btn-solid" href="#projects" data-word="CRANK">see the work ↓</a>
+          <a class="btn btn-ghost" href="Garvit_Pandia_Resume.pdf" download data-word="PULL">download resume</a>
         </div>
       </div>
 
@@ -910,7 +910,7 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
             <span class="chip">hugging face</span>
             <span class="chip">cpcb</span>
           </div>
-          <a class="pcard-link" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">view on github ↗</a>
+          <a class="pcard-link" href="https://github.com/garvit-pandia" target="_blank" rel="noopener" data-word="PULL">view on github ↗</a>
         </div>
         <figure class="pcard-media">
           <div class="frame">
@@ -944,7 +944,7 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
             <span class="chip">streamlit</span>
             <span class="chip">hugging face</span>
           </div>
-          <a class="pcard-link" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">view on github ↗</a>
+          <a class="pcard-link" href="https://github.com/garvit-pandia" target="_blank" rel="noopener" data-word="PULL">view on github ↗</a>
         </div>
         <figure class="pcard-media">
           <div class="frame">
@@ -1133,9 +1133,21 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
             <label for="cf-msg">message</label>
             <textarea id="cf-msg" name="message" placeholder="TYPE YOUR MESSAGE HERE…" required></textarea>
           </div>
-          <button class="btn btn-solid" type="submit" style="justify-self:start;cursor:pointer;">send transmission →</button>
+          <button class="btn btn-solid" type="submit" data-word="SEND" style="justify-self:start;">send transmission →</button>
           <p class="form-note" id="form-note" role="status"></p>
         </form>
+        <!-- RT-ADDON (round 3): transmission receipt — printed + torn by JS on send -->
+        <div class="rt-slot" id="rt-slot" aria-hidden="true">
+          <div class="rt-receipt">
+            <div class="rt-head">■ mono_factory — transmission receipt</div>
+            <div class="rt-row rt-from"><span class="rt-k">from</span><span class="rt-v"></span></div>
+            <div class="rt-row rt-mail"><span class="rt-k">mail</span><span class="rt-v"></span></div>
+            <div class="rt-row rt-msg"><span class="rt-k">msg</span><span class="rt-v"></span></div>
+            <div class="rt-row"><span class="rt-k">stamp</span><span class="rt-v rt-stamp"></span></div>
+            <div class="rt-line">■ opened → mail client launched</div>
+          </div>
+          <div class="rt-stub"><span>■ receipted</span></div>
+        </div>
       </div>
 
       <div class="channels">
@@ -1317,6 +1329,15 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
     var name = document.getElementById("cf-name").value.trim();
     var email = document.getElementById("cf-email").value.trim();
     var msg = document.getElementById("cf-msg").value.trim();
+    /* FIX: form is novalidate — refuse blank transmissions instead of
+       opening a garbage mailto / printing an empty receipt */
+    if(!name || !email || !msg){
+      note.textContent = "// FORM INCOMPLETE — ALL THREE FIELDS REQUIRED";
+      note.classList.add("in");
+      return;
+    }
+    /* R3: print + tear the transmission receipt (rt- addon) before the mail client opens */
+    if(window.__mfReceipt){ window.__mfReceipt(name, email, msg); }
     var subject = encodeURIComponent("Portfolio contact — " + (name || "anonymous"));
     var body = encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\n" + msg);
     window.location.href = "mailto:garvit9829@gmail.com?subject=" + subject + "&body=" + body;
@@ -2226,6 +2247,157 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
   100%{transform:translate(0,0);}
 }
 </style>
+<style>
+/* ============================================================
+   MH-ADDON + RT-ADDON (round 3) — mechanical hovers (mh-) +
+   transmission receipt tear (rt-). Additive only.
+   mh- : brutalist 2px press-in inversions — background-color /
+         color swap + translateY(2px), steps() timing, hardened
+         shadows, NO soft glow — on nav / project / button /
+         channel targets, plus the .mh-word machine-status lamp
+         that reads each target's data-word on hover
+         (PULL / CRANK / SEND / ...).
+   rt- : the landed transmission receipt slot gets filled by JS,
+         revealed, torn by a steps() serial-port clip-path pass,
+         and its receipted stub drops. Mechanical stutter, <=700ms.
+   Both gated to fine pointers + no-preference motion; reduced
+   motion = instant reveal / plain color-swap hovers.
+   ============================================================ */
+
+/* ---- mh-: machine-status lamp (textContent driven by JS) ---- */
+.mh-word{
+  position:fixed;right:14px;bottom:14px;z-index:9990;
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink);background:var(--lime);
+  border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:6px 10px;
+  opacity:0;transform:translateY(8px);pointer-events:none;
+  transition:opacity 90ms steps(2),transform 90ms steps(2);
+}
+.mh-word.mh-on{opacity:1;transform:translateY(0);}
+
+/* ---- mh-: mechanical press-in inversions (fine pointer, no RM) ---- */
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  .nav-links a:not(.btn-resume):hover{
+    background:var(--lime);color:var(--ink);
+    transform:translateY(2px);box-shadow:none;
+    transition:transform 90ms steps(2),background-color 90ms steps(2),
+               color 90ms steps(2),box-shadow 90ms steps(2);
+  }
+  .btn-resume:hover{
+    background:var(--paper);color:var(--ink);
+    transform:translateY(2px);box-shadow:2px 2px 0 var(--ink);
+    transition:transform 90ms steps(2),background-color 90ms steps(2),
+               color 90ms steps(2),box-shadow 90ms steps(2);
+  }
+  .btn-solid:hover{
+    background:var(--lime);color:var(--ink);
+    transform:translateY(2px);box-shadow:3px 3px 0 var(--ink);
+    transition:transform 90ms steps(2),background-color 90ms steps(2),
+               color 90ms steps(2),box-shadow 90ms steps(2);
+  }
+  .btn-ghost:hover{
+    background:var(--lime);color:var(--ink);
+    transform:translateY(2px);box-shadow:3px 3px 0 var(--ink);
+    transition:transform 90ms steps(2),background-color 90ms steps(2),
+               color 90ms steps(2),box-shadow 90ms steps(2);
+  }
+  .channel:hover{
+    background:var(--lime);color:var(--ink);
+    transform:translateY(2px);box-shadow:3px 3px 0 var(--ink);
+    transition:transform 90ms steps(2),background-color 90ms steps(2),
+               color 90ms steps(2),box-shadow 90ms steps(2);
+  }
+  .channel:hover .channel-k{color:var(--ink);}
+  .pcard-link:hover{
+    background:var(--lime);color:var(--ink);
+    transform:translateY(2px);box-shadow:3px 3px 0 var(--ink);
+    transition:transform 90ms steps(2),background-color 90ms steps(2),
+               color 90ms steps(2),box-shadow 90ms steps(2);
+  }
+}
+
+/* ---- rt-: transmission receipt slot (hidden until send) ---- */
+.rt-slot{display:none;margin-top:22px;}
+.rt-slot.rt-on{display:block;}
+.rt-receipt{
+  position:relative;overflow:hidden;
+  font-family:var(--mono);font-size:11px;
+  text-transform:uppercase;letter-spacing:.04em;
+  border:2px solid var(--ink);background:#f7f7f2;
+  box-shadow:4px 4px 0 var(--ink);
+  padding:12px 14px;max-width:420px;
+}
+.rt-head{
+  font-weight:500;letter-spacing:.08em;
+  padding-bottom:8px;border-bottom:2px dashed var(--ink);margin-bottom:4px;
+}
+.rt-row{
+  display:flex;justify-content:space-between;gap:12px;
+  padding:5px 0;border-bottom:1px solid rgba(20,20,20,.16);
+}
+.rt-k{font-weight:500;flex-shrink:0;}
+.rt-v{text-align:right;white-space:normal;word-break:break-word;}
+.rt-msg .rt-v{max-height:4.4em;overflow:hidden;}
+.rt-stamp{color:var(--red);letter-spacing:.06em;}
+.rt-line{margin-top:8px;letter-spacing:2px;color:#8a8a8a;text-align:right;}
+.rt-stub{
+  width:fit-content;max-width:420px;
+  font-family:var(--mono);font-size:10px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;
+  background:var(--lime);color:var(--ink);
+  border:2px dashed var(--ink);border-top:none;
+  padding:5px 10px;box-shadow:4px 4px 0 var(--ink);
+  transform-origin:top center;
+}
+/* serial-port tear — clip-path slices on a stepped grid */
+.rt-receipt.rt-tear{
+  animation:rtTear 340ms steps(4) 1 forwards;
+  border-bottom-color:var(--red);
+}
+@keyframes rtTear{
+  0%  {clip-path:inset(0 0 0 0); transform:translateX(0);}
+  25% {clip-path:inset(2% 0 84% 0); transform:translateX(2px);}
+  50% {clip-path:inset(30% 0 46% 0); transform:translateX(-2px);}
+  75% {clip-path:inset(58% 0 20% 0); transform:translateX(2px);}
+  100%{clip-path:inset(0 0 0 0); transform:translateX(0);}
+}
+/* the receipted stub detaches and drops */
+.rt-stub.rt-drop{
+  animation:rtDrop 220ms steps(3) 1 forwards;
+  border-bottom-color:transparent;
+}
+@keyframes rtDrop{
+  0%  {transform:translateY(0) rotate(0);opacity:1;}
+  40% {transform:translateY(4px) rotate(.4deg);opacity:1;}
+  100%{transform:translateY(34px) rotate(1.6deg);opacity:0;}
+}
+/* print-head scan sweep while the tear runs (cousin of .r-scan) */
+.rt-scan{
+  position:absolute;left:0;right:0;top:0;height:2px;
+  background:var(--ink);opacity:0;pointer-events:none;
+  transform:translateY(0);
+}
+.rt-slot.rt-on .rt-scan{
+  animation:rtScan 160ms steps(5) 1 both;
+}
+@keyframes rtScan{
+  from{transform:translateY(0);opacity:.7;}
+  to{transform:translateY(var(--rt-h,300px));opacity:0;}
+}
+/* reduced motion — instant reveal, no tear, lamp off */
+@media (prefers-reduced-motion:reduce){
+  .mh-word{display:none;}
+  .rt-receipt.rt-tear,.rt-stub.rt-drop{animation:none;}
+  .rt-slot.rt-on .rt-scan{animation:none;}
+}
+/* small screens — receipt stays inside the grid */
+@media (max-width:520px){
+  .rt-receipt,.rt-stub{max-width:100%;}
+  .rt-stub{margin-left:auto;margin-right:0;}
+}
+</style>
 <script>
 /* ============================================================
    HD-ADDON — hack the DOM (additive R2)
@@ -2303,6 +2475,108 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
       if(id && !reduced){ setTimeout(function(){ hackDOM(id); }, LAND_MS); }
     }, true); /* capture: same dispatch as mc-nav / flicker / mc2 */
   }catch(err){ console.warn("hd addon disabled:", err && err.message); }
+})();
+</script>
+<script>
+/* ============================================================
+   MH-ADDON + RT-ADDON (round 3) — mechanical hovers + receipt
+   tear (additive).
+   mh-: a machine-status lamp (.mh-word) reads each mechanical
+   target's data-word (PULL / CRANK / SEND / ...) on hover.
+   rt-: exposes window.__mfReceipt(name, email, msg) — the
+   existing contact submit handler calls it right after its
+   empty-field guard, so the tear runs before/with the mailto.
+   It fills the landed rt- fields, reveals the slot, injects a
+   print-head scan, and runs a steps() clip-path tear + stub
+   drop (<=700ms), then cleans up and hides the slot.
+   Gated: (hover:hover) and (pointer:fine) + no reduced motion;
+   localStorage mhForce==='1' forces it on (headless verify).
+   Passive listeners only, transform/opacity animations only,
+   one reflow per send, zero throw paths.
+   ============================================================ */
+(function(){
+  "use strict";
+  try{
+    var fine = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var forced = false;
+    try{ forced = localStorage.getItem("mhForce") === "1"; }catch(err){}
+    var live = (fine || forced) && !reduced;
+
+    /* ---- mh-: machine-status lamp ---- */
+    if(live){
+      var wordEl = document.createElement("div");
+      wordEl.className = "mh-word";
+      wordEl.setAttribute("aria-hidden", "true");
+      wordEl.textContent = "■ MODE:_IDLE";
+      document.body.appendChild(wordEl);
+      document.addEventListener("pointerover", function(e){
+        var t = e.target && e.target.closest ? e.target.closest("[data-word]") : null;
+        if(t){
+          wordEl.textContent = "■ MODE:_" + (t.getAttribute("data-word") || "RUN");
+          wordEl.classList.add("mh-on");
+        }else if(wordEl.classList.contains("mh-on")){
+          wordEl.classList.remove("mh-on");
+        }
+      }, {passive:true});
+    }
+
+    /* ---- rt-: receipt fill + tear (called by the submit handler) ---- */
+    var slot = document.getElementById("rt-slot");
+    window.__mfReceipt = function(name, email, msg){
+      if(!slot){ return; }
+      var receipt = slot.querySelector(".rt-receipt");
+      var stub = slot.querySelector(".rt-stub");
+      var from = slot.querySelector(".rt-from .rt-v");
+      var mail = slot.querySelector(".rt-mail .rt-v");
+      var mtext = slot.querySelector(".rt-msg .rt-v");
+      var stamp = slot.querySelector(".rt-stamp");
+      var now = new Date();
+      if(from){ from.textContent = name || "—"; }
+      if(mail){ mail.textContent = email || "—"; }
+      if(mtext){ mtext.textContent = msg || "—"; }
+      if(stamp){
+        stamp.textContent = now.toISOString().slice(0, 16).replace("T", " ").toUpperCase() + " · SENT";
+      }
+
+      /* reset any previous run, then reveal */
+      slot.classList.remove("rt-on");
+      receipt.classList.remove("rt-tear");
+      stub.classList.remove("rt-drop");
+      var oldScan = receipt.querySelector(".rt-scan");
+      if(oldScan && oldScan.parentNode){ oldScan.parentNode.removeChild(oldScan); }
+      slot.setAttribute("aria-hidden", "false");
+      slot.classList.add("rt-on");
+
+      function hideSlot(){
+        slot.classList.remove("rt-on");
+        receipt.classList.remove("rt-tear");
+        stub.classList.remove("rt-drop");
+        var sc = receipt.querySelector(".rt-scan");
+        if(sc && sc.parentNode){ sc.parentNode.removeChild(sc); }
+        slot.setAttribute("aria-hidden", "true");
+      }
+
+      if(reduced){
+        /* static frame — just the printed receipt, then auto-hide */
+        setTimeout(hideSlot, 4200);
+        return;
+      }
+      void slot.offsetWidth; /* one reflow — arm the animations */
+      receipt.style.setProperty("--rt-h", (receipt.offsetHeight + 2) + "px");
+      receipt.classList.add("rt-tear");          /* t=0   clip-path slices, 340ms */
+      setTimeout(function(){                     /* t=40  print-head scan, 160ms  */
+        var s = document.createElement("span");
+        s.className = "rt-scan";
+        s.setAttribute("aria-hidden", "true");
+        receipt.appendChild(s);
+      }, 40);
+      setTimeout(function(){ stub.classList.add("rt-drop"); }, 300); /* stub drops */
+      setTimeout(hideSlot, 4200);
+    };
+  }catch(err){
+    if(window.console){ console.warn("R3 addons disabled:", err && err.message); }
+  }
 })();
 </script>
 </body>

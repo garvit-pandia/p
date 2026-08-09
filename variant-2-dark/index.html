@@ -401,7 +401,6 @@ footer .sig i{width:8px;height:8px;border-radius:50%;background:var(--violet);bo
 .smap .m:hover .l{opacity:.9; transform:translateX(0)}
 .smap .m.active .s{animation:none; opacity:1; transform:scale(1.18); text-shadow:0 0 10px rgba(245,201,107,.95), 0 0 24px rgba(77,214,232,.55)}
 .smap .m.active .l{opacity:1; transform:translateX(0); color:var(--cyan)}
-@keyframes sm-tw{0%,100%{opacity:.25} 50%{opacity:.6}}
 @media(max-width:720px){.smap{display:none}}
 /* ---- additive polish: give the star rail presence ---- */
 .smap{border-left:1px solid rgba(139,143,168,.28); padding:18px 12px 18px 14px}
@@ -623,6 +622,37 @@ footer .sig i{width:8px;height:8px;border-radius:50%;background:var(--violet);bo
 /* ---- FIX 2: same-delay neighbours (about's d4 pair) — 60ms gap ---- */
 .reveal.d4 + .reveal{transition-delay:.38s}
 </style>
+<style>
+/* ============================================================
+   ct — Round 3 'Micro-interactions': comet cursor trail + orbit tilt
+   (all rules new, ct- prefix; pointer-fine gated so touch/headless
+   stay still; reduced-motion kills both — static sky per digest)
+   ============================================================ */
+@media(pointer:fine){
+  /* ---- comet cursor trail: JS spawns <=9 dots into #ct-trail.
+     Container is pointer-through + additive(screen); dots are tiny,
+     life-driven opacity handled by JS, glow <= .2 alpha. ---- */
+  #ct-trail{
+    position:fixed; inset:0; z-index:2890; pointer-events:none;
+    mix-blend-mode:screen;
+  }
+  .ct-dot{
+    position:fixed; left:0; top:0; width:4px; height:4px;
+    margin:-2px 0 0 -2px; border-radius:50%;
+    background:radial-gradient(circle, rgba(140,235,255,.85) 0%, rgba(124,92,255,.32) 55%, transparent 78%);
+    box-shadow:0 0 6px rgba(77,214,232,.5), 0 0 14px rgba(124,92,255,.22);
+    opacity:0; will-change:transform, opacity;
+  }
+  /* ---- orbit tilt target: the 2D constellation plane. Untouched by the
+     scroll transforms (sd2 owns #stars/nebula) — a fresh parallax tier
+     that leans toward the pointer, released on pointerleave (JS lerp). ---- */
+  #constellation{ transform-origin:50% 45%; will-change:transform; }
+  @media(prefers-reduced-motion:reduce){
+    #ct-trail{display:none}
+    #constellation{transform:none !important}
+  }
+}
+</style>
 </head>
 <body>
 <canvas id="stars"></canvas>
@@ -630,6 +660,7 @@ footer .sig i{width:8px;height:8px;border-radius:50%;background:var(--violet);bo
 <div id="progress"></div>
 <div class="cm-comet" id="cm-comet" aria-hidden="true"></div>
 <i class="sd3-here" id="sd3-here" aria-hidden="true"></i>
+<div class="ct-trail" id="ct-trail" aria-hidden="true"></div>
 <div class="sd4-map" id="sd4-map" aria-hidden="true">
   <svg class="sd4-lines" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
     <defs>
@@ -661,7 +692,7 @@ footer .sig i{width:8px;height:8px;border-radius:50%;background:var(--violet);bo
   <span class="sd4-read" aria-hidden="true">COURSE PLOT <b>01</b>/09</span>
 </div>
 <noscript>
-  <style>.reveal{opacity:1;transform:none;filter:none}.smap,.cm-comet,#sd3-here,#sd4-map{display:none}</style>
+  <style>.reveal{opacity:1;transform:none;filter:none}.smap,.cm-comet,#sd3-here,#sd4-map,#ct-trail{display:none}</style>
 </noscript>
 <nav class="smap" id="smap" aria-label="Section star map"></nav>
 
@@ -1522,6 +1553,111 @@ if(termBody && !prefersReduced){
     }
   }catch(err){
     console.warn('sd4 journey disabled:', err && err.message);
+  }
+})();
+</script>
+<script>
+/* --- ct: Round 3 'Micro-interactions' — comet cursor trail + orbit tilt.
+   pointer-fine gate (headless force: localStorage ctForce === '1'),
+   reduced-motion off, <=60fps sampling, passive listeners, rAF only while
+   alive/visible, transform+opacity only, every lookup null-guarded. ------ */
+(function(){
+  try{
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced) return;
+    var force = false;
+    try{ force = localStorage.getItem('ctForce') === '1'; }catch(e){}
+    if(!force && !window.matchMedia('(pointer: fine)').matches) return;
+
+    var trail = document.getElementById('ct-trail');
+    if(!trail) return;
+    var plane = document.getElementById('constellation');
+
+    /* ---- trail: 9 tiny dots, 520ms life, additive, glow <= .2 ---- */
+    var DOTS = 9, LIFE = 520, BASE_ALPHA = 0.2;
+    var dots = [];
+    var sizes = [5,5,5,4,4,4,3,3,3];
+    for(var s = 0; s < DOTS; s++){
+      var d = document.createElement('i');
+      d.className = 'ct-dot';
+      d.setAttribute('aria-hidden', 'true');
+      d.style.opacity = '0';
+      d.style.transform = 'translate3d(-80px,-80px,0)';
+      d.style.width = sizes[s] + 'px';
+      d.style.height = sizes[s] + 'px';
+      d.style.marginLeft = (-sizes[s] / 2) + 'px';
+      d.style.marginTop = (-sizes[s] / 2) + 'px';
+      trail.appendChild(d);
+      dots.push({el:d, born:0});
+    }
+
+    var cx = 0, cy = 0, has = false;
+    var lastT = 0;
+
+    /* --- sample + spawn: rotate the oldest dot to the cursor head --- */
+    window.addEventListener('pointermove', function(e){
+      var now = performance.now();
+      if(now - lastT < 16) return;              /* <=60fps sampling */
+      lastT = now;
+      dots.sort(function(a,b){ return a.born - b.born; });
+      dots[0].born = now;
+      dots[0].el.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0)';
+      cx = e.clientX; cy = e.clientY; has = true;
+    }, {passive:true});
+
+    window.addEventListener('pointerleave', function(){
+      has = false;                              /* trail fades out; tilt releases below */
+    }, {passive:true});
+
+    /* --- orbit tilt: lean the constellation plane toward the pointer,
+       lerp k=0.1, accumulate <= 4deg, release back on pointerleave --- */
+    var MAX_DEG = 4;
+    var tRX = 0, tRY = 0, tx = 0, ty = 0, rafT = null, rafF = null;
+    if(plane){
+      function tiltTick(){
+        var w = window.innerWidth || 1, h = window.innerHeight || 1;
+        var px = has ? (cx / w) * 2 - 1 : 0;    /* -1..1 from center */
+        var py = has ? (cy / h) * 2 - 1 : 0;
+        tx += (px - tx) * 0.08;
+        ty += (py - ty) * 0.08;
+        tRX += (-ty * MAX_DEG - tRX) * 0.1;     /* cursor above -> plane leans away */
+        tRY += ( tx * MAX_DEG - tRY) * 0.1;
+        if(!has && Math.abs(tRX) < 0.02 && Math.abs(tRY) < 0.02){
+          plane.style.transform = '';           /* fully released: static sky */
+          rafT = null; return;
+        }
+        plane.style.transform = 'perspective(1100px) rotateX(' + tRX.toFixed(3) + 'deg) rotateY(' + tRY.toFixed(3) + 'deg)';
+        rafT = requestAnimationFrame(tiltTick);
+      }
+      function startTilt(){ if(!rafT) rafT = requestAnimationFrame(tiltTick); }
+      window.addEventListener('pointermove', startTilt, {passive:true});
+      startTilt();
+    }
+
+    /* --- trail fade loop: only runs while >=1 dot is alive --- */
+    function fadeTick(now){
+      var any = false;
+      for(var i = 0; i < DOTS; i++){
+        var age = now - dots[i].born;
+        if(age >= LIFE){ dots[i].el.style.opacity = '0'; continue; }
+        any = true;
+        dots[i].el.style.opacity = (BASE_ALPHA * (1 - age / LIFE)).toFixed(3);
+      }
+      if(any) rafF = requestAnimationFrame(fadeTick);
+      else rafF = null;
+    }
+    window.addEventListener('pointermove', function(){
+      if(!rafF) rafF = requestAnimationFrame(fadeTick);
+    }, {passive:true});
+
+    /* --- pause per-frame work while the tab is hidden --- */
+    document.addEventListener('visibilitychange', function(){
+      if(document.hidden && rafF){ cancelAnimationFrame(rafF); rafF = null; }
+    });
+
+    window.__ct = { active:true, dots:DOTS, tilt:!!plane };  /* headless assert handle */
+  }catch(err){
+    console.warn('ct comet trail disabled:', err && err.message);
   }
 })();
 </script>
