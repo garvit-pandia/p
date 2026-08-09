@@ -304,6 +304,40 @@ footer .row b{color:var(--ink)}
   .cwrap{grid-template-columns:1fr}
   .skrow{grid-template-columns:110px 1fr 44px;gap:.6rem}
 }
+/* ============================================================
+   ROUND 2 (choreography) — section-enter letter snap (t10c-)
+   Heading letters whip: a fast stretch/over-rotate burst with
+   an elastic settle, played ONCE when the heading enters the
+   viewport. The per-letter pose is captured at snap time with
+   the SAME math the scroll loop uses, so letters settle onto
+   the exact transforms the scroll choreography would give.
+   Fill is `backwards` only — the running scroll/repulsion
+   inline transform is never clobbered; it simply shows again
+   once the burst ends. Amplitudes stay inside the digest's
+   ±8% size band (scaleX peak ≈1.06, rotate ≤4°, 460ms burst
+   + ≤176ms stagger — total < 700ms, text stays readable).
+   ============================================================ */
+@keyframes t10cSnap{
+  0%  { transform:var(--t10c-pose,none); animation-timing-function:cubic-bezier(.2,1.35,.3,1) }
+  38% { transform:var(--t10c-pose,none) scaleX(1.05) scaleY(.95) rotate(calc(var(--t10c-dir,1) * 3.5deg)); animation-timing-function:cubic-bezier(.3,.75,.25,1.12) }
+  100%{ transform:var(--t10c-pose,none) }
+}
+.kinetic h2.t10c-snap .k-l{
+  animation:t10cSnap 460ms backwards;
+  animation-delay:calc(var(--i) * 16ms);
+}
+/* F2 — magnetic buttons: springy settle on release (base .btn has no transform transition) */
+.btn.t10c-relax{transition:transform .45s cubic-bezier(.2,1.5,.3,1),background .15s,color .15s}
+/* F3 — marquee: soft edge fade so the ticker glides in/out instead of hard-clipping */
+.marquee{position:relative}
+.marquee::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:linear-gradient(90deg,var(--acid),transparent 6%,transparent 94%,var(--acid));
+}
+/* F4 — case rows reveal in sequence (stagger by index, not random — per digest) */
+@media (prefers-reduced-motion:no-preference){
+  .case.rv{transition-delay:calc(var(--ri,0) * 90ms)}
+}
 </style>
 </head>
 <body>
@@ -850,6 +884,75 @@ for (let r = 0; r < rows.length; r++){
     row.classList.remove('t10b-scrub');
   }, { passive: true });
 }
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND 2 (choreography) — section-enter letter snap (t10c-)
+   One-shot: when a kinetic heading enters the viewport, its
+   letters whip-stretch then snap back onto the exact pose the
+   scroll choreography formula would give them. The pose is
+   captured per letter at snap time using the SAME math as the
+   main loop (section-global index so `dir` parity matches the
+   scroll handler's enumeration — the hidden aria-hidden
+   "Contact" h2 still counts, exactly like it does there).
+   The burst is a CSS animation with fill:backwards, so it
+   layers ON the scroll-driven inline transform and yields
+   back to it the moment it ends — no transform clobber.
+   .hov/.rep letters are skipped using the same filter as the
+   scroll handler (line 665 pattern). Reduced-motion: gated
+   off entirely — letters just reveal normally.
+   ============================================================ */
+(() => {
+'use strict';
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+const clampT = (v, a, b) => Math.min(b, Math.max(a, v));
+
+/* --- F1: section-enter letter snap --- */
+const headings = Array.from(document.querySelectorAll('section.kinetic h2[data-split]'))
+  .filter(h => h.getAttribute('aria-hidden') !== 'true');
+if ('IntersectionObserver' in window && headings.length){
+  const snapIo = new IntersectionObserver(es => {
+    es.forEach(ent => {
+      if (!ent.isIntersecting) return;
+      const h2 = ent.target;
+      snapIo.unobserve(h2);
+      const sec = h2.closest('section');
+      if (!sec) return;
+      const secLetters = Array.from(sec.querySelectorAll('.k-l'));
+      const burst = Array.from(h2.querySelectorAll('.k-l'))
+        .filter(l => !l.classList.contains('hov') && !l.classList.contains('rep'));
+      if (!burst.length) return;
+      burst.forEach(l => {
+        const i = secLetters.indexOf(l);
+        const r = sec.getBoundingClientRect();
+        const p = clampT((innerHeight * 0.5 - r.top) / r.height, 0, 1);
+        const t = p - 0.5;
+        const dir = i % 2 ? 1 : -1;
+        l.style.setProperty('--t10c-pose',
+          'translateX(' + (t * 150 * dir).toFixed(1) + 'px) translateY(' + (t * -46).toFixed(1) + 'px) rotateY(' + (t * 58 * dir).toFixed(1) + 'deg)');
+        l.style.setProperty('--t10c-dir', dir);
+      });
+      h2.classList.add('t10c-snap');
+      let pending = burst.length;
+      const done = () => { if (--pending <= 0) h2.classList.remove('t10c-snap'); };
+      burst.forEach(l => l.addEventListener('animationend', done, { once: true }));
+    });
+  }, { threshold: 0.25 });
+  headings.forEach(h => snapIo.observe(h));
+}
+
+/* --- F2: magnetic buttons spring-settle on release (base .btn has no transform transition) --- */
+if (matchMedia('(pointer: fine)').matches){
+  Array.from(document.querySelectorAll('.mag')).forEach(btn => {
+    btn.addEventListener('pointerleave', () => btn.classList.add('t10c-relax'), { passive: true });
+    btn.addEventListener('pointerenter', () => btn.classList.remove('t10c-relax'), { passive: true });
+  });
+}
+
+/* --- F4: case rows reveal in sequence (stagger by index, not random) --- */
+const caseRows = Array.from(document.querySelectorAll('.case'));
+caseRows.forEach((row, ri) => row.style.setProperty('--ri', Math.min(ri, 4)));
 })();
 </script>
 </body>

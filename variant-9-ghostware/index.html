@@ -578,7 +578,9 @@ main{position:relative;z-index:1}
 
 /* ---------- reveals ---------- */
 .reveal{
-  transition:opacity .5s ease var(--d,0s),transform .5s ease var(--d,0s),filter .5s ease var(--d,0s);
+  /* R2 pacing polish: transform gets a subtle settle (≈1px overshoot) so
+     staggered reveals land like choreography, not fades */
+  transition:opacity .5s ease var(--d,0s),transform .55s cubic-bezier(.2,1.12,.3,1) var(--d,0s),filter .5s ease var(--d,0s);
 }
 .gh-js .reveal{opacity:0;transform:translateY(22px);filter:blur(6px)}
 .gh-js .reveal.in{opacity:1;transform:translateY(0);filter:blur(0)}
@@ -691,6 +693,48 @@ main{position:relative;z-index:1}
 .g9b-k{color:var(--dim)}
 .g9b-who{max-height:180px;padding-bottom:8px}
 @media (max-width:760px){.g9b-hist{display:none}}
+/* ============================================================
+   ROUND 2 — ARCHIVE BOOT SEQUENCE (g9c- prefix)
+   one short boot pass on load — sector checkmarks tick in, the
+   progress bar fills, then the overlay dissolves and the hero
+   (dimmed beneath) brightens: a paced, skippable reveal.
+   gated on .gh-js so no-JS pages never see a stuck overlay;
+   reduced-motion collapses it entirely (handled in the script).
+   ============================================================ */
+.g9c-boot{display:none}
+.gh-js .g9c-boot{
+  display:flex;align-items:center;justify-content:center;
+  position:fixed;inset:0;z-index:200;
+  background:
+    linear-gradient(rgba(5,5,8,.9),rgba(5,5,8,.96)),
+    repeating-linear-gradient(0deg,rgba(127,245,255,.03) 0 1px,transparent 1px 3px);
+  font-family:var(--f-mono);
+  cursor:wait;
+  transition:opacity .48s ease;
+}
+.gh-js .g9c-boot.g9c-done{opacity:0;pointer-events:none}
+.g9c-boot-inner{
+  width:min(520px,88vw);padding:34px 30px;
+  border:1px solid rgba(127,245,255,.22);border-radius:10px;
+  background:rgba(11,11,20,.88);
+  box-shadow:0 0 60px rgba(127,245,255,.07),inset 0 0 40px rgba(127,245,255,.03);
+}
+.g9c-line{margin:0;font-size:11px;letter-spacing:.18em;line-height:1.9}
+.g9c-title{color:var(--cyan);font-weight:500;text-shadow:0 0 12px rgba(127,245,255,.45)}
+.g9c-status{color:var(--dim);margin-top:14px}
+.g9c-track{height:10px;margin:16px 0 20px;padding:2px;border:1px solid rgba(127,245,255,.3);border-radius:99px;background:rgba(127,245,255,.04)}
+.g9c-fill{display:block;height:100%;width:100%;border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--violet));transform:scaleX(0);transform-origin:left;box-shadow:0 0 14px rgba(127,245,255,.5)}
+.g9c-sectors{display:grid;gap:5px}
+.g9c-sec{display:flex;justify-content:space-between;gap:12px;font-size:10.5px;letter-spacing:.14em;color:var(--dim);opacity:.25;transition:opacity .18s ease}
+.g9c-sec.g9c-on{opacity:1;color:var(--text)}
+.g9c-sec .g9c-sec-ok{visibility:hidden;color:var(--cyan)}
+.g9c-sec.g9c-on .g9c-sec-ok{visibility:visible;text-shadow:0 0 8px rgba(127,245,255,.6)}
+.g9c-skip{margin-top:18px;font-size:9px;letter-spacing:.22em;color:rgba(127,245,255,.4);text-transform:uppercase;animation:g9cSkipPulse 1.4s steps(2) infinite}
+@keyframes g9cSkipPulse{50%{opacity:.25}}
+body.g9c-booting .hero{opacity:.2;filter:blur(4px) saturate(.55)}
+body:not(.g9c-booting) .hero{transition:opacity .55s ease,filter .55s ease}
+body.g9c-booting #topbar{opacity:.3}
+body:not(.g9c-booting) #topbar{transition:opacity .55s ease}
 </style>
 </head>
 <body>
@@ -1207,11 +1251,14 @@ main{position:relative;z-index:1}
   var readout = $('#tmReadout');
   if (readout) {
     if (!RM) {
+      /* R2 cadence polish: values ease toward targets instead of random
+         jumps — the readout breathes at 600ms rather than stuttering */
+      var mem = 68, fr = 60, si = 98.2;
       setInterval(function () {
-        var mem = 61 + Math.floor(Math.random() * 19);
-        var fr = 58 + Math.floor(Math.random() * 4);
-        var si = (98.1 + Math.random() * 0.3).toFixed(1);
-        readout.textContent = 'SYS INTEGRITY ' + si + '% · MEM LOAD ' + mem + '% · FRAME RATE ' + fr;
+        mem += (61 + Math.random() * 19 - mem) * 0.22;
+        fr += (58 + Math.random() * 4 - fr) * 0.3;
+        si += (98.1 + Math.random() * 0.3 - si) * 0.35;
+        readout.textContent = 'SYS INTEGRITY ' + si.toFixed(1) + '% · MEM LOAD ' + Math.round(mem) + '% · FRAME RATE ' + Math.round(fr);
       }, 600);
     }
   }
@@ -1250,12 +1297,14 @@ main{position:relative;z-index:1}
     }
     clearInterval(typeTimer);
     heroName.textContent = '';
+    /* R2 pacing polish: recall decelerates like a buffer draining
+       (34ms first char → ~53ms last) instead of a flat 45ms tick */
     var i = 0;
-    typeTimer = setInterval(function () {
+    (function step() {
       i += 1;
       heroName.textContent = full.slice(0, i);
-      if (i >= full.length) { clearInterval(typeTimer); }
-    }, 45);
+      if (i < full.length) { typeTimer = setTimeout(step, 34 + i * 1.6); }
+    })();
   }
 
   /* ================= hologram ================= */
@@ -1833,6 +1882,119 @@ main{position:relative;z-index:1}
     for (var j = 0; j < links.length; j++) { mo.observe(links[j], { attributes: true, attributeFilter: ['class'] }); }
   }
   dispatchSector();
+})();
+</script>
+<!-- ============================================================
+     ROUND 2 — ARCHIVE BOOT SEQUENCE (g9c- prefix)
+     the archive boots once on load: sector checkmarks tick in,
+     the progress bar fills, then the overlay dissolves and the
+     hero (dimmed beneath it) brightens — a short, paced reveal.
+     Skippable (any key/click/scroll), collapsed under
+     prefers-reduced-motion. Layered ON TOP of the existing
+     reveal IO — it removes only its own overlay + body class.
+     ============================================================ -->
+<div class="g9c-boot" id="g9cBoot" aria-hidden="true">
+  <div class="g9c-boot-inner">
+    <p class="g9c-line g9c-title">GHOSTWARE v7.3 — MEMORY ARCHIVE</p>
+    <p class="g9c-line g9c-status" id="g9cStatus">INITIALIZING HOLOGRAPHIC STORAGE…</p>
+    <div class="g9c-track" aria-hidden="true"><span class="g9c-fill" id="g9cFill"></span></div>
+    <div class="g9c-sectors" id="g9cSectors" aria-hidden="true"></div>
+    <p class="g9c-line g9c-skip">ANY KEY · CLICK · SCROLL — SKIP BOOT</p>
+  </div>
+</div>
+<script>
+(function () {
+  'use strict';
+  var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var boot = document.getElementById('g9cBoot');
+  if (!boot) { return; }
+  if (RM) { /* reduced motion: no overlay at all — instant hero reveal */
+    if (boot.parentNode) { boot.parentNode.removeChild(boot); }
+    return;
+  }
+  var done = false;
+  var watchdog = null;
+  var body = document.body;
+  var fill = document.getElementById('g9cFill');
+  var status = document.getElementById('g9cStatus');
+  var sectorsEl = document.getElementById('g9cSectors');
+  var SECTORS = ['HOLOGRAM CORE', 'PARTICLE FIELD', 'TELEMETRY BUS',
+                 'MEMORY SLOTS — ARCH-0001..0008', 'ACCESS:// CONSOLE',
+                 'NAVIGATION GRID', 'RECALL ENGINE'];
+  var step = 190;              /* ms between sector lines */
+  var BAR_MS = 1500;           /* progress fill duration */
+  var t0 = Date.now();
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  /* finish is hoisted so the watchdog can never strand the overlay */
+  function finish(fast) {
+    if (done) { return; }
+    done = true;
+    clearTimeout(watchdog);
+    window.removeEventListener('keydown', skip);
+    window.removeEventListener('pointerdown', skip);
+    window.removeEventListener('wheel', skip);
+    window.removeEventListener('touchstart', skip);
+    body.classList.remove('g9c-booting');
+    boot.classList.add('g9c-done');
+    if (fast) { boot.style.transitionDuration = '.18s'; }
+    setTimeout(function () {
+      if (boot.parentNode) { boot.parentNode.removeChild(boot); }
+    }, fast ? 220 : 560);
+  }
+  var skip = function () { finish(true); };
+
+  watchdog = setTimeout(function () { finish(false); }, 2600);
+
+  body.classList.add('g9c-booting');   /* dims hero beneath the overlay */
+
+  /* sector lines — built once, lit up by .g9c-on */
+  var lines = [];
+  for (var i = 0; i < SECTORS.length; i++) {
+    var d = document.createElement('div');
+    d.className = 'g9c-sec';
+    var tag = document.createElement('span');
+    tag.className = 'g9c-sec-tag';
+    tag.textContent = 'BOOT SECTOR ' + pad(i + 1) + '/' + pad(SECTORS.length) + ' — ' + SECTORS[i];
+    var ok = document.createElement('span');
+    ok.className = 'g9c-sec-ok';
+    ok.textContent = '[ OK ]';
+    d.appendChild(tag);
+    d.appendChild(ok);
+    if (sectorsEl) { sectorsEl.appendChild(d); }
+    lines.push(d);
+  }
+
+  /* progress bar fill */
+  var barTimer = setInterval(function () {
+    var p = Math.min(1, (Date.now() - t0) / BAR_MS);
+    if (fill) { fill.style.transform = 'scaleX(' + p.toFixed(4) + ')'; }
+    if (p >= 1) { clearInterval(barTimer); }
+  }, 32);
+
+  /* tick the sector lines in sequence */
+  for (var k = 0; k < lines.length; k++) {
+    (function (idx) {
+      setTimeout(function () {
+        if (done) { return; }
+        lines[idx].classList.add('g9c-on');
+        if (idx === lines.length - 1 && status) {
+          status.textContent = 'MEMORY ARCHIVE ONLINE — RECALL READY';
+        }
+      }, 140 + idx * step);
+    })(k);
+  }
+
+  /* skippable: any key / click / scroll dismisses instantly */
+  window.addEventListener('keydown', skip);
+  window.addEventListener('pointerdown', skip);
+  window.addEventListener('wheel', skip, { passive: true });
+  window.addEventListener('touchstart', skip, { passive: true });
+
+  /* natural end: 140 + 7×190 = 1470ms tick-in, +60ms breath, 480ms
+     dissolve → overlay fully gone ≈ 2.01s (under the 2.2s cap) */
+  setTimeout(function () { finish(false); }, 140 + lines.length * step + 60);
 })();
 </script>
 </body>

@@ -1544,5 +1544,111 @@ document.querySelectorAll('section[id]').forEach(s => navIO.observe(s));
     }catch(err){ console.warn('toc2 disabled:', err && err.message); }
   })();
 </script>
+<style>
+/* ============================================================
+   ADDED (round 3, W7) — Micro-interactions, 'ink-' prefix.
+   (a) ink-bleed marginalia: on pointer hover the handwritten
+       mg- notes blur slightly (0.6px) then dry sharp within
+       ~220ms, with a wet-ink terracotta halo that fades and a
+       tiny lasting ink-gain saturation while hovered. Purely
+       visual (filter + text-shadow) — the mg-pinned/mg-thought
+       machinery is untouched. Also restores pointer-events on
+       notes under pointer-fine: round-5 wired role=button +
+       click handlers but .mg-note carried pointer-events:none,
+       so pin/thought toggles were dead for mouse users.
+   (b) stamp-press buttons: :active = instant 2px press with a
+       hard terracotta stamp-shadow collapse and a 2-step
+       paper-creak flash (no easing). Hover lift becomes a
+       snappy 180ms stamp-like overshoot (was a mushy all-ease
+       .28s). Reduced-motion: no blur/ink anywhere; the stamp
+       press stays as a simple transform for affordance.
+   ============================================================ */
+@media (pointer:fine){
+  /* (a) ink-bleed marginalia ---------------------------------- */
+  .ink-bleed{
+    pointer-events:auto;              /* revive round-5 pin/thought clicks */
+    transition:opacity .5s ease, transform .5s ease,
+               filter .2s ease-out, text-shadow .2s ease-out;
+  }
+  .ink-bleed:hover,
+  .ink-bleed:focus-visible,
+  .proj:hover > .ink-bleed.mg-card,
+  .sec-head:hover > .ink-bleed{
+    filter:blur(0) saturate(1.06);    /* ink dries a touch richer */
+    text-shadow:0 0 1px rgba(201,100,66,.14);
+    animation:ink-dry .22s ease-out;  /* bleed then dry, once per hover */
+  }
+  /* card notes reveal faster than section notes — a 500ms hover
+     reveal felt dead; 280ms keeps the reveal but reads alive. */
+  .ink-bleed.mg-card{
+    transition:opacity .28s ease, transform .28s ease,
+               filter .2s ease-out, text-shadow .2s ease-out;
+  }
+  /* (b) stamp-press buttons ------------------------------------ */
+  .ink-stamp{
+    position:relative;
+    transition:transform .18s cubic-bezier(.34,1.56,.64,1),
+               box-shadow .18s cubic-bezier(.34,1.56,.64,1),
+               background .28s ease, border-color .28s ease, color .28s ease;
+  }
+  .ink-stamp::after{  /* paper-creak micro-flash */
+    content:''; position:absolute; inset:-2px; border-radius:inherit;
+    pointer-events:none; opacity:0;
+    background:radial-gradient(circle at 50% 70%,
+               rgba(245,244,237,.6), rgba(245,244,237,0) 62%);
+  }
+  .ink-stamp:active{  /* instant, hard, no easing */
+    transform:translateY(2px) scale(.99);
+    box-shadow:0 2px 0 rgba(90,60,30,.35);
+    transition:none;
+  }
+  .ink-stamp:active::after{ animation:ink-creak .18s steps(2,end) }
+  /* stamp-settle hover on section headers (fix: the stamp had no
+     hover state and its -8deg rest rotation reads slightly off —
+     it inks to full opacity and straightens when the title is
+     reached) */
+  h2.ink-host .sec-stamp{ transition:transform .2s ease, opacity .2s ease }
+  h2.ink-host:hover .sec-stamp{
+    opacity:1; transform:scale(1) rotate(-6deg);
+  }
+}
+@keyframes ink-dry{
+  0%  { filter:blur(0) saturate(1.06); text-shadow:0 0 1px rgba(201,100,66,.14) }
+  40% { filter:blur(.6px) saturate(1.14); text-shadow:0 0 2px rgba(201,100,66,.5) }  /* wet */
+  100%{ filter:blur(0) saturate(1.06); text-shadow:0 0 1px rgba(201,100,66,.14) }  /* dry */
+}
+@keyframes ink-creak{
+  0%  { opacity:0 }
+  25% { opacity:.85 }
+  100%{ opacity:0 }
+}
+/* reduced-motion: no blur/ink; the stamp press stays as a simple
+   transform for affordance */
+@media (prefers-reduced-motion:reduce){
+  .ink-bleed{ animation:none !important; filter:none !important; text-shadow:none !important }
+  h2.ink-host .sec-stamp{ transition:none !important; transform:scale(1) rotate(-8deg) !important }
+}
+@media (pointer:fine) and (prefers-reduced-motion:reduce){
+  .ink-stamp{ transition:none !important }
+  .ink-stamp:active{ transform:translateY(1px) !important; box-shadow:0 2px 0 rgba(90,60,30,.3) !important; transition:none !important }
+  .ink-stamp::after{ display:none !important }
+}
+</style>
+<script>
+/* ADDITIVE (round 3, W7): inks the ink- prefix classes onto the
+   existing elements — .btn gets the stamp press, mg- notes get
+   ink-bleed (hidden-thought notes excluded: they are display-only
+   flip targets and must stay pointer-events:none), stamp-host
+   headings get the stamp-settle hover. No structural changes. */
+(function(){
+  'use strict';
+  try{
+    if(!window.matchMedia('(pointer: fine)').matches) return;
+    document.querySelectorAll('.btn').forEach(function(b){ b.classList.add('ink-stamp'); });
+    document.querySelectorAll('.mg-note:not(.mg-thought)').forEach(function(n){ n.classList.add('ink-bleed'); });
+    document.querySelectorAll('h2.stamp-host').forEach(function(h){ h.classList.add('ink-host'); });
+  }catch(err){ console.warn('ink micro-interactions disabled:', err && err.message); }
+})();
+</script>
 </body>
 </html>
