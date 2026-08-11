@@ -735,6 +735,40 @@ body.g9c-booting .hero{opacity:.2;filter:blur(4px) saturate(.55)}
 body:not(.g9c-booting) .hero{transition:opacity .55s ease,filter .55s ease}
 body.g9c-booting #topbar{opacity:.3}
 body:not(.g9c-booting) #topbar{transition:opacity .55s ease}
+/* ============================================================
+   ROUND 3 — SLOT DRAG-TO-RECALL + CROSSHAIR WORD CURSOR (g9d-)
+   pointer-fine only: the archive cursor becomes a crosshair and
+   a tiny word chip rides it (SCAN → RECALL → SYNC n%). Dragging
+   across an ARCH-#### slot scrubs glitch intensity via --g9d-i;
+   releasing at >= 55% recalls the slot through its existing
+   glitch-load path. Reduced motion and coarse pointers keep the
+   plain click path; the boot overlay hides the chip.
+   ============================================================ */
+.g9d-word{
+  position:fixed;left:0;top:0;z-index:100;display:none;
+  padding:3px 7px;font-size:9px;line-height:1;letter-spacing:.22em;
+  text-transform:uppercase;white-space:nowrap;pointer-events:none;
+  color:var(--cyan);background:rgba(5,5,8,.78);
+  border:1px solid rgba(127,245,255,.4);
+  transform:translate3d(-100%,-100%,0);
+}
+@media (hover:hover) and (pointer:fine){
+  body.g9d-armed{cursor:crosshair}
+  body.g9d-armed .g9d-word{display:block}
+  body.g9d-armed .slot{cursor:crosshair}
+}
+body.g9c-booting .g9d-word{display:none}
+.slot.g9d-scrubbing{
+  border-color:var(--magenta);
+  box-shadow:0 0 26px rgba(255,61,129,.22);
+  cursor:crosshair;
+}
+.slot.g9d-scrubbing .serial{
+  text-shadow:calc(var(--g9d-i,0)*3px) 0 0 rgba(255,61,129,.85),
+              calc(var(--g9d-i,0)*-3px) 0 0 rgba(127,245,255,.85);
+}
+.slot-state.g9d-armed-i{color:var(--magenta)}
+.slot.g9d-scrubbing .slot-state{color:var(--magenta)}
 </style>
 </head>
 <body>
@@ -745,7 +779,7 @@ body:not(.g9c-booting) #topbar{transition:opacity .55s ease}
 <header class="topbar" id="topbar">
   <div class="telemetry" role="status">
     <span class="tm-left"><span class="tm-dot" aria-hidden="true"></span>GHOSTWARE v7.3 — MEMORY ARCHIVE <span class="tm-sub">// SUBJECT: GARVIT PANDIA</span></span>
-    <span class="tm-right" id="tmReadout">SYS INTEGRITY 98.2% · MEM LOAD 71% · FRAME RATE 60</span>
+    <span class="tm-right" id="tmReadout" aria-live="off">SYS INTEGRITY 98.2% · MEM LOAD 71% · FRAME RATE 60</span>
   </div>
   <nav class="access" id="access" aria-label="Archive navigation">
     <span class="access-prompt" aria-hidden="true">ACCESS://</span>
@@ -1523,11 +1557,9 @@ body:not(.g9c-booting) #topbar{transition:opacity .55s ease}
             g2.y = -14 - Math.random() * 40;
             g2.x = Math.random() * W;
           }
-          ctx.globalAlpha = g2.a;
           ctx.fillStyle = gcolPrefix[g2.ci] + g2.a + ')';
           ctx.fillText(g2.ch, g2.x, g2.y);
         }
-        ctx.globalAlpha = 1;
       }
 
       function drawHolo() {
@@ -1652,11 +1684,9 @@ body:not(.g9c-booting) #topbar{transition:opacity .55s ease}
         gcolPrefix = [pre(tintCur.g[0]), pre(tintCur.g[1]), pre(tintCur.g[2])];
         for (i = 0; i < glyphs.length; i++) {
           var g3 = glyphs[i];
-          ctx.globalAlpha = g3.a;
           ctx.fillStyle = gcolPrefix[g3.ci] + g3.a + ')';
           ctx.fillText(g3.ch, g3.x, g3.y);
         }
-        ctx.globalAlpha = 1;
         drawHolo();
       }
 
@@ -1835,7 +1865,16 @@ body:not(.g9c-booting) #topbar{transition:opacity .55s ease}
       }
       slot.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'center' });
       flash(slot);
-      setTimeout(function () { if (slot.click) { slot.click(); } }, RM ? 0 : 380);
+      setTimeout(function () {
+        /* g9d- fix: recalling an already-open slot must never close it —
+           re-glitch it instead of dispatching a click (toggle would flip) */
+        if (slot.classList.contains('open')) {
+          if (!RM && !slot.classList.contains('glitching')) {
+            slot.classList.add('glitching');
+            setTimeout(function () { slot.classList.remove('glitching'); }, 160);
+          }
+        } else if (slot.click) { slot.click(); }
+      }, RM ? 0 : 380);
       say('RECALL ' + serial.toUpperCase() + ' — <span class="ok">GLITCH-LOADING…</span>');
       return;
     }
@@ -1893,6 +1932,7 @@ body:not(.g9c-booting) #topbar{transition:opacity .55s ease}
      prefers-reduced-motion. Layered ON TOP of the existing
      reveal IO — it removes only its own overlay + body class.
      ============================================================ -->
+<div class="g9d-word" id="g9dWord" aria-hidden="true">SCAN</div>
 <div class="g9c-boot" id="g9cBoot" aria-hidden="true">
   <div class="g9c-boot-inner">
     <p class="g9c-line g9c-title">GHOSTWARE v7.3 — MEMORY ARCHIVE</p>
@@ -1995,6 +2035,172 @@ body:not(.g9c-booting) #topbar{transition:opacity .55s ease}
   /* natural end: 140 + 7×190 = 1470ms tick-in, +60ms breath, 480ms
      dissolve → overlay fully gone ≈ 2.01s (under the 2.2s cap) */
   setTimeout(function () { finish(false); }, 140 + lines.length * step + 60);
+})();
+</script>
+<!-- ============================================================
+     ROUND 3 — SLOT DRAG-TO-RECALL + CROSSHAIR WORD CURSOR (g9d-)
+     pointer-fine + reduced-motion gated, add-only. Dragging
+     across an ARCH-#### slot scrubs glitch intensity (0–100%,
+     position-based); releasing at >= 55% recalls the slot via
+     its existing glitch-load path, below that it decays back to
+     idle. The archive cursor becomes a crosshair and a tiny word
+     chip rides it: SCAN → RECALL → SCRUB/SYNC n%. Boot overlay
+     hides the chip; RM and coarse pointers keep the plain click
+     path untouched. g9dForce=1 (localStorage) bypasses the
+     pointer gate for headless verification.
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+  var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FINE = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  try { if (window.localStorage && localStorage.getItem('g9dForce') === '1') { FINE = true; } } catch (e) {}
+  var word = document.getElementById('g9dWord');
+  var slots = Array.prototype.slice.call(document.querySelectorAll('.slot'));
+  if (!slots.length || RM) { return; }   /* RM: plain click path stays */
+  if (!FINE) { return; }                 /* touch/coarse: mouse-only gesture */
+
+  var ARMED = 0.55;   /* release threshold to recall */
+  var MOVE = 6;       /* px of travel before a press becomes a drag */
+  var SCRUB = 'g9d-scrubbing';
+  var cur = null;
+  var swallow = false;
+  var raf = 0;
+  var lastPct = -1;
+  var lastWord = '';
+
+  document.body.classList.add('g9d-armed');
+
+  /* --- word chip rides the pointer (rAF-throttled, transform only) --- */
+  var wx = 0, wy = 0, wTick = false;
+  function moveWord(x, y) {
+    wx = x; wy = y;
+    if (wTick || !word) { return; }
+    wTick = true;
+    requestAnimationFrame(function () {
+      wTick = false;
+      if (document.body.classList.contains('g9c-booting')) { return; }
+      word.style.transform = 'translate3d(' + (wx + 14) + 'px,' + (wy + 18) + 'px,0)';
+    });
+  }
+  function setWord(txt) {
+    if (!word || txt === lastWord) { return; }
+    lastWord = txt;
+    word.textContent = txt;
+  }
+  window.addEventListener('pointermove', function (ev) { moveWord(ev.clientX, ev.clientY); }, { passive: true });
+
+  /* --- hover context: RECALL over a slot, SCAN elsewhere --- */
+  slots.forEach(function (s) {
+    s.addEventListener('pointerenter', function () { if (!cur) { setWord('RECALL'); } });
+    s.addEventListener('pointerleave', function () { if (!cur) { setWord('SCAN'); } });
+  });
+  setWord('SCAN');
+
+  /* --- scrub math + paint --- */
+  function scrubIntensity(slot, x) {
+    var r = slot.getBoundingClientRect();
+    var i = (x - r.left) / Math.max(1, r.width);
+    if (i < 0) { i = 0; } else if (i > 1) { i = 1; }
+    return i;
+  }
+  function paintScrub(slot, i) {
+    var pct = Math.round(i * 100);
+    slot.style.setProperty('--g9d-i', i.toFixed(3));
+    if (pct !== lastPct) {
+      lastPct = pct;
+      var st = slot.querySelector('.slot-state');
+      if (st) {
+        st.textContent = '[ SCRUB ' + pct + '% ]';
+        st.classList.toggle('g9d-armed-i', i >= ARMED);
+      }
+      setWord(i >= ARMED ? 'SYNC ' + pct + '%' : 'SCRUB ' + pct + '%');
+    }
+  }
+  function jitter(slot, i) {
+    if (i <= 0) { slot.style.transform = ''; return; }
+    var k = Math.round(i * 6) / 6;   /* stepped — digital feel */
+    var jx = (Math.random() * 2 - 1) * 1.6 * k;
+    var jy = (Math.random() * 2 - 1) * 1.2 * k;
+    slot.style.transform = 'translate3d(' + jx.toFixed(2) + 'px,' + jy.toFixed(2) + 'px,0)';
+  }
+  function stopJitter(slot) {
+    if (raf) { cancelAnimationFrame(raf); raf = 0; }
+    if (slot) { slot.style.transform = ''; }
+  }
+  function restoreState(slot) {
+    lastPct = -1;
+    slot.style.removeProperty('--g9d-i');
+    var st = slot.querySelector('.slot-state');
+    if (st) {
+      st.classList.remove('g9d-armed-i');
+      st.textContent = slot.classList.contains('open') ? '[ LOADED ]' : '[ LOCKED ]';
+    }
+  }
+  function endScrub(slot, i) {
+    stopJitter(slot);
+    slot.classList.remove(SCRUB);
+    if (i >= ARMED && !slot.classList.contains('open')) {
+      restoreState(slot);
+      setWord('SCAN');
+      slot.click();               /* existing glitch-load path */
+      swallow = true;             /* consume the natural click that follows */
+    } else {
+      restoreState(slot);
+      setWord('SCAN');
+    }
+    cur = null;
+  }
+
+  slots.forEach(function (slot) {
+    slot.addEventListener('pointerdown', function (ev) {
+      swallow = false;
+      if (ev.button !== 0) { return; }
+      if (document.body.classList.contains('g9c-booting')) { return; }
+      if (slot.classList.contains('glitching')) { return; }
+      cur = { slot: slot, x0: ev.clientX, y0: ev.clientY, active: false };
+      try { slot.setPointerCapture(ev.pointerId); } catch (e) {}
+    });
+    slot.addEventListener('pointermove', function (ev) {
+      if (!cur || cur.slot !== slot) { return; }
+      if (!cur.active) {
+        var dx = ev.clientX - cur.x0, dy = ev.clientY - cur.y0;
+        if (dx * dx + dy * dy < MOVE * MOVE) { return; }
+        cur.active = true;
+        slot.classList.add(SCRUB);
+      }
+      if (slot.classList.contains('glitching')) { return; }
+      paintScrub(slot, scrubIntensity(slot, ev.clientX));
+      if (!raf) {
+        var iNow = lastPct / 100;
+        raf = requestAnimationFrame(function () { raf = 0; jitter(slot, iNow); });
+      }
+    });
+    slot.addEventListener('pointerup', function (ev) {
+      if (!cur || cur.slot !== slot) { return; }
+      endScrub(slot, scrubIntensity(slot, ev.clientX));
+    });
+    slot.addEventListener('pointercancel', function () {
+      if (!cur || cur.slot !== slot) { return; }
+      stopJitter(slot);
+      slot.classList.remove(SCRUB);
+      restoreState(slot);
+      setWord('SCAN');
+      cur = null;
+    });
+    /* a drag still produces a click — swallow it so the recall's own
+       slot.click() is not double-fired (toggle would close the slot) */
+    slot.addEventListener('click', function (ev) {
+      if (swallow) {
+        swallow = false;
+        ev.stopImmediatePropagation();
+        ev.preventDefault();
+      }
+    }, true);
+  });
+
+  /* controller probe handle */
+  window.__g9d = { setWord: setWord, moveWord: moveWord };
 })();
 </script>
 </body>
