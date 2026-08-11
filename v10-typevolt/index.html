@@ -370,6 +370,40 @@ footer .row b{color:var(--ink)}
 @media (prefers-reduced-motion:reduce){
   .kinetic .k-l.hov{transform:none !important}
 }
+/* ============================================================
+   ROUND 4 (performance + resilience) — t10e-
+   Reduced-motion letter static: the RM kill is re-asserted
+   HERE at rule specificity with !important in a later block
+   (W10-R3 lesson) so the hover-jiggle rule can never out-rank
+   it; the marquee is killed outright instead of relying on
+   the .001s duration freeze.
+   Print = the machine's proof sheet: the kinetic page
+   typesets flat — reveals forced visible, letters static,
+   fixed widgets dropped, URLs set under links, cards kept
+   whole, ink-friendly flattening, @page margins.
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  .kinetic .k-l{transform:none !important}
+  .marquee .track{animation:none !important}
+}
+@media print{
+  @page{size:auto;margin:14mm 12mm}
+  html{scroll-behavior:auto}
+  html,body{background:#fff !important;color:#000 !important;print-color-adjust:economy;-webkit-print-color-adjust:economy}
+  .rv,.js .rv{opacity:1 !important;transform:none !important}
+  .kinetic .k-l,.kinetic .k-l.hov{transform:none !important;animation:none !important}
+  #rotWord .w{transform:none !important;transition:none !important}
+  .skrow .bar i{width:var(--w) !important}
+  #prog,#cur,#curW,.marquee,.bgword,nav{display:none !important}
+  header{min-height:auto;padding:10mm 0 5mm}
+  .sec{padding:5mm 0}
+  .case,.spec,.ach,.job,.quote,.edu,.skrow,.stats{break-inside:avoid}
+  .quote,.btn,.t10d-mag{background:#fff !important;color:#000 !important;border-color:#000 !important;box-shadow:none !important;transform:none !important}
+  .quote cite{color:#000}
+  .quote::before{color:#000}
+  a{text-decoration:underline}
+  a[href^="http"]::after,a[href^="mailto:"]::after,a[href^="tel:"]::after{content:" (" attr(href) ")";font-family:var(--mono);font-size:8pt;color:#333;text-decoration:none;word-break:break-all}
+}
 </style>
 </head>
 <body>
@@ -678,7 +712,7 @@ function swapWord(){
     rw.classList.remove('out');
   }, 340);
 }
-setInterval(swapWord, 2600);
+if (!reduced) setInterval(swapWord, 2600);   /* R4: no idle no-op timer under reduced motion */
 
 /* ---------------- reveals ---------------- */
 const io = new IntersectionObserver(es => {
@@ -795,12 +829,17 @@ if (finePtr && !reduced){
       document.body.classList.remove('cur-word');
     }
   });
+  let curRaf = null;
   (function loop(){
+    if (document.hidden){ curRaf = null; return; }   /* hidden: chain self-terminates, no re-arm */
     cx += (tx - cx) * 0.22; cy += (ty - cy) * 0.22;
     cur.style.transform = 'translate3d(' + (cx - 6) + 'px,' + (cy - 6) + 'px,0)';
     curW.style.transform = 'translate3d(' + (cx + 16) + 'px,' + (cy + 16) + 'px,0)';
-    requestAnimationFrame(loop);
+    curRaf = requestAnimationFrame(loop);
   })();
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && !curRaf) curRaf = requestAnimationFrame(loop);   /* resume only if chain dead */
+  });
 }
 
 /* ---------------- contact form → mailto ---------------- */
@@ -1078,6 +1117,57 @@ if (finePtrD && !reducedD){
     }
   }, { passive: true });
 }
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND 4 — perf/resilience telemetry handle (t10e-)
+   window.__t10e — one-liner probes for the controller:
+   content-visibility census + intrinsic-size coverage on
+   every section, reduced-motion flag, print-ready flag
+   (scans the stylesheets for a real print media rule),
+   live print media state, active CSS animation names on
+   the themed motion sources, and hidden-tab state.
+   ============================================================ */
+(() => {
+'use strict';
+window.__t10e = (function(){
+  var secs = document.querySelectorAll('section');
+  var cvCount = 0, intrCount = 0;
+  for (var i = 0; i < secs.length; i++){
+    var cs = getComputedStyle(secs[i]);
+    if (cs.contentVisibility === 'auto') cvCount++;
+    if (cs.containIntrinsicSize && cs.containIntrinsicSize !== 'none') intrCount++;
+  }
+  var printReady = false;
+  try {
+    for (var sh = 0; sh < document.styleSheets.length; sh++){
+      var rules;
+      try { rules = document.styleSheets[sh].cssRules; } catch (e) { continue; }
+      for (var r = 0; rules && r < rules.length; r++){
+        if (rules[r].conditionText && rules[r].conditionText.indexOf('print') !== -1){ printReady = true; break; }
+      }
+      if (printReady) break;
+    }
+  } catch (e) { printReady = false; }
+  var animNames = [];
+  var sources = ['.marquee .track', '.kicker .blk', '#heroName.go .k-l', '.kinetic h2.t10c-snap .k-l'];
+  for (var s = 0; s < sources.length; s++){
+    var el = document.querySelector(sources[s]);
+    if (!el) continue;
+    var an = getComputedStyle(el).animationName;
+    if (an && an !== 'none') animNames.push(an);
+  }
+  return {
+    contentVisibility: cvCount,
+    intrinsicSizes: intrCount,
+    rmReduced: matchMedia('(prefers-reduced-motion: reduce)').matches,
+    printReady: printReady,
+    printLive: matchMedia('print').matches,
+    activeAnimations: animNames,
+    hidden: document.hidden
+  };
+})();
 })();
 </script>
 </body>

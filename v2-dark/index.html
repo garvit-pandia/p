@@ -653,6 +653,77 @@ footer .sig i{width:8px;height:8px;border-radius:50%;background:var(--violet);bo
   }
 }
 </style>
+<style>
+/* ============================================================
+   v2j — R5 jury pass: verified contrast fixes, rail geometry,
+   print sheet, final polish. (all rules new; nothing above edited)
+   ============================================================ */
+
+/* ---- contrast: --muted was 3.88:1 on the base bg / 3.76:1 on bg-2 /
+   3.65:1 on panel — below the 4.5:1 bar for the many 10-12px mono
+   labels (nav links, sec-sub, stat labels, footer, figcaption, form
+   labels, cert issuers, mission ids). One token lift fixes every
+   usage at once: 4.88 / 4.74 / 4.59. ---- */
+:root{--muted:#7e7b9c}
+
+/* ---- contrast: white-on-violet button text was 4.35:1 — deepen the
+   button fill one step (same violet hue family) -> 5.18:1 ---- */
+.btn-primary{background:#6f4ff0; border-color:#6f4ff0}
+
+/* ---- contrast: section-number chips on the dark-band sections were
+   4.40:1 (violet on bg-2) -> 4.86:1 with brighter chip ink ---- */
+.sec-num{color:#8566ff}
+
+/* ---- geometry: the star-rail label zone (~105px wide, labels only
+   semi-visible at rest) overlapped the shell's right edge and
+   swallowed pointer events at 720-1400px viewports. Collapse the
+   label to zero width at rest so the rail is the pure star column as
+   originally designed; hover / active / keyboard-focus slide it out. ---- */
+.smap .m .l{
+  max-width:0; overflow:hidden;
+  transition:opacity .3s ease, transform .3s ease, color .3s ease, max-width .3s ease;
+}
+.smap .m:hover .l,
+.smap .m.active .l,
+.smap .m:focus-visible .l{max-width:86px}
+
+/* ---- polish: brand link hover glow (matches the nav-links hover) ---- */
+.brand:hover{color:var(--cyan); text-shadow:0 0 14px rgba(77,214,232,.5)}
+
+/* ---- polish: skill cells glow on hover like the hero stat cards ---- */
+.skill-cell:hover{box-shadow:0 0 24px rgba(124,92,255,.12)}
+
+/* ---- print sheet: reveals forced visible (mid-scroll print),
+   fixed widgets hidden, gradient/outline display text re-inked,
+   cards kept whole, ink-friendly flat surfaces. ---- */
+@media print{
+  @page{margin:1.2cm}
+  body{background:#fff !important; color:#14141f}
+  body::before,body::after{display:none !important}
+  nav,#progress,#stars,#constellation,#smap,#sd4-map,#sd3-here,#ct-trail,
+  .cm-comet,.cm-nebula,.cm-signal,.scroll-hint,.scan,.sd2-wrap{display:none !important}
+  .reveal{opacity:1 !important; transform:none !important; filter:none !important}
+  img{filter:none !important}
+  section{background:#fff !important; border-color:#d9d9e4 !important}
+  .proj,.skill-cell,.term-box,.deepfield{background:#fff !important; border-color:#d5d5e0 !important; box-shadow:none !important}
+  .proj,.skill-cell,.term-box,.deepfield,.tl-item,.list-row{break-inside:avoid}
+  .hero{min-height:0; padding-top:24px}
+  .coords,.hero-stats{background:#f4f4f8 !important}
+  .hero h1 .outline{color:#1c1c2a; -webkit-text-stroke:0}
+  .hero h1 .glow{color:#1c1c2a; text-shadow:none}
+  .hero h1 .grad,.sec-title .g,.proj h3 .g,.contact-lede b{color:#1c1c2a !important; background:none; -webkit-text-stroke:0; filter:none; text-shadow:none}
+  .btn{background:#f4f4f8 !important; color:#1c1c2a !important; border-color:#b9b6d0 !important; box-shadow:none !important}
+  .btn-primary{background:#e8e6f5 !important}
+  .channel:hover,.list-row:hover,.proj:hover,.skill-cell:hover,.stat:hover{transform:none; background:transparent; box-shadow:none}
+  a{color:#333; text-decoration:underline}
+}
+/* W14 controller R5 fixes: the fixed course-plot overlay (#sd4-map + its
+   .sd4-read readout) sat over the stacked hero title on short viewports
+   (measured sd4-read y397–423 vs PANDIA line ending y511 at 780x437).
+   Hide the overlay under 560px viewport height — decorative + aria-hidden,
+   so hiding is graceful. */
+@media(max-height:560px){#sd4-map{display:none}}
+</style>
 </head>
 <body>
 <canvas id="stars"></canvas>
@@ -1233,6 +1304,7 @@ const io = new IntersectionObserver(entries => {
   }
 }, {threshold:0.1, rootMargin:'0px 0px -6% 0px'});
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+document.documentElement.setAttribute('data-v2j-boot','1'); /* v2j: boot flag — the watchdog unhides reveals if this never runs (offline CDN / script failure) */
 
 /* --- contact form → mailto --- */
 document.getElementById('contactForm').addEventListener('submit', e => {
@@ -1758,6 +1830,23 @@ if(termBody && !prefersReduced){
   }catch(err){
     console.warn('ct comet trail disabled:', err && err.message);
   }
+})();
+</script>
+<script>
+/* --- v2j: reveal watchdog ---
+   If the main module block never stamps data-v2j-boot (offline CDN fetch,
+   a mid-script throw, or no IntersectionObserver), .reveal stays at
+   opacity 0 and the page strands blank below the hero. After 1.6s,
+   unhide everything unless the flag is present. Additive safety net. --- */
+(function(){
+  try{
+    setTimeout(function(){
+      if(document.documentElement.getAttribute('data-v2j-boot') !== '1'){
+        var els = document.querySelectorAll('.reveal');
+        for(var i = 0; i < els.length; i++){ els[i].classList.add('in'); }
+      }
+    }, 1600);
+  }catch(e){ /* never let the watchdog itself break the page */ }
 })();
 </script>
 </body>

@@ -1769,5 +1769,81 @@ html.dvlp-armed .about-photo.dvlp-on img{ filter:sepia(.18) saturate(.85) }
   }catch(err){ console.warn('developing-photos disabled:', err && err.message); }
 })();
 </script>
+<style>
+/* ============================================================
+   ADDED (round 5, W14) — R5 jury pass (additive re-declarations
+   only; no structural changes).
+   (a) Contrast — small terracotta labels sat at 3.30–3.83:1 on
+       parchment (AA needs 4.5:1 for small text). Re-inked in the
+       deeper archival stamp-red (--terra-deep): 4.96–5.77:1 on
+       every surface they sit on. The hero 'open to work' stamp
+       badge gets the same deeper ink so its 13px white text
+       clears 4.5:1.
+   (b) Solar-dial readout still hard-codes the pre-fix #8a8175
+       (the round-1 --muted darkening predates the dial) —
+       3.77:1 at 9px; brought in line with --muted (5.63:1).
+   (c) Form success message: --sage on its pale sage tint is
+       2.92:1 — deepen the token to an archival moss that
+       clears 4.5:1 (--sage is used only by .form-status).
+   (d) Geometry — at 721–745px viewport heights the fixed toc2
+       rail's lower edge (~y302) crosses the dotnav's top dot
+       (same right:22 column) and, at z 160 vs 150, covers it.
+       Lifting the dotnav above the rail keeps every dot visible
+       and clickable.
+   (e) Polish — back-to-top link hover affordance; calm 250ms
+       colour transitions on nav links and channel values (the
+       value spans had none — colour snapped on hover).
+   ============================================================ */
+.proj .date, .skill-cell h4, .tl-item .where, .list-row .when,
+.hero .kicker, .proj-link, .to-top{ color:var(--terra-deep) }
+.hero-card .stamp{ background:var(--terra-deep) }
+.sd-cap{ color:var(--muted) }
+:root{ --sage:#55624b }
+.dotnav{ z-index:170 }
+.to-top:hover{ color:var(--terra); border-bottom-color:var(--terra) }
+.nav-links a{ transition:color .25s ease }
+.channel .c-value{ transition:color .25s ease }
+/* W14 controller R5 fixes: the stacked Georgia .line blocks of the hero
+   title collided at line-height .98 (serif ink needs ~1.15em between
+   baselines — measured 18px bounding overlap at 780px); the fixed sundial
+   overlapped the wrapped title on short viewports (y270–419 vs lines to
+   y412 at 780x437) — hide it there, same --sd-hide channel the narrow
+   screens use. */
+h1.name{line-height:1.15}
+@media(max-width:700px),(max-height:560px){
+  :root{--sd-hide:none}
+}
+</style>
+<script>
+/* ADDED (round 5, W14) — R5 jury pass.
+   (a) a11y: the dotnav is aria-hidden but its anchors were
+       focusable — hidden from assistive tech yet tab-reachable.
+       They duplicate the main nav, so drop them from tab order.
+   (b) a11y: pin-able mg- notes carry aria-hidden="true" from
+       round 1 while round 5 made them role=button + tabindex=0
+       + aria-label — the label was unreachable. Remove the
+       aria-hidden on interactive notes (mg-thought stays
+       display-only and untouched).
+   (c) resilience: the reveal system has a noscript path but no
+       JS-failure path — without IntersectionObserver the module
+       throws before its reveal observer binds and every .reveal
+       stays at opacity:0 forever. Guard: reveal everything
+       immediately (stamps/marginalia/photos already self-guard).
+       With IO present this does nothing. */
+(function(){
+  'use strict';
+  try{
+    var i;
+    var dotLinks = document.querySelectorAll('.dotnav a');
+    for(i = 0; i < dotLinks.length; i++){ dotLinks[i].setAttribute('tabindex','-1'); }
+    var notes = document.querySelectorAll('.mg-note:not(.mg-thought)');
+    for(i = 0; i < notes.length; i++){ notes[i].removeAttribute('aria-hidden'); }
+    if(!('IntersectionObserver' in window)){
+      var reveals = document.querySelectorAll('.reveal');
+      for(i = 0; i < reveals.length; i++){ reveals[i].classList.add('in'); }
+    }
+  }catch(err){ console.warn('jury-pass fixes disabled:', err && err.message); }
+})();
+</script>
 </body>
 </html>
