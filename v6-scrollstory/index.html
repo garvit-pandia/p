@@ -15,19 +15,28 @@
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href='https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap' rel='stylesheet'>
+<noscript>
+<style>
+  /* no-JS fallback — reveals/kinetic letters/timeline start hidden by
+     default; without scripting they must never strand invisible. */
+  .reveal{ opacity:1; transform:none; }
+  .kinetic .ch{ opacity:1; transform:none; }
+  .tl-line{ transform:scaleY(1); }
+</style>
+</noscript>
 <style>
 /* ============================================================
    THE FIELD JOURNAL — a scrollytelling portfolio
-   paper #faf7f0 · ink #221c14 · burnt orange #e8590c · teal #0f8a7d
+   paper #faf7f0 · ink #221c14 · burnt orange #c24907 · teal #0b6f65
    ============================================================ */
 :root{
   --paper:#faf7f0;
   --paper-2:#f4efe4;
   --white:#fffefb;
   --ink:#221c14;
-  --orange:#e8590c;
-  --teal:#0f8a7d;
-  --muted:#8a8072;
+  --orange:#c24907;
+  --teal:#0b6f65;
+  --muted:#766d60;
   --hair:rgba(34,28,20,.14);
   --hair-soft:rgba(34,28,20,.09);
   --serif:'DM Serif Display', Georgia, serif;
@@ -1804,6 +1813,69 @@ html.fl-paused *::after{ animation-play-state:paused !important; }
 /* empty-field flag for the contact-form guard */
 .fl-flag{ border-color:var(--orange) !important; box-shadow:0 0 0 3px rgba(232,89,12,.18) !important; }
 </style>
+<style>
+/* ============================================================
+   ROUND-7 R5 ADDITIVE — jury pass:
+   1) print proof-sheet — the journal prints flat: reveals forced
+      visible (mid-scroll prints would otherwise blank sections),
+      fixed widgets + paper grain hidden, ink-flat surfaces, URLs
+      disclosed under links, cards/rows kept intact, @page margins.
+   2) short-viewport fit (max-height:560px): the fj-rail's top note
+      collides with the fixed nav row at desktop widths (rail spans
+      y32–60 vs nav y0–64 at 1200×480), and the pinned paper sheet
+      (~510px tall) clips inside the 100vh sticky stage — the rail
+      hides and the sheet compresses to fit.
+   3) polish: the FIELD COMPLETE tally grows a teal leaf checkmark
+      (specimen motif), and the wordmark gets the nav-links' ink
+      underline on hover.
+   ============================================================ */
+@media print{
+  @page{ margin:14mm; }
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{ animation:none !important; transition:none !important; }
+  body{ background:#fff; color:#221c14; }
+  body::after{ display:none; }
+  .nav, .progress, .fj-rail, .cue, .hero-top, .pin-margin, .marquee,
+  .g-dots, .fp2-zone{ display:none !important; }
+  .hero{ min-height:0; padding:2rem 1rem; }
+  .reveal{ opacity:1 !important; transform:none !important; }
+  .kinetic .ch{ opacity:1 !important; transform:none !important; }
+  .pin{ height:auto; }
+  .pin-stage{ position:static; height:auto; overflow:visible; display:block; padding:1rem; }
+  .pin-sheet{ transform:none !important; opacity:1 !important; margin:0 auto; box-shadow:none; }
+  .pin-circle{ display:none !important; }
+  .pin-quote{ position:static !important; transform:none !important; opacity:1 !important; margin:1.4rem auto 0; max-width:min(600px,84vw); }
+  .tl-line{ transform:scaleY(1) !important; }
+  .sketch svg path{ stroke-dashoffset:0 !important; opacity:1 !important; }
+  .fp-spec{ opacity:1 !important; transform:none !important; }
+  .gallery{ display:block; overflow:visible; padding:0; }
+  .g-card{ flex:none; width:100%; margin-bottom:1.4rem; box-shadow:none; }
+  .g-card, .l-row, .ed-item, .skill-col{ break-inside:avoid; }
+  a[href^="http"]::after{ content:" (" attr(href) ")"; font-size:.72em; color:#555; }
+  a[href^="mailto"]::after{ content:" (" attr(href) ")"; font-size:.72em; color:#555; }
+  .btn, #toTop{ box-shadow:none !important; }
+}
+@media (max-height:560px){
+  .fj-rail{ display:none; }
+  .pin-sheet{ padding:1.2rem clamp(1.2rem,3vw,1.8rem); }
+  .sheet-title{ font-size:1.55rem; margin:1rem 0 .8rem; }
+  .sheet-body{ font-size:.9rem; }
+  .facts{ margin-top:1.1rem; }
+  .sheet-sign{ margin-top:1.1rem; }
+}
+/* polish — the tally's FIELD COMPLETE state grows a leaf check */
+.fp-tally.fp-full::before{
+  content:""; flex:0 0 auto; width:.78em; height:.78em; margin-right:.5em;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Cpath d='M13 22 C 8 16, 3 14, 3 9 C 7 9, 9 11, 10 12 C 11 8, 11 4, 13 3 C 15 4, 15 8, 16 12 C 17 11, 19 9, 23 9 C 23 14, 18 16, 13 22 Z' fill='rgba(11,111,101,.15)' stroke='%230b6f65' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+/* polish — wordmark takes the nav-links' ink underline on hover */
+.wordmark{
+  background-image:linear-gradient(var(--orange),var(--orange));
+  background-size:0% 1px; background-repeat:no-repeat; background-position:0 100%;
+  transition:background-size .45s var(--ease);
+}
+.wordmark:hover{ background-size:100% 1px; }
+</style>
 <script>
 /* ============================================================
    ROUND-7 R4 ADDITIVE — perf + resilience driver:
@@ -1867,6 +1939,26 @@ try{
     unpause: function(){ setPaused(false); }
   };
 }catch(err){ console.warn('flat-journal guard disabled:', err && err.message); }
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND-7 R5 ADDITIVE — jury pass: IO-missing reveal rescue.
+   If IntersectionObserver is unavailable, the core reveal
+   system throws before observing anything and every
+   .reveal/.kinetic element (plus the self-drawing timeline)
+   stays stranded invisible. This watchdog slaps the final
+   state on all of them so content is never lost.
+   ============================================================ */
+(function(){
+'use strict';
+try{
+  if ('IntersectionObserver' in window) return;
+  var els = document.querySelectorAll('.reveal, .kinetic');
+  for (var i = 0; i < els.length; i++) els[i].classList.add('in');
+  var tl = document.getElementById('tlLine');
+  if (tl) tl.style.transform = 'scaleY(1)';
+}catch(err){}
 })();
 </script>
 </body>
