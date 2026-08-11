@@ -1,152 +1,710 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Garvit Pandia — Portfolio Concepts (14 variants)</title>
-<style>
-  :root{
-    --paper:#f5f4ed; --ink:#2b2620; --muted:#8a8175;
-    --terra:#c96442; --sage:#7a8b6f; --line:#e3dfd3;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    background:var(--paper); color:var(--ink);
-    font-family:Georgia,'Times New Roman',serif;
-    min-height:100vh; display:flex; flex-direction:column;
-    align-items:center; padding:56px 24px;
-  }
-  .kicker{
-    font-family:'Courier New',monospace; font-size:12px; letter-spacing:.35em;
-    text-transform:uppercase; color:var(--terra); margin-bottom:16px;
-  }
-  h1{font-size:clamp(34px,6vw,58px); font-weight:400; text-align:center; margin-bottom:10px}
-  p.sub{color:var(--muted); text-align:center; max-width:620px; line-height:1.6; margin-bottom:48px; font-size:15px}
-  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; width:100%; max-width:1200px}
-  a.card{
-    text-decoration:none; color:inherit; background:#fffdf7;
-    border:1px solid var(--line); border-radius:16px; padding:30px 26px;
-    transition:transform .25s ease, box-shadow .25s ease;
-    display:flex; flex-direction:column; gap:12px;
-  }
-  a.card:hover{transform:translateY(-6px); box-shadow:0 18px 40px rgba(43,38,32,.12)}
-  .num{font-family:'Courier New',monospace; font-size:12px; color:var(--terra); letter-spacing:.2em}
-  h2{font-size:24px; font-weight:400}
-  .desc{font-size:13.5px; line-height:1.6; color:var(--muted); flex:1}
-  .tag{
-    align-self:flex-start; font-family:'Courier New',monospace; font-size:10.5px;
-    letter-spacing:.15em; text-transform:uppercase; padding:6px 12px;
-    border-radius:999px; border:1px solid;
-  }
-  .t1{color:var(--terra); border-color:var(--terra)}
-  .t2{color:#7c5cff; border-color:#7c5cff}
-  .t3{color:var(--sage); border-color:var(--sage)}
-  .t4{color:#141414; border-color:#141414; background:#d8ff3e}
-  .t5{color:#fff; border-color:#6be8ff; background:#0b0d2a}
-  .t6{color:#e8590c; border-color:#e8590c}
-  .t7{color:#2f7d3a; border-color:#2f7d3a; background:#eaf7ea}
-  .t8{color:#7df9ff; border-color:#7df9ff; background:#04162b}
-  .t9{color:#7ff5ff; border-color:#7ff5ff; background:#0b0b14}
-  .t10{color:#fff; border-color:#2b3bff; background:#2b3bff}
-  .t11{color:#ffd9a0; border-color:#ff7a1a; background:#050208}
-  .t12{color:#9be564; border-color:#9be564; background:#0a0d08}
-  .t13{color:#c96442; border-color:#d9a441; background:#fffdf7}
-  .t14{color:#7cf7c4; border-color:#7cf7c4; background:#04060c}
-  .foot{margin-top:44px; font-family:'Courier New',monospace; font-size:11px; color:var(--muted); letter-spacing:.15em; text-align:center; max-width:760px; line-height:1.8}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Fourteen portfolio worlds by Garvit Pandia: a collection of editorial, experimental, 3D, and interactive web experiences.">
+  <title>Garvit Pandia - Fourteen Digital Worlds</title>
+  <style>
+    :root {
+      --paper: #f3f1ea;
+      --surface: #fffdf8;
+      --ink: #272a25;
+      --muted: #697168;
+      --line: #d9d6cb;
+      --accent: #bf684f;
+      --accent-dark: #8d4331;
+      --radius: 3px;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 93% 5%, rgba(191, 104, 79, .08), transparent 24rem),
+        var(--paper);
+      color: var(--ink);
+      font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    ::selection { background: var(--accent); color: #fffdf8; }
+
+    a { color: inherit; }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    button { font: inherit; }
+
+    .site-shell {
+      width: min(1360px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: 10px;
+      left: 16px;
+      z-index: 10;
+      padding: 10px 14px;
+      border: 1px solid var(--ink);
+      background: var(--surface);
+      color: var(--ink);
+      font-family: "Courier New", Courier, monospace;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transform: translateY(-160%);
+      transition: transform .2s var(--ease);
+    }
+
+    .skip-link:focus-visible { transform: translateY(0); }
+
+    .masthead { padding: 28px 0 52px; }
+
+    .topline,
+    .collection-bar,
+    .exhibit__placard,
+    .catalogue-footer {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 11px;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .wordmark {
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .wordmark span { color: var(--accent-dark); font-weight: 400; }
+
+    .topline__meta { color: var(--muted); }
+
+    .topline__meta strong {
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .masthead-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(240px, .65fr);
+      gap: clamp(40px, 9vw, 150px);
+      align-items: end;
+      padding-top: 64px;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--accent-dark);
+      font-family: "Courier New", Courier, monospace;
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    p { margin-top: 0; }
+
+    h1 {
+      max-width: 860px;
+      margin-bottom: 0;
+      font-family: Baskerville, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+      font-size: clamp(3.45rem, 7.1vw, 7.8rem);
+      font-weight: 400;
+      letter-spacing: -.075em;
+      line-height: .88;
+    }
+
+    h1 em {
+      display: inline-block;
+      padding-bottom: .08em;
+      font-style: italic;
+    }
+
+    .curator-note {
+      max-width: 330px;
+      padding-top: 17px;
+      border-top: 1px solid var(--ink);
+    }
+
+    .curator-note__label {
+      display: block;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-family: "Courier New", Courier, monospace;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .curator-note p {
+      max-width: 29ch;
+      margin-bottom: 30px;
+      color: #505850;
+      font-family: Baskerville, "Iowan Old Style", Georgia, serif;
+      font-size: 18px;
+      line-height: 1.3;
+    }
+
+    .browse-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--ink);
+      font-family: "Courier New", Courier, monospace;
+      font-size: 11px;
+      letter-spacing: .11em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .browse-link span {
+      color: var(--accent-dark);
+      font-size: 18px;
+      line-height: 1;
+      transition: transform .25s var(--ease);
+    }
+
+    .browse-link:hover span,
+    .browse-link:focus-visible span { transform: translateY(4px); }
+
+    .collection-section { padding: 24px 0 86px; }
+
+    .collection-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 22px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .collection-bar__title {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+    }
+
+    .collection-bar__title strong {
+      font-family: Baskerville, "Iowan Old Style", Georgia, serif;
+      font-size: 29px;
+      font-weight: 400;
+      letter-spacing: -.04em;
+      text-transform: none;
+    }
+
+    .collection-bar__note {
+      max-width: 42ch;
+      margin: 0;
+      color: var(--muted);
+      font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif;
+      font-size: 15px;
+      letter-spacing: 0;
+      line-height: 1.45;
+      text-align: right;
+      text-transform: none;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .filter {
+      min-height: 44px;
+      padding: 9px 15px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease), transform .25s var(--ease);
+    }
+
+    .filter:hover { border-color: var(--ink); color: var(--ink); transform: translateY(-1px); }
+
+    .filter.is-active {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: var(--surface);
+    }
+
+    .collection {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .exhibit {
+      position: relative;
+      display: flex;
+      grid-column: span 4;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      text-decoration: none;
+      transition: border-color .35s var(--ease), box-shadow .35s var(--ease), transform .35s var(--ease);
+    }
+
+    .exhibit--opening { grid-column: span 7; }
+
+    .exhibit--opening + .exhibit { grid-column: span 5; }
+
+    .exhibit:hover {
+      border-color: #aaa99f;
+      box-shadow: 0 20px 40px rgba(55, 55, 44, .1);
+      transform: translateY(-5px);
+    }
+
+    .exhibit:focus-visible,
+    .filter:focus-visible,
+    .browse-link:focus-visible,
+    .wordmark:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .exhibit__preview {
+      position: relative;
+      isolation: isolate;
+      min-height: 255px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background: #ece9e0;
+    }
+
+    .exhibit--opening .exhibit__preview { min-height: 390px; }
+
+    .exhibit__preview::after {
+      position: absolute;
+      right: 13px;
+      bottom: 11px;
+      z-index: 5;
+      color: rgba(39, 42, 37, .5);
+      content: "specimen / " attr(data-index);
+      font-family: "Courier New", Courier, monospace;
+      font-size: 9px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .exhibit__placard {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 15px 16px 0;
+      color: var(--muted);
+    }
+
+    .exhibit__number { color: var(--accent-dark); }
+
+    .exhibit__category {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .exhibit h2 {
+      margin: 12px 16px 8px;
+      font-family: Baskerville, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+      font-size: clamp(25px, 2.5vw, 39px);
+      font-weight: 400;
+      letter-spacing: -.045em;
+      line-height: .98;
+    }
+
+    .exhibit p {
+      max-width: 46ch;
+      min-height: 63px;
+      margin: 0 16px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .exhibit__action {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 22px 16px 16px;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+      color: var(--ink);
+      font-family: "Courier New", Courier, monospace;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .exhibit__action span {
+      color: var(--accent-dark);
+      font-size: 18px;
+      line-height: 1;
+      transition: transform .25s var(--ease);
+    }
+
+    .exhibit:hover .exhibit__action span,
+    .exhibit:focus-visible .exhibit__action span { transform: translate(3px, -3px); }
+
+    .catalogue-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 0 34px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .catalogue-footer span { color: var(--accent-dark); }
+
+    noscript {
+      display: block;
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    noscript ul { margin-bottom: 0; padding-left: 20px; }
+
+    /* Preview scenes: each scene is a small specimen, not a fake screenshot. */
+    .scene,
+    .scene * { position: absolute; }
+
+    .scene { inset: 0; overflow: hidden; }
+
+    .scene::before,
+    .scene::after { content: ""; }
+
+    .scene-archive { background: #e7e0d0; }
+    .scene-archive::before { inset: 18% 24% 16% 16%; border: 1px solid #65584a; background: #f5eee1; box-shadow: 14px 14px 0 rgba(130, 83, 56, .17); transform: rotate(-5deg); }
+    .scene-archive::after { top: 12%; right: 12%; width: 70px; height: 70px; border: 1px solid #bd6246; border-radius: 50%; color: #bd6246; content: "ARCHIVE"; font: 8px/70px "Courier New", monospace; letter-spacing: .1em; text-align: center; transform: rotate(14deg); }
+    .scene-archive .photo { top: 29%; left: 26%; width: 36%; height: 32%; background: linear-gradient(145deg, #5f716d 0 38%, #c49b72 38% 65%, #304c49 65%); filter: saturate(.65); transform: rotate(2deg); }
+    .scene-archive .petal { right: 19%; bottom: 17%; width: 34px; height: 62px; border-radius: 100% 0 100% 0; background: #c26b4d; transform: rotate(28deg); }
+    .scene-archive .petal::after { top: 28px; left: 22px; width: 30px; height: 50px; border-radius: 100% 0 100% 0; background: #dcbf83; content: ""; transform: rotate(44deg); }
+
+    .scene-constellation { background: #edf1f6; }
+    .scene-constellation::before { inset: 12% 18%; border: 1px solid #b3c0cf; border-radius: 50%; transform: rotate(22deg) scaleY(.45); }
+    .scene-constellation::after { inset: 16% 23%; border: 1px solid #9dabbc; border-radius: 50%; transform: rotate(-38deg) scaleY(.52); }
+    .scene-constellation .star { width: 5px; height: 5px; border-radius: 50%; background: #546da0; box-shadow: 0 0 0 5px rgba(84, 109, 160, .12); }
+    .scene-constellation .star-a { top: 27%; left: 29%; }
+    .scene-constellation .star-b { top: 50%; left: 52%; background: #bf684f; box-shadow: 0 0 0 7px rgba(191, 104, 79, .14); }
+    .scene-constellation .star-c { right: 24%; bottom: 24%; }
+    .scene-constellation .route { top: 29%; left: 29%; width: 42%; border-top: 1px dashed #7c8ba1; transform: rotate(27deg); transform-origin: left; }
+    .scene-constellation .label { left: 14%; bottom: 15%; color: #586b80; font: 10px "Courier New", monospace; letter-spacing: .1em; }
+
+    .scene-loom { background: linear-gradient(135deg, #e9f1e5, #fbefd9); }
+    .scene-loom::before { top: 23%; left: -7%; width: 120%; height: 47%; border: 2px solid #7d9c71; border-radius: 50%; transform: rotate(-11deg); }
+    .scene-loom::after { top: 30%; left: -11%; width: 125%; height: 43%; border: 2px solid #c68170; border-radius: 50%; transform: rotate(16deg); }
+    .scene-loom .thread { left: -5%; width: 120%; height: 45%; border: 2px solid #758bb5; border-radius: 50%; transform: rotate(38deg); }
+    .scene-loom .thread-a { top: 20%; }
+    .scene-loom .thread-b { top: 34%; border-color: #d1ad52; transform: rotate(-26deg); }
+    .scene-loom .thread-c { top: 44%; border-color: #8c6b9d; transform: rotate(11deg); }
+    .scene-loom .blob { right: 15%; bottom: 15%; width: 76px; height: 52px; border-radius: 57% 43% 61% 39%; background: rgba(204, 151, 102, .42); transform: rotate(-17deg); }
+    .scene-loom .label { left: 13%; bottom: 17%; color: #6d765c; font: italic 24px Baskerville, Georgia, serif; }
+
+    .scene-factory { background: #e5f0be; }
+    .scene-factory::before { inset: 0; background: linear-gradient(90deg, transparent 0 24%, rgba(33, 37, 28, .12) 25% 25.5%, transparent 26% 49%, rgba(33, 37, 28, .12) 50% 50.5%, transparent 51% 74%, rgba(33, 37, 28, .12) 75% 75.5%, transparent 76%), linear-gradient(transparent 0 24%, rgba(33, 37, 28, .12) 25% 25.5%, transparent 26% 49%, rgba(33, 37, 28, .12) 50% 50.5%, transparent 51% 74%, rgba(33, 37, 28, .12) 75% 75.5%, transparent 76%); }
+    .scene-factory::after { right: 14%; bottom: 17%; width: 70px; height: 42px; border: 3px solid #22281d; background: #f5f9e7; content: "LOAD_"; font: 10px/36px "Courier New", monospace; letter-spacing: .08em; text-align: center; }
+    .scene-factory .block { top: 21%; left: 14%; color: #22281d; font: 800 clamp(34px, 6vw, 70px)/.8 Arial, sans-serif; letter-spacing: -.12em; }
+    .scene-factory .bar { left: 14%; bottom: 18%; width: 32%; height: 7px; background: #22281d; }
+    .scene-factory .cursor { right: 22%; bottom: 19%; width: 7px; height: 22px; background: #d35e42; animation: blink 1s steps(2, start) infinite; }
+
+    .scene-prism { background: linear-gradient(135deg, #d6e8ed, #f8f3e8); }
+    .scene-prism::before { top: 17%; left: 26%; width: 33%; height: 66%; border: 1px solid #4f8798; background: linear-gradient(135deg, rgba(255,255,255,.86), rgba(75, 153, 171, .38)); box-shadow: 18px 18px 0 rgba(76, 119, 151, .18); transform: skewY(-18deg) rotate(13deg); }
+    .scene-prism::after { top: 12%; right: 16%; width: 26%; height: 72%; border: 1px solid #bd705f; background: rgba(255, 255, 255, .42); transform: skewY(25deg) rotate(-9deg); }
+    .scene-prism .glint { top: 22%; left: 32%; width: 3px; height: 56%; background: rgba(255,255,255,.96); transform: rotate(27deg); box-shadow: 0 0 18px 4px rgba(255,255,255,.92); }
+    .scene-prism .label { left: 14%; bottom: 16%; color: #547786; font: 10px "Courier New", monospace; letter-spacing: .1em; }
+
+    .scene-field-journal { background: #f0e7d6; }
+    .scene-field-journal::before { top: 17%; left: 17%; width: 58%; height: 63%; border: 1px solid #776b58; background: #fffaf0; transform: rotate(-4deg); }
+    .scene-field-journal::after { top: 35%; left: 22%; width: 48%; border-top: 1px dashed #bb7354; transform: rotate(19deg); transform-origin: left; }
+    .scene-field-journal .leaf { left: 34%; top: 31%; width: 42px; height: 72px; border: 1px solid #668467; border-radius: 100% 0 100% 0; transform: rotate(32deg); }
+    .scene-field-journal .leaf::after { top: 8px; left: 19px; height: 55px; border-left: 1px solid #668467; content: ""; transform: rotate(-32deg); }
+    .scene-field-journal .pin { right: 18%; bottom: 18%; width: 16px; height: 16px; border: 4px solid #f0e7d6; border-radius: 50%; background: #bd684f; box-shadow: 0 0 0 1px #bd684f; }
+    .scene-field-journal .label { right: 13%; top: 21%; color: #756854; font: italic 21px Baskerville, Georgia, serif; transform: rotate(9deg); }
+
+    .scene-voxel { background: linear-gradient(#d9ebf0 0 67%, #bfd7ae 67%); }
+    .scene-voxel::before { left: 15%; right: 12%; bottom: 18%; height: 32%; border: 1px solid #5e7962; background: #a8c990; clip-path: polygon(0 35%, 58% 0, 100% 34%, 46% 100%); }
+    .scene-voxel .cube { width: 54px; height: 54px; border: 1px solid #486676; background: #78a6b7; box-shadow: 12px 12px 0 #5f8998; transform: skewY(30deg) rotate(45deg); }
+    .scene-voxel .cube-a { left: 29%; bottom: 32%; }
+    .scene-voxel .cube-b { left: 51%; bottom: 37%; width: 42px; height: 42px; background: #d2bb68; box-shadow: 10px 10px 0 #b99f51; }
+    .scene-voxel .cube-c { left: 66%; bottom: 24%; width: 31px; height: 31px; background: #cf735d; box-shadow: 8px 8px 0 #ad5b4c; }
+    .scene-voxel .beacon { top: 18%; right: 16%; width: 14px; height: 64px; border: 1px solid #52704d; background: #e7d272; box-shadow: 0 0 18px rgba(231,210,114,.8); }
+
+    .scene-abyss { background: linear-gradient(#e5edf2, #c2dce5); }
+    .scene-abyss::before { left: 19%; right: 19%; bottom: 14%; height: 65%; border: 1px solid #547d96; border-radius: 50% 50% 45% 45%; background: radial-gradient(circle at 50% 46%, #d4a8df 0 4%, #6f91c5 5% 13%, #356d8e 14% 31%, #173f60 58%); box-shadow: 0 15px 0 rgba(64, 119, 148, .14); }
+    .scene-abyss::after { left: 11%; bottom: 16%; width: 2px; height: 56%; background: repeating-linear-gradient(#6b8ea1 0 2px, transparent 2px 18px); }
+    .scene-abyss .jelly { top: 16%; left: 48%; width: 32px; height: 28px; border-radius: 50% 50% 38% 38%; background: #ce9cdb; box-shadow: 0 0 18px 4px rgba(206,156,219,.48); }
+    .scene-abyss .jelly::after { top: 24px; left: 5px; width: 21px; height: 54px; border-left: 1px solid #d2a9df; border-right: 1px solid #d2a9df; border-radius: 50%; content: ""; }
+    .scene-abyss .depth { right: 13%; bottom: 18%; color: #edf8f9; font: 10px "Courier New", monospace; letter-spacing: .1em; }
+    .scene-abyss .bubble { top: 29%; left: 28%; width: 7px; height: 7px; border: 1px solid #fff; border-radius: 50%; }
+
+    .scene-ghostware { background: #e8edf2; }
+    .scene-ghostware::before { top: 17%; left: 17%; right: 17%; bottom: 17%; border: 1px solid #7493a1; background: linear-gradient(transparent 0 47%, rgba(107,165,177,.22) 48% 52%, transparent 53%); box-shadow: inset 0 0 0 8px rgba(159, 210, 213, .22); }
+    .scene-ghostware::after { top: 25%; left: 29%; width: 43%; height: 42%; border: 1px solid #69a2aa; border-radius: 50%; background: rgba(179, 231, 222, .24); box-shadow: 0 0 30px rgba(96, 172, 174, .35); transform: rotate(18deg) scaleY(.64); }
+    .scene-ghostware .serial { left: 20%; bottom: 22%; color: #50717a; font: 10px "Courier New", monospace; letter-spacing: .12em; }
+    .scene-ghostware .scan { top: 24%; right: 21%; width: 5px; height: 49%; background: #e16d57; opacity: .65; }
+    .scene-ghostware .bar { left: 29%; bottom: 29%; width: 17%; height: 4px; background: #69a2aa; box-shadow: 22px 0 0 #94c2c1, 44px 0 0 #b3d8d0; }
+
+    .scene-typevolt { background: #f1f0ea; }
+    .scene-typevolt::before { left: 13%; right: 13%; top: 52%; border-top: 1px solid #20231f; }
+    .scene-typevolt::after { right: 14%; top: 13%; height: 73%; border-left: 1px solid #d16d54; }
+    .scene-typevolt .word { left: 12%; top: 23%; color: #20231f; font: 800 clamp(39px, 6vw, 72px)/.72 Arial, sans-serif; letter-spacing: -.14em; }
+    .scene-typevolt .word span { color: #c7654e; }
+    .scene-typevolt .offset-letter { left: 47%; top: 25%; color: rgba(199, 101, 78, .38); font: 800 clamp(39px, 6vw, 72px)/.72 Arial, sans-serif; letter-spacing: -.14em; transform: rotate(7deg) translate(10px, 4px); }
+    .scene-typevolt .label { left: 13%; bottom: 15%; color: #667067; font: 10px "Courier New", monospace; letter-spacing: .12em; }
+
+    .scene-horizon { background: #e9e4de; }
+    .scene-horizon::before { top: 18%; left: 15%; width: 70%; height: 62%; border: 2px solid #9a6c52; border-radius: 50%; transform: rotate(-23deg) scaleY(.43); }
+    .scene-horizon::after { top: 28%; left: 20%; width: 60%; height: 45%; border: 1px solid #c58a61; border-radius: 50%; transform: rotate(31deg) scaleY(.34); }
+    .scene-horizon .ring { top: 38%; left: 27%; width: 46%; height: 22%; border: 2px solid #704837; border-radius: 50%; transform: rotate(8deg); }
+    .scene-horizon .singularity { top: 43%; left: 46%; width: 22px; height: 22px; border-radius: 50%; background: #262625; box-shadow: 0 0 0 12px rgba(38,38,37,.12), 0 0 28px rgba(191,104,79,.42); }
+    .scene-horizon .label { right: 14%; bottom: 15%; color: #765d50; font: 10px "Courier New", monospace; letter-spacing: .12em; }
+
+    .scene-mycelium { background: #e3edda; }
+    .scene-mycelium::before { left: 16%; bottom: 17%; width: 68%; height: 1px; background: #60835b; transform: rotate(-14deg); transform-origin: left; box-shadow: 51px -24px 0 #60835b, 80px -39px 0 #60835b; }
+    .scene-mycelium::after { left: 40%; bottom: 18%; width: 1px; height: 56%; background: #60835b; transform: rotate(29deg); box-shadow: 27px -35px 0 #60835b; }
+    .scene-mycelium .node { width: 14px; height: 14px; border: 3px solid #e3edda; border-radius: 50%; background: #74a46a; box-shadow: 0 0 0 1px #60835b; }
+    .scene-mycelium .node-a { left: 31%; bottom: 37%; }
+    .scene-mycelium .node-b { left: 52%; bottom: 47%; background: #d17762; }
+    .scene-mycelium .node-c { left: 69%; bottom: 61%; }
+    .scene-mycelium .fruit { left: 47%; top: 19%; width: 42px; height: 29px; border-radius: 100% 100% 20% 20%; background: #d17762; box-shadow: 12px 19px 0 -3px #d17762; }
+    .scene-mycelium .label { left: 14%; top: 17%; color: #537350; font: italic 25px Baskerville, Georgia, serif; }
+
+    .scene-origami { background: #f0e4d1; }
+    .scene-origami::before { top: 15%; left: 23%; width: 53%; height: 64%; background: #fdf8ee; border: 1px solid #c7a974; clip-path: polygon(0 20%, 57% 0, 100% 23%, 73% 100%, 20% 80%); box-shadow: 18px 18px 0 rgba(177, 134, 74, .15); }
+    .scene-origami::after { top: 15%; left: 23%; width: 53%; height: 64%; border-right: 1px solid #c7a974; background: linear-gradient(145deg, transparent 49%, rgba(201, 161, 98, .25) 50% 51%, transparent 52%); clip-path: polygon(0 20%, 57% 0, 100% 23%, 73% 100%, 20% 80%); }
+    .scene-origami .gold { top: 22%; right: 16%; width: 34px; height: 34px; border: 1px solid #b08a4c; border-radius: 50%; color: #9b733a; font: 9px/32px "Courier New", monospace; text-align: center; }
+    .scene-origami .label { left: 15%; bottom: 15%; color: #8b6340; font: 10px "Courier New", monospace; letter-spacing: .12em; }
+
+    .scene-signal { background: #e4ecf0; }
+    .scene-signal::before { top: 21%; left: 9%; right: 9%; height: 40%; background: repeating-linear-gradient(90deg, #7693a2 0 2px, transparent 2px 10px); opacity: .38; }
+    .scene-signal::after { top: 40%; left: 10%; width: 80%; border-top: 2px solid #cf6c55; box-shadow: 15px 10px 0 -1px #cf6c55, 31px -8px 0 -1px #cf6c55, 52px 13px 0 -1px #cf6c55, 79px -4px 0 -1px #cf6c55; transform: rotate(-3deg); }
+    .scene-signal .decoded { right: 13%; top: 16%; padding: 6px 9px; border: 1px solid #5e8090; color: #426b7b; font: 10px "Courier New", monospace; letter-spacing: .1em; transform: rotate(5deg); }
+    .scene-signal .label { left: 12%; bottom: 17%; color: #5e8090; font: 10px "Courier New", monospace; letter-spacing: .12em; }
+
+    @keyframes blink { 50% { opacity: .15; } }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .exhibit { animation: exhibit-in .65s var(--ease) both; animation-delay: calc(var(--index) * 35ms); }
+      .scene-constellation .star-b { animation: pulse 2.4s ease-in-out infinite; }
+      .scene-loom .thread { animation: breathe 4s ease-in-out infinite alternate; transform-origin: center; }
+      .scene-mycelium .node-b { animation: pulse 2.8s ease-in-out infinite; }
+      .scene-signal .decoded { animation: decoded 3s ease-in-out infinite alternate; }
+    }
+
+    @keyframes exhibit-in { from { transform: translateY(18px); } to { transform: translateY(0); } }
+    @keyframes pulse { 50% { opacity: .45; transform: scale(1.4); } }
+    @keyframes breathe { from { transform: rotate(38deg) scaleX(1); } to { transform: rotate(41deg) scaleX(1.03); } }
+    @keyframes decoded { to { opacity: .55; transform: rotate(5deg) translateY(3px); } }
+
+    @media (max-width: 960px) {
+      .masthead-grid { gap: 50px; }
+      .exhibit,
+      .exhibit--opening,
+      .exhibit--opening + .exhibit { grid-column: span 6; }
+      .exhibit--opening .exhibit__preview { min-height: 320px; }
+    }
+
+    @media (max-width: 700px) {
+      .site-shell { width: min(100% - 32px, 600px); }
+      .masthead { padding-top: 18px; padding-bottom: 42px; }
+      .topline { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .masthead-grid { display: block; padding-top: 48px; }
+      h1 { font-size: clamp(3.35rem, 16vw, 6rem); }
+      .curator-note { max-width: 100%; margin-top: 44px; }
+      .collection-bar { display: block; }
+      .collection-bar__note { margin-top: 15px; text-align: left; }
+      .collection { grid-template-columns: 1fr; }
+      .exhibit,
+      .exhibit--opening,
+      .exhibit--opening + .exhibit { grid-column: auto; }
+      .exhibit__preview,
+      .exhibit--opening .exhibit__preview { min-height: 285px; }
+      .exhibit h2 { font-size: 32px; }
+      .catalogue-footer { display: block; }
+      .catalogue-footer span { display: block; margin-top: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="kicker">Portfolio Concepts v4</div>
-  <h1>Fourteen faces of Garvit</h1>
-  <p class="sub">One resume, fourteen completely different worlds — 01–06 are the originals, 07–10 the new generation, 11–14 the genesis wave (abstract: black hole, mycelium, origami, radio signal). Every one is a fully working, animated portfolio. Open them, scroll, play — then tell me which one feels like you.</p>
+  <a class="skip-link" href="#collection">Skip to collection</a>
+  <div class="site-shell">
+    <header class="masthead">
+      <div class="topline">
+        <a class="wordmark" href="#collection">GARVIT PANDIA <span>/ DIGITAL WORLDS</span></a>
+        <span class="topline__meta">Collection 01 / <strong>14 exhibits</strong></span>
+      </div>
+      <div class="masthead-grid">
+        <div>
+          <p class="eyebrow">A collection of creative range</p>
+          <h1>Fourteen ways<br><em>to make a digital world.</em></h1>
+        </div>
+        <aside class="curator-note">
+          <span class="curator-note__label">Curator's note</span>
+          <p>One practice, fourteen visual languages: interfaces, atmospheres, systems, and play.</p>
+          <a class="browse-link" href="#collection">Browse the collection <span aria-hidden="true">&darr;</span></a>
+        </aside>
+      </div>
+    </header>
 
-  <div class="cards">
-    <a class="card" href="v1-light/index.html">
-      <span class="num">01</span>
-      <h2>Sunlit Archive</h2>
-      <span class="desc">Warm editorial light theme. Parchment, terracotta, drifting 3D paper petals that part around your cursor, preloader, side dot-nav, duotone project photography. Pin-able marginalia + hidden-thought notes.</span>
-      <span class="tag t1">Light · Editorial</span>
-    </a>
-    <a class="card" href="v2-dark/index.html">
-      <span class="num">02</span>
-      <h2>Midnight Index</h2>
-      <span class="desc">Deep-space dark. 3D starfield + orbiting rings, a constellation that connects to your cursor, self-typing terminal, scanline deep-field panel. Star-drift parallax + zoom-drift starfield.</span>
-      <span class="tag t2">Dark · Cosmic</span>
-    </a>
-    <a class="card" href="v3-wild/index.html">
-      <span class="num">03</span>
-      <h2>Dream Loom</h2>
-      <span class="desc">Living aurora shader in raw WebGL2, kinetic typography, floating blob photography, a sky that shifts as you scroll — and a button to shuffle the sky. Living-palette sections + thread tension.</span>
-      <span class="tag t3">Wild · Fluid</span>
-    </a>
-    <a class="card" href="v4-brutalist/index.html">
-      <span class="num">04</span>
-      <h2>Mono Factory</h2>
-      <span class="desc">Neo-brutalist. Hard shadows, 2px borders, zero radius, giant Anton type, a terminal that types itself, marquee tickers and hover inversions. Interactive factory console + command flicker.</span>
-      <span class="tag t4">Brutalist · Mono</span>
-    </a>
-    <a class="card" href="v5-glass/index.html">
-      <span class="num">05</span>
-      <h2>Glass Horizon</h2>
-      <span class="desc">Premium glassmorphism. Luminous gradient sky, drifting orbs, floating 3D glass prisms (Three.js), frosted panels with earned blur. 3D tilt glass cards, tilt on proof/form panels.</span>
-      <span class="tag t5">Glass · Luminous</span>
-    </a>
-    <a class="card" href="v6-scrollstory/index.html">
-      <span class="num">06</span>
-      <h2>The Field Journal</h2>
-      <span class="desc">Scroll-driven storytelling. Pinned parallax scenes, a horizontal snap-through project gallery, a timeline that draws itself as you scroll. Press-able specimens + collection tally.</span>
-      <span class="tag t6">Scrollytelling · Editorial</span>
-    </a>
-    <a class="card" href="v7-voxel/index.html">
-      <span class="num">07</span>
-      <h2>Voxel World</h2>
-      <span class="desc">A tiny isometric voxel diorama in Three.js — every section is an island (monument, lighthouse, city, skill tree, trophy mesa, railway, beacon). The camera flies island to island as you scroll; day turns to night. Signature: clickable voxel progress rail.</span>
-      <span class="tag t7">3D · Voxel</span>
-    </a>
-    <a class="card" href="v8-abyss/index.html">
-      <span class="num">08</span>
-      <h2>The Abyss</h2>
-      <span class="desc">A bioluminescent dive through the work — canvas plankton, jellyfish, light rays and sonar pings; a depth rail that descends to 11,204 m (Challenger Deep). Projects are glowing specimen jars. Signature: hover a specimen and it pings.</span>
-      <span class="tag t8">Dark · Bioluminescent</span>
-    </a>
-    <a class="card" href="v9-ghostware/index.html">
-      <span class="num">09</span>
-      <h2>Ghostware</h2>
-      <span class="desc">A holographic memory archive — rotating particle hologram, scanlines, live fake telemetry, ARCH-serial memory slots that glitch-load on click. Signature: the ACCESS:// command bar — type "help", "recall arch-0001", "jump work".</span>
-      <span class="tag t9">Cyber · Hologram</span>
-    </a>
-    <a class="card" href="v10-typevolt/index.html">
-      <span class="num">10</span>
-      <h2>Typevolt</h2>
-      <span class="desc">The kinetic editorial machine — pure type, zero canvas. Giant Anton lettering that choreographs itself with scroll, case-file rows, spec-sheet skills, magnetic buttons, a cursor that speaks. Signature: heading letters shy away from your pointer.</span>
-      <span class="tag t10">Editorial · Kinetic</span>
-    </a>
-    <a class="card" href="v11-event-horizon/index.html">
-      <span class="num">11</span>
-      <h2>Event Horizon</h2>
-      <span class="desc">The portfolio as a black hole — you are falling in. Scroll = descent through rings of the accretion disk; content spirals inward, warps and accelerates as you descend. Canvas-2D disk with dust spiraling to the singularity. Signature: gravity.</span>
-      <span class="tag t11">Dark · Cosmic</span>
-    </a>
-    <a class="card" href="v12-mycelium/index.html">
-      <span class="num">12</span>
-      <h2>Mycelium</h2>
-      <span class="desc">The portfolio as a living fungal network. Projects are fruiting bodies, skills are enzymes, achievements are spores — hyphae grow between sections as you scroll. Nothing appears; everything grows. Signature: growth.</span>
-      <span class="tag t12">Dark · Organic</span>
-    </a>
-    <a class="card" href="v13-origami-aurum/index.html">
-      <span class="num">13</span>
-      <h2>Origami Aurum</h2>
-      <span class="desc">A warm paper origami gallery — parchment, terracotta, gold foil. Every section unfolds like a paper flap; folded-paper letters, dog-eared project cards, stamp-grid achievements. Zero canvas: the light perf showcase. Signature: the fold.</span>
-      <span class="tag t13">Light · Paper</span>
-    </a>
-    <a class="card" href="v14-signal/index.html">
-      <span class="num">14</span>
-      <h2>SIGNAL//DECODE</h2>
-      <span class="desc">An intercepted cosmic transmission. The name decodes from static letter by letter; a spectrogram gains signal as you scroll; every section locks in with a [ DECODED ] stamp. Transmit back through the contact form. Signature: decode.</span>
-      <span class="tag t14">Dark · Radio</span>
-    </a>
+    <main id="collection" class="collection-section">
+      <div class="collection-bar">
+        <div class="collection-bar__title">
+          <span>Exhibition index</span>
+          <strong>Open a world</strong>
+        </div>
+        <p class="collection-bar__note">Each exhibit is a different answer to the same question: how can a portfolio feel like a place?</p>
+      </div>
+      <nav class="filters" aria-label="Filter exhibits">
+        <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="filter" data-filter="light" aria-pressed="false">Light</button>
+        <button type="button" class="filter" data-filter="dark" aria-pressed="false">Dark</button>
+        <button type="button" class="filter" data-filter="3d" aria-pressed="false">3D</button>
+        <button type="button" class="filter" data-filter="motion" aria-pressed="false">Motion</button>
+      </nav>
+      <div id="exhibits" class="collection" aria-live="polite"></div>
+      <noscript>
+        <p>JavaScript is disabled. Open an exhibit directly:</p>
+        <ul>
+          <li><a href="v1-light/index.html">Sunlit Archive</a></li>
+          <li><a href="v2-dark/index.html">Midnight Index</a></li>
+          <li><a href="v3-wild/index.html">Dream Loom</a></li>
+          <li><a href="v4-brutalist/index.html">Mono Factory</a></li>
+          <li><a href="v5-glass/index.html">Glass Horizon</a></li>
+          <li><a href="v6-scrollstory/index.html">The Field Journal</a></li>
+          <li><a href="v7-voxel/index.html">Voxel World</a></li>
+          <li><a href="v8-abyss/index.html">The Abyss</a></li>
+          <li><a href="v9-ghostware/index.html">Ghostware</a></li>
+          <li><a href="v10-typevolt/index.html">Typevolt</a></li>
+          <li><a href="v11-event-horizon/index.html">Event Horizon</a></li>
+          <li><a href="v12-mycelium/index.html">Mycelium</a></li>
+          <li><a href="v13-origami-aurum/index.html">Origami Aurum</a></li>
+          <li><a href="v14-signal/index.html">SIGNAL//DECODE</a></li>
+        </ul>
+      </noscript>
+    </main>
+
+    <footer class="catalogue-footer">
+      <span>Fourteen exhibits / one restless practice</span>
+      <span>Built with HTML / CSS / JS / Three.js / Canvas 2D / zero frameworks</span>
+    </footer>
   </div>
 
-  <div class="foot">Built with HTML / CSS / JS · Three.js (r160, InstancedMesh) · Canvas 2D · zero frameworks · vision-model audited & scored (round 6: heroes up to 9.5/10; genesis wave v11–v14)</div>
+  <script>
+    const exhibits = [
+      { number: "01", slug: "v1-light", title: "Sunlit Archive", category: "Light / Editorial", filters: ["light"], previewClass: "archive", description: "Warm editorial light theme with paper petals, developing photographs, stamps, and handwritten archive notes.", href: "v1-light/index.html" },
+      { number: "02", slug: "v2-dark", title: "Midnight Index", category: "Dark / Cosmic", filters: ["dark"], previewClass: "constellation", description: "A deep-space career map with starfield drift, orbiting rings, constellations, and a self-typing terminal.", href: "v2-dark/index.html" },
+      { number: "03", slug: "v3-wild", title: "Dream Loom", category: "Wild / Fluid", filters: ["motion"], previewClass: "loom", description: "A living aurora, kinetic type, silk threads, and a dream palette that shifts while you explore.", href: "v3-wild/index.html" },
+      { number: "04", slug: "v4-brutalist", title: "Mono Factory", category: "Brutalist / Mono", filters: ["motion"], previewClass: "factory", description: "A mechanical portfolio of hard borders, terminal commands, receipts, and typewriter precision.", href: "v4-brutalist/index.html" },
+      { number: "05", slug: "v5-glass", title: "Glass Horizon", category: "Glass / Luminous", filters: ["3d"], previewClass: "prism", description: "Light through glass: drifting orbs, refraction, prisms, frosted panels, and depth.", href: "v5-glass/index.html" },
+      { number: "06", slug: "v6-scrollstory", title: "The Field Journal", category: "Scrollytelling / Editorial", filters: ["motion"], previewClass: "field-journal", description: "A scroll-driven field log with pinned scenes, specimen collecting, and a self-drawing timeline.", href: "v6-scrollstory/index.html" },
+      { number: "07", slug: "v7-voxel", title: "Voxel World", category: "3D / Voxel", filters: ["3d"], previewClass: "voxel", description: "A tiny isometric world of islands, railways, beacons, and a camera that flies as you scroll.", href: "v7-voxel/index.html" },
+      { number: "08", slug: "v8-abyss", title: "The Abyss", category: "Dark / Bioluminescent", filters: ["dark"], previewClass: "abyss", description: "A deep-sea dive through glowing specimen jars, sonar pings, pressure, and light rays.", href: "v8-abyss/index.html" },
+      { number: "09", slug: "v9-ghostware", title: "Ghostware", category: "Cyber / Hologram", filters: ["dark"], previewClass: "ghostware", description: "A holographic memory archive with scanlines, telemetry, recall slots, and a command bar.", href: "v9-ghostware/index.html" },
+      { number: "10", slug: "v10-typevolt", title: "Typevolt", category: "Editorial / Kinetic", filters: ["motion"], previewClass: "typevolt", description: "A kinetic editorial machine where letters stretch, respond, and choreograph the work.", href: "v10-typevolt/index.html" },
+      { number: "11", slug: "v11-event-horizon", title: "Event Horizon", category: "Dark / Cosmic", filters: ["dark"], previewClass: "horizon", description: "A black-hole portfolio where scroll becomes descent through rings of an accretion disk.", href: "v11-event-horizon/index.html" },
+      { number: "12", slug: "v12-mycelium", title: "Mycelium", category: "Dark / Organic", filters: ["dark"], previewClass: "mycelium", description: "A living fungal network where projects fruit, skills branch, and everything grows into view.", href: "v12-mycelium/index.html" },
+      { number: "13", slug: "v13-origami-aurum", title: "Origami Aurum", category: "Light / Paper", filters: ["light"], previewClass: "origami", description: "A warm paper gallery of folded letters, dog-eared projects, gold foil, and unfolding sections.", href: "v13-origami-aurum/index.html" },
+      { number: "14", slug: "v14-signal", title: "SIGNAL//DECODE", category: "Dark / Radio", filters: ["dark"], previewClass: "signal", description: "An intercepted transmission with static, spectrograms, decoded stamps, and a channel back out.", href: "v14-signal/index.html" }
+    ];
+
+    const previewMarkup = {
+      archive: '<div class="scene scene-archive"><span class="photo"></span><span class="petal"></span></div>',
+      constellation: '<div class="scene scene-constellation"><span class="route"></span><span class="star star-a"></span><span class="star star-b"></span><span class="star star-c"></span><span class="label">COURSE PLOT / 02</span></div>',
+      loom: '<div class="scene scene-loom"><span class="thread thread-a"></span><span class="thread thread-b"></span><span class="thread thread-c"></span><span class="blob"></span><span class="label">DREAM / WEAVE</span></div>',
+      factory: '<div class="scene scene-factory"><span class="block">MF</span><span class="bar"></span><span class="cursor"></span></div>',
+      prism: '<div class="scene scene-prism"><span class="glint"></span><span class="label">REFRACTION STUDY / 05</span></div>',
+      "field-journal": '<div class="scene scene-field-journal"><span class="leaf"></span><span class="pin"></span><span class="label">FIELD NOTE</span></div>',
+      voxel: '<div class="scene scene-voxel"><span class="cube cube-a"></span><span class="cube cube-b"></span><span class="cube cube-c"></span><span class="beacon"></span></div>',
+      abyss: '<div class="scene scene-abyss"><span class="jelly"></span><span class="bubble"></span><span class="depth">-11,204 M</span></div>',
+      ghostware: '<div class="scene scene-ghostware"><span class="serial">ARCH-0009 / RECALL</span><span class="scan"></span><span class="bar"></span></div>',
+      typevolt: '<div class="scene scene-typevolt"><span class="word">TYPE<span>VOLT</span></span><span class="offset-letter">V</span><span class="label">LETTER / MOTION / PRINT</span></div>',
+      horizon: '<div class="scene scene-horizon"><span class="ring"></span><span class="singularity"></span><span class="label">DESCENT / EVENT HORIZON</span></div>',
+      mycelium: '<div class="scene scene-mycelium"><span class="node node-a"></span><span class="node node-b"></span><span class="node node-c"></span><span class="fruit"></span><span class="label">GROWTH NETWORK</span></div>',
+      origami: '<div class="scene scene-origami"><span class="gold">13</span><span class="label">FOLD / REVEAL / AURUM</span></div>',
+      signal: '<div class="scene scene-signal"><span class="decoded">[ DECODED ]</span><span class="label">SPECTROGRAM / 14</span></div>'
+    };
+
+    const collection = document.querySelector("#exhibits");
+    const filters = document.querySelector(".filters");
+
+    function previewMarkupFor(previewClass) {
+      return previewMarkup[previewClass] || "";
+    }
+
+    function renderExhibits(filter = "all") {
+      collection.innerHTML = exhibits
+        .filter((exhibit) => filter === "all" || exhibit.filters.includes(filter))
+        .map((exhibit, index) => `
+          <a class="exhibit exhibit--${exhibit.previewClass} ${index === 0 ? "exhibit--opening" : ""}" data-slug="${exhibit.slug}" href="${exhibit.href}" style="--index:${index}">
+            <div class="exhibit__preview" data-index="${exhibit.number}" aria-hidden="true">${previewMarkupFor(exhibit.previewClass)}</div>
+            <div class="exhibit__placard">
+              <span class="exhibit__number">${exhibit.number}</span>
+              <span class="exhibit__category">${exhibit.category}</span>
+            </div>
+            <h2>${exhibit.title}</h2>
+            <p>${exhibit.description}</p>
+            <span class="exhibit__action">Enter exhibit <span aria-hidden="true">&rarr;</span></span>
+          </a>
+        `)
+        .join("");
+    }
+
+    filters.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-filter]");
+      if (!button) return;
+      const filter = button.dataset.filter;
+
+      document.querySelectorAll(".filter").forEach((item) => {
+        const selected = item === button;
+        item.classList.toggle("is-active", selected);
+        item.setAttribute("aria-pressed", String(selected));
+      });
+
+      renderExhibits(filter);
+    });
+
+    renderExhibits();
+  </script>
 </body>
 </html>
