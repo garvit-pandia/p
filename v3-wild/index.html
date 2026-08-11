@@ -1325,7 +1325,7 @@ shuffleBtn.addEventListener('click', () => {
       path.style.strokeDashoffset = String(1 - reveal);
     }
     group.setAttribute('transform',
-      'translate(0, ' + (-window.scrollY) + 'px) scale(1, ' + (scrollable / window.innerHeight) + ')');
+      'translate(0, ' + (-window.scrollY) + ') scale(1, ' + (scrollable / window.innerHeight) + ')');
   };
 
   window.addEventListener('scroll', update, {passive:true});
