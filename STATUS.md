@@ -2,6 +2,14 @@
 
 Session: Aug 07 2026 — ROUND 7+ CAMPAIGN STARTED: 5 rounds × 10 variants, reference-driven (docs/research-digest.md), wave-based subagent dispatch (docs/iteration-campaign.md), recurring cron continuation (job portfolio5-iteration-campaign, every 3h).
 
+## Scope And Deployment Boundary
+
+- This repository's canonical deployment is GitHub Pages: `https://garvit-pandia.github.io/p/`.
+- `garvitpandia.me` is a completely separate site and deployment. It is not this repository's live URL, GitHub Pages target, or deployment source.
+- Do not use `garvitpandia.me` to verify this project, report its deployment status, or infer this repository's current design.
+- The domain appears in some older portfolio variant contact/footer content and in the fictional resume data as an external personal-site link. Those references do not make the separate site part of this project.
+- Root index redesign deployed from commit `4aeb701` and verified live on GitHub Pages on 2026-08-11.
+
 ## Campaign wave tracker (W1–W17)
 
 | Wave | Variants / rounds | Status |
