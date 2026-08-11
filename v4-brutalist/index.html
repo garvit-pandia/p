@@ -2608,6 +2608,30 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
 </script>
 <style>
 /* ============================================================
+   V4J-ADDON (round 5) — jury pass (additive, v4j- prefix)
+   1. Contrast re-ink: machine-state markers on LIGHT receipt
+      surfaces read var(--muted) — #8a8a8a on #f7f7f2 was 3.21:1
+      (FAIL AA for 10-11px labels); var(--muted) on #f7f7f2 is
+      4.82:1. Dark-surface #8a8a8a usages (console dim, mf2
+      idle, term STANDBY) already pass 5.3:1 and stay untouched.
+   2. Keyboard focus: the console field's outline:0 beat the
+      global :focus-visible ring, leaving tab-focus with only
+      the caret — restore a lime dashed ring (theme-native).
+   3. Polish: mechanical arrow nudge + logo-mark press-in,
+      same 90ms steps(2) language as the mh- press-in family.
+   ============================================================ */
+.rt-line{color:var(--muted);}
+.receipt.printing::after,
+.receipt:not(.printed):not(.printing)::after{color:var(--muted);}
+.mc-field:focus-visible{outline:3px dashed var(--lime);outline-offset:4px;}
+.idx-arrow,.channel-arr{transition:transform 90ms steps(2);}
+.idx-row:hover .idx-arrow{transform:translateX(4px);}
+.channel:hover .channel-arr{transform:translateX(4px);}
+.nav-logo-mark{transition:transform 90ms steps(2),box-shadow 90ms steps(2);}
+.nav-logo:hover .nav-logo-mark{transform:translate(2px,2px);box-shadow:none;}
+</style>
+<style>
+/* ============================================================
    TB-ADDON (round 4) — terminal render + type budget
    tb: the factory's typing chains (hero boot, receipt print,
    machine strips, console boot replay) defer their ticks while
@@ -2667,5 +2691,50 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
   };
 })();
 </script>
+<style>
+/* ============================================================
+   V4J-PRINT (round 5) — print stylesheet (was entirely missing
+   going into R5 — W14 lesson). Additive, print-only.
+   reveals forced visible · fixed/transient widgets hidden ·
+   ink-flat surfaces (terminal, console, receipts, strips) ·
+   URLs under links · units kept together · @page margins.
+   ============================================================ */
+@media print{
+  @page{margin:14mm;}
+  html,body{background:#fff !important;color:#000 !important;}
+  body{padding-top:0 !important;}
+  *{box-shadow:none !important;text-shadow:none !important;
+    animation:none !important;transition:none !important;}
+  .reveal{opacity:1 !important;transform:none !important;}
+  .pcard.mf2-booting{transition-delay:0s !important;}
+  #progress,.nav,.mh-word,.mc-flicker,.hd-scan,.r-scan,.rt-scan,
+  .ticker,.ticker.lime,.mc-input-row,body::after{display:none !important;}
+  .term,.term-bar,.mc-frame,.mc-bar,.mc-body,.mf2-strip,
+  .receipt,.rt-receipt,.rt-stub,.form-note,
+  .idx-row,.edu-row,.ledger-row,.pcard,.skill-box,.stat{
+    background:#fff !important;color:#000 !important;border-color:#000 !important;
+  }
+  .term-body,.mc-body{min-height:0 !important;max-height:none !important;}
+  .t-prompt,.t-out,.t-out.ok,.t-cmd,.t-cursor,.mf2-cursor,.mf2-line,.mf2-idle,
+  .mc-line,.mc-line.cmd,.mc-line.out,.mc-line.dim,.mc-line.err,.mc2-ok,
+  .receipt .r-label,.receipt .r-val,.rt-line,.rt-k,.rt-v{color:#000 !important;}
+  .sec-no,.hl,.hero-meta .tag,.stat .lime,.proof-sub,.btn-resume,.pcard-no,
+  .btn,.btn-solid,.btn-ghost,.pcard-link,.channel,.chip{
+    background:#fff !important;color:#000 !important;border-color:#000 !important;
+  }
+  .stamp{color:#000 !important;border-color:#000 !important;}
+  .stamp::after{border-color:#000 !important;}
+  .rt-msg .rt-v{max-height:none !important;overflow:visible !important;}
+  .hero-name{font-size:64px;line-height:.95;}
+  .sec-title{font-size:40px;line-height:.95;}
+  .pcard-title{font-size:30px;line-height:.95;}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:9px;color:#000;}
+  a[href^="http"]{word-break:break-all;}
+  .pcard,.idx-row,.edu-row,.ledger-row,.stat,.skill-box,.receipt,
+  .rt-receipt,.channel,.proof-block,.mf2-unit{break-inside:avoid;}
+  .receipt.printing::after,
+  .receipt:not(.printed):not(.printing)::after{content:"" !important;}
+}
+</style>
 </body>
 </html>
