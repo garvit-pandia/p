@@ -569,6 +569,21 @@ form.msg input:focus,form.msg textarea:focus{border-color:var(--wv-a1, var(--vio
   #silk{--aw-thin:1}
 }
 </style>
+<style>
+/* ================= ROUND-4 · SHADER BUDGET + AURORA STATIC FALLBACK (sb- prefix, add-only) =================
+   Performance + resilience for the loom's sky.
+   · --sb-dpr / --sb-scale — the aurora's internal-resolution budget, read once per resize by the
+     round-4 script in the aurora block. Fine pointers on wide viewports: DPR 1.5 at full scale
+     (today's behavior). Coarse pointers or ≤768px: DPR capped at 1.25 AND the render target scaled
+     to 0.65 — ~3.4x fewer fragment pixels for the 5-octave fbm, upscaled smoothly by CSS (the sky
+     is soft gradients, so it stays crisp). On a 390px phone the internal width drops 585 → ~317px.
+   · the static-frame fallback class — the sky's own palette as a fixed CSS gradient. The
+     round-4 script adds it when WebGL2 is unavailable or the viewport is tiny (≤360px), so
+     the hero keeps a designed sky — no blank canvas, no dead cream void. */
+:root{--sb-dpr:1.5; --sb-scale:1}
+@media(pointer:coarse),(max-width:768px){:root{--sb-dpr:1.25; --sb-scale:.65}}
+#aurora.sb-fb{background:linear-gradient(165deg,#f7e3cd 0%,#ffb3a0 34%,#c9b8ff 70%,#a8e6d8 100%)}
+</style>
 </head>
 <body>
 <canvas id="aurora"></canvas>
@@ -859,8 +874,14 @@ form.msg input:focus,form.msg textarea:focus{border-color:var(--wv-a1, var(--vio
 (() => {
   const canvas = document.getElementById('aurora');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SB_FB = 'sb-fb'; /* sb- R4: static-gradient fallback marker (2x token: this + the CSS rule) */
+  /* sb- R4 · tiny screens (≤360px): no WebGL at all — the static CSS aurora gradient keeps
+     the hero a designed sky without shader cost on a small battery. */
+  if(window.matchMedia('(max-width:360px)').matches){ canvas.classList.add(SB_FB); return; }
   const gl = canvas.getContext('webgl2', {antialias:false});
-  if(!gl){ canvas.style.display='none'; return; }
+  /* sb- R4 · WebGL unavailable: static gradient sky instead of a blank canvas (the canvas keeps
+     its fixed full-screen box; the palette gradient shows through the transparent surface). */
+  if(!gl){ canvas.classList.add(SB_FB); return; }
 
   const VS = `#version 300 es
   layout(location=0) in vec2 aPos;
@@ -961,13 +982,22 @@ form.msg input:focus,form.msg textarea:focus{border-color:var(--wv-a1, var(--vio
 
   let W=0, H=0;
   const resize = () => {
-    const dpr = Math.min(window.devicePixelRatio, 1.5);
+    /* sb- R4 · shader budget: the aurora renders at DPR cap × internal scale from the :root
+       budget vars (1.5 / 1 on fine+wide; 1.25 / 0.65 on coarse pointers or ≤768px). CSS
+       upscales the smaller target smoothly — the fbm field is low-frequency, so the sky
+       keeps its softness while fragment cost drops ~3.4x on phones. */
+    const sbDpr = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sb-dpr')) || 1.5;
+    const sbScale = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sb-scale')) || 1;
+    const dpr = Math.min(window.devicePixelRatio || 1, sbDpr) * sbScale;
     W = window.innerWidth; H = window.innerHeight;
-    canvas.width = W*dpr; canvas.height = H*dpr;
+    canvas.width = Math.max(2, Math.round(W * dpr));
+    canvas.height = Math.max(2, Math.round(H * dpr));
     canvas.style.width = W+'px'; canvas.style.height = H+'px';
     gl.viewport(0,0,canvas.width,canvas.height);
   };
   resize();
+  /* sb- R4 · read-only budget probe for verification (css px vs internal px ratio) */
+  window.__sbBudget = () => ({ cssW: W, cssH: H, pxW: canvas.width, pxH: canvas.height, ratio: +(canvas.width / W).toFixed(3) });
   window.addEventListener('resize', resize, {passive:true}); /* aw- R3 fix: passive, like the silk block */
 
   let mx=0.5, my=0.5, mixVal=0, targetMix=0;
@@ -1083,10 +1113,16 @@ document.querySelectorAll('.sec-title, .reveal, .cert-col').forEach(el => io.obs
 
 /* ================= scroll progress ================= */
 const prog = document.getElementById('progress');
+let progTick = false; /* sb- R4 fix: coalesce the width write to one rAF per frame (was a style write on every scroll event) */
 window.addEventListener('scroll', () => {
-  const h = document.documentElement;
-  const pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
-  prog.style.width = (pct * 100) + '%';
+  if(progTick) return;
+  progTick = true;
+  requestAnimationFrame(() => {
+    progTick = false;
+    const h = document.documentElement;
+    const pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    prog.style.width = (pct * 100) + '%';
+  });
 }, {passive:true});
 
 /* ================= count-up ================= */
@@ -1202,10 +1238,12 @@ shuffleBtn.addEventListener('click', () => {
   window.addEventListener('pointermove', e => {
     pts.push({x: e.clientX, y: e.clientY, t: performance.now()});
     if(pts.length > MAX_POINTS) pts.shift();
+    if(!rafId) rafId = requestAnimationFrame(frame); /* sb- R4 fix: wake the loop when a new thread starts */
   }, {passive:true});
 
   const frame = (now) => {
     pts = pts.filter(p => now - p.t < LIFETIME); /* expire old points → threads dissolve */
+    if(!pts.length){ rafId = null; return; } /* sb- R4 fix: idle trail = no frame, no clearRect — the loop sleeps until the next pointermove */
     ctx.clearRect(0, 0, W, H);
     /* aw- R3: pointer speed from the two newest samples → thickness target
        (fast ≈ full silk, resting ≈ AW_IDLE), lerped slowly */
@@ -1328,8 +1366,12 @@ shuffleBtn.addEventListener('click', () => {
       'translate(0, ' + (-window.scrollY) + ') scale(1, ' + (scrollable / window.innerHeight) + ')');
   };
 
-  window.addEventListener('scroll', update, {passive:true});
-  window.addEventListener('resize', () => { layout(); update(); }, {passive:true});
+  /* sb- R4 fix: coalesce the thread's scroll writes to one rAF per frame, matching the
+     tension/sag drivers — same values, no per-event attribute churn */
+  let thRaf = null;
+  const onScroll = () => { if(!thRaf) thRaf = requestAnimationFrame(() => { thRaf = null; update(); }); };
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', () => { layout(); onScroll(); }, {passive:true});
   layout(); update();
   if(reduced) path.style.strokeDashoffset = '0';          /* reduced motion: thread fully woven, static */
 

@@ -645,7 +645,7 @@ h2.stamp-host .sec-stamp.stamped{
     <div class="reveal">
       <div class="hero-card" id="heroCard">
         <div class="stamp">open to<br>work</div>
-        <div class="card-photo"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=70&auto=format&fit=crop" alt="" loading="lazy" decoding="async"></div>
+        <div class="card-photo"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=70&auto=format&fit=crop" alt="" loading="eager" fetchpriority="high" decoding="async"></div>
         <div class="dev-grain" aria-hidden="true"></div>
         <div class="card-top"><span>Index No. 01</span><span>est. 2022</span></div>
         <div class="card-body">
@@ -1033,11 +1033,19 @@ if(track && track.scrollWidth < window.innerWidth * 2){
 
 /* --- scroll progress --- */
 const prog = document.getElementById('progress');
-window.addEventListener('scroll', () => {
+let progTicking = false;
+function paintProgress(){
+  progTicking = false;
   const h = document.documentElement;
   const pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
   prog.style.width = (pct * 100) + '%';
+}
+window.addEventListener('scroll', () => {
+  if(progTicking) return;
+  progTicking = true;
+  requestAnimationFrame(paintProgress);
 }, {passive:true});
+paintProgress();
 
 /* --- count-up --- */
 const countIO = new IntersectionObserver(entries => {
@@ -1648,6 +1656,117 @@ document.querySelectorAll('section[id]').forEach(s => navIO.observe(s));
     document.querySelectorAll('.mg-note:not(.mg-thought)').forEach(function(n){ n.classList.add('ink-bleed'); });
     document.querySelectorAll('h2.stamp-host').forEach(function(h){ h.classList.add('ink-host'); });
   }catch(err){ console.warn('ink micro-interactions disabled:', err && err.message); }
+})();
+</script>
+<style>
+/* ============================================================
+   ADDED (round 4, W11) — Performance + resilience pass.
+   (a) print-friendly CSS: fixed/decorative widgets hidden, ink-
+       friendly flat backgrounds, readable print sizes, reveal
+       forced visible (a mid-scroll print would otherwise print
+       blank sections), monochrome developing states neutralized,
+       page-break discipline.
+   (b) Fraunces optical-sizing audit: the fonts URL already
+       requests the opsz axis (9..144) with display=swap, so text
+       paints immediately in fallback — no font-display change
+       needed. What was missing: font-optical-sizing itself (auto
+       is the spec default, but explicit beats engines that
+       default to none). Inherited, so one rule covers every
+       --serif headline.
+   (c) R2 fold-in (the wave-plan gap — never shipped): photos
+       develop from a monochrome print to colour as they enter
+       view — one-shot IO, filter-only transition, transform
+       untouched so hover zoom keeps its original timing. The
+       'dvlp-armed' scope is set by JS only, so no-JS pages stay
+       full colour and never hidden; reduced-motion jumps straight
+       to the developed frame. The about photo develops into its
+       original archival sepia treatment.
+   ============================================================ */
+
+/* (b) Fraunces optical sizing ---------------------------------- */
+:root{ font-optical-sizing:auto }
+
+/* (c) developing prints ---------------------------------------- */
+html.dvlp-armed .proj .vis img{
+  filter:grayscale(1) contrast(1.04);
+  transition:transform 1.1s cubic-bezier(.22,1,.36,1),
+             filter 1.7s cubic-bezier(.22,1,.36,1);
+}
+html.dvlp-armed .proj.dvlp-on .vis img{ filter:none }
+html.dvlp-armed .about-photo img{
+  filter:grayscale(1) contrast(1.04);
+  transition:transform 1.2s cubic-bezier(.22,1,.36,1),
+             filter 1.7s cubic-bezier(.22,1,.36,1);
+}
+html.dvlp-armed .about-photo.dvlp-on img{ filter:sepia(.18) saturate(.85) }
+
+/* (a) print-friendly ------------------------------------------- */
+@media print{
+  @page{ margin:16mm 13mm }
+  html, body{ background:#fff !important; color:#000 !important }
+  nav, .dotnav, .toc2-rail, .sd-dial, #progress, .grain, #petals,
+  #preloader, .scroll-hint, .marquee, .dev-caption, .dev-grain,
+  .mg-note, .sec-stamp{ display:none !important }
+  body{ font-size:11.5pt }
+  section, .hero-card, .about-photo, .proj, .fact, .skill-cell,
+  .tl-item, .list-block, .soft{ background:#fff !important;
+    color:#000 !important; box-shadow:none !important;
+    border-color:#bbb !important }
+  .reveal{ opacity:1 !important; transform:none !important }
+  img{ filter:none !important }
+  .proj, .fact, .skill-cell, .tl-item, .about-photo, .g-card{ break-inside:avoid }
+  h1, h2, h3{ break-after:avoid }
+  a{ color:#000 !important; text-decoration:underline }
+  .proj-link::after{ content:" (" attr(href) ")"; color:#333; font-size:9pt }
+  .sec-title{ font-size:20pt; letter-spacing:0 }
+}
+</style>
+<script>
+/* ============================================================
+   ADDED (round 4, W11) — Performance + resilience pass.
+   (a) Budget: the fixed grain overlay keeps animating while the
+       tab is hidden — pause it via animation-play-state on
+       visibilitychange (the petal field already pauses itself).
+   (b) R2 fold-in: arm the developing-print styles (dvlp-armed)
+       and develop each photo once via its own IntersectionObserver
+       (one-shot, unobserve after). Reduced-motion or no-IO:
+       develop everything immediately — static full-colour frame.
+   ============================================================ */
+(function(){
+  'use strict';
+  try{
+    /* (a) pause grain when hidden ----------------------------- */
+    var grain = document.querySelector('.grain');
+    if(grain){
+      document.addEventListener('visibilitychange', function(){
+        grain.style.animationPlayState = document.hidden ? 'paused' : 'running';
+      });
+    }
+    /* (b) developing photos ------------------------------------ */
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var targets = Array.prototype.slice.call(
+      document.querySelectorAll('.proj .vis img, .about-photo img'));
+    if(!targets.length) return;
+    document.documentElement.classList.add('dvlp-armed');
+    var DEVELOPED = 'dvlp-on';
+    function develop(el){
+      var host = el.closest('.proj') || el.closest('.about-photo') || el;
+      host.classList.add(DEVELOPED);
+    }
+    if(reduced || !('IntersectionObserver' in window)){
+      targets.forEach(develop); /* static full-colour frame */
+      return;
+    }
+    var dvlpIO = new IntersectionObserver(function(entries){
+      for(var i = 0; i < entries.length; i++){
+        if(entries[i].isIntersecting){
+          develop(entries[i].target);
+          dvlpIO.unobserve(entries[i].target);
+        }
+      }
+    }, {threshold:0.25, rootMargin:'0px 0px -8% 0px'});
+    targets.forEach(function(img){ dvlpIO.observe(img); });
+  }catch(err){ console.warn('developing-photos disabled:', err && err.message); }
 })();
 </script>
 </body>

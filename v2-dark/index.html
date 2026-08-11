@@ -959,43 +959,62 @@ footer .sig i{width:8px;height:8px;border-radius:50%;background:var(--violet);bo
 import * as THREE from 'three';
 
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* rb: Round 4 perf pass — star budget + DPR cap + hidden/offscreen rAF pause
+   + reduced-motion static sky. Budget derives from viewport area AND device
+   pixel ratio (1 star / 900 CSS px² at dpr1, /dpr on retina), halves on coarse
+   pointers, caps total; resize re-budgets and disposes the old geometry so no
+   GPU buffers leak. Twinkle math stays cheap: phases are precomputed arrays,
+   alpha lives in the GPU shader, one draw call. */
+const rbCoarse = window.matchMedia('(pointer: coarse)').matches;
+const rbCap = 2000; /* total star ceiling (was 2600) */
+function rbBudget(){
+  const dpr = Math.min(window.devicePixelRatio || 1, 2); /* matches the renderer cap */
+  const area = window.innerWidth * window.innerHeight;
+  let n = Math.min(rbCap, Math.floor(area / (900 * dpr)));
+  if(rbCoarse) n = Math.floor(n / 2); /* touch screens: half the points */
+  return Math.max(90, n);             /* never below a readable floor */
+}
+function makeStarGeometry(N){
+  /* sd3 twinkle: per-star phase/speed, deterministic from index.
+     alpha = 0.6 + 0.4*sin(uTime*aSpeed + aPhase) evaluated on the GPU —
+     no per-frame shadowBlur, DPR cap unchanged, one draw call. */
+  const pos = new Float32Array(N*3);
+  const col = new Float32Array(N*3);
+  const palette = [new THREE.Color(0xffffff), new THREE.Color(0xf5c96b), new THREE.Color(0x4dd6e8), new THREE.Color(0x7c5cff)];
+  for(let i=0;i<N;i++){
+    pos[i*3]   = (Math.random()-0.5) * 60;
+    pos[i*3+1] = (Math.random()-0.5) * 40;
+    pos[i*3+2] = -8 - Math.random() * 40;
+    const c = palette[Math.floor(Math.random()*palette.length)];
+    col[i*3] = c.r; col[i*3+1] = c.g; col[i*3+2] = c.b;
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  g.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  const phaseA = new Float32Array(N);
+  const speedA = new Float32Array(N);
+  for(let i=0;i<N;i++){
+    phaseA[i] = (i * 2.399963) % 6.283185; /* golden-angle spread from index */
+    speedA[i] = 0.7 + (i % 7) * 0.18;      /* 0.7–1.78 rad/s from index */
+  }
+  g.setAttribute('aPhase', new THREE.BufferAttribute(phaseA, 1));
+  g.setAttribute('aSpeed', new THREE.BufferAttribute(speedA, 1));
+  return g;
+}
 const canvas = document.getElementById('stars');
 let renderer = null, scene = null, camera = null, starPts = null, core = null, wire = null, ring = null, raf = null, running = true;
 
 function initScene(){
   try{
     renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true, powerPreference:'high-performance'});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, rbCoarse ? 1.5 : 2)); /* rb: DPR cap — coarse pointers render <=1.5x (44% fewer device pixels) */
     renderer.setSize(window.innerWidth, window.innerHeight);
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 200);
     camera.position.z = 12;
 
-    const N = Math.min(2600, Math.floor(window.innerWidth * window.innerHeight / 900)); /* denser starfield */
-    const pos = new Float32Array(N*3);
-    const col = new Float32Array(N*3);
-    const palette = [new THREE.Color(0xffffff), new THREE.Color(0xf5c96b), new THREE.Color(0x4dd6e8), new THREE.Color(0x7c5cff)];
-    for(let i=0;i<N;i++){
-      pos[i*3]   = (Math.random()-0.5) * 60;
-      pos[i*3+1] = (Math.random()-0.5) * 40;
-      pos[i*3+2] = -8 - Math.random() * 40;
-      const c = palette[Math.floor(Math.random()*palette.length)];
-      col[i*3] = c.r; col[i*3+1] = c.g; col[i*3+2] = c.b;
-    }
-    const g = new THREE.BufferGeometry();
-    g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    g.setAttribute('color', new THREE.BufferAttribute(col, 3));
-    /* sd3 twinkle: per-star phase/speed, deterministic from index.
-       alpha = 0.6 + 0.4*sin(uTime*aSpeed + aPhase) evaluated on the GPU —
-       no per-frame shadowBlur, DPR cap unchanged, one draw call. */
-    const phaseA = new Float32Array(N);
-    const speedA = new Float32Array(N);
-    for(let i=0;i<N;i++){
-      phaseA[i] = (i * 2.399963) % 6.283185; /* golden-angle spread from index */
-      speedA[i] = 0.7 + (i % 7) * 0.18;      /* 0.7–1.78 rad/s from index */
-    }
-    g.setAttribute('aPhase', new THREE.BufferAttribute(phaseA, 1));
-    g.setAttribute('aSpeed', new THREE.BufferAttribute(speedA, 1));
+    const N = rbBudget(); /* rb: budget from viewport area + DPR, coarse-halved */
+    const g = makeStarGeometry(N);
     const m = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false,
       uniforms: {
@@ -1032,6 +1051,7 @@ function initScene(){
     });
     starPts = new THREE.Points(g, m);
     scene.add(starPts);
+    window.__rb = { budget:N, cap:rbCap, coarse:rbCoarse, dpr:Math.min(window.devicePixelRatio||1,2), reduced:prefersReduced }; /* headless assert handle */
 
     core = new THREE.Mesh(
       new THREE.SphereGeometry(1.6, 32, 32),
@@ -1063,9 +1083,10 @@ function initScene(){
     );
     scene.add(glow);
 
-    animate();
+    if(prefersReduced) renderStatic(); /* rb: reduced-motion — ONE static frame, no rAF loop */
+    else animate();
   }catch(e){
-    canvas.style.display = 'none';
+    if(!prefersReduced) canvas.style.display = 'none'; /* rb: RM keeps the CSS photo sky as the WebGL fallback */
     console.warn('starfield disabled:', e.message);
   }
 }
@@ -1074,8 +1095,8 @@ let mx = 0, my = 0, tmx = 0, tmy = 0;
 let scrollVel = 0, lastScrollY = window.scrollY, camZ = 12;
 
 function animate(){
+  if(!running){ raf = null; return; } /* rb: paused — the chain stops instead of rescheduling */
   raf = requestAnimationFrame(animate);
-  if(!running) return;
   const t = performance.now() * 0.001;
 
   const sy = window.scrollY;
@@ -1106,6 +1127,17 @@ function animate(){
   renderer.render(scene, camera);
 }
 
+/* rb: reduced-motion static sky — one frame at a fixed phase, no rAF loop,
+   no cursor/scroll coupling; the star chart stays visible for RM users. */
+function renderStatic(){
+  if(!renderer || !starPts) return;
+  starPts.material.uniforms.uTime.value = 1.7;   /* fixed mid-phase twinkle */
+  starPts.material.uniforms.uScale.value = renderer.domElement.height * 0.5;
+  starPts.material.uniforms.uGlobal.value = 0.9;
+  camera.position.set(0, 0, 12);
+  renderer.render(scene, camera);
+}
+
 window.addEventListener('pointermove', e => {
   mx = (e.clientX / window.innerWidth) * 2 - 1;
   my = (e.clientY / window.innerHeight) * 2 - 1;
@@ -1116,21 +1148,64 @@ window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+  /* rb: re-budget on viewport change — dispose the old star geometry (frees its
+     GPU buffers, no leak) and rebuild at the new budget; one draw call kept. */
+  if(prefersReduced){ renderStatic(); return; }
+  const n2 = rbBudget();
+  if(starPts && n2 !== starPts.geometry.attributes.position.count){
+    const g2 = makeStarGeometry(n2);
+    starPts.geometry.dispose();
+    starPts.geometry = g2;
+    if(window.__rb) window.__rb.budget = n2;
+  }
 });
 
 document.addEventListener('visibilitychange', () => {
   running = !document.hidden;
-  if(running && renderer) requestAnimationFrame(animate);
+  /* rb: restart only if the chain actually stopped (never under reduced-motion) */
+  if(running && renderer && !prefersReduced && !raf) raf = requestAnimationFrame(animate);
 });
 
-if(!prefersReduced) initScene();
+/* rb: offscreen pause — the sky canvas is position:fixed (always in view), but
+   this guard keeps the loop stopped if it is ever hidden (display:none, moved
+   into a scrolled container, hidden iframe) — belt-and-braces with the
+   visibilitychange pause above. */
+let skyVisible = true;
+if('IntersectionObserver' in window && !prefersReduced){
+  try{
+    const skyIO = new IntersectionObserver(entries => {
+      for(const en of entries){
+        skyVisible = en.isIntersecting;
+        if(!skyVisible){
+          running = false;
+          if(raf){ cancelAnimationFrame(raf); raf = null; }
+        }else if(!document.hidden && !raf){
+          running = true;
+          raf = requestAnimationFrame(animate);
+        }
+      }
+    }, {threshold:0});
+    skyIO.observe(canvas);
+  }catch(e){ /* IO unavailable — the visibilitychange pause alone is enough */ }
+}
+
+initScene(); /* rb: also runs under reduced-motion — paints the ONE static frame */
 
 /* --- scroll progress --- */
+/* rb fix: rAF-throttle the progress write — it fired one style write per scroll
+   event (layout thrash); one write per frame is plenty. */
 const prog = document.getElementById('progress');
-window.addEventListener('scroll', () => {
+let progTick = false;
+function paintProg(){
+  progTick = false;
   const h = document.documentElement;
   const pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
   prog.style.width = (pct * 100) + '%';
+}
+window.addEventListener('scroll', () => {
+  if(progTick) return;
+  progTick = true;
+  requestAnimationFrame(paintProg);
 }, {passive:true});
 
 /* --- count-up --- */
@@ -1165,6 +1240,15 @@ document.getElementById('contactForm').addEventListener('submit', e => {
   const name = document.getElementById('cf-name').value.trim();
   const email = document.getElementById('cf-email').value.trim();
   const msg = document.getElementById('cf-msg').value.trim();
+  /* rb fix: an empty submit used to open a blank mailto and claim "signal
+     ready" — focus the first empty field and stay quiet instead. */
+  if(!name || !email || !msg){
+    const first = !name ? document.getElementById('cf-name')
+                        : !email ? document.getElementById('cf-email')
+                                 : document.getElementById('cf-msg');
+    if(first) first.focus();
+    return;
+  }
   const subject = encodeURIComponent(`Portfolio inquiry from ${name || 'a visitor'}`);
   const body = encodeURIComponent(`Hi Garvit,\n\n${msg}\n\n— ${name}\n${email}`);
   window.location.href = `mailto:garvit9829@gmail.com?subject=${subject}&body=${body}`;
@@ -1200,8 +1284,11 @@ if(!prefersReduced){
   }));
   let cmx = -9999, cmy = -9999;
   window.addEventListener('pointermove', e => { cmx = e.clientX; cmy = e.clientY; }, {passive:true});
-  (function constellation(){
-    requestAnimationFrame(constellation);
+  /* rb: hidden-pause for the 2D layer too — the chain stops while the tab is away */
+  let ccRun = true, ccRaf = null;
+  function constellationLoop(){
+    if(!ccRun){ ccRaf = null; return; }
+    ccRaf = requestAnimationFrame(constellationLoop);
     ctx.clearRect(0,0,cw,ch);
     const t = performance.now() * 0.001;
     /* twinkle + draw */
@@ -1240,7 +1327,12 @@ if(!prefersReduced){
         }
       }
     }
-  })();
+  }
+  document.addEventListener('visibilitychange', () => {
+    ccRun = !document.hidden;
+    if(ccRun && !ccRaf) ccRaf = requestAnimationFrame(constellationLoop);
+  });
+  constellationLoop();
 }
 
 /* --- terminal typing animation --- */
@@ -1335,8 +1427,15 @@ if(termBody && !prefersReduced){
     var maxPct = window.innerWidth > 6 ? (window.innerWidth - 6) / window.innerWidth : 1;
     comet.style.left = (Math.min(pct, maxPct) * 100) + '%';
   }
+  /* rb fix: rAF-throttle the comet write (was one style write per scroll event) */
+  var cometTick = false;
+  function onScroll(){
+    if(cometTick) return;
+    cometTick = true;
+    requestAnimationFrame(function(){ cometTick = false; update(); });
+  }
   update();
-  window.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', update, {passive:true});
 })();
 </script>
