@@ -1,6 +1,6 @@
 # BRIEF — V7 VOXELWORLD "Isometric Diorama" (three.js)
 
-Build ONE standalone portfolio: `/home/garvit/projects/portfolio5/variant-7-voxel/index.html`
+Build ONE standalone portfolio: `/home/garvit/projects/portfolio5/v7-voxel/index.html`
 
 FIRST read `/home/garvit/projects/portfolio5/docs/fictional-resume-data.md` — it is the ONLY
 allowed content source. Use its data verbatim (numbers, names, links). Everything in the
@@ -60,7 +60,7 @@ scene background + fog color + sun color).
    Skills (4 groups, level bars 0–100 verbatim), Achievements (list with year/label),
    Experience (3 roles with bullets), Contact (form name/email/message → mailto: fallback;
    direct links: email, phone, GitHub, LinkedIn, site).
-3. Download resume button → `/variant-7-voxel/Garvit_Pandia_Resume.pdf` (file already copied
+3. Download resume button → `/v7-voxel/Garvit_Pandia_Resume.pdf` (file already copied
    into your folder by the controller — just link it).
 4. Scroll-triggered reveals (IntersectionObserver adding a class; transform+opacity only),
    smooth scrolling (`scroll-behavior:smooth` + `scroll-padding-top`).
@@ -77,7 +77,7 @@ scene background + fog color + sun color).
   content, then run `python3 /tmp/v7check.py`:
 ```python
 import re
-html = open('/home/garvit/projects/portfolio5/variant-7-voxel/index.html').read()
+html = open('/home/garvit/projects/portfolio5/v7-voxel/index.html').read()
 blocks = re.findall(r'<script(?![^>]*importmap)[^>]*>(.*?)</script>', html, re.S)
 for i, b in enumerate(blocks):
     open('/tmp/v7_%d.js' % i, 'w').write(b)

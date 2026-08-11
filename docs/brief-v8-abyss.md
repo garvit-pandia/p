@@ -1,6 +1,6 @@
 # BRIEF — V8 ABYSS "Bioluminescent Deep Sea" (canvas 2D)
 
-Build ONE standalone portfolio: `/home/garvit/projects/portfolio5/variant-8-abyss/index.html`
+Build ONE standalone portfolio: `/home/garvit/projects/portfolio5/v8-abyss/index.html`
 
 FIRST read `/home/garvit/projects/portfolio5/docs/fictional-resume-data.md` — it is the ONLY
 allowed content source. Use its data verbatim (numbers, names, links). Everything in the
@@ -75,7 +75,7 @@ sample jars) · Skills = CREW (bioluminescent organism chips) · Achievements = 
   `python3 /tmp/v8check.py`:
 ```python
 import re
-html = open('/home/garvit/projects/portfolio5/variant-8-abyss/index.html').read()
+html = open('/home/garvit/projects/portfolio5/v8-abyss/index.html').read()
 blocks = re.findall(r'<script(?![^>]*importmap)[^>]*>(.*?)</script>', html, re.S)
 for i, b in enumerate(blocks):
     open('/tmp/v8_%d.js' % i, 'w').write(b)

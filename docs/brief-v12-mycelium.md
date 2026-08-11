@@ -1,6 +1,6 @@
 # Brief — v12 "MYCELIUM" (genesis wave)
 
-Build `/home/garvit/projects/portfolio5/variant-12-mycelium/index.html` — a SINGLE self-contained HTML file (embedded CSS/JS, Google Fonts CDN, no build step). ~1100–1500 lines.
+Build `/home/garvit/projects/portfolio5/v12-mycelium/index.html` — a SINGLE self-contained HTML file (embedded CSS/JS, Google Fonts CDN, no build step). ~1100–1500 lines.
 
 ## Concept
 The portfolio as a living fungal network. Garvit's career is one mycelium: projects are fruiting bodies, skills are enzymes, achievements are spores released into the network. The page grows — as you scroll, new hyphae branch from existing ones, connecting sections like one organism. Light bioluminescent on near-black soil.

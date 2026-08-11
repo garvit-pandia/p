@@ -1,6 +1,6 @@
 # Brief — v13 "ORIGAMI AURUM" (genesis wave)
 
-Build `/home/garvit/projects/portfolio5/variant-13-origami-aurum/index.html` — a SINGLE self-contained HTML file (embedded CSS/JS, Google Fonts CDN, no build step). ~1000–1400 lines.
+Build `/home/garvit/projects/portfolio5/v13-origami-aurum/index.html` — a SINGLE self-contained HTML file (embedded CSS/JS, Google Fonts CDN, no build step). ~1000–1400 lines.
 
 ## Concept
 The portfolio as a warm origami gallery — the LIGHT variant of the genesis wave. Every section is a folded paper plane; scroll unfolds it (rotateX 90° → 0, like a page folding open). The whole page is cream paper, terracotta ink, gold foil accents. Zero canvas — a pure CSS 3D + kinetic-type performance showcase (this variant must fly on a mid-range phone).

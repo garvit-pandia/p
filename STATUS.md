@@ -32,10 +32,10 @@ User asked for the "most jaw-dropping portfolios" — new abstract animated vari
 
 | Variant | Concept | Architecture | Status |
 |---|---|---|---|
-| variant-11-event-horizon | Black-hole fall — content spirals inward | canvas-2D disk, pre-rendered glow sprites, DPR 1.5 | SUBAGENT BUILDING |
-| variant-12-mycelium | Living fungal network — growth + hyphae | canvas-2D network, dashoffset growth | SUBAGENT BUILDING |
-| variant-13-origami-aurum | Warm paper origami (LIGHT theme) | pure CSS 3D folds, zero canvas | SUBAGENT BUILDING |
-| variant-14-signal | Intercepted radio transmission, decode | canvas-2D static + spectrogram, DPR 1.5 | DONE — verified + rated Design 8.5 / Type 9 / Uniqueness 8 / Polish 9 (projects section 9/10) |
+| v11-event-horizon | Black-hole fall — content spirals inward | canvas-2D disk, pre-rendered glow sprites, DPR 1.5 | SUBAGENT BUILDING |
+| v12-mycelium | Living fungal network — growth + hyphae | canvas-2D network, dashoffset growth | SUBAGENT BUILDING |
+| v13-origami-aurum | Warm paper origami (LIGHT theme) | pure CSS 3D folds, zero canvas | SUBAGENT BUILDING |
+| v14-signal | Intercepted radio transmission, decode | canvas-2D static + spectrogram, DPR 1.5 | DONE — verified + rated Design 8.5 / Type 9 / Uniqueness 8 / Polish 9 (projects section 9/10) |
 
 ## Genesis wave verification (all 4 shipped 2026-08-08)
 
@@ -54,10 +54,10 @@ All four genesis variants committed in 6210672. Genesis wave COMPLETE — resume
 
 | Variant | Theme / Architecture | Signature feature (round 6) | Verification |
 |---|---|---|---|
-| variant-7-voxel | Voxel World — three.js r160, InstancedMesh, no shadow maps, DPR 1.5, rAF pause on hidden/offscreen, try/catch static fallback | **Voxel progress rail** (v7- prefix): 7 isometric CSS cubes, active island's cube glows via the page's 'island' CustomEvent, click → smooth-scroll to island | cube 3 .on at scrollY 3200; click cube 5 → scrollY 4384 + cube 5 .on; zero errors |
-| variant-8-abyss | The Abyss — single 2D canvas, DPR 1.75, pre-rendered glow sprites (no per-frame shadowBlur), depth rail 0→11,204 m, sonar pings | **Specimen hover-ping** (ab- prefix): mouseenter on .spec fires canvas sonar ping via exposed __abyssPing hook, 900 ms throttle, pointer-fine + reduced-motion gated | forced pipeline (pointer:none headless): 3 dispatches → exactly 2 pings; throttle confirmed; bypass removed |
-| variant-9-ghostware | Ghostware — canvas particle hologram (no three.js), scanlines, telemetry 600 ms cadence, ARCH-serial slots with glitch-load | **ACCESS:// command bar** (g9- prefix): help / recall ARCH-#### (scroll + glitch-load slot) / jump <sector> (scroll + hue-rotate flash) / sync / clear; error styling; hidden ≤760px | `help` lists directives; `recall arch-0001` → scrollY 1453 + slot aria-expanded=true + "[ LOADED ]"; zero errors |
-| variant-10-typevolt | Typevolt — pure DOM/CSS kinetic type, zero canvas (perf showcase); scroll-choreographed split letters, magnetic buttons, speaking cursor | **Letter repulsion** (t10- prefix): heading letters shy from pointer (110 px radius, 26 px push); yields to scroll choreography (140 ms) + hover jiggle; releases back via the same transform formula | rep class + inline transform live on pointer proximity; scroll handler skips .rep letters (patched filter); node --check clean |
+| v7-voxel | Voxel World — three.js r160, InstancedMesh, no shadow maps, DPR 1.5, rAF pause on hidden/offscreen, try/catch static fallback | **Voxel progress rail** (v7- prefix): 7 isometric CSS cubes, active island's cube glows via the page's 'island' CustomEvent, click → smooth-scroll to island | cube 3 .on at scrollY 3200; click cube 5 → scrollY 4384 + cube 5 .on; zero errors |
+| v8-abyss | The Abyss — single 2D canvas, DPR 1.75, pre-rendered glow sprites (no per-frame shadowBlur), depth rail 0→11,204 m, sonar pings | **Specimen hover-ping** (ab- prefix): mouseenter on .spec fires canvas sonar ping via exposed __abyssPing hook, 900 ms throttle, pointer-fine + reduced-motion gated | forced pipeline (pointer:none headless): 3 dispatches → exactly 2 pings; throttle confirmed; bypass removed |
+| v9-ghostware | Ghostware — canvas particle hologram (no three.js), scanlines, telemetry 600 ms cadence, ARCH-serial slots with glitch-load | **ACCESS:// command bar** (g9- prefix): help / recall ARCH-#### (scroll + glitch-load slot) / jump <sector> (scroll + hue-rotate flash) / sync / clear; error styling; hidden ≤760px | `help` lists directives; `recall arch-0001` → scrollY 1453 + slot aria-expanded=true + "[ LOADED ]"; zero errors |
+| v10-typevolt | Typevolt — pure DOM/CSS kinetic type, zero canvas (perf showcase); scroll-choreographed split letters, magnetic buttons, speaking cursor | **Letter repulsion** (t10- prefix): heading letters shy from pointer (110 px radius, 26 px push); yields to scroll choreography (140 ms) + hover jiggle; releases back via the same transform formula | rep class + inline transform live on pointer proximity; scroll handler skips .rep letters (patched filter); node --check clean |
 
 Plus controller-side fix on V7: **hero-name contrast scrim** (#hero::before radial rgba(11,27,63,.34)) — white 140 px name over bright voxel island was the one REAL full-page critic flag (readability re-rated 9/10 after).
 

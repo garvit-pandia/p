@@ -1,6 +1,6 @@
 # Brief — v11 "EVENT HORIZON" (genesis wave)
 
-Build `/home/garvit/projects/portfolio5/variant-11-event-horizon/index.html` — a SINGLE self-contained HTML file (embedded CSS/JS, Google Fonts CDN, no build step). ~1100–1500 lines.
+Build `/home/garvit/projects/portfolio5/v11-event-horizon/index.html` — a SINGLE self-contained HTML file (embedded CSS/JS, Google Fonts CDN, no build step). ~1100–1500 lines.
 
 ## Concept
 The portfolio as a black hole. You are falling in. Every section is a ring of the accretion disk; content is light that has to escape. Scroll = descent toward the singularity. The page is one continuous fall — hero far outside, projects spiraling closer, achievements inside the photon sphere, contact at the event horizon itself.
