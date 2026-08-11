@@ -1221,6 +1221,50 @@ body.g9c-booting .g9d-word{display:none}
   var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var FINE = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+  /* ============================================================
+     ROUND 4 — CANVAS BUDGET + TELEMETRY PAUSE (g9e- prefix)
+     combined budget gate (coarse pointer OR narrow viewport):
+     DPR cap 1 on low budget vs 1.5 on fine/wide, particle cloud
+     rebuilt at half density (head 350 / shoulder 90 / glyphs 28
+     vs 700 / 180 / 56), applied at init AND on resize with the
+     projection buffers reallocated on re-budget. Telemetry stops
+     writing DOM while the tab is hidden; the canvas rAF loop gates
+     BEFORE scheduling so a hidden chain dies outright. Pure-JS
+     feature — no CSS classes, prefix lives in identifiers only.
+     ============================================================ */
+  var g9eReduced = RM;
+  var g9eCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  function g9eBudget() {
+    var low = g9eCoarse || window.innerWidth <= 768;
+    return {
+      low: low,
+      dpr: low ? 1 : 1.5,
+      head: low ? 350 : 700,
+      sh: low ? 90 : 180,
+      glyphs: low ? 28 : 56
+    };
+  }
+  var g9eB = g9eBudget();
+  var g9eTelePaused = false;
+  /* controller probe handle — one-liner budget asserts (W11 lesson) */
+  window.__g9e = {
+    reduced: g9eReduced,
+    coarse: g9eCoarse,
+    low: g9eB.low,
+    dpr: 0,          /* filled by the hologram resize pass */
+    pts: 0,          /* live particle count */
+    glyphs: 0,       /* live glyph count */
+    hidden: false,
+    telemetryPaused: false
+  };
+  /* hidden-tab flag for the telemetry guard + probe handle (the
+     canvas loop keeps its own cancel/resume logic in the holo block) */
+  document.addEventListener('visibilitychange', function () {
+    g9eTelePaused = document.hidden;
+    window.__g9e.hidden = document.hidden;
+    window.__g9e.telemetryPaused = g9eTelePaused;
+  }, { passive: true });
+
   /* ================= scroll reveals (boot-in) ================= */
   var revealIO = ('IntersectionObserver' in window)
     ? new IntersectionObserver(function (entries) {
@@ -1289,6 +1333,9 @@ body.g9c-booting .g9d-word{display:none}
          jumps — the readout breathes at 600ms rather than stuttering */
       var mem = 68, fr = 60, si = 98.2;
       setInterval(function () {
+        /* g9e- R4: hidden tabs get zero DOM writes — the 600ms cadence
+           itself is untouched, ticks just skip the readout while away */
+        if (document.hidden) { return; }
         mem += (61 + Math.random() * 19 - mem) * 0.22;
         fr += (58 + Math.random() * 4 - fr) * 0.3;
         si += (98.1 + Math.random() * 0.3 - si) * 0.35;
@@ -1457,8 +1504,15 @@ body.g9c-booting .g9d-word{display:none}
         }
       }
 
-      /* head volume — fibonacci sphere */
-      var HN = 700;
+      /* g9e- R4: the point cloud build is re-runnable so a budget-class
+         flip on resize rebuilds it at reduced density (no GPU buffers in
+         canvas-2D; the Float32Array projection buffers are reallocated
+         alongside — nothing retained across re-budgets) */
+      function g9eBuildModel() {
+        pts = [];
+        lines = [];
+        /* head volume — fibonacci sphere */
+        var HN = g9eB.head;
       for (var i = 0; i < HN; i++) {
         var yv = 1 - 2 * i / (HN - 1);
         var rad = Math.sqrt(Math.max(0, 1 - yv * yv));
@@ -1494,7 +1548,7 @@ body.g9c-booting .g9d-word{display:none}
         ringLines(ringPts(0, sy, 0, srx, srz, SC[s2], 1, s2 * 0.5));
       }
       /* shoulder fill — fibonacci on half-ellipsoid */
-      for (var f2 = 0; f2 < 180; f2++) {
+      for (var f2 = 0; f2 < g9eB.sh; f2++) {
         var tt = f2 / 179;
         var e2 = -1.55 + tt * 1.9;
         var yy3 = -1.95 + 1.25 * Math.sin(e2);
@@ -1504,14 +1558,16 @@ body.g9c-booting .g9d-word{display:none}
       }
       /* pedestal ring */
       ringPts(0, -3.05, 0, 1.9, 1.9, 24, 2, 0.15);
+      }
+      g9eBuildModel();
 
-      /* --- data-stream glyphs (hero zone only, capped ~60) --- */
-      var GLYPHS = 56;
+      /* --- data-stream glyphs (hero zone only; g9e- R4: count follows
+             the live budget — 56 fine/wide, 28 low) --- */
       var GCH = '01<>/\\|+=*#{}()[]~:;ΔΣλπ';
       var glyphs = [];
       function scatterGlyphs() {
         glyphs = [];
-        for (var i = 0; i < GLYPHS; i++) {
+        for (var i = 0; i < g9eB.glyphs; i++) {
           var roll = Math.random();
           glyphs.push({
             x: Math.random() * W,
@@ -1525,13 +1581,21 @@ body.g9c-booting .g9d-word{display:none}
         }
       }
 
-      /* --- projection buffers --- */
-      var sx = new Float32Array(pts.length);
-      var sy2 = new Float32Array(pts.length);
-      var sz = new Float32Array(pts.length);
+      /* --- projection buffers (g9e- R4: reallocated on re-budget so the
+             old arrays are dropped — nothing retained across a flip) --- */
+      var sx = null, sy2 = null, sz = null;
+      function g9eAlloc() {
+        sx = new Float32Array(pts.length);
+        sy2 = new Float32Array(pts.length);
+        sz = new Float32Array(pts.length);
+      }
+      g9eAlloc();
+      /* budget class actually built — resize rebuilds only on a flip */
+      var g9eLastHead = g9eB.head, g9eLastSh = g9eB.sh;
 
       function resize() {
-        dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        g9eB = g9eBudget();
+        dpr = Math.min(window.devicePixelRatio || 1, g9eB.dpr);
         W = window.innerWidth;
         H = window.innerHeight;
         cv.width = Math.round(W * dpr);
@@ -1545,6 +1609,19 @@ body.g9c-booting .g9d-word{display:none}
         bgGrad.addColorStop(0.4, '#070a14');
         bgGrad.addColorStop(1, '#050508');
         scatterGlyphs();
+        /* g9e- R4: re-budget on resize — rebuild the cloud + reallocate
+           buffers only when the density class actually flipped, so plain
+           window drags never churn the model */
+        if (g9eB.head !== g9eLastHead || g9eB.sh !== g9eLastSh) {
+          g9eLastHead = g9eB.head;
+          g9eLastSh = g9eB.sh;
+          g9eBuildModel();
+          g9eAlloc();
+        }
+        window.__g9e.dpr = dpr;
+        window.__g9e.pts = pts.length;
+        window.__g9e.glyphs = glyphs.length;
+        window.__g9e.low = g9eB.low;
         if (RM) { renderOnce(); }
       }
 
@@ -1653,6 +1730,10 @@ body.g9c-booting .g9d-word{display:none}
       }
 
       function frame(now) {
+        /* g9e- R4: gate BEFORE scheduling — a hidden tab (or RM) must
+           kill the chain outright, never reschedule while paused; the
+           visibilitychange handler restarts it only when raf is dead */
+        if (document.hidden || RM) { raf = 0; return; }
         raf = requestAnimationFrame(frame);
         var dt = Math.min(0.05, (now - tPrev) / 1000 || 0.016);
         tPrev = now;
@@ -1714,7 +1795,15 @@ body.g9c-booting .g9d-word{display:none}
         }
       });
 
-      window.addEventListener('resize', resize, { passive: true });
+      /* g9e- R4: resize is rAF-coalesced — one re-budget pass per frame
+         instead of one per resize event (resize-thrash fix) */
+      var rszTick = false;
+      function resizeQueued() {
+        if (rszTick) { return; }
+        rszTick = true;
+        requestAnimationFrame(function () { rszTick = false; resize(); });
+      }
+      window.addEventListener('resize', resizeQueued, { passive: true });
       document.addEventListener('visibilitychange', function () {
         if (document.hidden) {
           if (raf) { cancelAnimationFrame(raf); raf = 0; }

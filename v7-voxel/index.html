@@ -826,6 +826,17 @@ body.static-sky .v7c-signal{opacity:1}
   'use strict';
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* v7e: R4 diorama budget — device class + the controller assert handle.
+     Created BEFORE the reduced-motion gate so the hook always exists:
+     under RM it reports the static-frame path (no WebGL, no loops). */
+  var v7eCoarse = window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768;
+  var v7eDpr = Math.min(window.devicePixelRatio || 1, v7eCoarse ? 1.25 : 1.5);
+  window.__v7e = {
+    cells: 0, islands: 0, windows: 0, meteors: 0, stars: 0, objects: 0,
+    dpr: v7eDpr, fov: 0, fogNear: 0, fogFar: 0, coarse: v7eCoarse, reduced: reduced,
+    staticFrame: reduced
+  };
+
   /* Under reduced motion the classic script already enabled the static CSS sky. */
   if (reduced) { return; }
 
@@ -843,14 +854,14 @@ body.static-sky .v7c-signal{opacity:1}
     var canvas = document.getElementById('world');
     if (!canvas) { throw new Error('no canvas'); }
     var renderer = new T.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+    renderer.setPixelRatio(v7eDpr);   /* v7e: mobile caps at 1.25 (fill-rate budget) */
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     var scene = new T.Scene();
     scene.background = new T.Color('#8ec9f2');
     scene.fog = new T.Fog('#cfe8f7', 45, 250);
 
-    var camera = new T.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 700);
+    var camera = new T.PerspectiveCamera(v7eFov(), window.innerWidth / window.innerHeight, 0.1, 700);
 
     var dirLight = new T.DirectionalLight('#fff2d9', 1.15);
     dirLight.position.set(45, 70, 30);
@@ -867,6 +878,18 @@ body.static-sky .v7c-signal{opacity:1}
     var v7dProj = new T.Vector3();   /* v7d: island-center projection scratch (hover tooltip) */
     var scratchC = new T.Color();
     var ONE = new T.Vector3(1, 1, 1);
+
+    /* ---------- v7e: R4 diorama budget (instancing audit) ---------- */
+    var v7eCellTotal = 0;    /* total voxel instances across all islands */
+    var v7eIslands = 0;      /* island InstancedMeshes */
+    function v7eFov() {
+      /* mobile FOV: portrait screens widen the lens so the active island
+         stays composed in frame; coarse/small screens get a gentle widen,
+         desktop keeps the original 52deg view */
+      var a = window.innerWidth / window.innerHeight;
+      if (a < 0.8) { return 62; }
+      return v7eCoarse ? 56 : 52;
+    }
 
     function hash2(x, z) {
       var s = Math.sin(x * 12.9898 + z * 78.233) * 43758.5453;
@@ -964,6 +987,8 @@ body.static-sky .v7c-signal{opacity:1}
     /* ---------- build the world ---------- */
     var islands = [];   /* {mesh, mat, idx} */
     function addIsland(cells, palette, idx) {
+      v7eCellTotal += cells.length;   /* v7e: budget counter */
+      v7eIslands++;
       var mesh = makeInstanced(cells, palette);
       scene.add(mesh);
       islands.push({ mesh: mesh, mat: mesh.material, idx: idx });
@@ -1141,7 +1166,7 @@ body.static-sky .v7c-signal{opacity:1}
     var v7cNightBlend = 0;
     var v7cNightWas = false;
     /* meteor shower */
-    var v7cMeteorCount = 26;
+    var v7cMeteorCount = v7eCoarse ? 14 : 26;   /* v7e: mobile halves the meteor budget */
     var v7cTrailPts = 5;
     var v7cTrailT = [0, 0.06, 0.14, 0.24, 0.36];
     var v7cTrailRGB = [
@@ -1360,7 +1385,7 @@ body.static-sky .v7c-signal{opacity:1}
     }
 
     /* stars (fade in at night) */
-    var starCount = 420;
+    var starCount = v7eCoarse ? 210 : 420;   /* v7e: mobile halves the star budget */
     var starPos = new Float32Array(starCount * 3);
     for (var st = 0; st < starCount; st++) {
       starPos[st * 3] = -180 + Math.random() * 240;
@@ -1382,6 +1407,11 @@ body.static-sky .v7c-signal{opacity:1}
     var nightSky = new T.Color('#0b1b3f');
     var dayFog = new T.Color('#cfe8f7');
     var nightFog = new T.Color('#12233f');
+    /* v7e: fog density rides the day/night blend — night deepens the
+       diorama's atmosphere; coarse screens tighten the fog so depth
+       stays legible on small viewports */
+    var v7eFogDay = [v7eCoarse ? 40 : 45, v7eCoarse ? 210 : 250];
+    var v7eFogNight = [v7eCoarse ? 28 : 32, v7eCoarse ? 160 : 185];
     var daySun = new T.Color('#ffd97a');
     var nightSun = new T.Color('#b8ccff');
     var dayDir = new T.Color('#fff2d9');
@@ -1414,6 +1444,11 @@ body.static-sky .v7c-signal{opacity:1}
       var m = Math.min(1, Math.max(0, p));
       scene.background.copy(daySky).lerp(nightSky, m);
       scene.fog.color.copy(dayFog).lerp(nightFog, m);
+      /* v7e: fog density follows the same blend (night closes in) */
+      scene.fog.near = v7eFogDay[0] + (v7eFogNight[0] - v7eFogDay[0]) * m;
+      scene.fog.far = v7eFogDay[1] + (v7eFogNight[1] - v7eFogDay[1]) * m;
+      window.__v7e.fogNear = scene.fog.near;
+      window.__v7e.fogFar = scene.fog.far;
       sun.material.color.copy(daySun).lerp(nightSun, m);
       dirLight.color.copy(dayDir).lerp(nightDir, m);
       dirLight.intensity = 1.15 - 0.6 * m;
@@ -1551,21 +1586,26 @@ body.static-sky .v7c-signal{opacity:1}
     var running = false;
     var rafId = 0;
     function tick() {
-      if (!running) { return; }
+      /* v7e: gate BEFORE scheduling — a paused chain stops dead and
+         nulls its handle so start() can prove the chain is gone
+         (single-chain discipline, no double-rAF on tab-return) */
+      if (!running) { rafId = 0; return; }
       var dt = Math.min(clock.getDelta(), 0.05);
       update(dt);
       renderer.render(scene, camera);
       rafId = requestAnimationFrame(tick);
     }
     function start() {
-      if (running) { return; }
+      /* v7e: resume ONLY when the chain is actually dead — a stale
+         queued callback must never double-start the loop */
+      if (running || rafId) { return; }
       running = true;
       clock.getDelta();
       rafId = requestAnimationFrame(tick);
     }
     function stop() {
       running = false;
-      cancelAnimationFrame(rafId);
+      if (rafId) { cancelAnimationFrame(rafId); rafId = 0; }
     }
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) { stop(); } else { start(); }
@@ -1580,7 +1620,15 @@ body.static-sky .v7c-signal{opacity:1}
 
     window.addEventListener('resize', function () {
       camera.aspect = window.innerWidth / window.innerHeight;
+      /* v7e: re-compose the lens for the new viewport + re-apply the
+         DPR budget (window can move between monitors with different
+         devicePixelRatio) */
+      camera.fov = v7eFov();
+      window.__v7e.fov = camera.fov;
       camera.updateProjectionMatrix();
+      v7eDpr = Math.min(window.devicePixelRatio || 1, v7eCoarse ? 1.25 : 1.5);
+      renderer.setPixelRatio(v7eDpr);
+      window.__v7e.dpr = v7eDpr;
       renderer.setSize(window.innerWidth, window.innerHeight);
       scrollMax = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       snapCamera();
@@ -1592,6 +1640,19 @@ body.static-sky .v7c-signal{opacity:1}
       glowBoost = 1;
       burstBoost = 1;
     });
+
+    /* v7e: publish the budget readout (controller assert handle) */
+    var v7eObjects = 0;
+    scene.traverse(function (o) { if (o.isMesh || o.isPoints || o.isSprite) { v7eObjects++; } });
+    window.__v7e.dpr = renderer.getPixelRatio();
+    window.__v7e.fov = camera.fov;
+    window.__v7e.cells = v7eCellTotal;
+    window.__v7e.islands = v7eIslands;
+    window.__v7e.windows = winList.length;
+    window.__v7e.meteors = v7cMeteorCount;
+    window.__v7e.stars = starCount;
+    window.__v7e.objects = v7eObjects;
+    window.__v7e.staticFrame = false;
 
     /* boot: first frame at the hero keyframe */
     snapCamera();
