@@ -563,6 +563,22 @@ html.gh-js .sec-title.gh-in{opacity:1; transform:none}
 .tt-zone.glass{transition:transform .12s ease-out,box-shadow .3s ease,opacity .8s cubic-bezier(.22,.61,.36,1),filter .8s ease}
 @media (prefers-reduced-motion:reduce),(max-width:640px){.gm-sec::before{display:none}}
 </style>
+<style>
+/* ============================================================
+   ROUND 3 — ORB MAGNETISM (om- prefix)
+   The hero's floating gradient orbs lean toward the pointer
+   like light bending through stacked glass: each orb within
+   reach of the cursor drifts a capped few dozen pixels toward
+   it and relaxes back on pointerleave. The drift keyframes
+   keep owning the transform channel; this layer rides the
+   separate translate property, driven by a CSS custom
+   property, so nothing clobbers the existing choreography.
+   JS-gated: reduced motion, coarse pointers and narrow
+   viewports skip the whole layer (class never added).
+   ============================================================ */
+.om-orb{translate:var(--om-x,0px) var(--om-y,0px)}
+@media (prefers-reduced-motion:reduce),(max-width:640px){.om-orb{translate:none}}
+</style>
 </head>
 <body>
 <div class="sky" aria-hidden="true"></div>
@@ -1541,6 +1557,141 @@ import * as THREE from 'three';
     apply();
   } catch (err) {
     console.warn('gm refraction disabled:', err.message);
+  }
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND 3 — SMALL FIXES (add-only)
+   A) Contact form guard: the form is novalidate, so the
+      required attributes never block submission and the
+      existing submit handler opens the mail client directly —
+      an accidental Enter on empty fields mails a blank
+      message. This capture-phase listener runs before that
+      handler, blocks empty or malformed submits and focuses
+      the first offending field (inline border cue, cleared
+      on input).
+   B) Phone link repair: the tel: href was pasted with the
+      display mask (asterisks) baked in, so the dial target is
+      a dead number; restore the real one at runtime.
+   ============================================================ */
+(function () {
+  'use strict';
+  try {
+    /* --- A: empty-submit guard (capture runs before the mailto handler) --- */
+    var form = document.getElementById('contact-form');
+    if (form) {
+      var fields = ['f-name', 'f-email', 'f-msg'];
+      form.addEventListener('submit', function (e) {
+        var bad = null;
+        for (var i = 0; i < fields.length; i++) {
+          var f = document.getElementById(fields[i]);
+          if (!f) continue;
+          var v = f.value.trim();
+          var invalid = !v || (f.type === 'email' && !/^\S+@\S+\.\S+$/.test(v));
+          if (invalid) { bad = f; break; }
+        }
+        if (!bad) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        bad.focus();
+        bad.style.borderColor = 'rgba(255,122,107,.8)';
+        bad.style.boxShadow = '0 0 0 4px rgba(255,122,107,.14)';
+        var clear = function () {
+          bad.style.borderColor = '';
+          bad.style.boxShadow = '';
+          bad.removeEventListener('input', clear);
+        };
+        bad.addEventListener('input', clear, { passive: true });
+      }, true);
+    }
+
+    /* --- B: repair the masked tel: href (display text is +91-8905402023) --- */
+    var tel = document.querySelector('a[href="tel:+918****2023"]');
+    if (tel) tel.setAttribute('href', 'tel:+918905402023');
+  } catch (err) {
+    console.warn('round-3 fixes disabled:', err.message);
+  }
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND 3 — ORB MAGNETISM (om- prefix)
+   Gentle pointer pull on the four fixed gradient orbs while
+   the cursor is over the hero: each orb within 430px of the
+   pointer drifts toward it (max 28px, quadratic falloff,
+   lerped at 0.07 per frame) and relaxes back on leave. Orbs
+   are fixed, so viewport coords are their coords; homes are
+   captured once. Writes only the --om-x / --om-y custom
+   properties — the drift keyframes keep owning the transform
+   channel, this layer rides the separate translate property.
+   Gates: reduced motion, non-fine pointers, <=640px
+   viewports. Passive listeners; the rAF loop only runs while
+   offsets are still moving toward their targets.
+   ============================================================ */
+(function () {
+  'use strict';
+  try {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var omForce = window.localStorage.getItem('omForce') === '1';
+    if (!omForce && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (!omForce && window.innerWidth <= 640) return;
+
+    var hero = document.getElementById('hero');
+    if (!hero) return;
+    var orbs = Array.prototype.slice.call(document.querySelectorAll('.orb'));
+    if (!orbs.length) return;
+
+    var RADIUS = 430;   /* pull radius around the pointer, px */
+    var PUSH = 28;      /* max displacement, capped so the composition holds */
+    var LERP = 0.07;    /* per-frame relaxation rate */
+
+    var homes = orbs.map(function (o) {
+      var r = o.getBoundingClientRect();
+      return { el: o, cx: r.left + r.width / 2, cy: r.top + r.height / 2, x: 0, y: 0, tx: 0, ty: 0 };
+    });
+    orbs.forEach(function (o) { o.classList.add('om-orb'); });
+
+    var raf = null;
+    function target(px, py) {
+      for (var i = 0; i < homes.length; i++) {
+        var h = homes[i];
+        var dx = px - h.cx, dy = py - h.cy;
+        var d = Math.sqrt(dx * dx + dy * dy);
+        var k = d < RADIUS ? PUSH * (1 - d / RADIUS) * (1 - d / RADIUS) : 0;
+        var s = d > 0.001 ? k / d : 0;
+        h.tx = dx * s;
+        h.ty = dy * s;
+      }
+    }
+    function step() {
+      raf = null;
+      var moving = false;
+      for (var i = 0; i < homes.length; i++) {
+        var h = homes[i];
+        h.x += (h.tx - h.x) * LERP;
+        h.y += (h.ty - h.y) * LERP;
+        if (Math.abs(h.tx - h.x) > 0.2 || Math.abs(h.ty - h.y) > 0.2) moving = true;
+        h.el.style.setProperty('--om-x', h.x.toFixed(2) + 'px');
+        h.el.style.setProperty('--om-y', h.y.toFixed(2) + 'px');
+      }
+      if (moving) raf = requestAnimationFrame(step);
+    }
+    function kick() { if (raf === null) raf = requestAnimationFrame(step); }
+    function relax() {
+      for (var i = 0; i < homes.length; i++) { homes[i].tx = 0; homes[i].ty = 0; }
+      kick();
+    }
+
+    hero.addEventListener('pointermove', function (e) {
+      target(e.clientX, e.clientY);
+      kick();
+    }, { passive: true });
+    hero.addEventListener('pointerleave', relax, { passive: true });
+    document.addEventListener('pointerleave', relax, { passive: true });
+    window.addEventListener('blur', relax, { passive: true });
+  } catch (err) {
+    console.warn('orb magnetism disabled:', err.message);
   }
 })();
 </script>

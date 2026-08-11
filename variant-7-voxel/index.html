@@ -414,6 +414,31 @@ footer b{color:var(--warm);font-weight:700}
 .v7c-signal b{color:var(--warm);font-weight:700;font-size:12px;letter-spacing:.1em}
 body.static-sky .v7c-signal{opacity:1}
 @media (max-width:900px){.v7c-signal{display:none}}
+/* ============================================================
+   ROUND 3 — MICRO-INTERACTIONS (new prefix v7d)
+   Island hover tooltip card — a small fixed card near the cursor
+   naming the island under it, fed by the module's screen-space
+   hover projection (window.__v7dHover). Text-only, so it is safe
+   under prefers-reduced-motion; pointer-events:none so it never
+   blocks clicks; hidden on small screens like the rail.
+   ============================================================ */
+.v7d-tip{
+  position:fixed;left:0;top:0;z-index:70;pointer-events:none;
+  display:var(--v7d-d,flex);flex-direction:column;gap:2px;
+  padding:7px 11px;border-radius:10px;
+  background:rgba(11,27,63,.66);border:1px solid rgba(255,217,122,.35);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  font-family:var(--mono);line-height:1.35;
+  opacity:0;visibility:hidden;
+  transition:opacity .18s ease-out,visibility .18s;
+}
+.v7d-tip.v7d-on{opacity:1;visibility:visible}
+.v7d-tip b{display:block;font-size:11px;letter-spacing:.14em;color:var(--warm);text-transform:uppercase;white-space:nowrap}
+.v7d-tip span{display:block;font-size:10px;letter-spacing:.04em;color:rgba(255,255,255,.78);white-space:nowrap}
+@media (max-width:900px){:root{--v7d-d:none}}
+/* v7d fix: interaction-triggered smooth scrolling is motion —
+   honor prefers-reduced-motion with instant jumps */
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 </style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
@@ -752,12 +777,15 @@ body.static-sky .v7c-signal{opacity:1}
     root.style.setProperty('--sky-bot', mixCss('#cfe8f7', '#16294f', m));
     root.style.setProperty('--v7c-night', m);  /* v7c: city signal chip rides the same night curve */
     if (nav) { nav.classList.toggle('scrolled', window.scrollY > 24); }
-    for (var i = 0; i < tags.length; i++) {
-      var sec = tags[i].closest('section');
-      if (!sec) { continue; }
-      var rect = sec.getBoundingClientRect();
-      var offset = (rect.top + rect.height / 2) - window.innerHeight / 2;
-      tags[i].style.transform = 'translateY(' + (-offset * 0.1) + 'px)';
+    /* v7d fix: label parallax is decorative scroll-motion — skip under reduced motion */
+    if (!reduced) {
+      for (var i = 0; i < tags.length; i++) {
+        var sec = tags[i].closest('section');
+        if (!sec) { continue; }
+        var rect = sec.getBoundingClientRect();
+        var offset = (rect.top + rect.height / 2) - window.innerHeight / 2;
+        tags[i].style.transform = 'translateY(' + (-offset * 0.1) + 'px)';
+      }
     }
   }
   function onScroll() {
@@ -836,6 +864,7 @@ body.static-sky .v7c-signal{opacity:1}
     var scratchQ = new T.Quaternion();
     var scratchP = new T.Vector3();
     var scratchS = new T.Vector3(1, 1, 1);
+    var v7dProj = new T.Vector3();   /* v7d: island-center projection scratch (hover tooltip) */
     var scratchC = new T.Color();
     var ONE = new T.Vector3(1, 1, 1);
 
@@ -1433,6 +1462,27 @@ body.static-sky .v7c-signal{opacity:1}
       lookCur.lerp(tmpC2, k);
       camera.lookAt(lookCur);
 
+      /* v7d: pointer micro-interactions — additive camera micro-tilt
+         (composed on top of the flight lerp; window.__v7dTilt eases
+         toward the pointer NDC and decays on leave) + island hover
+         projection (screen-space distance from the stored pointer
+         NDC against the 7 island centers, deterministic, feeds the
+         tooltip card via window.__v7dHover) */
+      var v7dT = window.__v7dTilt;
+      if (v7dT) { camera.position.x += v7dT.x * 0.35; camera.position.y += v7dT.y * 0.25; }
+      var v7dP = window.__v7dNdc;
+      if (v7dP && v7dP.active && window.__v7dHover) {
+        camera.updateMatrixWorld();
+        var v7dHit = -1, v7dBest = 0.1;
+        for (var v7i = 0; v7i < KF.length; v7i++) {
+          v7dProj.copy(KF[v7i].l).project(camera);
+          var v7dx = v7dProj.x - v7dP.x, v7dy = v7dProj.y - v7dP.y;
+          var v7dD = Math.sqrt(v7dx * v7dx + v7dy * v7dy);
+          if (v7dD < v7dBest) { v7dBest = v7dD; v7dHit = v7i; }
+        }
+        window.__v7dHover(v7dHit);
+      }
+
       applySky(p);
       if (v7cNightBlend > 0.02) { v7cUpdateMeteors(dt); }
 
@@ -1559,6 +1609,8 @@ body.static-sky .v7c-signal{opacity:1}
      --v7c-night var, hidden on small screens like the rail).
      ============================================================ -->
 <div class="v7c-signal" id="v7cSignal" aria-live="polite"><span>CITY SIGNAL</span><b id="v7cSignalNum">00</b></div>
+<!-- ROUND 3 — MICRO-INTERACTIONS (v7d prefix): island hover tooltip card (fixed, pointer-events:none, text-only) -->
+<div class="v7d-tip" id="v7dTip" role="tooltip" aria-hidden="true"><b></b><span></span></div>
 <!-- ============================================================
      SIGNATURE ROUND — voxel progress rail (v7- prefix)
      7 mini isometric cubes, one per island; the active island's
@@ -1599,7 +1651,7 @@ body.static-sky .v7c-signal{opacity:1}
     (function (idx) {
       cubes[idx].addEventListener('click', function () {
         var el = document.getElementById(ids[idx]);
-        if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        if (el) { el.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' }); }
       });
     })(i);
   }
@@ -1634,6 +1686,112 @@ body.static-sky .v7c-signal{opacity:1}
   window.addEventListener('island', function (ev) {
     num.textContent = pad(ev.detail || 0);
   });
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND 3 — MICRO-INTERACTIONS (new prefix v7d)
+   Pointer state + island tooltip card.
+   Stores the last pointer NDC for the module's hover projection
+   (window.__v7dNdc) and a lerped tilt vector (window.__v7dTilt)
+   that the module composes additively with the scroll flight.
+   The tilt eases toward the pointer and decays to 0 on leave;
+   its rAF self-stops once converged. Both hooks exist only on
+   pointer-fine devices and wide viewports; under reduced motion
+   the module never runs (so the tilt cannot apply) and the tilt
+   vector is not created either. Passive listeners only.
+   ============================================================ */
+(function () {
+  'use strict';
+  var fine = window.matchMedia('(pointer: fine)').matches;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!fine || window.innerWidth < 640) { return; }
+
+  var tip = document.getElementById('v7dTip');
+
+  var ISLANDS = [
+    ['Monument', 'The GARVIT name carved in voxels'],
+    ['About', 'Lighthouse island with a turning windmill'],
+    ['Projects', 'City skyline lit by a thousand windows'],
+    ['Skills', 'Skill trees bearing glowing gem fruits'],
+    ['Achievements', 'Trophy mesa under warm trophy beams'],
+    ['Experience', 'The rail line that loops the whole world'],
+    ['Contact', 'Beacon island — signal for a chat']
+  ];
+
+  /* ---------- shared pointer state for the module ---------- */
+  var ndc = { x: 0, y: 0, active: false };
+  window.__v7dNdc = ndc;
+  var lastX = 0, lastY = 0;
+  var ON = 'v7d-on';
+  var shown = -1;
+
+  function placeTip() {
+    var w = tip.offsetWidth || 150;
+    var h = tip.offsetHeight || 42;
+    var lx = Math.min(lastX + 16, window.innerWidth - w - 10);
+    var ly = Math.min(lastY + 18, window.innerHeight - h - 10);
+    tip.style.left = Math.max(10, lx) + 'px';
+    tip.style.top = Math.max(10, ly) + 'px';
+  }
+  function hideTip() {
+    if (shown < 0) { return; }
+    shown = -1;
+    tip.classList.remove(ON);
+    tip.setAttribute('aria-hidden', 'true');
+  }
+  function onMove(ev) {
+    ndc.x = (ev.clientX / window.innerWidth) * 2 - 1;
+    ndc.y = -((ev.clientY / window.innerHeight) * 2 - 1);
+    ndc.active = true;
+    lastX = ev.clientX;
+    lastY = ev.clientY;
+    if (tip && shown >= 0) { placeTip(); }
+  }
+  function onLeave() {
+    ndc.active = false;
+    hideTip();
+  }
+  document.addEventListener('pointermove', onMove, { passive: true });
+  document.addEventListener('pointerleave', onLeave, { passive: true });
+  window.addEventListener('scroll', hideTip, { passive: true });
+
+  /* ---------- camera micro-tilt ---------- */
+  if (!reduced) {
+    var tilt = { x: 0, y: 0 };
+    var tiltRaf = 0;
+    window.__v7dTilt = tilt;
+    function tiltStep() {
+      var tx = ndc.active ? ndc.x : 0;
+      var ty = ndc.active ? ndc.y : 0;
+      var k = 0.07;
+      var nx = tilt.x + (tx - tilt.x) * k;
+      var ny = tilt.y + (ty - tilt.y) * k;
+      var done = Math.abs(nx - tx) < 0.004 && Math.abs(ny - ty) < 0.004;
+      tilt.x = done ? tx : nx;
+      tilt.y = done ? ty : ny;
+      if (done) { tiltRaf = 0; return; }
+      tiltRaf = requestAnimationFrame(tiltStep);
+    }
+    function kickTilt() {
+      if (!tiltRaf) { tiltRaf = requestAnimationFrame(tiltStep); }
+    }
+    document.addEventListener('pointermove', kickTilt, { passive: true });
+    document.addEventListener('pointerleave', kickTilt, { passive: true });
+  }
+
+  /* ---------- tooltip card (fed by the module every frame) ---------- */
+  window.__v7dHover = function (idx) {
+    if (!tip) { return; }
+    if (idx === shown) { return; }
+    if (idx < 0) { hideTip(); return; }
+    shown = idx;
+    tip.querySelector('b').textContent = ISLANDS[idx][0];
+    tip.querySelector('span').textContent = ISLANDS[idx][1];
+    tip.classList.add(ON);
+    tip.setAttribute('aria-hidden', 'false');
+    placeTip();
+  };
 })();
 </script>
 </body>

@@ -734,7 +734,7 @@ section[id]{ scroll-margin-top:90px; }
 <section class="section" id="projects">
   <header class="sec-head">
     <span class="sec-index mono">( 02 ) — the case files</span>
-    <h2 class="sec-title kinetic">two shipped studies</h2>
+    <h2 class="sec-title kinetic sk-title">two shipped studies</h2>
     <p class="sec-lede reveal" style="--d:.15s">Both projects are live, public and out in the field — built end-to-end, from messy raw data to a deployed interface. Drag or scroll sideways; the strip snaps.</p>
   </header>
 
@@ -802,7 +802,7 @@ section[id]{ scroll-margin-top:90px; }
 <section class="section" id="skills">
   <header class="sec-head">
     <span class="sec-index mono">( 03 ) — the toolbox</span>
-    <h2 class="sec-title kinetic">the instruments I carry</h2>
+    <h2 class="sec-title kinetic sk-title">the instruments I carry</h2>
     <p class="sec-lede reveal" style="--d:.15s">Everything below has been used on a real dataset or a real deployment — nothing listed for decoration.</p>
   </header>
 
@@ -859,7 +859,7 @@ section[id]{ scroll-margin-top:90px; }
 <section class="section" id="education">
   <header class="sec-head">
     <span class="sec-index mono">( 04 ) — the route so far</span>
-    <h2 class="sec-title kinetic">four stops, no straight lines</h2>
+    <h2 class="sec-title kinetic sk-title">four stops, no straight lines</h2>
     <p class="sec-lede reveal" style="--d:.15s">From school in Rajasthan to a degree in Punjab — the line below draws itself as you pass it. Orange where it started, teal where it is now.</p>
   </header>
 
@@ -912,7 +912,7 @@ section[id]{ scroll-margin-top:90px; }
 <section class="section" id="proof">
   <header class="sec-head">
     <span class="sec-index mono">( 05 ) — the ledger</span>
-    <h2 class="sec-title kinetic">proof of work, on record</h2>
+    <h2 class="sec-title kinetic sk-title">proof of work, on record</h2>
     <p class="sec-lede reveal" style="--d:.15s">Certificates and rankings, filed like a proper field journal. Hover a row — the ink slides in.</p>
   </header>
 
@@ -955,7 +955,7 @@ section[id]{ scroll-margin-top:90px; }
 <section class="section contact" id="contact">
   <header class="sec-head">
     <span class="sec-index mono">( 06 ) — correspondence</span>
-    <h2 class="contact-statement kinetic">shall we <em>build something?</em></h2>
+    <h2 class="contact-statement kinetic sk-title">shall we <em>build something?</em></h2>
     <p class="contact-lede reveal" style="--d:.15s">A one-line brief is enough — I read everything and answer within a day. Internships, collaborations, or just a question about the data: it all lands in the same inbox.</p>
   </header>
 
@@ -1613,6 +1613,69 @@ try{
 .sec-head .sec-lede.reveal,
 .sec-head .contact-lede.reveal{ transition-delay:.55s; }
 </style>
+<style>
+/* ============================================================
+   ROUND-7 R3 ADDITIVE — sketch hover (micro-interactions):
+   hovering a section title draws a hand-drawn pencil underline
+   across it (uneven wavy ink stroke, flicks in from the left
+   with a slight overshoot, tilted like a real underline made
+   by hand), and journal buttons press down like rubber stamps,
+   leaving a brief ink blot at the press point that drips and
+   fades. Pointer-fine gated; reduced motion hides the hover
+   underline and the blot never spawns (the press state stays —
+   it is a static state, not motion).
+   ============================================================ */
+@media (pointer:fine){
+  /* the pencil stroke: repeat-x wavy SVG pattern drawn with a
+     scaleX flick, anchored to the text-width .sketch span so
+     it hugs the words, not the full-width heading block */
+  .sk-title .sketch::after{
+    content:""; position:absolute; left:2%; right:6%; bottom:.02em; height:.12em;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='5' viewBox='0 0 26 5'%3E%3Cpath d='M0.5 3.2 C 3 1.5, 5.5 4.1, 8 3.1 S 12.5 4, 15 2.9 S 19.5 3.9, 22 3.1 S 24.6 3.4, 25.5 3' fill='none' stroke='%23221c14' stroke-width='1.5' stroke-linecap='round' stroke-opacity='0.75'/%3E%3C/svg%3E") repeat-x;
+    background-size:34px 5px; background-position:0 100%;
+    transform:rotate(-.8deg) scaleX(0); transform-origin:left center;
+    transition:transform .16s ease-out;
+    pointer-events:none;
+  }
+  .sk-title:hover .sketch::after{
+    transform:rotate(-.8deg) scaleX(1);
+    transition:transform .42s cubic-bezier(.34,1.45,.64,1) .05s;
+  }
+}
+/* rubber-stamp press: the button squashes flat under the hand;
+   the primary re-asserts its tilt (same specificity, later
+   source) and its hard shadow compresses like a stamp pad */
+.btn:active{ transform:translateY(1px) scale(.985); }
+.btn-primary:active{ transform:rotate(-0.8deg) translateY(1px) scale(.985); box-shadow:0 0 0 rgba(34,28,20,.18); }
+/* ink blot: a small multiply-blended ink smudge that drips down
+   from the press point and fades (JS spawns it on pointerdown,
+   pointer-fine + not-reduced-motion only) */
+.sk-blot{
+  position:fixed; width:26px; height:26px; margin:-13px 0 0 -13px;
+  z-index:950; pointer-events:none; mix-blend-mode:multiply;
+  background:radial-gradient(circle, rgba(34,28,20,.4) 0%, rgba(34,28,20,.15) 45%, rgba(34,28,20,0) 70%);
+  border-radius:50%;
+  transform:translateY(6px) scale(.3);
+  animation:sk-blot .8s cubic-bezier(.22,.6,.4,1) forwards;
+  will-change:transform,opacity;
+}
+@keyframes sk-blot{
+  0%{ transform:translateY(6px) scale(.3); opacity:.85; }
+  55%{ transform:translateY(12px) scale(1.2); opacity:.5; }
+  100%{ transform:translateY(17px) scale(1.55); opacity:0; }
+}
+/* ---- R3 interaction fixes ---- */
+/* FIX 1 — the gallery snap dots (tablist buttons) had no hover
+   or pressed state at all: only the .on dot ever changed. Add
+   a warm ink border on hover and a springy squash on press. */
+.g-dot:hover{ border-color:var(--orange); }
+.g-dot:active{ transform:scale(.8); border-color:var(--orange); }
+/* FIX 2 — reduced motion: no hover underline, no blot. */
+@media (prefers-reduced-motion: reduce){
+  .sk-title .sketch::after{ display:none; }
+  .sk-blot{ display:none; }
+}
+</style>
 <script>
 /* ============================================================
    ROUND-7 R2 ADDITIVE — journal page-turn driver:
@@ -1649,6 +1712,60 @@ try{
 
   sections.forEach(function(sec){ io.observe(sec); });
 }catch(err){ console.warn('journal page-turn disabled:', err && err.message); }
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND-7 R3 ADDITIVE — sketch hover driver:
+   spawns a brief ink blot at the press point when a journal
+   button is pressed (pointerdown), removed after the fade.
+   Pointer-fine gated, with the skForce=1 localStorage bypass
+   for headless verification; reduced motion never spawns a
+   blot. Also carries two small fixes: the reading-progress
+   hairline is moved by an ungated scroll handler (motion
+   under prefers-reduced-motion), so it is hidden for RM
+   users; and the back-to-top link's click handler never
+   preventDefaulted, so the native anchor jump raced its own
+   smooth scroll — the capture-phase preventDefault leaves
+   only the existing smooth handler running.
+   ============================================================ */
+(function(){
+'use strict';
+try{
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FINE = window.matchMedia('(pointer: fine)').matches;
+  var force = false;
+  try{ force = localStorage.getItem('skForce') === '1'; }catch(err){}
+  if (!RM && (FINE || force)){
+    var buttons = Array.prototype.slice.call(document.querySelectorAll('.btn'));
+    var drop = function(x, y){
+      var b = document.createElement('i');
+      b.className = 'sk-blot';
+      b.style.left = x + 'px';
+      b.style.top = y + 'px';
+      b.addEventListener('animationend', function(){
+        if (b.parentNode) b.parentNode.removeChild(b);
+      });
+      document.body.appendChild(b);
+    };
+    buttons.forEach(function(btn){
+      btn.addEventListener('pointerdown', function(e){
+        drop(e.clientX, e.clientY);
+      }, { passive:true });
+    });
+  }
+  /* FIX — reduced motion: the reading-progress hairline is
+     moved by an ungated scroll handler; hide it so RM users
+     get a static page. */
+  if (RM){
+    var bar = document.getElementById('progress');
+    if (bar) bar.style.display = 'none';
+  }
+  /* FIX — back-to-top: prevent the native anchor jump so only
+     the existing smooth scroll handler runs (they raced). */
+  var top = document.getElementById('toTop');
+  if (top) top.addEventListener('click', function(e){ e.preventDefault(); }, true);
+}catch(err){ console.warn('sketch hover disabled:', err && err.message); }
 })();
 </script>
 </body>
