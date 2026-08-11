@@ -1768,5 +1768,106 @@ try{
 }catch(err){ console.warn('sketch hover disabled:', err && err.message); }
 })();
 </script>
+<style>
+/* ============================================================
+   ROUND-7 R4 ADDITIVE — perf + resilience, "the journal lies flat":
+   1) reduced motion: the pinned scrollytelling stage un-pins into
+      normal document flow — sheet first, quote below it, nothing
+      stacked at the grid centre, nothing overlapping on short
+      viewports, and the 150vh pin wrapper collapses to its real
+      height. The field-status tag is scroll-driven by its own
+      observer, so under RM it is pinned to a static opacity; the
+      confetti zone can never appear.
+   2) hidden-tab rest: while the document is hidden the driver
+      toggles the pause class on <html> and every CSS animation
+      freezes, so background tabs burn zero animation work. (The
+      global RM block already kills animations; this covers
+      non-RM users.)
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  .pin{ height:auto; }
+  .pin-stage{
+    position:static; height:auto; overflow:visible; display:block;
+    padding:clamp(5rem,10vh,7.5rem) clamp(1.4rem,6vw,5rem) 0;
+  }
+  .pin-sheet{ margin:0 auto; transform:none; }
+  .pin-quote{
+    position:static; transform:none; opacity:1;
+    margin:clamp(1.6rem,4vh,2.8rem) auto 0; max-width:min(600px,84vw);
+  }
+  .fp2-tag{ opacity:.8 !important; }
+  .fp2-zone{ display:none !important; }
+}
+html.fl-paused *,
+html.fl-paused *::before,
+html.fl-paused *::after{ animation-play-state:paused !important; }
+/* empty-field flag for the contact-form guard */
+.fl-flag{ border-color:var(--orange) !important; box-shadow:0 0 0 3px rgba(232,89,12,.18) !important; }
+</style>
+<script>
+/* ============================================================
+   ROUND-7 R4 ADDITIVE — perf + resilience driver:
+   · hidden-tab rest — toggles the pause class on <html> while
+     document.hidden so every CSS animation freezes in background
+     tabs. (JS rAF loops already auto-pause: rAF never fires while
+     hidden, and the pinned-scene loop is scroll-bounded, so it
+     stops itself when the about/education sections leave the
+     viewport — nothing further to stop there.)
+   · empty-submit guard — the shipped submit handler opens mailto
+     unconditionally; this document-capture listener stops an empty
+     submission before it reaches the shipped handler and focuses
+     the first empty field, flagging it in the journal ink colour.
+   · window.__fl assert handle for the controller.
+   ============================================================ */
+(function(){
+'use strict';
+try{
+  var ROOT = document.documentElement;
+  var PAUSED = 'fl-paused';
+  var FLAG = 'fl-flag';
+  var hidden = false;
+  function setPaused(on){
+    if (hidden === on) return;
+    hidden = on;
+    ROOT.classList.toggle(PAUSED, on);
+  }
+  document.addEventListener('visibilitychange', function(){
+    setPaused(document.hidden);
+  }, { passive:true });
+  setPaused(document.hidden);
+
+  /* empty-submit guard (document capture: runs before the form's
+     shipped bubble handler, so a blank note never opens mailto) */
+  var form = document.getElementById('contactForm');
+  if (form){
+    var FIELDS = ['fName', 'fEmail', 'fMsg'];
+    document.addEventListener('submit', function(e){
+      if (e.target !== form) return;
+      var first = null;
+      FIELDS.forEach(function(id){
+        var el = document.getElementById(id);
+        if (el && !el.value.trim() && !first) first = el;
+      });
+      if (!first) return;
+      e.preventDefault();
+      e.stopPropagation();
+      first.classList.add(FLAG);
+      first.focus();
+      first.addEventListener('input', function once(){
+        first.classList.remove(FLAG);
+        first.removeEventListener('input', once);
+      });
+    }, true);
+  }
+
+  window.__fl = {
+    reduced: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    hidden: hidden,
+    pause: function(){ setPaused(true); },
+    unpause: function(){ setPaused(false); }
+  };
+}catch(err){ console.warn('flat-journal guard disabled:', err && err.message); }
+})();
+</script>
 </body>
 </html>

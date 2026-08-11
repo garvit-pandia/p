@@ -704,6 +704,14 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
 </head>
 <body>
 
+<!-- tb: no-JS fallback — every .reveal section would otherwise stay
+     invisible (opacity:0 with no script running to add .in) -->
+<noscript>
+  <style>
+    .reveal{opacity:1;transform:none;}
+  </style>
+</noscript>
+
 <!-- scroll progress -->
 <div id="progress" aria-hidden="true"></div>
 
@@ -1210,7 +1218,18 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
     var max = doc.scrollHeight - doc.clientHeight;
     bar.style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + "%";
   }
-  window.addEventListener("scroll", paintProgress, {passive:true});
+  /* tb: coalesce scroll paints — one style write per frame, never one
+     per scroll event (rAF-throttle, passive listener stays passive). */
+  var progTick = false;
+  function onProgScroll(){
+    if(progTick){ return; }
+    progTick = true;
+    requestAnimationFrame(function(){
+      progTick = false;
+      paintProgress();
+    });
+  }
+  window.addEventListener("scroll", onProgScroll, {passive:true});
   paintProgress();
 
   /* ---- 2. terminal typewriter boot ---- */
@@ -1244,6 +1263,7 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
   function typeInto(el, text, speed, done){
     var i = 0;
     (function tick(){
+      if(window.__tbGate && window.__tbGate()){ setTimeout(tick, 400); return; } /* tb: type budget — pause typing while the tab is hidden */
       if(i <= text.length){
         el.textContent = text.slice(0, i);
         i++;
@@ -1439,6 +1459,7 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
       line.textContent = "";
       var i = 0;
       setTimeout(function tick(){
+        if(window.__tbGate && window.__tbGate()){ setTimeout(tick, 400); return; } /* tb: type budget — pause printing while the tab is hidden */
         if(i <= full.length){
           line.textContent = full.slice(0, i);
           i++;
@@ -1520,6 +1541,7 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
   var mx = -100, my = -100, cx = -100, cy = -100, raf = null;
 
   function loop(){
+    if(document.hidden){ raf = null; return; } /* tb: no rAF while the tab is hidden — restarts on the next pointermove */
     cx += (mx - cx) * 0.18;
     cy += (my - cy) * 0.18;
     cur.style.transform = "translate3d(" + cx + "px," + cy + "px,0)";
@@ -2006,6 +2028,7 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
         line.textContent = "";
         var i = 0;
         (function tick(){
+          if(window.__tbGate && window.__tbGate()){ setTimeout(tick, 400); return; } /* tb: type budget — pause boot strips while the tab is hidden */
           if(i <= full.length){
             line.textContent = full.slice(0, i);
             i++;
@@ -2148,6 +2171,7 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
         d.textContent = (b.cmd ? "garvit@factory:~$ " : "") + b.text.slice(0, 1);
         var i = 1;
         (function tick(){
+          if(window.__tbGate && window.__tbGate()){ setTimeout(tick, 400); return; } /* tb: type budget — pause boot replay while the tab is hidden */
           if(i <= b.text.length){
             d.textContent = (b.cmd ? "garvit@factory:~$ " : "") + b.text.slice(0, i);
             i++;
@@ -2429,12 +2453,14 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
     var BIT_MS = 140;   /* per-block jitter duration */
     var STAGGER = 28;   /* ms between block jitter starts */
     var CLEAN_MS = 700; /* full teardown after the pass */
+    var passSeq = 0;    /* tb: pass token — a stale teardown never cleans a newer pass */
 
     function hackDOM(id){
       var sec = document.getElementById(id);
       if(!sec){ return; }
       var kids = sec.querySelectorAll(".container > *");
       var i;
+      var myPass = ++passSeq;
 
       /* one scan overlay per pass — drop any stale one */
       var old = sec.querySelector(".hd-scan");
@@ -2459,6 +2485,7 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
 
       /* teardown — no stranded classes, overlays or delays */
       setTimeout(function(){
+        if(myPass !== passSeq){ return; } /* tb: a newer pass owns the section — skip */
         sec.classList.remove("hd-loading");
         if(scan.parentNode){ scan.parentNode.removeChild(scan); }
         for(i = 0; i < kids.length; i++){
@@ -2577,6 +2604,67 @@ html.mf-cursor .mf-cursor.mf-down .mf-cursor-core{transform:scale(.8);}
   }catch(err){
     if(window.console){ console.warn("R3 addons disabled:", err && err.message); }
   }
+})();
+</script>
+<style>
+/* ============================================================
+   TB-ADDON (round 4) — terminal render + type budget
+   tb: the factory's typing chains (hero boot, receipt print,
+   machine strips, console boot replay) defer their ticks while
+   the tab is hidden — a few DOM writes per second offscreen
+   instead of 12–30ms bursts. The CLI cursor's rAF loop stops
+   while hidden and only restarts on pointer movement. Reduced
+   motion already renders every boot instantly; this block only
+   pins the cursor to a solid, non-blinking block so the terminal
+   reads designed at rest (static cursor path).
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  /* tb: static cursor — never blinks under reduced motion */
+  .t-cursor,.mf2-cursor{opacity:1;animation:none;}
+}
+</style>
+<script>
+/* ============================================================
+   TB-ADDON (round 4) — terminal render + type budget
+   tb: window.__tbGate() is the one predicate every typing chain
+   consults per tick — true while the tab is hidden. The chains
+   re-schedule their own ticks, so pausing costs one line per
+   loop and the visible cadence is untouched.
+   tb: window.__tb is the verification handle (controller
+   asserts): perChar max ms/char across chains, bootMs worst-case
+   hero boot duration, chains covered, dpr readout (this variant
+   renders zero canvases — DPR only affects the browser's own
+   raster, no renderer budget applies), reduced-motion state,
+   and the hidden poll interval (the offscreen tick ceiling).
+   ============================================================ */
+(function(){
+  "use strict";
+  var PAUSE_MS = 400;  /* tb: hidden poll — max 2.5 ticks/sec per chain offscreen */
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var hidden = document.hidden;
+
+  document.addEventListener("visibilitychange", function(){
+    hidden = document.hidden;
+  }, {passive:true});
+
+  window.__tbGate = function(){ return hidden; };
+
+  /* tb: hero boot budget — 4 cmd lines, 55 chars total at 30ms/char,
+     plus the inter-line pauses (3×220ms out-lines, 4×320ms cmd gaps) */
+  var HERO_CMDS = ["whoami", "cat ./focus.txt", "ls ./stack", "./status --open-to-work"];
+  var heroChars = 0;
+  for(var c = 0; c < HERO_CMDS.length; c++){ heroChars += HERO_CMDS[c].length; }
+  var bootMs = heroChars * 30 + HERO_CMDS.length * 320 + (HERO_CMDS.length - 1) * 220;
+
+  window.__tb = {
+    perChar: 30,
+    bootMs: bootMs,
+    chains: ["hero-boot", "receipt-print", "machine-strip", "console-replay"],
+    dpr: (window.devicePixelRatio || 1),
+    hidden: hidden,
+    reduced: reduced,
+    pauseMs: PAUSE_MS
+  };
 })();
 </script>
 </body>

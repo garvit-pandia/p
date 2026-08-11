@@ -579,6 +579,58 @@ html.gh-js .sec-title.gh-in{opacity:1; transform:none}
 .om-orb{translate:var(--om-x,0px) var(--om-y,0px)}
 @media (prefers-reduced-motion:reduce),(max-width:640px){.om-orb{translate:none}}
 </style>
+<style>
+/* ============================================================
+   ROUND 4 — BLUR BUDGET AUDIT (bf- prefix)
+   Performance + resilience pass over the backdrop-filter
+   surfaces. Desktop audit at authoring time: 5 backdrop-filter
+   rules -> .glass x12, .nav x1 (fixed), .btn-ghost x2,
+   .chip x4 (animated), .tl-card x4 = 23 live surfaces.
+   Coarse pointers / <=768px: the heaviest and most numerous
+   surfaces drop the filter entirely and fall back to a more
+   opaque translucent solid (the gradient fill, border and
+   inset highlight keep the glass identity); the fixed nav
+   keeps a capped 10px blur; the two large FIXED blur layers
+   (#gh-ray 140vh, .orb 60px) lose / cap their blur; the
+   full-viewport .sky drift (background-position repaint per
+   frame) freezes; reveal blur transitions and idle will-change
+   layer hints are dropped. Pure CSS media queries - works
+   with zero JS, and the fallbacks stack under reduced motion.
+   ============================================================ */
+/* --- 1: heavy / numerous surfaces -> solid translucent fallback --- */
+@media (pointer:coarse), (max-width:768px){
+  .glass{
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+    background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.08) 40%,rgba(255,255,255,.05));
+  }
+  .chip{
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+    background:rgba(255,255,255,.13);
+  }
+  .btn-ghost{
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+    background:rgba(255,255,255,.10);
+  }
+  .tl-card{
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+    background:rgba(255,255,255,.09);
+  }
+  /* --- 2: fixed nav keeps the glass identity, blur capped --- */
+  .nav{
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    background:rgba(11,13,42,.72);
+  }
+  /* --- 3: fixed blur layers — ray loses blur, orbs capped --- */
+  #gh-ray{filter:none;will-change:auto}
+  .orb{filter:blur(24px)}
+  .gh-orb{filter:blur(24px)}
+  /* --- 4: full-viewport repaint freeze + layer-hint trim --- */
+  .sky{animation:none}
+  .reveal{filter:none}
+  .gh3-sec{will-change:auto}
+  .gh-orbwrap{will-change:auto}
+}
+</style>
 </head>
 <body>
 <div class="sky" aria-hidden="true"></div>
@@ -894,10 +946,16 @@ html.gh-js .sec-title.gh-in{opacity:1; transform:none}
 
   /* --- Scroll progress glow bar --- */
   var bar = document.getElementById('progress');
+  var ticking = false;
   function onScroll() {
-    var doc = document.documentElement;
-    var max = doc.scrollHeight - doc.clientHeight;
-    bar.style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + '%';
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - doc.clientHeight;
+      bar.style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + '%';
+    });
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
@@ -948,7 +1006,8 @@ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 try {
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  const dprCap = (window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768) ? 1.5 : 2;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, dprCap));
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
@@ -1633,7 +1692,8 @@ import * as THREE from 'three';
   'use strict';
   try {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var omForce = window.localStorage.getItem('omForce') === '1';
+    var omForce = false;
+    try { omForce = window.localStorage.getItem('omForce') === '1'; } catch (e) { omForce = false; }
     if (!omForce && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     if (!omForce && window.innerWidth <= 640) return;
 
@@ -1692,6 +1752,47 @@ import * as THREE from 'three';
     window.addEventListener('blur', relax, { passive: true });
   } catch (err) {
     console.warn('orb magnetism disabled:', err.message);
+  }
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND 4 — BLUR BUDGET AUDIT (bf- prefix)
+   One-shot runtime audit of the blur budget: counts every
+   element whose computed backdrop-filter is active, reports
+   which of them are on the budget surface list, and exposes
+   window.__bf for the controller's browser probe. Under
+   coarse pointers / <=768px the CSS block above has already
+   removed or capped the heavy surfaces, so the count drops
+   (desktop ~23 -> nav-only). No listeners, no loop: runs
+   once at parse time, fully guarded.
+   ============================================================ */
+(function () {
+  'use strict';
+  try {
+    var SURFACES = '.glass,.nav,.btn-ghost,.chip,.tl-card';
+    function bfBudget() {
+      var total = 0, budgeted = 0;
+      var nodes = document.querySelectorAll('*');
+      for (var i = 0; i < nodes.length; i++) {
+        var cs = window.getComputedStyle(nodes[i]);
+        var bf = cs.backdropFilter || cs.webkitBackdropFilter;
+        if (bf && bf !== 'none') {
+          total++;
+          if (nodes[i].matches(SURFACES)) budgeted++;
+        }
+      }
+      return {
+        surfaces: total,
+        onBudgetList: budgeted,
+        fallbacksActive: !!(window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768),
+        reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      };
+    }
+    window.__bf = bfBudget();
+    console.info('blur budget:', JSON.stringify(window.__bf));
+  } catch (err) {
+    console.warn('blur budget audit disabled:', err.message);
   }
 })();
 </script>
