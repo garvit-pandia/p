@@ -1,4 +1,13 @@
-# Canonical fictional resume data — portfolio5 variants 7–10
+> ## ⚠ SUPERSEDED — DO NOT REUSE
+>
+> The canonical content source is now **docs/synthetic-data-pool.md** (created 2026-08-13).
+> This file is retained for reference/exclusion-list purposes only. None of its content may
+> be used in any variant: every project, company, person, school, event, and metric below is
+> on the forbidden list. The only shared items that stay real: name "Garvit Pandia", email
+> garvit9829@gmail.com, phone +91-8905402023, github.com/garvit-pandia,
+> linkedin.com/in/garvit-pandia.
+
+# Canonical fictional resume data — portfolio5 variants 7–10 (SUPERSEDED)
 
 Single source of truth for ALL four new variants. Every variant MUST render this data
 (verbatim numbers, names, links) in its own visual language. Do not invent alternatives.
