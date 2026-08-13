@@ -330,6 +330,70 @@ Files swept: root index.html + 14 variant index.html (15 total).
 - Root index.html: both linkedin hrefs normalized to https://www.linkedin.com/in/garvit-pandia/
   (controller, committed with wave B).
 
+### Phase 3 — vision QA + polish (23:00–23:45 UTC)
+
+Capture method: full-page reveal-forced screenshots (scroll-through then reset) for
+honest scoring; flags verified by rect measurement / baseline comparison per skill.
+Two variance-outlier passes (v7 badge-overlap claim geometrically disproven — badges
+sit 100–526px clear of headings at rest; v10 layered-number style scored 2/3 in one
+pass vs 8/9 at baseline for identical pixels) resolved by fair re-score.
+
+FINAL SCORES (design / copy / theme / layout → avg):
+v1 9/9/10/9.5=9.4 · v2 9/9.5/10/8.5=9.25 · v3 9/8.5/10/9=9.1 · v4 8/9/10/9=9.0 ·
+v5 9/9/10/9.5=9.4 · v6 9.5/9/10/9=9.4 · v7 9.5/9.5/10/9=9.5 · v8 9/8.5/10/9=9.1 ·
+v9 9/9/10/9=9.25 · v10 9/9.5/10/8=9.1 · v11 9/9.5/10/9=9.4 · v12 9/8.5/10/9.5=9.25 ·
+v13 9/9/10/8.5=9.1 · v14 9/9/10/9=9.25 → AVERAGE 9.32, floor 8.5 exceeded everywhere.
+
+REAL fixes applied in phase 3 (all content-only):
+- v3 splitChars bug (pre-existing JS drops text before nested spans): 7 headings
+  stripped of accent spans → all render fully ("say hello, make it weird" etc.)
+- v5 hero subhead tightened (em-dash compound → two sentences)
+- v7 CTA casing harmonized (Get resume → Download resume)
+- v11 mass-log subhead lightened; v12 hero stat strip unified (9.8k-stars + 176-PR
+  redundancy → 1.1M crate downloads + 31 contributors; both already in prose)
+- v13 title/subtitle deduped from v5's pool option → "Gilded systems, hand-finished
+  interfaces" (atelier register)
+- Off-pool "Punjab" removed (v1/v4/v11/v14; pool only uses "Jalandhar")
+- tel hrefs normalized to canonical no-hyphen form (v9/v10/v13); v6 tel display
+  normalized to "+91-8905402023" (was spaced)
+- Real-person form placeholders → synthetic (v6 Rachel Carson → A. Mahajan;
+  v10 Ada Lovelace → R. Desai)
+- Pre-existing capture artifacts adjudicated: v2 constellation-over-text, v8 LOG-label
+  layers, v11 section-06 rotated-heading overlap (byte-identical at git HEAD),
+  v13 og-skills band overflow, v7/v5/v2 decorative hscroll (all identical at baseline)
+
+### Phase 4 — naming review (23:45 UTC)
+
+- No renames: folder names (vN-name) remain the canonical identifiers; root chooser
+  cards reference all 14 in order (hrefs v1-light…v14-signal verified 14/14).
+- All 14 document titles distinct after v13 dedup (Sunlit Archive, Midnight Index,
+  Dream Loom, MONO_FACTORY, Systems that hold…, the field journal, Engineer·Tinkerer·
+  Field Recorder, Abyssal Engineer, MEMORY ARCHIVE, Typevolt, Event Horizon, Mycelium,
+  Gilded systems…, SIGNAL//DECODE).
+
+### Phase 5 — final sweep + deploy (23:50 UTC)
+
+- p5_final_sweep.py: real contacts verbatim in 14/14 (+root email/linkedin; root has
+  no tel: by design), FORBIDDEN TOKENS 0 repo-wide (case-sensitive generic-noun sweep),
+  all 14 PDFs identical md5 ae7a6fc (synthetic resume, real contact header).
+  Note: initial run flagged "nit" ×14 — false positive (college tokens never present
+  in old data; matched "infinite"/"unit"); list corrected, re-run clean.
+- check-round-html.py: 7/14 PASS outright; 7/14 with only the known pre-existing
+  artifact classes (<N>/<stars2d> JS-source tags, SVG self-closers, <head>/<body>/
+  <html> prefix false-positives — all byte-identical at git HEAD).
+- Commits this session: 110552f (phase 1) · 152a269 (wave A) · a4c0108 (wave B) ·
+  14516fe (wave C) · 892e567 (wave D) · e4104fe (wave E) · cdc5838 (phase 3 polish) ·
+  8688c98 (phase 5 v6 tel display) — pushed to main (b51a63e..8688c98).
+- GitHub Pages re-deployed and verified live: chooser + v1 + v14 + PDF all HTTP 200;
+  synthetic markers present in live HTML (v1 Vellum/Kandhari ×12, v9 MEMORY ARCHIVE
+  ×11, v14 SIGNAL//DECODE ×5, root Monogram/Origami ×4).
+
+### Cron state
+
+- Job f25af70b5301 remains PAUSED (paused 21:24 UTC to prevent collision with the
+  21:29 run). W16 campaign is NOT continuing (claim stale, orphaned v7 R5 committed
+  b63a26e) — no pending waves → NOT resumed per brief. Report includes this state.
+
 ### Wave C — v7/v8/v9 content curation (21:55–22:05 UTC, committed 14516fe)
 
 - v7-voxel: Keystone/Archipelago/Meadow builder persona (pool v7 row — subagent read the
