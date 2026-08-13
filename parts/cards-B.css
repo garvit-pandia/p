@@ -1,0 +1,335 @@
+/* card 06 field journal scene */
+.card--v6 {
+  --bg: #f0e7d6;
+  --ink: #3a352c;
+  --mut: #756854;
+  --line: #cdbfa5;
+  --m1: #bb7354;
+  --m2: #668467;
+  --m3: #776b58;
+}
+.card--v6 .c6-paper {
+  left: 16%;
+  top: 8%;
+  width: 68%;
+  height: 82%;
+  background: repeating-linear-gradient(180deg, transparent 0 18px, rgba(58, 53, 44, .07) 18px 19px), #f7f0e1;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  transform: rotate(-2.5deg);
+  box-shadow: 0 12px 20px -12px rgba(58, 53, 44, .4);
+}
+.card--v6 .c6-route {
+  left: 24%;
+  top: 58%;
+  width: 50%;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--m2) 0 8px, transparent 8px 14px);
+  transform: rotate(-5deg);
+  animation: c6-dash 4s linear infinite;
+}
+.card--v6 .c6-leaf {
+  left: 60%;
+  top: 26%;
+  width: 15px;
+  height: 28px;
+  background:
+    linear-gradient(90deg, transparent 0 calc(50% - .5px), rgba(247, 240, 225, .65) calc(50% - .5px) calc(50% + .5px), transparent calc(50% + .5px)),
+    linear-gradient(150deg, var(--m2) 0 62%, rgba(58, 53, 44, .28) 62% 100%);
+  border-radius: 100% 4px 100% 4px;
+  transform: rotate(-32deg);
+  animation: c6-sway 6s ease-in-out infinite alternate;
+}
+.card--v6 .c6-pin {
+  left: 62%;
+  top: 52%;
+  width: 11px;
+  height: 11px;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, .65), var(--m1) 55%);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 3px rgba(58, 53, 44, .45);
+  transition: box-shadow .3s;
+}
+.card--v6 .c6-label {
+  left: 25%;
+  top: 15%;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  color: var(--mut);
+  transform: rotate(-2.5deg);
+}
+
+/* card 07 voxel world scene */
+.card--v7 {
+  --bg: linear-gradient(#d9ebf0 0 60%, #bfd7ae 60%);
+  --ink: #2c3a30;
+  --mut: #5e7962;
+  --line: #9dbdab;
+  --m1: #78a6b7;
+  --m2: #d2bb68;
+  --m3: #cf735d;
+}
+.card--v7 .c7-isle {
+  left: 10%;
+  top: 48%;
+  width: 80%;
+  height: 44%;
+  background: linear-gradient(180deg, var(--m2) 0 58%, rgba(44, 58, 48, .3) 58% 100%);
+  clip-path: polygon(0 40%, 14% 6%, 30% 30%, 46% 0%, 62% 22%, 78% 4%, 92% 34%, 100% 44%, 88% 86%, 62% 70%, 40% 88%, 16% 74%);
+}
+.card--v7 .c7-cube {
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(135deg, var(--m1) 0 50%, rgba(44, 58, 48, .28) 50% 100%);
+  transform: rotate(45deg);
+  box-shadow: 4px 4px 0 -1px rgba(44, 58, 48, .32);
+}
+.card--v7 .c7-c1 {
+  left: 41%;
+  top: 43%;
+  animation: c7-bob 6s ease-in-out infinite alternate;
+}
+.card--v7 .c7-c2 {
+  left: 54%;
+  top: 44%;
+  width: 18px;
+  height: 18px;
+  transition: transform .3s;
+}
+.card--v7 .c7-c3 {
+  left: 68%;
+  top: 39%;
+  width: 26px;
+  height: 26px;
+  background: linear-gradient(135deg, var(--m3) 0 50%, rgba(44, 58, 48, .3) 50% 100%);
+}
+.card--v7 .c7-beacon {
+  left: 79%;
+  top: 43%;
+  width: 10px;
+  height: 30px;
+  background:
+    radial-gradient(circle at 50% 14%, var(--m3) 0 3px, rgba(207, 115, 93, .35) 4px, transparent 5.5px),
+    linear-gradient(var(--ink), var(--ink)) center bottom / 4px 21px no-repeat;
+  animation: c7-pulse 3s ease-in-out infinite;
+}
+.card--v7 .c7-label {
+  left: 12%;
+  top: 12%;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  color: var(--ink);
+}
+
+/* card 08 abyss scene */
+.card--v8 {
+  --bg: linear-gradient(#0b1f31, #06121f);
+  --ink: #d9e8ef;
+  --mut: #7fa1b4;
+  --line: #1d3a4f;
+  --m1: #6f91c5;
+  --m2: #ce9cdb;
+  --m3: #356d8e;
+}
+.card--v8 .c8-jelly {
+  left: 24%;
+  top: 28%;
+  width: 52px;
+  height: 34px;
+  background: linear-gradient(180deg, var(--m1), var(--m3));
+  border-radius: 50% 50% 48% 48% / 78% 78% 26% 26%;
+  box-shadow: 0 0 24px 6px rgba(111, 145, 197, .35), inset 0 8px 12px -6px rgba(217, 232, 239, .6);
+}
+.card--v8 .c8-tent {
+  left: 24%;
+  top: 45%;
+  width: 52px;
+  height: 46px;
+  background:
+    linear-gradient(180deg, rgba(206, 156, 219, .85), transparent 72%) left 8px top 0 / 2px 100% no-repeat,
+    linear-gradient(180deg, rgba(206, 156, 219, .6), transparent 72%) left 26px top 0 / 2px 100% no-repeat,
+    linear-gradient(180deg, rgba(206, 156, 219, .85), transparent 72%) left 44px top 0 / 2px 100% no-repeat;
+  border-radius: 0 0 8px 8px;
+}
+.card--v8 .c8-sonar {
+  left: 52%;
+  top: 30%;
+  width: 90px;
+  height: 90px;
+  border: 1px solid rgba(111, 145, 197, .5);
+  border-radius: 50%;
+  box-shadow: 0 0 16px rgba(111, 145, 197, .22), inset 0 0 16px rgba(111, 145, 197, .16), 0 0 0 12px rgba(111, 145, 197, .07);
+  transition: box-shadow .3s, border-color .3s;
+}
+.card--v8 .c8-bub1 {
+  left: 58%;
+  top: 58%;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(206, 156, 219, .8);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(217, 232, 239, .7), transparent 45%);
+  animation: c8-rise 6s linear infinite;
+}
+.card--v8 .c8-bub2 {
+  left: 66%;
+  top: 46%;
+  width: 5px;
+  height: 5px;
+  border: 1px solid rgba(206, 156, 219, .7);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(217, 232, 239, .6), transparent 45%);
+  animation: c8-rise 6s linear infinite;
+  animation-delay: -3s;
+}
+.card--v8 .c8-depth {
+  left: 8%;
+  bottom: 14px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: var(--mut);
+}
+
+/* card 09 ghostware scene */
+.card--v9 {
+  --bg: #0c171c;
+  --ink: #d7e7e9;
+  --mut: #6f969b;
+  --line: #1e3339;
+  --m1: #69a2aa;
+  --m2: #e16d57;
+  --m3: #b3d8d0;
+}
+.card--v9 .c9-ring {
+  left: 30%;
+  top: 30%;
+  width: 130px;
+  height: 60px;
+  border: 1px solid rgba(105, 162, 170, .65);
+  border-radius: 50%;
+  transform: rotateX(58deg);
+  box-shadow: 0 0 18px rgba(105, 162, 170, .35), inset 0 0 18px rgba(105, 162, 170, .2);
+  animation: c9-flicker 6s ease-in-out infinite;
+}
+.card--v9 .c9-scan {
+  left: 0;
+  top: -15%;
+  width: 100%;
+  height: 16%;
+  background: repeating-linear-gradient(180deg, rgba(179, 216, 208, .22) 0 2px, transparent 2px 4px);
+  border-top: 1px solid rgba(179, 216, 208, .3);
+  border-bottom: 1px solid rgba(179, 216, 208, .3);
+  animation: c9-sweep 5s linear infinite;
+}
+.card--v9 .c9-bar1 {
+  left: 12%;
+  bottom: 16px;
+  width: 7px;
+  height: 34px;
+  background: linear-gradient(180deg, var(--m3), var(--m1));
+  box-shadow: 0 0 10px rgba(105, 162, 170, .45);
+}
+.card--v9 .c9-bar2 {
+  left: 21%;
+  bottom: 16px;
+  width: 7px;
+  height: 22px;
+  background: linear-gradient(180deg, var(--m3), var(--m2));
+  box-shadow: 0 0 10px rgba(225, 109, 87, .4);
+  transition: height .3s;
+}
+.card--v9 .c9-bar3 {
+  left: 30%;
+  bottom: 16px;
+  width: 7px;
+  height: 28px;
+  background: linear-gradient(180deg, var(--m3), var(--m1));
+  box-shadow: 0 0 10px rgba(105, 162, 170, .45);
+}
+.card--v9 .c9-serial {
+  right: 8%;
+  top: 14%;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: var(--mut);
+}
+
+/* card 10 typevolt scene */
+.card--v10 {
+  --bg: #f1f0ea;
+  --ink: #20231f;
+  --mut: #667067;
+  --line: #c9c8c0;
+  --m1: #20231f;
+  --m2: #c7654e;
+  --m3: #d16d54;
+}
+.card--v10 .c10-ghost {
+  left: 34%;
+  top: 24%;
+  font-family: "Arial Narrow", "Roboto Condensed", "Oswald", Impact, "Helvetica Neue", Arial, sans-serif;
+  font-stretch: condensed;
+  font-weight: 900;
+  font-size: 92px;
+  line-height: 1;
+  color: rgba(199, 101, 78, .38);
+  transform: translate(10px, 8px);
+  animation: c10-drift 7s ease-in-out infinite alternate;
+}
+.card--v10 .c10-v {
+  left: 34%;
+  top: 20%;
+  font-family: "Arial Narrow", "Roboto Condensed", "Oswald", Impact, "Helvetica Neue", Arial, sans-serif;
+  font-stretch: condensed;
+  font-weight: 900;
+  font-size: 96px;
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: var(--ink);
+  transform: scaleX(1.06);
+  animation: c10-stretch 5s ease-in-out infinite alternate;
+}
+.card--v10 .c10-rule {
+  left: 31%;
+  top: 66%;
+  width: 38%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ink) 0 74%, var(--m2) 74% 100%);
+  transform: skewX(-12deg);
+  transition: width .3s;
+}
+.card--v10 .c10-label {
+  right: 8%;
+  bottom: 14px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  color: var(--mut);
+}
+
+/* keyframes for the scenes above, gated so reduced-motion users get the static frame only */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes c6-dash { from { background-position: 0 0; } to { background-position: 14px 0; } }
+  @keyframes c6-sway { from { transform: rotate(-32deg); } to { transform: rotate(-20deg); } }
+  @keyframes c7-pulse { 0%, 100% { filter: drop-shadow(0 0 3px rgba(207, 115, 93, .3)); } 50% { filter: drop-shadow(0 0 10px rgba(207, 115, 93, .75)); } }
+  @keyframes c7-bob { from { transform: rotate(45deg) translateY(0); } to { transform: rotate(45deg) translateY(-3px); } }
+  @keyframes c8-rise { 0% { transform: translateY(0); opacity: 0; } 12% { opacity: 1; } 100% { transform: translateY(-64px); opacity: 0; } }
+  @keyframes c9-sweep { from { transform: translateY(0); } to { transform: translateY(740%); } }
+  @keyframes c9-flicker { 0%, 100% { opacity: 1; } 50% { opacity: .7; } }
+  @keyframes c10-stretch { from { transform: scaleX(1.02); } to { transform: scaleX(1.14); } }
+  @keyframes c10-drift { from { transform: translate(8px, 8px); } to { transform: translate(18px, 10px); } }
+}
+
+/* scene hover reactions, card-level hover owned by the skeleton */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card--v6:hover .c6-pin { box-shadow: 0 0 0 5px rgba(187, 115, 84, .28), 0 2px 3px rgba(58, 53, 44, .45); }
+  .card--v7:hover .c7-c2 { transform: rotate(45deg) translateY(-4px) scale(1.12); }
+  .card--v8:hover .c8-sonar { border-color: rgba(111, 145, 197, .9); box-shadow: 0 0 24px rgba(111, 145, 197, .45), inset 0 0 24px rgba(111, 145, 197, .3), 0 0 0 12px rgba(111, 145, 197, .12); }
+  .card--v9:hover .c9-bar2 { height: 30px; }
+  .card--v10:hover .c10-rule { width: 46%; }
+}

@@ -1,0 +1,396 @@
+/* ===== card 11: event horizon ===== */
+.card--v11 {
+  --bg: radial-gradient(circle at 50% 40%, #1a140f, #050505 70%);
+  --ink: #f0e7dd;
+  --mut: #9a8a78;
+  --line: #3a2c1e;
+  --m1: #c58a61;
+  --m2: #704837;
+  --m3: #f2b56b;
+}
+
+.card--v11 .c11-ring {
+  left: 50%;
+  top: 44%;
+  width: 158px;
+  height: 158px;
+  margin: -79px 0 0 -79px;
+  border-radius: 50%;
+  background: conic-gradient(from 210deg, var(--m3), var(--m1) 16%, var(--m2) 32%, transparent 46%, var(--m1) 60%, var(--m2) 74%, transparent 84%, var(--m3) 94%, var(--m1));
+  -webkit-mask: radial-gradient(circle, transparent 0 46%, #000 50% 72%, transparent 77%);
+  mask: radial-gradient(circle, transparent 0 46%, #000 50% 72%, transparent 77%);
+  filter: blur(1.2px) drop-shadow(0 0 6px rgba(242, 181, 107, .35));
+  opacity: .95;
+}
+
+.card--v11 .c11-core {
+  left: 50%;
+  top: 44%;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #000 52%, #120b06 78%, rgba(197, 138, 97, .4) 100%);
+  box-shadow: 0 0 22px rgba(0, 0, 0, .95), 0 0 8px rgba(197, 138, 97, .25);
+}
+
+.card--v11 .c11-dust {
+  left: 9%;
+  top: 66%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--m3);
+  box-shadow:
+    34px -38px 0 0 var(--m1),
+    78px -14px 0 0 var(--m3),
+    118px 12px 0 1px var(--m2);
+  opacity: .75;
+}
+
+.card--v11 .c11-label {
+  right: 14px;
+  bottom: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mut);
+  opacity: .85;
+}
+
+/* ===== card 12: mycelium ===== */
+.card--v12 {
+  --bg: #0d1710;
+  --ink: #dcead6;
+  --mut: #7da077;
+  --line: #21352a;
+  --m1: #74a46a;
+  --m2: #d17762;
+  --m3: #60835b;
+}
+
+.card--v12 .c12-net {
+  inset: 12% 8% 14% 10%;
+  background:
+    linear-gradient(24deg, transparent 76%, var(--line) 76% 77%, transparent 77%),
+    linear-gradient(112deg, transparent 46%, var(--line) 46% 47%, transparent 47%),
+    linear-gradient(160deg, transparent 30%, var(--line) 30% 31%, transparent 31%),
+    linear-gradient(74deg, transparent 62%, var(--line) 62% 63%, transparent 63%);
+  opacity: .85;
+}
+
+.card--v12 .c12-node {
+  left: 30%;
+  top: 44%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--m1);
+  box-shadow:
+    0 0 10px 2px rgba(116, 164, 106, .55),
+    110px 34px 0 0 var(--m1),
+    110px 34px 0 6px rgba(116, 164, 106, .3),
+    10px -48px 0 0 var(--m1),
+    10px -48px 0 6px rgba(116, 164, 106, .3);
+  opacity: .85;
+}
+
+.card--v12 .c12-fruit {
+  right: 16%;
+  bottom: 18%;
+  width: 5px;
+  height: 16px;
+  border-radius: 3px;
+  background: var(--m3);
+}
+
+.card--v12 .c12-cap {
+  right: calc(16% - 13px);
+  bottom: calc(18% + 16px);
+  width: 21px;
+  height: 12px;
+  border-radius: 50% 50% 46% 46% / 78% 78% 22% 22%;
+  background: radial-gradient(circle at 32% 26%, #e8957b 0 16%, var(--m2) 62%);
+  box-shadow: 0 0 10px rgba(209, 119, 98, .35);
+}
+
+.card--v12 .c12-label {
+  left: 14px;
+  bottom: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mut);
+  opacity: .85;
+}
+
+/* ===== card 13: origami aurum ===== */
+.card--v13 {
+  --bg: #f0e4d1;
+  --ink: #4a3b26;
+  --mut: #8b6340;
+  --line: #d8bf96;
+  --m1: #c7a974;
+  --m2: #9b733a;
+  --m3: #fdf8ee;
+}
+
+.card--v13 .c13-fold {
+  left: 12%;
+  top: 16%;
+  width: 46%;
+  height: 64%;
+  clip-path: polygon(0 0, 74% 0, 100% 26%, 100% 100%, 0 100%);
+  background:
+    linear-gradient(225deg, rgba(139, 99, 64, .28) 0 20%, transparent 21%),
+    linear-gradient(128deg, var(--m3) 0%, var(--m1) 52%, var(--m2) 100%);
+  filter: drop-shadow(5px 7px 9px rgba(139, 99, 64, .28));
+}
+
+.card--v13 .c13-crease-a {
+  left: 34%;
+  top: 30%;
+  width: 22%;
+  height: 0;
+  border-top: 1px dashed var(--line);
+  transform: rotate(-20deg);
+  transform-origin: left center;
+  opacity: .9;
+}
+
+.card--v13 .c13-crease-b {
+  left: 30%;
+  top: 56%;
+  width: 28%;
+  height: 0;
+  border-top: 1px dashed var(--line);
+  transform: rotate(18deg);
+  transform-origin: left center;
+  opacity: .9;
+}
+
+.card--v13 .c13-disc {
+  right: 14%;
+  top: 26%;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, var(--m3) 0%, var(--m1) 45%, var(--m2) 100%);
+  box-shadow: inset 0 0 0 3px rgba(253, 248, 238, .45), inset 0 0 0 4px rgba(155, 115, 58, .4), 0 3px 8px rgba(139, 99, 64, .3);
+}
+
+.card--v13 .c13-glint {
+  right: 14%;
+  top: 26%;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, rgba(253, 248, 238, .85), transparent 55%);
+  opacity: .3;
+}
+
+.card--v13 .c13-label {
+  right: 14px;
+  bottom: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mut);
+  opacity: .85;
+}
+
+/* ===== card 14: signal ===== */
+.card--v14 {
+  --bg: #0c1419;
+  --ink: #dce7ec;
+  --mut: #7693a2;
+  --line: #22333d;
+  --m1: #cf6c55;
+  --m2: #7693a2;
+  --m3: #5e8090;
+}
+
+.card--v14 .c14-static {
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(220, 231, 236, .05) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(0deg, rgba(220, 231, 236, .04) 0 1px, transparent 1px 5px),
+    linear-gradient(180deg, transparent 58%, rgba(207, 108, 85, .1) 76%, transparent 94%);
+  opacity: .55;
+}
+
+.card--v14 .c14-wave {
+  left: 6%;
+  bottom: 22%;
+  width: 88%;
+  height: 40px;
+  clip-path: polygon(0% 58%, 5% 26%, 10% 54%, 15% 18%, 20% 56%, 26% 30%, 31% 62%, 37% 22%, 42% 52%, 48% 14%, 53% 50%, 59% 28%, 64% 60%, 70% 20%, 75% 54%, 81% 30%, 86% 58%, 92% 24%, 97% 52%, 100% 38%, 100% 100%, 0% 100%);
+  background: var(--m1);
+  filter: drop-shadow(0 0 6px rgba(207, 108, 85, .55));
+  opacity: .9;
+}
+
+.card--v14 .c14-stamp {
+  left: 14px;
+  top: 14px;
+  padding: 3px 6px;
+  border: 1px solid var(--m2);
+  border-radius: 2px;
+  color: var(--m2);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transform: rotate(-6deg);
+  opacity: .9;
+}
+
+.card--v14 .c14-freq {
+  right: 14px;
+  bottom: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mut);
+  opacity: .8;
+}
+
+/* ===== card 15: commission call to action ===== */
+.card--cta {
+  --bg: #fdf9f0;
+  --ink: #4a3b26;
+  --mut: #8b6340;
+  --line: #e3d5b8;
+  --m1: #c96442;
+  --m2: #e0c88f;
+  --m3: #f5f4ed;
+}
+
+.card--cta .c15-frame {
+  left: 10%;
+  top: 12%;
+  width: 80%;
+  height: 72%;
+  border: 1.5px dashed var(--m2);
+  border-radius: 14px;
+  opacity: .9;
+}
+
+.card--cta .c15-plus {
+  left: 50%;
+  top: 46%;
+  width: 34px;
+  height: 6px;
+  margin: -3px 0 0 -17px;
+  border-radius: 2px;
+  background: var(--m1);
+}
+
+.card--cta .c15-vbar {
+  left: 50%;
+  top: 46%;
+  width: 6px;
+  height: 34px;
+  margin: -17px 0 0 -3px;
+  border-radius: 2px;
+  background: var(--m1);
+}
+
+.card--cta .c15-label {
+  left: 50%;
+  top: 64%;
+  transform: translateX(-50%);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mut);
+  white-space: nowrap;
+  opacity: .9;
+}
+
+/* ===== animations: only when motion is allowed ===== */
+@media (prefers-reduced-motion: no-preference) {
+  .card--v11 .c11-ring { animation: c11-spin 8s linear infinite; }
+  .card--v11 .c11-core { animation: c11-pulse 6s ease-in-out infinite; }
+
+  .card--v12 .c12-node { animation: c12-pulse 4.5s ease-in-out infinite; }
+  .card--v12 .c12-cap { animation: c12-sway 6s ease-in-out infinite; }
+
+  .card--v13 .c13-fold { animation: c13-float 7s ease-in-out infinite; }
+  .card--v13 .c13-glint { animation: c13-shimmer 5s ease-in-out infinite; }
+
+  .card--v14 .c14-static { animation: c14-shift 6s linear infinite; }
+  .card--v14 .c14-wave { animation: c14-fade 4.5s ease-in-out infinite; }
+
+  .card--cta .c15-plus,
+  .card--cta .c15-vbar { animation: c15-breathe 6s ease-in-out infinite; }
+
+  @keyframes c11-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes c11-pulse {
+    0%, 100% { box-shadow: 0 0 22px rgba(0, 0, 0, .95), 0 0 8px rgba(197, 138, 97, .25); }
+    50% { box-shadow: 0 0 26px rgba(0, 0, 0, .95), 0 0 16px rgba(242, 181, 107, .5); }
+  }
+
+  @keyframes c12-pulse {
+    0%, 100% { opacity: .55; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes c12-sway {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+  }
+
+  @keyframes c13-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+
+  @keyframes c13-shimmer {
+    0%, 100% { opacity: .15; }
+    50% { opacity: .6; }
+  }
+
+  @keyframes c14-shift {
+    from { background-position: 0 0, 0 0, 0 0; }
+    to { background-position: 8px 4px, -5px 3px, 0 0; }
+  }
+
+  @keyframes c14-fade {
+    0%, 100% { opacity: .55; }
+    50% { opacity: .95; }
+  }
+
+  @keyframes c15-breathe {
+    0%, 100% { scale: 1; }
+    50% { scale: 1.07; }
+  }
+}
+
+/* ===== hover reactions: only when hover and motion are allowed ===== */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card--v11:hover .c11-ring { opacity: 1; filter: blur(1.2px) drop-shadow(0 0 10px rgba(242, 181, 107, .55)); }
+  .card--v11:hover .c11-dust { opacity: 1; }
+
+  .card--v12:hover .c12-net { opacity: 1; }
+  .card--v12:hover .c12-cap { box-shadow: 0 0 14px rgba(209, 119, 98, .55); }
+
+  .card--v13:hover .c13-fold { filter: drop-shadow(6px 8px 12px rgba(139, 99, 64, .38)); }
+  .card--v13:hover .c13-disc { box-shadow: inset 0 0 0 3px rgba(253, 248, 238, .6), inset 0 0 0 4px rgba(155, 115, 58, .5), 0 4px 12px rgba(139, 99, 64, .4); }
+
+  .card--v14:hover .c14-static { opacity: .8; }
+  .card--v14:hover .c14-wave { opacity: 1; filter: drop-shadow(0 0 9px rgba(207, 108, 85, .8)); }
+
+  .card--cta:hover .c15-plus,
+  .card--cta:hover .c15-vbar { box-shadow: 0 0 14px rgba(201, 100, 66, .4); }
+  .card--cta:hover .c15-frame { border-color: var(--m1); opacity: 1; }
+}
