@@ -229,3 +229,161 @@ Rating trajectory: 7.5 → 8.0 → 9.0 → 8.5 (full page); target ≥8.5 MET on
 - Variant folders themselves untouched (v1 R2 gap etc. tracked above remain).
 - Rail labels at the masked edges remain half-faded at capture (inherent to the marquee mask; labels now 9.6:1 at 10px in the readable band).
 - Per-view grid crops may still draw "dark-card dominance" style commentary — intentional material variety, verified non-actionable.
+
+## SYNTHETIC CONTENT UPDATE (2026-08-13, session started 21:12 UTC)
+
+Campaign: replace ALL content in all 14 variants + root chooser with artistically curated
+synthetic data from docs/synthetic-data-pool.md (the ONLY canonical source). Real tokens
+allowed: name "Garvit Pandia" + real contact block only. Full brief:
+docs/GOAL-synthetic-content-update.md. This section supersedes the W1–W17 campaign tracker
+for the duration; the old campaign is NOT continued (W16/W17 left incomplete).
+
+### Wave tracker state at takeover (2026-08-13 21:11 UTC)
+
+- W16 (v6 R5, v7 R5, v8 R5): claim 15:35 UTC was STALE (>2h) at takeover. v7 R5 work landed
+  15:44 UTC uncommitted → verified additive CSS only, committed as b63a26e. v6/v8 R5 were
+  NEVER dispatched (claim died pre-write). W16 is NOT done.
+- W17 (v9 R5, v10 R5, final sweep): never started.
+- Cron job portfolio5-iteration-campaign (job id f25af70b5301) PAUSED at 21:11:55 UTC to
+  prevent mid-run collisions. Will be resumed after Phase 5 only if campaign waves remain
+  pending (they do: W16 v6/v8 + W17 remain).
+
+### Baseline real-data sweep (Phase 0, 21:13 UTC — python byte-read, /tmp/p5_baseline_sweep.py)
+
+Files swept: root index.html + 14 variant index.html (15 total).
+
+- Real tokens present: 14/15 files have ALL of email/phone/github/linkedin/name. Root
+  index.html (chooser) has email/github/linkedin/name but NO phone token — expected (chooser
+  has no tel: link; re-check at final sweep).
+- Forbidden legacy tokens: present in ALL 15 files — 254 total hits (v9 25, v11 29, v12 32,
+  v13 28, v14 27, v7 22, v8 22, v10 24, v1 15, v2 8, v3 8, v4 15, v5 13, v6 7, root 0).
+  Root chooser is already clean of legacy data.
+- Legacy items found (baseline inventory): India AQI Tracker, RAG Resume Analyzer, LPU /
+  Lovely Professional University, Phagwara, garvitpandia.me, NebulaOS, PulseSync,
+  QuantumSort, Gridlock, Paperweight, Helios, Monolith, Bloom, Relay, Epoch, Mira,
+  sidekick-rs, Helix Labs, ByteForge, Northbeam Labs, Priya Nair, Anil Mehta, Kabir Sethi,
+  Dana Whitfield, Okafor, Kulkarni, Smart India Hackathon/SIH 2024, LPU HackFest, DevJams,
+  ICACCS, LPU TechCon, old title phrases (machines that dream / worlds that react /
+  improbable interfaces / intelligent interfaces).
+- Line counts at baseline: root 1983 · v1 1850 · v2 1854 · v3 1793 · v4 2741 · v5 1871 ·
+  v6 1966 · v7 1965 · v8 1407 · v9 2297 · v10 1175 · v11 1114 · v12 1212 · v13 1673 ·
+  v14 384.
+- Visual baseline: pre-update (git HEAD) copies of all 14 variants extracted to
+  /tmp/base-serve/ and screenshotted (hero/mid/bottom, 1440×900) to /tmp/p5-base-shots/
+  at 21:30 UTC for the Phase 3 no-regression side-by-side comparison. QA harness:
+  /tmp/p5_qa.py (console errors, hscroll, contact links, reduced-motion, mobile 390,
+  screenshots). Baseline QA on v4: zero console errors, no hscroll at desktop/RM/390px.
+
+### Wave A — v1/v2/v3 content curation (21:24–21:35 UTC, committed 152a269)
+
+- v1-light: 81 exact-match content replacements (6 sections, 3 JS data-array groups:
+  marginalia notes, card notes, hidden thoughts). Lines 1850→1849. Checker: PASS
+  (circle/line/path/polygon SVG self-closing tags — identical at HEAD baseline,
+  adjudicated). node --check 9/9 OK. Forbidden: ZERO. Real: email 3×, tel 1× (digits
+  codepoint-verified), github 4×, linkedin exact 1×, name 5×. Browser: 0 errors
+  desktop/RM/390px, no hscroll. Vision: copy 9.0 ("The copy is phenomenal... avoids
+  tech-bro jargon"), theme 9.5, design 8.5, layout 6.5 — layout flags verified FALSE
+  (h1 vs hero-card 91px clearance at 1440px; confetti/dotnav clutter design-intrinsic).
+- v2-dark: star-chart S3 stats (9.8k stars / 41 skills / 176 PRs / 1.1M crates) + celestial
+  copy; removed the garvitpandia.me channel (line 1853→1852). Checker: PASS (N-tag +
+  stars2d JS-source artifacts identical at HEAD). node --check 10/10 OK. Forbidden: ZERO.
+  Browser: 0 errors desktop/RM; mobile hscroll TRUE but IDENTICAL at HEAD (decorative
+  .scan bleed 422px + 4px .sec-sub — pre-existing design, adjudicated). Vision: copy 8.0,
+  theme 9.0 ("exceptionally thorough... every piece of UI reinforces the astronomy
+  concept"); design/layout flags = known fixed-overlay capture artifact (sd4-read vs
+  name: 85px clearance, 0px overlap, measured).
+- v3-wild: dream-loom persona, hero copy "a living, breathing cv — made of data & dreams",
+  ED5 (Northern Arc), 32 hero chips rebuilt (subagent timed out post-write at 600s — file
+  complete, verified directly). Lines 1793→1792. Checker: ALL CHECKS PASS. node --check
+  8/8 OK. Forbidden: ZERO. Browser: 0 errors desktop/RM/390px. Vision (viewport): copy 9.0
+  ("exceptional copywriting"), theme 9.0; design 6/layout 5 flags = pre-existing design
+  elements (orange silk arc + weave lines — baseline-identical, baseline layout also
+  rated 7/10). hero-note text verified complete (scrollH==clientH, overflow visible).
+- Tel-href incident (controller): a sweep-script comparison bug (digits vs +91-prefixed
+  expected) caused byte-replacements across files; only real damage was bare "tel:" JS
+  concatenation sites in v5/v8/v10 — those three restored from HEAD (unwave-edited).
+  Final anchored check: 15 href="tel:" occurrences repo-wide, 0 bad digits.
+### Wave B — v4/v5/v6 content curation (21:41–21:51 UTC, committed a4c0108)
+
+- v4-brutalist: 52 exact-match edits, Mono Factory rebuilt as mid-level systems engineer at
+  Cinderforge Labs (E13/E14/E9/E26/E27; S5 stats; ED1). Lines 2741→2741. Checker: PASS
+  (body/text tag-in-string artifacts identical at HEAD). node --check 11/11 OK. Forbidden:
+  ZERO. Real: email 6×, tel 1×, github 10×, linkedin 1× — linkedin href was missing
+  www./trailing slash (subagent miss), controller fixed to canonical URL. Browser: 0 errors
+  desktop/RM/390px, no hscroll. Vision: copy 9.0 ("high-signal developer copy... 'build
+  tools that keep their promises under load'"), theme 10/10 ("flawless execution"), design
+  8.0, layout 6.5 (below-fold reveals un-fired in composite capture — artifact).
+- v5-glass: Refraction (P23) + Harbor (P24) design-engineer persona + 2 HTML-comment fixes
+  (leftover old text in comments). Checker: ALL CHECKS PASS. node --check 13/13 OK.
+  Forbidden: ZERO. Browser: 0 errors all modes; desktop hscroll TRUE but IDENTICAL at
+  baseline (scrollW 1529 vs 1530 HEAD — decorative .orb-2/.gh-orb-a bleed, adjudicated).
+  Vision: theme 9.5 ("flawless execution of the glass horizon motif"), layout 9.0, copy
+  7.5 — hero subhead em-dash compound flagged slightly heavy → Phase 3 micro-fix queued.
+- v6-scrollstory: 101 count-verified replacements, field-journal persona (Herbarium P8 +
+  Kestrel P4; E1/E2/E17/E30/E21; S7; ED6). Lines 1965→1965. Checker: PASS (html/path
+  tag-in-string artifacts identical at HEAD). node --check 11/11 OK. Forbidden: ZERO.
+  Browser: 0 errors all modes, no hscroll. Vision: copy 8.5 ("I read data the way a
+  botanist reads a season"), theme 10/10 ("flawless execution... strict adherence"),
+  design 9.0, layout 7.5 (reveal artifact + ticker spacing critique noted).
+- v6 subagent handled the tel-masking pitfall correctly (codepoint check before assuming
+  corruption) and replaced the garvitpandia.me site channel.
+- Root index.html: both linkedin hrefs normalized to https://www.linkedin.com/in/garvit-pandia/
+  (controller, committed with wave B).
+
+### Wave C — v7/v8/v9 content curation (21:55–22:05 UTC, committed 14516fe)
+
+- v7-voxel: Keystone/Archipelago/Meadow builder persona (pool v7 row — subagent read the
+  pool's actual row, deviating from dispatch-goal's approximate project list; justified in
+  its report). Checker: ALL CHECKS PASS. node --check 6/6 OK. Forbidden: ZERO. Real: email
+  4x, tel 1x, github 3x, linkedin exact 2x. Browser: 0 errors all modes; hscroll TRUE but
+  IDENTICAL at baseline (scrollW 1613 both @1440; 437 both @390 — decorative hero-inner +
+  EM flourish, adjudicated). Vision: copy 9.0 ("Builds quiet tools and loud prototypes"),
+  theme 9.5, design 8.5, layout 7.5 — flags verified FALSE ("Tinkerers" misread — file
+  says Tinkerer x3; h1/rail 270px clearance).
+- v8-abyss: bioluminescent abyss persona ("I make machines legible", LOG 001 SURFACE,
+  S8 telemetry: 14 buoys/40k readings/6 days warning). Checker: ALL CHECKS PASS. node
+  6/6 OK. Forbidden: ZERO. Browser: 0 errors (one transient 404 on first cold load, NOT
+  reproducible on re-run — adjudicated non-content). Vision: copy 9.5 ("brilliant, punchy
+  positioning statement"), theme 10/10 ("absolute perfection"), design 9.0, layout 8.5,
+  "no broken layout or text overlaps present".
+- v9-ghostware: MEMORY ARCHIVE v7.3 forensic persona (KOCHI location, B.TECH CSE Verghese
+  Institute, S9 stats); tel href was hyphenated (tel:+91-8905402023) — normalized to
+  canonical no-hyphen form, codepoint-verified. Checker: PASS (head tag-in-string artifact
+  identical at HEAD). node 7/7 OK. Forbidden: ZERO. Browser: 0 errors all modes. Vision:
+  copy 8.0, theme 10/10 ("flawless thematic execution"), design 8.5, layout 8.5 — flags
+  verified FALSE ("MENTREES" misread — file says MENTEES; "garvit9629" misread — mailto
+  verified correct; tamper-stat ambiguity mild, label "TAMPER ATTEMPTS ALARMED" is
+  detection coverage by design).
+
+### Wave D — v10/v11/v12 content curation (22:10–22:17 UTC, committed 892e567)
+
+- v10-typevolt: 59 placements + tel fix; Typevolt kinetic editorial persona ("I set letters
+  that kern", S11 stats: 900+ Axis entries/410K Kern plays/2,000+ fonts/96 Lighthouse/1.1M
+  crates). Both linkedin hrefs were missing www./trailing slash — controller normalized;
+  tel href was hyphenated — controller normalized to canonical (codepoint-verified).
+  Checker: PASS (SVG filter/rect self-closing artifacts identical at baseline). node 7/7 OK.
+  Forbidden: ZERO. Browser: 0 errors all modes, no hscroll. Vision: copy 8.5 ("I set
+  letters that kern is a brilliant niche flex"), theme 9.5, design 8.0, layout 7.5 — flags
+  false (background PORTFOLIO watermark is the design's signature, pre-existing; "copyright
+  2020" misread — file says 2026).
+- v11-event-horizon: cosmic persona (1.4M galaxies catalogued, 11 variable-star candidates,
+  Dr Tanvi Deshpande testimonial). Checker: PASS (html artifact identical at baseline).
+  node 3/3 OK. Forbidden: ZERO. Browser: 0 errors (transient mobile 404 not reproducible).
+  Vision: copy 7.5, theme 10/10 ("flawless execution"), design 8.0, layout 9.0 hero.
+  FLAGS ADJUDICATED: (1) section 06 heading/kicker/subline collision — verified PRE-EXISTING
+  (whole block byte-identical between 110552f and HEAD; git diff empty for that region;
+  baseline copy identical); rotated-heading design characteristic, not a content regression,
+  documented per content-only rule. (2) MASS LOG "empty box" = reveal artifact — 11 entries
+  populate on scroll. (3) Footer "Jalandhar, Punjab" — Punjab was an off-pool subagent
+  addition; removed (Jalandhar itself is pool-canonical, ED1 Kandhari Institute).
+- v12-mycelium: organic network persona (Rhizome flagship, Kelp acidification warning,
+  Larkspur Bio). Checker: PASS (SVG artifacts identical at baseline). node 1/1 OK (single
+  script block). Forbidden: ZERO. Browser: 0 errors all modes, no hscroll. Vision: copy 6.0,
+  theme 8.0, design 7.0, layout 5.0 (dead-space + line-clutter = capture/reveal artifacts).
+  REAL FIX applied (controller, content-only): hero stat strip mixed bio + generic GitHub
+  metrics AND duplicated "stars" twice (2.6k + 9.8k); swapped cards --i:4/--i:5 to pool
+  canonical "1.1M crate downloads, combined" + "31 first-time contributors mentored"
+  (numbers already used in the page's spores/about sections — internally consistent).
+- Root chooser (wave E partial): full compliance review done — forbidden hits 0, all 14
+  hrefs resolve, blurbs design-only, contact links canonical (after controller's earlier
+  linkedin normalization). No edits needed.
