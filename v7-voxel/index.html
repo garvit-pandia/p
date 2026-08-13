@@ -440,6 +440,92 @@ body.static-sky .v7c-signal{opacity:1}
    honor prefers-reduced-motion with instant jumps */
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 </style>
+<style>
+/* ============================================================
+   ROUND 5 — JURY PASS (new prefix v7j)
+   Contrast envelope: the sticky nav floats over the bright day
+   sky with no scrim, so its 11px mono links sat at 1.92:1 on the
+   lightest surface. Deepen the resting film and the scrolled
+   film; every white text role in the nav now clears AA.
+   ============================================================ */
+#topnav{background:rgba(11,27,63,.8)}
+#topnav.scrolled{background:rgba(11,27,63,.86)}
+/* The shared glass token (kicker pills, tags, quote cards, footer
+   film) gave white text 4.02:1 on the lightest mid-page sky.
+   Lift the film alpha one step; all white-on-glass clears 4.5:1. */
+:root{--glass:rgba(18,35,63,.66)}
+/* Hardcoded amber text on the light glass panels (year badges,
+   metric values, role dates) sat at 2.7-2.8:1. Re-ink in the
+   deeper shade of the SAME amber hue — the print-sheet gold —
+   landing 4.5-4.8:1 wherever those roles actually render. */
+.metric b,.ach .yr,.exp-card .dates{color:#8a5a00}
+/* Form error text on the night-time panel at the beacon section
+   was 4.22:1. Slightly deeper red, same hue family. */
+#form-status.err{color:#8f2f1f}
+/* Ghost CTA: white 14px on translucent white over the bright sky
+   was 2.10:1. Switch the fill to the navy glass film the kicker
+   pills already wear, and deepen it on hover. */
+.btn.ghost{background:rgba(11,27,63,.6);border-color:rgba(255,255,255,.45)}
+.btn.ghost:hover{background:rgba(11,27,63,.74)}
+/* Short-viewport geometry: the centered rail is about 281px tall
+   and starts at vh/2 - 140px; below about 410px of viewport
+   height its top edge enters the 64px nav row. Hide it at that
+   height like the existing width threshold does. */
+@media (max-height:440px){.v7-rail{display:none}}
+
+/* ---------- polish: warm emissive language, box-shadow only ---------- */
+/* v7j: island-spotlight hover — the nav brand cube catches the
+   same warm bloom the active island cube wears. */
+.brand .cube i:nth-child(1){transition:box-shadow .3s ease}
+.brand:hover .cube i:nth-child(1){box-shadow:0 0 16px rgba(255,217,122,.95)}
+.brand:hover .cube i:nth-child(3){box-shadow:0 0 10px rgba(255,217,122,.5)}
+/* v7j: soft day-sun halo on the island kicker pills. */
+.kicker{box-shadow:0 0 22px rgba(255,217,122,.16)}
+
+/* ---------- print sheet: re-ink the whole theme via token swap ---------- */
+@media print{
+  :root{
+    --ink:#12233f;
+    --ink-soft:#3d4f6e;
+    --warm:#8a5a00;
+    --grass:#2f7a36;
+    --water:#0e5a8a;
+    --day1:#eef1f6;
+    --day2:#ffffff;
+    --night:#12233f;
+    --sky-top:#eef1f6;
+    --sky-bot:#ffffff;
+    --panel:#ffffff;
+    --panel-soft:rgba(18,35,63,.05);
+    --panel-brd:#d5dbe5;
+    --glass:#eef1f6;
+    --shadow:none;
+  }
+  html,body{background:#fff!important}
+  *{box-shadow:none!important;text-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  #world,.vignette,.static-decor,.v7-rail,#v7cSignal,.v7d-tip,.scroll-hint,.exp .rail{display:none!important}
+  #topnav{position:static;background:#fff;border-bottom:1px solid #d5dbe5}
+  #hero{min-height:0;padding:36px 5vw 24px}
+  #hero::before{background:none!important}
+  #hero h1{font-size:52px;color:#12233f}
+  #hero h1 em{background:none;-webkit-text-fill-color:#8a5a00;color:#8a5a00}
+  .hero-title,.hero-sub,.kicker,.tag,.quote,.sec-title,.btn.ghost,.brand,.nav-links a,footer,.foot-links a{color:#12233f!important}
+  .sec-title .hl,.quote footer,footer b,.nav-links a.is-active{color:#8a5a00!important}
+  .btn,.nav-resume{background:#8a5a00;color:#fff;border-color:#8a5a00}
+  .btn.ghost{background:#eef1f6;border:1px solid #c9d2dd}
+  .tag{position:static;transform:none!important;margin-bottom:16px}
+  .island-sec{min-height:0;padding:28px 5vw}
+  .plate,.card,.ach,.exp-card,.linkrow,.stat,.field input,.field textarea{background:#fff;border-color:#d5dbe5}
+  .quote{background:#f4f6fa;border-color:#d5dbe5}
+  .reveal{opacity:1!important;transform:none!important}
+  .in .bar i,.bar i{transform:scaleX(1)!important}
+  .card,.ach,.exp-card,.quote,.plate,.linkrow{break-inside:avoid}
+  a[href^="http"]::after{content:" (" attr(href) ")";color:#3d4f6e;font-size:.85em;word-break:break-all}
+  .linkrow a::after{content:none}
+  @page{margin:12mm}
+}
+</style>
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
 </script>
@@ -1853,6 +1939,25 @@ body.static-sky .v7c-signal{opacity:1}
     tip.setAttribute('aria-hidden', 'false');
     placeTip();
   };
+})();
+</script>
+<script>
+/* ============================================================
+   ROUND 5 — JURY PASS (new prefix v7j)
+   Existence-probe reveal watchdog. The reveal observer lives in
+   the first classic script; if that script throws before wiring,
+   every reveal would strand at opacity:0. Shortly after load,
+   probe whether ANY reveal stamped its in-state; if none did,
+   stamp them all. Idempotent when the observer works: in-view
+   reveals stamp within a frame, so the probe finds one and exits.
+   ============================================================ */
+(function () {
+  'use strict';
+  setTimeout(function () {
+    if (document.querySelectorAll('.reveal.in').length > 0) { return; }
+    var els = document.querySelectorAll('.reveal');
+    for (var k = 0; k < els.length; k++) { els[k].classList.add('in'); }
+  }, 1600);
 })();
 </script>
 </body>
