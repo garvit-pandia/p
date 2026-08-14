@@ -2010,14 +2010,16 @@
     .card--v1 .c1-stamp { right: 15px; bottom: 6px; padding: 3px 6px 2px; font-size: 7px; letter-spacing: .16em; background: #fbf6ea; box-shadow: 2px 3px 0 rgba(194, 107, 77, .3), 0 1px 6px rgba(120, 105, 80, .2); transform: rotate(-8deg); }
     .card--v1 .c1-photo { box-shadow: 0 12px 24px -12px rgba(120, 105, 80, .5); }
     .card--v1 .c1-scribble { background: rgba(244, 231, 199, .85); box-shadow: 0 1px 2px rgba(120, 105, 80, .25); opacity: 0; }
-    .card--v3 .stage { background: linear-gradient(138deg, #dde9ec 0%, #f2e4e8 58%, #efe6d9 100%); }
+    .card--v3 .stage { background: linear-gradient(138deg, #dde9ec 0%, #f2e4e8 58%, #efe6d9 100%),
+      repeating-linear-gradient(90deg, transparent 0 6px, rgba(125, 156, 113, .06) 6px 7px),
+      repeating-linear-gradient(0deg, transparent 0 6px, rgba(125, 156, 113, .06) 6px 7px); }
     .card--v3 .pvc-shot { box-shadow: 0 0 26px rgba(125, 156, 113, .38), inset 0 0 16px rgba(198, 129, 112, .1); }
     .card--v3 .c3-strand { top: 0; left: 0; width: 150px; height: 76px; border-width: 2px; border-color: rgba(125, 156, 113, .95); opacity: .95; }
     .card--v3 .c3-weft { top: 0; right: -14px; width: 142px; height: 86px; border-width: 2px; border-color: rgba(198, 129, 112, .95); opacity: .95; }
     .card--v3 .c3-warp { bottom: -10px; left: 24px; width: 172px; height: 76px; border-width: 2px; border-color: rgba(140, 107, 157, .85); opacity: .9; }
     .card--v3 .c3-blob { opacity: .65; }
     .card--v3 .c3f-knot { right: 12px; top: 10px; width: 9px; height: 9px; box-shadow: 0 0 12px rgba(198, 129, 112, 1), 0 0 3px rgba(198, 129, 112, .9); }
-    .card--v3 .c3-label { color: #4f5840; letter-spacing: .2em; }
+    .card--v3 .c3-label { color: #4f5840; letter-spacing: .22em; opacity: .72; font-size: 7px; }
     .card--v7 .c7-isle { height: 16px; background: #2c3a30; clip-path: polygon(0 100%, 0 55%, 7% 55%, 7% 28%, 15% 28%, 15% 55%, 33% 55%, 33% 16%, 41% 16%, 41% 55%, 59% 55%, 59% 38%, 69% 38%, 69% 55%, 87% 55%, 87% 24%, 95% 24%, 95% 55%, 100% 55%, 100% 100%); }
     .card--v7 .pvc-shot { box-shadow: 0 0 0 3px rgba(210, 187, 104, .72), inset 0 0 0 2px rgba(255, 255, 255, .14); }
     .card--v7 .c7f-px { width: 7px; height: 7px; box-shadow: 0 0 0 1px rgba(44, 58, 48, .35); }
@@ -2116,10 +2118,9 @@
     .card--v7 .c7-ground { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 16px;
       background: linear-gradient(180deg, rgba(64, 84, 66, .92), rgba(44, 60, 48, .98)); }
     /* ---- polish pass 11: frame-dominance boosts (v3 loom, v5 glass, v11 dust, v12 spores) ---- */
-    .card--v3 .c3-shuttle { position: absolute; z-index: 7; left: 44%; bottom: 12px; width: 32px; height: 10px;
-      background: linear-gradient(90deg, #a9745a, #dcab84 45%, #8a5a43); border-radius: 2px;
-      clip-path: polygon(4% 50%, 30% 0, 100% 0, 100% 100%, 30% 100%, 4% 50%);
-      box-shadow: 0 2px 4px rgba(90, 60, 40, .35); }
+    .card--v3 .c3-shuttle { position: absolute; z-index: 6; right: 14%; left: auto; bottom: 8px; width: 22px; height: 7px; opacity: .7;
+      background: linear-gradient(90deg, #a9745a, #d9a27e 45%, #8a5a43); border-radius: 2px;
+      clip-path: polygon(6% 50%, 26% 0, 100% 0, 100% 100%, 26% 100%, 6% 50%); box-shadow: 0 2px 4px rgba(90, 60, 40, .35); }
     .card--v5 .pvc-shot { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .30), inset 0 1px 0 rgba(255, 255, 255, .42), inset 0 -1px 0 rgba(140, 180, 215, .28); }
     .card--v11 .c11-dust { position: absolute; z-index: 7; border-radius: 50%; background: rgba(244, 205, 150, .85); }
     .card--v11 .c11-dust.c11-d1 { top: 15px; left: 17%; width: 3px; height: 3px; opacity: .75; }
@@ -2162,6 +2163,10 @@
       white-space: nowrap; overflow: hidden; }
     .card--v9 .c9-redact { top: 66%; background: rgba(10, 16, 24, .94); color: #a8c8de;
       border-top: 1px solid rgba(168, 200, 222, .35); border-bottom: 1px solid rgba(168, 200, 222, .35); }
+    /* ---- polish pass 15: scene integration (v3 loom rig, v7 forest edge, v12 soil stratum, v13 fold shadow, v14 interference) ---- */
+    .card--v13 .c13-foldline { position: absolute; z-index: 6; left: 8%; right: 8%; top: 314px; height: 40px;
+      background: linear-gradient(180deg, rgba(150, 120, 70, .28), rgba(90, 68, 34, .16) 45%, transparent);
+      border-top: 1px solid rgba(199, 169, 116, .45); }
   </style>
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -2266,7 +2271,7 @@
         </a>
 
         <a class="card card--v3 rv" data-f="motion" href="v3-wild/index.html" style="--i:2">
-          <div class="stage" aria-hidden="true"><span class="c3-strand"></span><span class="c3-weft c3-tint"></span><span class="c3-warp"></span><span class="c3-blob c3-swell"></span><span class="c3-label">DREAM WEAVE</span><span class="c3f-knot"></span><span class="c3-thread c3-t1"></span><span class="c3-thread c3-t2"></span><span class="c3-shuttle"></span><img class="pvc-shot" src="shots/v3-wild.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
+          <div class="stage" aria-hidden="true"><span class="c3-strand"></span><span class="c3-weft c3-tint"></span><span class="c3-warp"></span><span class="c3-blob c3-swell"></span><span class="c3-label">DREAM WEAVE</span><span class="c3f-knot"></span><span class="c3-shuttle"></span><img class="pvc-shot" src="shots/v3-wild.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 03 / 14</span><span>Wild · Fluid</span></div>
             <h2>Dream Loom</h2>
@@ -2366,7 +2371,7 @@
         </a>
 
         <a class="card card--v13 rv" data-f="light" href="v13-origami-aurum/index.html" style="--i:12">
-          <div class="stage" aria-hidden="true"><span class="c13-fold"></span><span class="c13-crease-a"></span><span class="c13-crease-b"></span><span class="c13-disc"></span><span class="c13-glint"></span><span class="c13-label">FOLD/REVEAL</span><span class="c13f-corner"></span><img class="pvc-shot" src="shots/v13-origami-aurum.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
+          <div class="stage" aria-hidden="true"><span class="c13-fold"></span><span class="c13-crease-a"></span><span class="c13-crease-b"></span><span class="c13-disc"></span><span class="c13-glint"></span><span class="c13-foldline"></span><span class="c13-label">FOLD/REVEAL</span><span class="c13f-corner"></span><img class="pvc-shot" src="shots/v13-origami-aurum.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 13 / 14</span><span>Light · Paper</span></div>
             <h2>Origami Aurum</h2>
