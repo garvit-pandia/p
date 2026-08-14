@@ -451,3 +451,14 @@ REAL fixes applied in phase 3 (all content-only):
 - Root chooser (wave E partial): full compliance review done — forbidden hits 0, all 14
   hrefs resolve, blurbs design-only, contact links canonical (after controller's earlier
   linkedin normalization). No edits needed.
+
+## HUB ROUND 2026-08-14: card previews — real glimpses + character (index.html)
+
+Shipped: 14 variant cards rebuilt with real screenshot at rest + live scaled iframe on hover + per-variant theme-native frames, entrance/hover character, one-live-iframe manager (grace detach ~400ms, IntersectionObserver offscreen gate, lazy init, hover:fine + reduced-motion + print gates). shots/ = 14 reveal-forced viewport captures (6.14 MB, committed). Structural checker ALL CHECKS PASS after every patch (final: <script> 3/3, <span> 268/268). Variant folders untouched (v2-dark pre-existing CSS fix captured as-is).
+
+Verification (all live-probed): console clean on http + file://; iframe-count probe = exactly 1 while hovering, 0 after grace; IO detach removes element (v1 confirmed); tilt releases to identity (perspective-constant only); filters 2/6/4/2=14 + CTA, shuffle, keyboard Tab+Enter focus outline + navigation all pass; mobile 375 coarse = 0 iframes, cards stack, tap navigates; prefers-reduced-motion = 0 cards animating; 14/14 thumbnails load on file://.
+
+Vision score ledger (fixed prompt, per-card stage crops, creativity/design/finalLook mean; ~75 ratings across 20+ polish passes):
+- First pass (≥8 bar): v1 7.67→8.67, v2 8.33→8.67, v3 7.33→8.0, v4 8.33→8.67, v5 8.67, v6 8.33→8.67, v7 7.67→8.0, v8 8.67→9.0, v9 8.33→8.67, v10 8.67, v11 9.0, v12 8.33→8.0, v13 8.33, v14 8.0→8.33 — all 14 cleared ≥8 after 5 passes.
+- Final audit (≥9 target): v6 9.0 and v11 9.0 cleared (9/9/9 both, final run); v8 hit 9.0 once (best 9.0); v1/v2/v4/v5/v9/v10 best 8.67; v3/v7/v13/v14 best 8.33; v12 best 8.0.
+- Escalation documented: v3/v7/v12/v13/v14 got 6–10 dedicated passes each; every remaining critic complaint names variant-internal content (read-only folders): confetti (v1), hollow-outline name (v2), pastel divider lines (v3), lime band / red rule (v4), metric pills / nav contrast (v5/v13), faint side-nav (v6), location subtext (v7/v12/v14), chromatic aberration (v8/v9), strikethrough (v10), tracker text (v11), credentials (v14). Frame elements themselves rate creativity 8–9 across all runs; critic claims that text was "unreadable/clipped" were pixel-verified false (covered by redaction band / measured legible) per discipline rule.

@@ -1659,6 +1659,509 @@
       .card { break-inside: avoid; box-shadow: none; }
       * { animation: none !important; transition: none !important; }
     }
+
+    /* ================= hub round: real glimpses + frames (pvc-) ================= */
+    /* Common preview layers — screenshot at rest, live iframe on hover */
+    .pvc-shot {
+      inset: 16px;
+      width: calc(100% - 32px);
+      height: calc(100% - 32px);
+      object-fit: cover;
+      object-position: 50% 18%;
+      z-index: 4;
+      background: var(--surface);
+      filter: saturate(.88) contrast(1.06) brightness(1.02);
+      transition: filter .35s var(--ease);
+    }
+    .pvc-live {
+      inset: 16px;
+      z-index: 6;
+      opacity: 0;
+      transition: opacity .3s var(--ease);
+      pointer-events: none;
+    }
+    .pvc-live iframe {
+      display: block;
+      width: 400%;
+      height: 400%;
+      border: 0;
+      transform: scale(.25);
+      transform-origin: top left;
+    }
+    .pvc-fx { inset: 0; z-index: 5; pointer-events: none; opacity: 0; }
+    .pvc-open {
+      right: 14px;
+      bottom: 10px;
+      z-index: 8;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px 5px 9px;
+      border-radius: 999px;
+      background: var(--m1, var(--accent));
+      color: #fff;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px -4px rgba(60, 50, 30, .5);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .28s var(--ease), transform .28s var(--ease);
+      pointer-events: none;
+    }
+    .stage > .badge { z-index: 9; }
+    .badge { transition: background .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease); }
+    .card h2 { transition: color .3s var(--ease); }
+    .card .meta { transition: color .3s var(--ease); }
+
+    /* ---------- 01 archive: paper mat, tape, stamp ---------- */
+    .card--v1 .c1-photo {
+      inset: 8px;
+      background: linear-gradient(155deg, #f6ecd7, #e9d5ab 55%, #dcc08a);
+      border: 1px solid rgba(217, 205, 180, .95);
+      box-shadow: 0 10px 22px -12px rgba(125, 117, 104, .5);
+      transform: rotate(-1deg);
+      z-index: 3;
+    }
+    .card--v1 .pvc-shot { inset: 17px; transform: rotate(.8deg); border-radius: 2px; border: 1px solid rgba(217, 205, 180, .9); box-shadow: 0 4px 10px -4px rgba(90, 80, 60, .45); }
+    .card--v1 .c1-scribble {
+      top: 10px;
+      left: 50%;
+      width: 66px;
+      height: 14px;
+      margin-left: -33px;
+      background: rgba(247, 234, 200, .8);
+      border: 0;
+      border-radius: 2px;
+      transform: rotate(-2.5deg);
+      box-shadow: 0 1px 2px rgba(125, 117, 104, .3);
+      z-index: 5;
+    }
+    .card--v1 .c1-stamp { right: 16px; bottom: 10px; transform: rotate(-5deg); z-index: 6; opacity: .95; }
+    .card--v1 .c1-petal { left: 8px; top: 8px; width: 26px; height: 30px; transform: rotate(-12deg); opacity: .8; z-index: 5; }
+
+    /* ---------- 02 midnight: HUD brackets + course plot ---------- */
+    .card--v2 .pvc-shot { inset: 16px; border-radius: 2px; border: 1px solid rgba(84, 109, 160, .6); box-shadow: 0 0 20px rgba(6, 12, 24, .55); }
+    .card--v2 .c2f-tl { top: 9px; left: 9px; width: 15px; height: 15px; border-top: 2px solid rgba(84, 109, 160, .95); border-left: 2px solid rgba(84, 109, 160, .95); z-index: 7; }
+    .card--v2 .c2f-tr { top: 9px; right: 9px; width: 15px; height: 15px; border-top: 2px solid rgba(84, 109, 160, .95); border-right: 2px solid rgba(84, 109, 160, .95); z-index: 7; }
+    .card--v2 .c2f-bl { bottom: 9px; left: 9px; width: 15px; height: 15px; border-bottom: 2px solid rgba(84, 109, 160, .95); border-left: 2px solid rgba(84, 109, 160, .95); z-index: 7; }
+    .card--v2 .c2f-br { bottom: 9px; right: 9px; width: 15px; height: 15px; border-bottom: 2px solid rgba(84, 109, 160, .95); border-right: 2px solid rgba(84, 109, 160, .95); z-index: 7; }
+    .card--v2 .c2-label { top: 6px; left: 12px; right: auto; bottom: auto; z-index: 6; }
+    .card--v2 .c2-route { top: 5px; left: 122px; width: 190px; border-top: 1px dashed rgba(139, 151, 173, .75); z-index: 5; }
+    .card--v2 .c2-orbit { left: 50%; top: 50%; width: 300px; height: 108px; margin: -54px 0 0 -150px; opacity: .55; z-index: 1; }
+    .card--v2 .c2-zenith { top: 10px; right: 24px; z-index: 5; }
+    .card--v2 .c2-dawn { top: 32px; left: 8px; z-index: 5; }
+    .card--v2 .c2-nadir { bottom: 12px; left: 52%; z-index: 5; }
+
+    /* ---------- 03 loom: thread arcs + warp knot ---------- */
+    .card--v3 .pvc-shot { inset: 16px; border-radius: 6px; border: 1px solid rgba(125, 156, 113, .55); box-shadow: 0 8px 18px -12px rgba(70, 90, 60, .4); }
+    .card--v3 .c3-blob { inset: 0; opacity: .55; z-index: 0; }
+    .card--v3 .c3-strand { top: 2px; left: 2px; width: 128px; height: 62px; border-color: rgba(125, 156, 113, .85); transform: rotate(-12deg); z-index: 6; }
+    .card--v3 .c3-weft { top: 2px; right: -12px; left: auto; width: 116px; height: 72px; border-color: rgba(198, 129, 112, .9); transform: rotate(38deg); z-index: 6; }
+    .card--v3 .c3-warp { bottom: -8px; left: 34px; top: auto; width: 150px; height: 62px; border-color: rgba(140, 107, 157, .8); transform: rotate(-32deg); z-index: 6; }
+    .card--v3 .c3f-knot { right: 13px; top: 11px; width: 7px; height: 7px; border-radius: 50%; background: #c68170; box-shadow: 0 0 9px rgba(198, 129, 112, .9); z-index: 7; }
+    .card--v3 .c3-label { left: 12px; bottom: 8px; z-index: 6; }
+
+    /* ---------- 04 factory: hard chassis + bolts ---------- */
+    .card--v4 .pvc-shot { inset: 16px; border-radius: 0; border: 2px solid #1d2219; box-shadow: inset 0 0 0 2px rgba(245, 249, 231, .22), 4px 4px 0 rgba(34, 40, 29, .85); }
+    .card--v4 .c4-grid { inset: 0; opacity: .55; z-index: 0; }
+    .card--v4 .c4-letters { top: 6px; left: 14px; font-size: 23px; z-index: 7; }
+    .card--v4 .c4-cursor { top: 9px; left: 60px; width: 6px; height: 18px; z-index: 7; }
+    .card--v4 .c4-scan { height: 2px; opacity: .75; z-index: 5; }
+    .card--v4 .c4-label { right: 18px; bottom: 8px; z-index: 6; }
+    .card--v4 .c4f-bolt { width: 5px; height: 5px; border-radius: 50%; background: #1d2219; box-shadow: 0 0 0 1px rgba(245, 249, 231, .4); z-index: 7; }
+    .card--v4 .c4f-bolt.b1 { top: 9px; left: 9px; }
+    .card--v4 .c4f-bolt.b2 { top: 9px; right: 9px; }
+    .card--v4 .c4f-bolt.b3 { bottom: 9px; left: 9px; }
+    .card--v4 .c4f-bolt.b4 { bottom: 9px; right: 9px; }
+
+    /* ---------- 05 glass: refractive bezel ---------- */
+    .card--v5 .pvc-shot { inset: 16px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, .75); box-shadow: inset 0 0 0 1px rgba(79, 135, 152, .22), 0 16px 28px -16px rgba(36, 64, 74, .45); }
+    .card--v5 .c5-prism { top: -5px; left: -5px; width: 84px; height: 58px; opacity: .32; z-index: 6; }
+    .card--v5 .c5-panel { bottom: -9px; right: -9px; top: auto; left: auto; width: 136px; height: 82px; opacity: .7; z-index: 6; }
+    .card--v5 .c5-orb { top: 10px; right: 14px; width: 14px; height: 14px; z-index: 7; }
+    .card--v5 .c5-streak { top: 7px; left: 22%; opacity: .55; z-index: 7; }
+
+    /* ---------- 06 journal: lined mat + red margin ---------- */
+    .card--v6 .c6-paper { inset: 7px; transform: rotate(-1.2deg); z-index: 3; box-shadow: 0 12px 20px -12px rgba(58, 53, 44, .45); }
+    .card--v6 .pvc-shot { inset: 17px; border-radius: 2px; box-shadow: 0 10px 20px -12px rgba(58, 53, 44, .42); }
+    .card--v6 .c6f-margin { left: 11px; top: 14px; bottom: 14px; width: 1px; background: rgba(187, 115, 84, .7); z-index: 5; }
+    .card--v6 .c6-route { left: 30%; right: 8%; top: auto; bottom: 24px; width: auto; transform: rotate(-4deg); z-index: 5; }
+    .card--v6 .c6-leaf { left: auto; right: 30px; top: 24px; width: 13px; height: 24px; z-index: 5; }
+    .card--v6 .c6-pin { left: auto; right: 34px; top: 40px; z-index: 5; }
+    .card--v6 .c6-label { left: auto; right: 16px; top: 8px; z-index: 5; }
+
+    /* ---------- 07 voxel: pixel border + isle strip ---------- */
+    .card--v7 .pvc-shot { inset: 15px; border-radius: 0; border: 3px solid #2c3a30; box-shadow: 0 0 0 3px rgba(210, 187, 104, .75); }
+    .card--v7 .c7-isle { left: 0; right: 0; bottom: 0; top: auto; width: auto; height: 15px; opacity: .9; z-index: 1; }
+    .card--v7 .c7-c1 { left: 12px; top: 9px; width: 14px; height: 14px; z-index: 6; }
+    .card--v7 .c7-c2 { left: 8px; top: 27px; width: 11px; height: 11px; z-index: 6; }
+    .card--v7 .c7-c3 { left: auto; right: 11px; top: auto; bottom: 26px; width: 15px; height: 15px; z-index: 6; }
+    .card--v7 .c7-beacon { right: 9px; top: 10px; left: auto; width: 6px; height: 18px; z-index: 6; }
+    .card--v7 .c7-label { left: 12px; top: auto; bottom: 3px; z-index: 6; font-size: 8px; }
+    .card--v7 .c7f-px { width: 6px; height: 6px; z-index: 7; }
+    .card--v7 .c7f-px.p1 { top: 8px; left: 8px; background: #78a6b7; }
+    .card--v7 .c7f-px.p2 { top: 8px; right: 8px; background: #cf735d; }
+    .card--v7 .c7f-px.p3 { bottom: 8px; left: 8px; background: #d2bb68; }
+    .card--v7 .c7f-px.p4 { bottom: 8px; right: 8px; background: #2c3a30; }
+
+    /* ---------- 08 abyss: porthole + depth rail ---------- */
+    .card--v8 .pvc-shot { inset: 16px; border-radius: 10px; border: 1px solid rgba(111, 145, 197, .45); box-shadow: 0 0 20px rgba(111, 145, 197, .2), inset 0 0 24px rgba(53, 109, 142, .28); }
+    .card--v8 .c8-sonar { top: 12px; right: 18px; left: auto; width: 46px; height: 46px; z-index: 6; }
+    .card--v8 .c8-jelly { left: 13px; bottom: 26px; top: auto; width: 27px; height: 18px; z-index: 6; }
+    .card--v8 .c8-tent { left: 13px; bottom: 2px; top: auto; width: 27px; height: 24px; z-index: 6; }
+    .card--v8 .c8-bub1 { left: 62%; top: 32%; z-index: 5; }
+    .card--v8 .c8-bub2 { left: 75%; top: 42%; z-index: 5; }
+    .card--v8 .c8-depth { left: 16px; bottom: 8px; z-index: 6; }
+    .card--v8 .c8f-ticks { right: 5px; top: 8px; bottom: 8px; width: 3px; background: repeating-linear-gradient(180deg, rgba(127, 161, 180, .8) 0 1px, transparent 1px 7px); z-index: 6; }
+
+    /* ---------- 09 ghost: holo reticle + audio bars ---------- */
+    .card--v9 .pvc-shot { inset: 16px; border-radius: 2px; border: 1px solid rgba(105, 162, 170, .5); box-shadow: 0 0 16px rgba(105, 162, 170, .16); }
+    .card--v9 .c9-ring { left: 10px; top: auto; bottom: 8px; width: 92px; height: 40px; z-index: 5; }
+    .card--v9 .c9-scan { z-index: 5; }
+    .card--v9 .c9-bar1 { left: auto; right: 66px; bottom: 7px; width: 5px; height: 17px; z-index: 6; }
+    .card--v9 .c9-bar2 { left: auto; right: 54px; bottom: 7px; width: 5px; height: 11px; z-index: 6; }
+    .card--v9 .c9-bar3 { left: auto; right: 42px; bottom: 7px; width: 5px; height: 14px; z-index: 6; }
+    .card--v9 .c9-serial { right: 16px; top: 8px; z-index: 6; }
+    .card--v9 .c9f-tl { top: 8px; left: 8px; width: 9px; height: 9px; border-top: 1px solid rgba(105, 162, 170, .9); border-left: 1px solid rgba(105, 162, 170, .9); z-index: 7; }
+    .card--v9 .c9f-tr { top: 8px; right: 8px; width: 9px; height: 9px; border-top: 1px solid rgba(105, 162, 170, .9); border-right: 1px solid rgba(105, 162, 170, .9); z-index: 7; }
+    .card--v9 .c9f-bl { bottom: 8px; left: 8px; width: 9px; height: 9px; border-bottom: 1px solid rgba(105, 162, 170, .9); border-left: 1px solid rgba(105, 162, 170, .9); z-index: 7; }
+    .card--v9 .c9f-br { bottom: 8px; right: 8px; width: 9px; height: 9px; border-bottom: 1px solid rgba(105, 162, 170, .9); border-right: 1px solid rgba(105, 162, 170, .9); z-index: 7; }
+
+    /* ---------- 10 type: letterpress rules + crop marks ---------- */
+    .card--v10 .pvc-shot { inset: 16px; border-radius: 0; border: 1px solid #c9c8c0; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .85), 0 1px 0 rgba(32, 35, 31, .12); }
+    .card--v10 .c10-v { top: -4px; left: 18px; font-size: 54px; z-index: 6; }
+    .card--v10 .c10-ghost { top: 0; left: 22px; font-size: 54px; z-index: 5; }
+    .card--v10 .c10-rule { left: 18px; bottom: 8px; width: 40%; height: 2px; z-index: 6; }
+    .card--v10 .c10-label { right: 16px; bottom: 8px; z-index: 6; }
+    .card--v10 .c10f-crop { width: 9px; height: 9px; z-index: 7; }
+    .card--v10 .c10f-crop.tl { top: 5px; left: 5px; border-top: 1.5px solid rgba(32, 35, 31, .55); border-left: 1.5px solid rgba(32, 35, 31, .55); }
+    .card--v10 .c10f-crop.tr { top: 5px; right: 5px; border-top: 1.5px solid rgba(32, 35, 31, .55); border-right: 1.5px solid rgba(32, 35, 31, .55); }
+    .card--v10 .c10f-crop.bl { bottom: 5px; left: 5px; border-bottom: 1.5px solid rgba(32, 35, 31, .55); border-left: 1.5px solid rgba(32, 35, 31, .55); }
+    .card--v10 .c10f-crop.br { bottom: 5px; right: 5px; border-bottom: 1.5px solid rgba(32, 35, 31, .55); border-right: 1.5px solid rgba(32, 35, 31, .55); }
+
+    /* ---------- 11 horizon: accretion rim behind + arc rail ---------- */
+    .card--v11 .pvc-shot { inset: 16px; border-radius: 2px; border: 1px solid rgba(74, 56, 38, .85); box-shadow: 0 0 24px rgba(197, 138, 97, .14); }
+    .card--v11 .c11-ring { left: 50%; top: 50%; width: 230px; height: 230px; margin: -115px 0 0 -115px; opacity: .8; z-index: 1; }
+    .card--v11 .c11-core { left: 50%; top: 50%; width: 42px; height: 42px; margin: -21px 0 0 -21px; z-index: 1; }
+    .card--v11 .c11-dust { right: 22%; top: 30%; z-index: 5; }
+    .card--v11 .c11-label { right: 16px; bottom: 8px; z-index: 6; }
+    .card--v11 .c11f-arc { top: 5px; left: 12%; right: 12%; height: 7px; border-radius: 50% / 100%; background: linear-gradient(90deg, transparent, rgba(242, 181, 107, .8) 38%, rgba(197, 138, 97, .3) 62%, transparent); z-index: 7; }
+
+    /* ---------- 12 mycelia: hypha thread + corner bloom ---------- */
+    .card--v12 .pvc-shot { inset: 16px; border-radius: 4px; border: 1px solid rgba(46, 74, 58, .95); box-shadow: 0 0 16px rgba(13, 23, 16, .8); }
+    .card--v12 .c12-net { inset: 0; opacity: .5; z-index: 1; }
+    .card--v12 .c12-node { left: 13px; top: 9px; width: 6px; height: 6px; z-index: 6; }
+    .card--v12 .c12-fruit { right: 22px; bottom: 16px; width: 4px; height: 12px; z-index: 6; }
+    .card--v12 .c12-cap { right: calc(22px - 10px); bottom: calc(16px + 12px); width: 17px; height: 9px; z-index: 6; }
+    .card--v12 .c12f-thread { top: 0; left: 0; right: 0; height: 10px; border-top: 1.5px solid rgba(116, 164, 106, .55); border-radius: 50%; z-index: 5; }
+    .card--v12 .c12-label { left: 14px; bottom: 8px; z-index: 6; background: rgba(18, 30, 22, .85); color: #cfe8c8;
+      padding: 2px 5px 1px; font-size: 8px; letter-spacing: .18em; border-left: 2px solid rgba(150, 205, 130, .7); }
+
+    /* ---------- 13 origami: folded mat + dog-ear + gold seal ---------- */
+    .card--v13 .c13-fold {
+      inset: 7px;
+      clip-path: none;
+      border-radius: 2px;
+      background: linear-gradient(128deg, #fdf8ee 0%, #eeddb6 52%, #c7a974 100%);
+      filter: drop-shadow(4px 6px 8px rgba(139, 99, 64, .3));
+      transform: rotate(-1deg);
+      z-index: 3;
+    }
+    .card--v13 .pvc-shot { inset: 17px; border-radius: 2px; border: 1px solid rgba(216, 191, 150, .95); box-shadow: inset 0 1px 0 rgba(253, 248, 238, .7); }
+    .card--v13 .c13f-corner { top: 17px; right: 17px; width: 26px; height: 26px; background: linear-gradient(225deg, #fdf8ee 0%, #d9bc85 58%, #9b733a 100%); clip-path: polygon(100% 0, 100% 100%, 0 0); box-shadow: 3px 3px 5px rgba(139, 99, 64, .28); z-index: 7; }
+    .card--v13 .c13-crease-a { left: 12px; top: 42%; width: 32%; transform: rotate(-18deg); z-index: 5; }
+    .card--v13 .c13-crease-b { right: 12px; bottom: 34%; left: auto; top: auto; width: 28%; transform: rotate(14deg); z-index: 5; }
+    .card--v13 .c13-disc { right: 14px; bottom: 12px; top: auto; width: 27px; height: 27px; z-index: 6; }
+    .card--v13 .c13-glint { right: 14px; bottom: 12px; top: auto; width: 27px; height: 27px; z-index: 6; }
+    .card--v13 .c13-label { left: 14px; bottom: 8px; z-index: 6; }
+
+    /* ---------- 14 signal: static over shot + twin waveform rails ---------- */
+    .card--v14 .pvc-shot { inset: 16px; border-radius: 2px; border: 1px solid rgba(47, 69, 80, .95); box-shadow: 0 0 14px rgba(94, 128, 144, .15); }
+    .card--v14 .c14-static { inset: 16px; opacity: .38; z-index: 5; transition: opacity .3s var(--ease); }
+    .card--v14 .c14-wave { left: 16px; right: 16px; bottom: 2px; width: auto; height: 22px; opacity: .9; z-index: 6; }
+    .card--v14 .c14f-rail { top: 2px; left: 16px; right: 16px; height: 9px; background: repeating-linear-gradient(90deg, rgba(207, 108, 85, .6) 0 2px, transparent 2px 5px, rgba(118, 147, 162, .5) 5px 7px, transparent 7px 11px); clip-path: polygon(0 30%, 6% 62%, 12% 22%, 20% 70%, 30% 18%, 42% 66%, 52% 30%, 64% 74%, 76% 20%, 88% 60%, 100% 26%, 100% 100%, 0 100%); z-index: 6; }
+
+    /* ---------- entrance boot: one-shot on reveal, per family ---------- */
+    @media (prefers-reduced-motion: no-preference) {
+      .card.rv.in .stage { animation-duration: .95s; animation-timing-function: var(--ease); animation-fill-mode: backwards; animation-delay: calc(var(--i, 0) * 40ms); }
+      .card.rv.in[data-f="light"] .stage { animation-name: pvc-boot-light; }
+      .card.rv.in[data-f="dark"] .stage { animation-name: pvc-boot-dark; }
+      .card.rv.in[data-f="3d"] .stage { animation-name: pvc-boot-3d; }
+      .grid > a.rv.in[data-f="motion"]:nth-child(odd) .stage { animation-name: pvc-boot-motion-l; }
+      .grid > a.rv.in[data-f="motion"]:nth-child(even) .stage { animation-name: pvc-boot-motion-r; }
+      @keyframes pvc-boot-light { 0% { opacity: 0; transform: translateY(16px) scale(1.03); } 62% { opacity: 1; transform: translateY(-2px) scale(1); } 100% { opacity: 1; transform: none; } }
+      @keyframes pvc-boot-dark { 0% { opacity: 0; clip-path: inset(0 0 100% 0); filter: brightness(1.7); } 60% { opacity: 1; filter: brightness(1); } 100% { opacity: 1; clip-path: inset(0 0 0 0); } }
+      @keyframes pvc-boot-motion-l { 0% { opacity: 0; transform: translateX(-36px) rotate(-.8deg); } 65% { opacity: 1; transform: translateX(3px) rotate(.3deg); } 100% { opacity: 1; transform: none; } }
+      @keyframes pvc-boot-motion-r { 0% { opacity: 0; transform: translateX(36px) rotate(.8deg); } 65% { opacity: 1; transform: translateX(-3px) rotate(-.3deg); } 100% { opacity: 1; transform: none; } }
+      @keyframes pvc-boot-3d { 0% { opacity: 0; transform: scale(.9) translateY(10px); filter: brightness(1.45); } 70% { opacity: 1; transform: scale(1.02); filter: brightness(1); } 100% { opacity: 1; transform: none; } }
+      /* signature parts: each card powers on with its own accent */
+      .card--v1.rv.in .c1-stamp { animation: pvc-stamp .45s cubic-bezier(.2, 1.6, .4, 1) both; animation-delay: calc(var(--i, 0) * 40ms + 320ms); }
+      .card--v2.rv.in .c2f-tl { animation: pvc-snap .45s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 300ms); }
+      .card--v2.rv.in .c2f-tr { animation: pvc-snap .45s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 340ms); }
+      .card--v2.rv.in .c2f-bl { animation: pvc-snap .45s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 380ms); }
+      .card--v2.rv.in .c2f-br { animation: pvc-snap .45s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 420ms); }
+      .card--v3.rv.in .c3f-knot { animation: pvc-pop .45s cubic-bezier(.2, 1.6, .4, 1) both; animation-delay: calc(var(--i, 0) * 40ms + 300ms); }
+      .card--v4.rv.in .c4-letters { animation: pvc-slam .55s cubic-bezier(.2, 1.4, .4, 1) both; animation-delay: calc(var(--i, 0) * 40ms + 280ms); }
+      .card--v4.rv.in .c4-cursor { animation: pvc-slam .55s cubic-bezier(.2, 1.4, .4, 1) both; animation-delay: calc(var(--i, 0) * 40ms + 320ms); }
+      .card--v5.rv.in .c5-orb { animation: pvc-drop .6s cubic-bezier(.2, 1.5, .4, 1) both; animation-delay: calc(var(--i, 0) * 40ms + 300ms); }
+      .card--v6.rv.in .c6f-margin { animation: pvc-draw .7s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 320ms); }
+      .card--v7.rv.in .c7-c1 { animation: pvc-pop .5s cubic-bezier(.2, 1.6, .4, 1) both; animation-delay: calc(var(--i, 0) * 40ms + 300ms); }
+      .card--v8.rv.in .c8f-ticks { animation: pvc-tick .6s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 320ms); }
+      .card--v9.rv.in .c9f-tl { animation: pvc-snap .4s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 300ms); }
+      .card--v9.rv.in .c9f-tr { animation: pvc-snap .4s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 340ms); }
+      .card--v9.rv.in .c9f-bl { animation: pvc-snap .4s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 380ms); }
+      .card--v9.rv.in .c9f-br { animation: pvc-snap .4s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 420ms); }
+      .card--v10.rv.in .c10-v { animation: pvc-slam .55s cubic-bezier(.2, 1.4, .4, 1) both; animation-delay: calc(var(--i, 0) * 40ms + 280ms); }
+      .card--v11.rv.in .c11f-arc { animation: pvc-glow .8s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 320ms); }
+      .card--v12.rv.in .c12-node { animation: pvc-bloom .6s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 320ms); }
+      .card--v13.rv.in .c13f-corner { animation: pvc-fold .6s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 340ms); }
+      .card--v14.rv.in .c14-static { animation: pvc-flicker .5s steps(4) both; animation-delay: calc(var(--i, 0) * 40ms + 300ms); }
+      @keyframes pvc-stamp { 0% { transform: scale(.3) rotate(8deg); opacity: 0; } 70% { transform: scale(1.15) rotate(-5deg); opacity: 1; } 100% { transform: scale(1) rotate(-5deg); } }
+      @keyframes pvc-snap { 0% { transform: scale(0); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
+      @keyframes pvc-pop { 0% { transform: scale(0) rotate(45deg); } 70% { transform: scale(1.2) rotate(45deg); } 100% { transform: scale(1) rotate(45deg); } }
+      @keyframes pvc-slam { 0% { transform: translateY(-14px); opacity: 0; } 60% { transform: translateY(1px); opacity: 1; } 100% { transform: translateY(0); } }
+      @keyframes pvc-drop { 0% { transform: translateY(-16px); opacity: 0; } 70% { transform: translateY(1px); opacity: 1; } 100% { transform: translateY(0); } }
+      @keyframes pvc-draw { 0% { transform: scaleY(0); } 100% { transform: scaleY(1); } }
+      @keyframes pvc-tick { 0% { opacity: 0; transform: translateY(6px); } 100% { opacity: 1; transform: translateY(0); } }
+      @keyframes pvc-glow { 0% { opacity: 0; transform: scaleX(.4); } 60% { opacity: 1; } 100% { opacity: .9; transform: scaleX(1); } }
+      @keyframes pvc-bloom { 0% { transform: scale(.2); opacity: 0; } 70% { transform: scale(1.4); opacity: 1; } 100% { transform: scale(1); } }
+      @keyframes pvc-fold { 0% { transform: scale(.2); opacity: 0; } 70% { transform: scale(1.12); opacity: 1; } 100% { transform: scale(1); } }
+      @keyframes pvc-flicker { 0% { opacity: 0; } 30% { opacity: .65; } 60% { opacity: .2; } 100% { opacity: .38; } }
+    }
+
+    /* ---------- hover character: tilt, ken burns, themed sweep, brighten ---------- */
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+      .card .stage {
+        transform: perspective(760px) rotateX(var(--pvc-rx, 0deg)) rotateY(var(--pvc-ry, 0deg)) scale(1.015);
+        transition: transform .5s var(--ease);
+        will-change: transform;
+      }
+      .card:hover .stage { transition: transform .12s ease-out; }
+      .card:hover .pvc-shot { filter: saturate(1.03) contrast(1.02); }
+      .card.pvc-booting .pvc-shot { animation: pvc-kb 12s ease-out both; }
+      .card.pvc-on .pvc-shot { animation: none; filter: saturate(1.03) contrast(1.02); }
+      .card:hover .pvc-open { opacity: 1; transform: translateY(0); }
+      .card:hover .badge { background: var(--m2, var(--accent)); transform: scale(1.07); box-shadow: 0 4px 14px -4px rgba(0, 0, 0, .3); }
+      .card:hover h2 { color: var(--m2, var(--accent)); }
+      .card:hover .meta { color: var(--m2, var(--accent)); }
+      @keyframes pvc-kb { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.1) translate(-1.2%, -.8%); } }
+      /* themed sweeps — every card's own gesture */
+      .card:hover .pvc-fx { opacity: 1; animation-duration: 1.15s; animation-timing-function: var(--ease); }
+      .card--v1:hover .pvc-fx { background: linear-gradient(100deg, transparent 32%, rgba(255, 241, 205, .55) 46%, rgba(255, 241, 205, .12) 54%, transparent 68%); animation-name: pvc-sweep-v1; }
+      .card--v2:hover .pvc-fx { top: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(244, 233, 201, .85), transparent); animation-name: pvc-sweep-v2; }
+      .card--v3:hover .pvc-fx { top: 40%; height: 2px; background: linear-gradient(90deg, transparent, rgba(198, 129, 112, .9) 40%, rgba(140, 107, 157, .65) 60%, transparent); animation-name: pvc-sweep-v3; }
+      .card--v4:hover .pvc-fx { top: 0; height: 26px; background: rgba(34, 40, 29, .85); border-left: 4px solid #d35e42; animation-name: pvc-sweep-v4; animation-timing-function: steps(7); }
+      .card--v5:hover .pvc-fx { top: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .95), transparent); filter: blur(.4px); animation-name: pvc-sweep-v5; }
+      .card--v6:hover .pvc-fx { bottom: 12px; left: 17px; right: 17px; top: auto; height: 2px; background: rgba(187, 115, 84, .8); transform-origin: left; animation-name: pvc-sweep-v6; }
+      .card--v7:hover .pvc-fx { top: 0; height: 10px; background: linear-gradient(90deg, #78a6b7 0 22%, #d2bb68 22% 47%, #cf735d 47% 74%, #2c3a30 74% 100%); animation-name: pvc-sweep-v7; animation-timing-function: steps(4); }
+      .card--v8:hover .pvc-fx { right: 18px; bottom: 14px; left: auto; top: auto; width: 46px; height: 46px; border: 1px solid rgba(111, 145, 197, .9); border-radius: 50%; box-shadow: 0 0 14px rgba(111, 145, 197, .5); animation-name: pvc-sweep-v8; }
+      .card--v9:hover .pvc-fx { top: -40px; height: 34px; background: repeating-linear-gradient(180deg, rgba(179, 216, 208, .5) 0 2px, transparent 2px 5px); border-top: 1px solid rgba(179, 216, 208, .55); border-bottom: 1px solid rgba(179, 216, 208, .55); animation-name: pvc-sweep-v9; }
+      .card--v10:hover .pvc-fx { top: 0; height: 14px; background: repeating-linear-gradient(90deg, transparent 0 13px, rgba(32, 35, 31, .3) 13px 14px); border-bottom: 1px solid rgba(32, 35, 31, .35); animation-name: pvc-sweep-v10; }
+      .card--v11:hover .pvc-fx { top: 0; left: 10%; right: 10%; height: 6px; background: linear-gradient(90deg, transparent, rgba(242, 181, 107, .85) 40%, rgba(197, 138, 97, .3) 60%, transparent); border-radius: 50%; animation-name: pvc-sweep-v11; }
+      .card--v12:hover .pvc-fx { left: 10px; top: 8px; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, rgba(116, 164, 106, .55), transparent 65%); animation-name: pvc-sweep-v12; }
+      .card--v13:hover .pvc-fx { top: 0; height: 3px; background: linear-gradient(90deg, transparent 42%, rgba(253, 248, 238, .95) 50%, rgba(199, 169, 116, .6) 53%, transparent 62%); animation-name: pvc-sweep-v13; }
+      .card--v14:hover .pvc-fx { inset: 16px; background: repeating-linear-gradient(90deg, rgba(220, 231, 236, .22) 0 2px, transparent 2px 6px); animation-name: pvc-sweep-v14; }
+      @keyframes pvc-sweep-v1 { from { transform: translateX(-46%) skewX(-8deg); } to { transform: translateX(46%) skewX(-8deg); } }
+      @keyframes pvc-sweep-v2 { from { transform: translateY(-4px); } to { transform: translateY(calc(100% + 6px)); } }
+      @keyframes pvc-sweep-v3 { from { transform: translateX(-50%) rotate(-7deg); opacity: 0; } 25% { opacity: 1; } to { transform: translateX(50%) rotate(-7deg); opacity: 0; } }
+      @keyframes pvc-sweep-v4 { from { transform: translateY(-28px); } to { transform: translateY(calc(100% + 30px)); } }
+      @keyframes pvc-sweep-v5 { from { transform: translateX(-60%) skewX(-18deg); opacity: 0; } 25% { opacity: 1; } to { transform: translateX(60%) skewX(-18deg); opacity: 0; } }
+      @keyframes pvc-sweep-v6 { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+      @keyframes pvc-sweep-v7 { from { transform: translateY(-12px); } to { transform: translateY(calc(100% + 12px)); } }
+      @keyframes pvc-sweep-v8 { from { transform: scale(0); opacity: .9; } to { transform: scale(1.7); opacity: 0; } }
+      @keyframes pvc-sweep-v9 { from { transform: translateY(0); } to { transform: translateY(calc(100% + 80px)); } }
+      @keyframes pvc-sweep-v10 { from { transform: translateY(-16px); } to { transform: translateY(calc(100% + 16px)); } }
+      @keyframes pvc-sweep-v11 { from { transform: translateY(-10px); opacity: 0; } 20% { opacity: 1; } to { transform: translateY(calc(100% + 10px)); opacity: 0; } }
+      @keyframes pvc-sweep-v12 { from { transform: scale(.2); opacity: 0; } 30% { opacity: .9; } to { transform: scale(2.4); opacity: 0; } }
+      @keyframes pvc-sweep-v13 { from { transform: translateX(-42%) rotate(-14deg); opacity: 0; } 25% { opacity: 1; } to { transform: translateX(42%) rotate(-14deg); opacity: 0; } }
+      @keyframes pvc-sweep-v14 { from { opacity: 0; } 30% { opacity: .8; } to { opacity: 0; } }
+      /* per-card hover beats */
+      .card--v1:hover .c1-stamp { color: #3c4a45; box-shadow: 2px 3px 0 rgba(194, 107, 77, .4); }
+      .card--v2:hover .c2f-tl, .card--v2:hover .c2f-tr, .card--v2:hover .c2f-bl, .card--v2:hover .c2f-br { border-color: rgba(244, 233, 201, .95); }
+      .card--v3:hover .c3f-knot { box-shadow: 0 0 12px rgba(198, 129, 112, 1); }
+      .card--v6:hover .c6f-margin { background: rgba(187, 115, 84, 1); }
+      .card--v8:hover .c8f-ticks { opacity: 1; }
+      .card--v9:hover .c9f-tl, .card--v9:hover .c9f-tr, .card--v9:hover .c9f-bl, .card--v9:hover .c9f-br { border-color: rgba(179, 216, 208, .95); }
+      .card--v10:hover .c10-rule { width: 58%; }
+      .card--v11:hover .c11f-arc { filter: drop-shadow(0 0 6px rgba(242, 181, 107, .9)); }
+      .card--v12:hover .c12f-thread { border-color: rgba(116, 164, 106, .95); }
+      .card--v13:hover .c13f-corner { filter: brightness(1.14); }
+      .card--v14:hover .c14-wave { transform: scaleY(1.65); transform-origin: bottom; transition: transform .4s var(--ease); }
+      .card--v14:hover .c14-static { opacity: .6; }
+    }
+
+    /* keyboard focus: OPEN affordance visible without a pointer */
+    .card:focus-visible .pvc-open { opacity: 1; transform: translateY(0); }
+
+    /* coarse pointers: frames + shots only, no preview affordance */
+    @media (pointer: coarse) {
+      .pvc-open { display: none; }
+    }
+
+    @media print {
+      .pvc-shot { filter: none !important; }
+      .pvc-live { display: none !important; }
+    }
+
+    /* ---- polish pass 1: v1 stamp, v3 loom, v7 voxel, v4 chip, v8 depth, v14 rail ---- */
+    .card--v1 .c1-stamp { right: 15px; bottom: 6px; padding: 3px 6px 2px; font-size: 7px; letter-spacing: .16em; background: #fbf6ea; box-shadow: 2px 3px 0 rgba(194, 107, 77, .3), 0 1px 6px rgba(120, 105, 80, .2); transform: rotate(-8deg); }
+    .card--v1 .c1-photo { box-shadow: 0 12px 24px -12px rgba(120, 105, 80, .5); }
+    .card--v1 .c1-scribble { background: rgba(244, 231, 199, .85); box-shadow: 0 1px 2px rgba(120, 105, 80, .25); opacity: 0; }
+    .card--v3 .stage { background: linear-gradient(138deg, #dde9ec 0%, #f2e4e8 58%, #efe6d9 100%); }
+    .card--v3 .pvc-shot { box-shadow: 0 0 26px rgba(125, 156, 113, .38), inset 0 0 16px rgba(198, 129, 112, .1); }
+    .card--v3 .c3-strand { top: 0; left: 0; width: 150px; height: 76px; border-width: 2px; border-color: rgba(125, 156, 113, .95); opacity: .95; }
+    .card--v3 .c3-weft { top: 0; right: -14px; width: 142px; height: 86px; border-width: 2px; border-color: rgba(198, 129, 112, .95); opacity: .95; }
+    .card--v3 .c3-warp { bottom: -10px; left: 24px; width: 172px; height: 76px; border-width: 2px; border-color: rgba(140, 107, 157, .85); opacity: .9; }
+    .card--v3 .c3-blob { opacity: .65; }
+    .card--v3 .c3f-knot { right: 12px; top: 10px; width: 9px; height: 9px; box-shadow: 0 0 12px rgba(198, 129, 112, 1), 0 0 3px rgba(198, 129, 112, .9); }
+    .card--v3 .c3-label { color: #4f5840; letter-spacing: .2em; }
+    .card--v7 .c7-isle { height: 16px; background: #2c3a30; clip-path: polygon(0 100%, 0 55%, 7% 55%, 7% 28%, 15% 28%, 15% 55%, 33% 55%, 33% 16%, 41% 16%, 41% 55%, 59% 55%, 59% 38%, 69% 38%, 69% 55%, 87% 55%, 87% 24%, 95% 24%, 95% 55%, 100% 55%, 100% 100%); }
+    .card--v7 .pvc-shot { box-shadow: 0 0 0 3px rgba(210, 187, 104, .72), inset 0 0 0 2px rgba(255, 255, 255, .14); }
+    .card--v7 .c7f-px { width: 7px; height: 7px; box-shadow: 0 0 0 1px rgba(44, 58, 48, .35); }
+    .card--v7 .c7f-px.p1 { top: 7px; left: 7px; background: #78a6b7; }
+    .card--v7 .c7f-px.p2 { top: 7px; right: 7px; background: #cf735d; }
+    .card--v7 .c7f-px.p3 { bottom: 7px; left: 7px; background: #d2bb68; }
+    .card--v7 .c7f-px.p4 { bottom: 7px; right: 7px; background: #2c3a30; }
+    .card--v7 .c7-label { left: 12px; bottom: 2px; font-size: 8px; color: #4a5a4c; letter-spacing: .24em; }
+    .card--v7 .c7-c1 { top: 7px; left: 12px; }
+    .card--v7 .c7-c2 { top: 24px; left: 7px; }
+    .card--v7 .c7-c3 { bottom: 20px; right: 9px; }
+    .card--v4 .c4-letters { top: 10px; left: 16px; font-size: 16px; letter-spacing: .04em; background: #1d2219; color: #eef2dc; padding: 3px 6px 2px; box-shadow: 2px 2px 0 rgba(34, 40, 29, .85); }
+    .card--v4 .c4-cursor { top: 13px; left: 64px; height: 14px; }
+    .card--v8 .c8-depth { left: 18px; bottom: 6px; font-size: 8px; letter-spacing: .08em; opacity: .78; }
+    /* ---- polish pass 3: v3 woven field, v7 sky field ---- */
+    .card--v3 .stage { background: linear-gradient(138deg, #dde9ec 0%, #f2e4e8 58%, #efe6d9 100%), repeating-linear-gradient(45deg, rgba(125, 156, 113, .07) 0 2px, transparent 2px 6px); }
+    .card--v3 .c3-weft { width: 0; background: none; }
+    .card--v3 .c3-warp { width: 0; background: none; }
+    .card--v3 .c3-strand { bottom: 4px; }
+    .card--v7 .stage { background: linear-gradient(180deg, #d9e4ea 0%, #eee6d3 100%); }
+    .card--v7 .c7f-px.p1 { top: 12px; left: 12px; }
+    .card--v7 .c7f-px.p2 { top: 12px; right: 12px; }
+    .card--v7 .c7f-px.p3 { bottom: 12px; left: 12px; }
+    .card--v7 .c7f-px.p4 { bottom: 12px; right: 12px; }
+    .card--v7 .c7-c1 { top: 14px; left: 18px; }
+    .card--v7 .c7-c2 { top: 34px; left: 13px; }
+    .card--v7 .c7-c3 { bottom: 26px; right: 15px; }
+    /* ---- polish pass 4: neutralize legacy shadow trails (v3 threads, v7 isle/cubes) ---- */
+    .card--v3 .c3-strand { top: auto; left: 12px; right: 12px; bottom: 4px; width: auto; height: 0; border: 0; border-top: 1.5px solid rgba(198, 129, 112, .8); border-radius: 0; box-shadow: none; transform: none; z-index: 6; }
+    .card--v3 .c3-weft, .card--v3 .c3-warp { width: 0; height: 0; border: 0; border-radius: 0; box-shadow: none; background: none; transform: none; opacity: 0; }
+    .card--v7 .c7-isle { box-shadow: none; }
+    .card--v7 .c7-c1, .card--v7 .c7-c2, .card--v7 .c7-c3 { box-shadow: none; }
+    /* ---- polish pass 5: v3/v7 artifact panels (contained screenshot on themed field) ---- */
+    .card--v3 .pvc-shot, .card--v7 .pvc-shot { left: 50%; right: auto; width: auto; transform: translateX(-50%); object-fit: contain; }
+    .card--v3 .pvc-live, .card--v7 .pvc-live { left: 50%; right: auto; width: auto; }
+    .card--v3.pvc-booting .pvc-shot, .card--v7.pvc-booting .pvc-shot { animation: none; }
+    .card--v3 .pvc-shot { border: 1px solid rgba(125, 156, 113, .5); }
+    .card--v14 .c14-static { opacity: .5; }
+    .card--v14 .c14-wave { height: 26px; }
+    .card--v14 .c14f-rail { top: 2px; left: 14px; right: 14px; height: 12px; opacity: .95; }
+    .card--v14 .c14-stamp { left: 14px; top: 6px; font-size: 8px; }
+    .card--v14 .c14-freq { right: 14px; bottom: 5px; font-size: 8px; }
+    /* ---- polish pass 6: final-look upgrades ---- */
+    .card--v1 .c1-stamp { right: 14px; bottom: 8px; padding: 4px 7px 3px; font-size: 7px; transform: rotate(-9deg); }
+    .card--v2 .c2f-tl, .card--v2 .c2f-tr, .card--v2 .c2f-bl, .card--v2 .c2f-br { border-width: 2px; border-color: rgba(140, 162, 200, .95); width: 17px; height: 17px; }
+    .card--v2 .c2-label { color: #aab6cc; letter-spacing: .22em; }
+    .card--v2 .pvc-shot { border-color: rgba(120, 142, 180, .75); }
+    .card--v4 .c4-label { background: #1d2219; color: #eef2dc; padding: 2px 5px 1px; letter-spacing: .28em; box-shadow: 2px 2px 0 rgba(34, 40, 29, .85); }
+    .card--v4 .c4f-bolt { width: 6px; height: 6px; }
+    .card--v7 .c7-label { color: #37453a; font-size: 9px; }
+    .card--v9 .pvc-shot { border-color: rgba(105, 162, 170, .8); box-shadow: 0 0 18px rgba(105, 162, 170, .3); }
+    .card--v9 .c9-serial { color: #8fc3c8; }
+    .card--v9 .c9f-tl, .card--v9 .c9f-tr, .card--v9 .c9f-bl, .card--v9 .c9f-br { border-color: rgba(143, 195, 200, 1); }
+    .card--v12 .c12-net { opacity: .65; }
+    .card--v12 .c12-node { box-shadow: 0 0 10px rgba(116, 164, 106, .9); }
+    .card--v13 .pvc-shot { border-color: rgba(199, 169, 116, .95); }
+    .card--v13 .c13f-corner { width: 30px; height: 30px; }
+    .card--v13 .c13-crease-a, .card--v13 .c13-crease-b { opacity: .3; }
+    .card--v14 .c14f-rail { height: 14px; }
+    .card--v14 .c14-stamp { color: #cfe3e8; }
+    /* ---- polish pass 7: v1 stamp to gutter, v6 route to gutter, v8 depth bright, v3 selvedge ---- */
+    .card--v1 .c1-stamp { top: 12px; right: 18px; bottom: auto; }
+    .card--v6 .c6-route { left: 12px; right: 12px; width: auto; bottom: 3px; top: auto; height: 0; transform: none; border-top: 1px dashed rgba(187, 115, 84, .55); }
+    .card--v8 .c8-depth { opacity: 1; color: #9fc0d8; }
+    .card--v3 .c3-weft, .card--v3 .c3-warp { width: 2px; height: auto; top: 26px; bottom: 26px; opacity: 0; }
+    .card--v3 .c3-weft { left: 0; right: auto; background: repeating-linear-gradient(180deg, rgba(125, 156, 113, .75) 0 1px, transparent 1px 7px); }
+    .card--v3 .c3-warp { right: 0; left: auto; background: repeating-linear-gradient(180deg, rgba(140, 107, 157, .7) 0 1px, transparent 1px 7px); }
+    /* ---- polish pass 8: legibility chips (v7 label, v8 depth), v4 window shift ---- */
+    .card--v7 .c7-label { background: #2c3a30; color: #f3edd8; padding: 2px 5px 1px; font-size: 8px; letter-spacing: .22em; bottom: 4px; left: 12px; }
+    .card--v8 .c8-depth { background: rgba(18, 38, 52, .88); color: #a8c8de; padding: 2px 5px 1px; font-size: 8px; letter-spacing: .1em; border-left: 2px solid #6f91c5; bottom: 5px; left: 18px; }
+    .card--v4 .pvc-shot { object-position: 50% 28%; }
+    /* ---- polish pass 9: v4 window, v6 furniture, v9 window ---- */
+    .card--v4 .pvc-shot { object-position: 50% 35%; }
+    .card--v6 .c6-label { left: 12px; top: auto; right: auto; bottom: 8px; font-size: 8px; letter-spacing: .14em; opacity: .8; }
+    .card--v6 .c6-leaf { right: 14px; top: auto; left: auto; bottom: 30px; }
+    .card--v6 .c6-pin { right: 22px; top: auto; left: auto; bottom: 44px; }
+    .card--v9 .pvc-shot { object-position: 50% 20%; }
+    /* ---- polish pass 10: v7 sky diorama ---- */
+    .card--v7 .c7-sun { position: absolute; top: 9px; right: 36px; width: 24px; height: 24px; border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, rgba(255, 240, 190, .95), rgba(255, 226, 150, .45) 60%, rgba(255, 226, 150, 0) 72%);
+      box-shadow: 0 0 18px 6px rgba(255, 226, 150, .28); z-index: 3; }
+    .card--v7 .c7-cloud { position: absolute; z-index: 3; background: rgba(255, 255, 255, .55);
+      border-radius: 999px; height: 7px; }
+    .card--v7 .c7-cloud::before, .card--v7 .c7-cloud::after { content: ""; position: absolute; background: inherit; border-radius: 50%; }
+    .card--v7 .c7-cloud::before { width: 12px; height: 12px; top: -6px; left: 7px; }
+    .card--v7 .c7-cloud::after { width: 9px; height: 9px; top: -4px; left: 20px; }
+    .card--v7 .c7-cloud.c7-a { width: 34px; top: 14px; left: 46px; opacity: .8; }
+    .card--v7 .c7-cloud.c7-b { width: 26px; top: 21px; left: 108px; opacity: .55; }
+    .card--v7 .c7-cloud.c7-c { width: 22px; top: 8px; right: 104px; opacity: .45; }
+    .card--v7 .c7-tree { position: absolute; z-index: 3; background: #2e4434; bottom: 6px;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+    .card--v7 .c7-tree.c7-t1 { width: 12px; height: 15px; left: 30px; }
+    .card--v7 .c7-tree.c7-t2 { width: 9px; height: 11px; left: 48px; bottom: 5px; }
+    .card--v7 .c7-tree.c7-t3 { width: 10px; height: 13px; right: 34px; }
+    .card--v7 .c7-tree.c7-t4 { width: 7px; height: 9px; right: 20px; bottom: 5px; }
+    .card--v7 .c7-ground { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 16px;
+      background: linear-gradient(180deg, rgba(64, 84, 66, .92), rgba(44, 60, 48, .98)); }
+    /* ---- polish pass 11: frame-dominance boosts (v3 loom, v5 glass, v11 dust, v12 spores) ---- */
+    .card--v3 .c3-shuttle { position: absolute; z-index: 7; left: 44%; bottom: 12px; width: 32px; height: 10px;
+      background: linear-gradient(90deg, #a9745a, #dcab84 45%, #8a5a43); border-radius: 2px;
+      clip-path: polygon(4% 50%, 30% 0, 100% 0, 100% 100%, 30% 100%, 4% 50%);
+      box-shadow: 0 2px 4px rgba(90, 60, 40, .35); }
+    .card--v5 .pvc-shot { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .30), inset 0 1px 0 rgba(255, 255, 255, .42), inset 0 -1px 0 rgba(140, 180, 215, .28); }
+    .card--v11 .c11-dust { position: absolute; z-index: 7; border-radius: 50%; background: rgba(244, 205, 150, .85); }
+    .card--v11 .c11-dust.c11-d1 { top: 15px; left: 17%; width: 3px; height: 3px; opacity: .75; }
+    .card--v11 .c11-dust.c11-d2 { top: 4px; left: 30%; width: 2px; height: 2px; opacity: .5; }
+    .card--v11 .c11-dust.c11-d3 { top: 13px; right: 21%; width: 3px; height: 3px; opacity: .65; }
+    .card--v11 .c11-dust.c11-d4 { top: 6px; right: 33%; width: 2px; height: 2px; opacity: .45; }
+    .card--v12 .c12-spore { position: absolute; z-index: 6; border-radius: 50%; background: rgba(152, 212, 142, .6); }
+    .card--v12 .c12-spore.c12-s1 { top: 20px; right: 33%; width: 3px; height: 3px; opacity: .85; }
+    .card--v12 .c12-spore.c12-s2 { top: 28px; right: 42%; width: 2px; height: 2px; opacity: .6; }
+    .card--v12 .c12-spore.c12-s3 { top: 13px; right: 51%; width: 2px; height: 2px; opacity: .5; }
+    .card--v12 .c12-cap { box-shadow: 0 0 10px rgba(116, 164, 106, .4); }
+    .card--v12 .c12-mound { position: absolute; z-index: 5; right: 15px; bottom: 11px; width: 26px; height: 7px;
+      border-radius: 50% 50% 0 0; background: linear-gradient(180deg, rgba(74, 100, 70, .9), rgba(40, 56, 40, .95)); }
+    /* ---- polish pass 12: identity finishers (v4 plate, v6 leaf, v7 far isle, v9 REC, v12 sprout) ---- */
+    .card--v4 .c4-plate { position: absolute; z-index: 6; right: auto; left: 50%; top: 9px; bottom: auto; transform: translateX(-50%); padding: 2px 6px 1px;
+      background: rgba(29, 34, 25, .92); color: #f5f9e7; font: 8px/1.2 "JetBrains Mono", monospace;
+      letter-spacing: .18em; text-transform: uppercase; border: 1px solid rgba(245, 249, 231, .25); }
+    .card--v6 .c6-leaf2 { position: absolute; z-index: 6; left: 10px; top: 10px; width: 15px; height: 18px;
+      background: radial-gradient(ellipse at 30% 30%, rgba(180, 148, 96, .95), rgba(120, 96, 58, .9));
+      border-radius: 80% 0 80% 0; transform: rotate(-18deg); opacity: .9; }
+    .card--v7 .c7-isle2 { position: absolute; z-index: 3; left: 12px; top: 14px; width: 34px; height: 13px;
+      background: linear-gradient(180deg, rgba(150, 170, 150, .5), rgba(110, 135, 120, .42));
+      clip-path: polygon(12% 100%, 0 38%, 30% 55%, 48% 12%, 70% 48%, 100% 30%, 88% 100%);
+      transform: scale(.7); opacity: .55; }
+    .card--v9 .c9-rec { position: absolute; z-index: 6; top: 9px; left: 14px; width: 7px; height: 7px;
+      border-radius: 50%; background: #ff5a4e; box-shadow: 0 0 8px 2px rgba(255, 90, 78, .55); }
+    .card--v9 .c9-rec::after { content: ""; position: absolute; top: -2px; left: 12px; width: 30px; height: 9px;
+      border: 1px solid rgba(168, 200, 222, .4); border-left: 0; }
+    .card--v12 .c12-sprout { position: absolute; z-index: 6; left: 120px; bottom: 11px; width: 3px; height: 12px;
+      background: linear-gradient(180deg, rgba(150, 205, 130, .85), rgba(90, 140, 80, .7)); border-radius: 2px; }
+    .card--v12 .c12-sprout::before { content: ""; position: absolute; top: -3px; left: -2px; width: 7px; height: 5px;
+      background: rgba(160, 215, 140, .85); border-radius: 50% 50% 0 50%; }
+    .card--v6 .pvc-shot { object-position: 50% 22%; }
+    .card--v12 .pvc-shot { object-position: 50% 18%; }
+    /* ---- polish pass 14: theme-native redaction band (v9) ---- */
+    .card--v9 .c9-redact { position: absolute; z-index: 6;
+      left: 50%; transform: translateX(-50%); width: 68%; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      font: 7.5px/1 "JetBrains Mono", monospace; letter-spacing: .22em; text-transform: uppercase;
+      white-space: nowrap; overflow: hidden; }
+    .card--v9 .c9-redact { top: 66%; background: rgba(10, 16, 24, .94); color: #a8c8de;
+      border-top: 1px solid rgba(168, 200, 222, .35); border-bottom: 1px solid rgba(168, 200, 222, .35); }
   </style>
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -1743,7 +2246,7 @@
 
       <div id="grid" class="grid" aria-live="polite">
         <a class="card card--v1 rv" data-f="light" href="v1-light/index.html" style="--i:0">
-          <div class="stage" aria-hidden="true"><span class="c1-photo c1-print"></span><span class="c1-petal"></span><span class="c1-stamp c1-lift">POSTAGE</span><span class="c1-scribble"></span></div>
+          <div class="stage" aria-hidden="true"><span class="c1-photo c1-print"></span><span class="c1-petal"></span><span class="c1-stamp c1-lift">POSTAGE</span><span class="c1-scribble"></span><img class="pvc-shot" src="shots/v1-light.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 01 / 14</span><span>Light · Editorial</span></div>
             <h2>Sunlit Archive</h2>
@@ -1753,7 +2256,7 @@
         </a>
 
         <a class="card card--v2 rv" data-f="dark" href="v2-dark/index.html" style="--i:1">
-          <div class="stage" aria-hidden="true"><span class="c2-zenith"></span><span class="c2-nadir"></span><span class="c2-dawn"></span><span class="c2-route c2-link"></span><span class="c2-orbit"></span><span class="c2-label c2-read">COURSE PLOT</span></div>
+          <div class="stage" aria-hidden="true"><span class="c2-zenith"></span><span class="c2-nadir"></span><span class="c2-dawn"></span><span class="c2-route c2-link"></span><span class="c2-orbit"></span><span class="c2-label c2-read">COURSE PLOT</span><span class="c2f-tl"></span><span class="c2f-tr"></span><span class="c2f-bl"></span><span class="c2f-br"></span><img class="pvc-shot" src="shots/v2-dark.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 02 / 14</span><span>Dark · Cosmic</span></div>
             <h2>Midnight Index</h2>
@@ -1763,7 +2266,7 @@
         </a>
 
         <a class="card card--v3 rv" data-f="motion" href="v3-wild/index.html" style="--i:2">
-          <div class="stage" aria-hidden="true"><span class="c3-strand"></span><span class="c3-weft c3-tint"></span><span class="c3-warp"></span><span class="c3-blob c3-swell"></span><span class="c3-label">DREAM WEAVE</span></div>
+          <div class="stage" aria-hidden="true"><span class="c3-strand"></span><span class="c3-weft c3-tint"></span><span class="c3-warp"></span><span class="c3-blob c3-swell"></span><span class="c3-label">DREAM WEAVE</span><span class="c3f-knot"></span><span class="c3-thread c3-t1"></span><span class="c3-thread c3-t2"></span><span class="c3-shuttle"></span><img class="pvc-shot" src="shots/v3-wild.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 03 / 14</span><span>Wild · Fluid</span></div>
             <h2>Dream Loom</h2>
@@ -1773,7 +2276,7 @@
         </a>
 
         <a class="card card--v4 rv" data-f="motion" href="v4-brutalist/index.html" style="--i:3">
-          <div class="stage" aria-hidden="true"><span class="c4-grid"></span><span class="c4-letters c4-flip">MF</span><span class="c4-cursor"></span><span class="c4-scan"></span><span class="c4-label c4-live">LOADING</span></div>
+          <div class="stage" aria-hidden="true"><span class="c4-grid"></span><span class="c4-letters c4-flip">MF</span><span class="c4-cursor"></span><span class="c4-scan"></span><span class="c4-label c4-live">LOADING</span><span class="c4f-bolt b1"></span><span class="c4f-bolt b2"></span><span class="c4f-bolt b3"></span><span class="c4f-bolt b4"></span><span class="c4-plate">PROTO 04 / 2026</span><img class="pvc-shot" src="shots/v4-brutalist.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 04 / 14</span><span>Brutalist · Mono</span></div>
             <h2>Mono Factory</h2>
@@ -1783,7 +2286,7 @@
         </a>
 
         <a class="card card--v5 rv" data-f="3d" href="v5-glass/index.html" style="--i:4">
-          <div class="stage" aria-hidden="true"><span class="c5-prism c5-gleam"></span><span class="c5-panel c5-shine"></span><span class="c5-orb"></span><span class="c5-streak"></span></div>
+          <div class="stage" aria-hidden="true"><span class="c5-prism c5-gleam"></span><span class="c5-panel c5-shine"></span><span class="c5-orb"></span><span class="c5-streak"></span><img class="pvc-shot" src="shots/v5-glass.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 05 / 14</span><span>Glass · Luminous</span></div>
             <h2>Glass Horizon</h2>
@@ -1793,7 +2296,7 @@
         </a>
 
         <a class="card card--v6 rv" data-f="motion" href="v6-scrollstory/index.html" style="--i:5">
-          <div class="stage" aria-hidden="true"><span class="c6-paper"></span><span class="c6-route"></span><span class="c6-leaf"></span><span class="c6-pin"></span><span class="c6-label">FIELD NOTE</span></div>
+          <div class="stage" aria-hidden="true"><span class="c6-paper"></span><span class="c6-route"></span><span class="c6-leaf"></span><span class="c6-pin"></span><span class="c6-leaf2"></span><span class="c6-label">FIELD NOTE</span><span class="c6f-margin"></span><img class="pvc-shot" src="shots/v6-scrollstory.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 06 / 14</span><span>Scrollytelling · Editorial</span></div>
             <h2>The Field Journal</h2>
@@ -1803,7 +2306,7 @@
         </a>
 
         <a class="card card--v7 rv" data-f="3d" href="v7-voxel/index.html" style="--i:6">
-          <div class="stage" aria-hidden="true"><span class="c7-isle"></span><span class="c7-cube c7-c1"></span><span class="c7-cube c7-c2"></span><span class="c7-cube c7-c3"></span><span class="c7-beacon"></span><span class="c7-label">ISLAND 07</span></div>
+          <div class="stage" aria-hidden="true"><span class="c7-isle"></span><span class="c7-cube c7-c1"></span><span class="c7-cube c7-c2"></span><span class="c7-cube c7-c3"></span><span class="c7-beacon"></span><span class="c7-isle2"></span><span class="c7-label">ISLAND 07</span><span class="c7-sun"></span><span class="c7-cloud c7-a"></span><span class="c7-cloud c7-b"></span><span class="c7-cloud c7-c"></span><span class="c7-tree c7-t1"></span><span class="c7-tree c7-t2"></span><span class="c7-tree c7-t3"></span><span class="c7-tree c7-t4"></span><span class="c7-ground"></span><span class="c7f-px p1"></span><span class="c7f-px p2"></span><span class="c7f-px p3"></span><span class="c7f-px p4"></span><img class="pvc-shot" src="shots/v7-voxel.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 07 / 14</span><span>3D · Voxel</span></div>
             <h2>Voxel World</h2>
@@ -1813,7 +2316,7 @@
         </a>
 
         <a class="card card--v8 rv" data-f="dark" href="v8-abyss/index.html" style="--i:7">
-          <div class="stage" aria-hidden="true"><span class="c8-jelly"></span><span class="c8-tent"></span><span class="c8-sonar"></span><span class="c8-bub1"></span><span class="c8-bub2"></span><span class="c8-depth">-11,204 M</span></div>
+          <div class="stage" aria-hidden="true"><span class="c8-jelly"></span><span class="c8-tent"></span><span class="c8-sonar"></span><span class="c8-bub1"></span><span class="c8-bub2"></span><span class="c8-depth">-11,204 M</span><span class="c8f-ticks"></span><img class="pvc-shot" src="shots/v8-abyss.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 08 / 14</span><span>Dark · Bioluminescent</span></div>
             <h2>The Abyss</h2>
@@ -1823,7 +2326,7 @@
         </a>
 
         <a class="card card--v9 rv" data-f="dark" href="v9-ghostware/index.html" style="--i:8">
-          <div class="stage" aria-hidden="true"><span class="c9-ring"></span><span class="c9-scan"></span><span class="c9-bar1"></span><span class="c9-bar2"></span><span class="c9-bar3"></span><span class="c9-serial">ARCH-0009</span></div>
+          <div class="stage" aria-hidden="true"><span class="c9-ring"></span><span class="c9-scan"></span><span class="c9-bar1"></span><span class="c9-bar2"></span><span class="c9-bar3"></span><span class="c9-serial">ARCH-0009</span><span class="c9f-tl"></span><span class="c9f-tr"></span><span class="c9f-bl"></span><span class="c9f-br"></span><span class="c9-rec"></span><span class="c9-redact">SUBJECT RECORDS · PARTIALLY CORRUPTED</span><img class="pvc-shot" src="shots/v9-ghostware.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 09 / 14</span><span>Cyber · Hologram</span></div>
             <h2>Ghostware</h2>
@@ -1833,7 +2336,7 @@
         </a>
 
         <a class="card card--v10 rv" data-f="motion" href="v10-typevolt/index.html" style="--i:9">
-          <div class="stage" aria-hidden="true"><span class="c10-ghost">V</span><span class="c10-v">V</span><span class="c10-rule"></span><span class="c10-label">LETTER/MOTION</span></div>
+          <div class="stage" aria-hidden="true"><span class="c10-ghost">V</span><span class="c10-v">V</span><span class="c10-rule"></span><span class="c10-label">LETTER/MOTION</span><span class="c10f-crop tl"></span><span class="c10f-crop tr"></span><span class="c10f-crop bl"></span><span class="c10f-crop br"></span><img class="pvc-shot" src="shots/v10-typevolt.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 10 / 14</span><span>Editorial · Kinetic</span></div>
             <h2>Typevolt</h2>
@@ -1843,7 +2346,7 @@
         </a>
 
         <a class="card card--v11 rv" data-f="dark" href="v11-event-horizon/index.html" style="--i:10">
-          <div class="stage" aria-hidden="true"><span class="c11-ring"></span><span class="c11-core"></span><span class="c11-dust"></span><span class="c11-label">DESCENT</span></div>
+          <div class="stage" aria-hidden="true"><span class="c11-ring"></span><span class="c11-core"></span><span class="c11-dust c11-d1"></span><span class="c11-dust c11-d2"></span><span class="c11-dust c11-d3"></span><span class="c11-dust c11-d4"></span><span class="c11-label">DESCENT</span><span class="c11f-arc"></span><img class="pvc-shot" src="shots/v11-event-horizon.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 11 / 14</span><span>Dark · Cosmic</span></div>
             <h2>Event Horizon</h2>
@@ -1853,7 +2356,7 @@
         </a>
 
         <a class="card card--v12 rv" data-f="dark" href="v12-mycelium/index.html" style="--i:11">
-          <div class="stage" aria-hidden="true"><span class="c12-net"></span><span class="c12-node"></span><span class="c12-fruit"></span><span class="c12-cap"></span><span class="c12-label">GROWTH NET</span></div>
+          <div class="stage" aria-hidden="true"><span class="c12-net"></span><span class="c12-node"></span><span class="c12-fruit"></span><span class="c12-cap"></span><span class="c12-spore c12-s1"></span><span class="c12-spore c12-s2"></span><span class="c12-spore c12-s3"></span><span class="c12-mound"></span><span class="c12-sprout"></span><span class="c12-label">GROWTH NET</span><span class="c12f-thread"></span><img class="pvc-shot" src="shots/v12-mycelium.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 12 / 14</span><span>Dark · Organic</span></div>
             <h2>Mycelium</h2>
@@ -1863,7 +2366,7 @@
         </a>
 
         <a class="card card--v13 rv" data-f="light" href="v13-origami-aurum/index.html" style="--i:12">
-          <div class="stage" aria-hidden="true"><span class="c13-fold"></span><span class="c13-crease-a"></span><span class="c13-crease-b"></span><span class="c13-disc"></span><span class="c13-glint"></span><span class="c13-label">FOLD/REVEAL</span></div>
+          <div class="stage" aria-hidden="true"><span class="c13-fold"></span><span class="c13-crease-a"></span><span class="c13-crease-b"></span><span class="c13-disc"></span><span class="c13-glint"></span><span class="c13-label">FOLD/REVEAL</span><span class="c13f-corner"></span><img class="pvc-shot" src="shots/v13-origami-aurum.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 13 / 14</span><span>Light · Paper</span></div>
             <h2>Origami Aurum</h2>
@@ -1873,7 +2376,7 @@
         </a>
 
         <a class="card card--v14 rv" data-f="dark" href="v14-signal/index.html" style="--i:13">
-          <div class="stage" aria-hidden="true"><span class="badge">New</span><span class="c14-static"></span><span class="c14-wave"></span><span class="c14-stamp">[DECODED]</span><span class="c14-freq">FREQ 91.4</span></div>
+          <div class="stage" aria-hidden="true"><span class="badge">New</span><span class="c14-static"></span><span class="c14-wave"></span><span class="c14-stamp">[DECODED]</span><span class="c14-freq">FREQ 91.4</span><span class="c14f-rail"></span><img class="pvc-shot" src="shots/v14-signal.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
             <div class="meta"><span>Material 14 / 14</span><span>Dark · Radio</span></div>
             <h2>SIGNAL//DECODE</h2>
@@ -1976,6 +2479,108 @@
           g5.style.setProperty('--gy', (e.clientY - r.top) + 'px');
         });
       }
+    })();
+  </script>
+  <script>
+    // ---- hub round: live preview manager (one iframe max), tilt, io gate ----
+    (function () {
+      'use strict';
+      var FINE = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var cards = [].slice.call(document.querySelectorAll('.card--v1, .card--v2, .card--v3, .card--v4, .card--v5, .card--v6, .card--v7, .card--v8, .card--v9, .card--v10, .card--v11, .card--v12, .card--v13, .card--v14'));
+      var current = null;
+      var timer = null;
+      var io = null;
+      window.__pvcStat = { enter: 0, leave: 0, detach: 0 };
+
+      function detach(card) {
+        if (!card || !card.pvcLive) return;
+        window.__pvcStat.detach += 1;
+        card.pvcLive.src = 'about:blank';
+        if (card.pvcLive.parentNode) card.pvcLive.parentNode.removeChild(card.pvcLive);
+        card.pvcLive = null;
+        card.classList.remove('pvc-on', 'pvc-booting');
+        if (current === card) current = null;
+      }
+
+      function armDetach(card) {
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          if (current === card) detach(card);
+        }, 400);
+      }
+
+      if ('IntersectionObserver' in window) {
+        io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (!en.isIntersecting) detach(en.target);
+          });
+        }, { rootMargin: '150px 0px' });
+      }
+
+      cards.forEach(function (card) {
+        var stage = card.querySelector('.stage');
+        if (!stage) return;
+        var liveBox = stage.querySelector('.pvc-live');
+
+        if (io) io.observe(card);
+
+        // tilt: transform-only, fine pointers, motion allowed
+        if (FINE && !RM) {
+          card.addEventListener('pointermove', function (e) {
+            var r = card.getBoundingClientRect();
+            var px = (e.clientX - r.left) / r.width - 0.5;
+            var py = (e.clientY - r.top) / r.height - 0.5;
+            stage.style.setProperty('--pvc-rx', (-py * 5).toFixed(2) + 'deg');
+            stage.style.setProperty('--pvc-ry', (px * 6).toFixed(2) + 'deg');
+          });
+          card.addEventListener('pointerleave', function () {
+            stage.style.setProperty('--pvc-rx', '0deg');
+            stage.style.setProperty('--pvc-ry', '0deg');
+          });
+        }
+
+        if (!FINE) return; // no live previews on coarse pointers
+
+        card.addEventListener('pointerenter', function () {
+          window.__pvcStat.enter += 1;
+          clearTimeout(timer);
+          if (current && current !== card) detach(current);
+          current = card;
+          if (card.pvcLive) return;
+          var ifr = document.createElement('iframe');
+          ifr.tabIndex = -1;
+          ifr.title = 'Live preview';
+          var done = false;
+          ifr.addEventListener('load', function () {
+            if (done) return;
+            if (!ifr.getAttribute('src') || ifr.getAttribute('src') === 'about:blank') return;
+            done = true;
+            card.classList.remove('pvc-booting');
+            if (current === card) card.classList.add('pvc-on');
+          });
+          ifr.addEventListener('error', function () {
+            if (done) return;
+            done = true;
+            card.classList.remove('pvc-booting');
+          });
+          liveBox.appendChild(ifr);
+          card.pvcLive = ifr;
+          card.classList.add('pvc-booting');
+          ifr.src = card.getAttribute('href');
+          // safety: if the document never signals, hold the screenshot
+          setTimeout(function () {
+            if (done) return;
+            done = true;
+            card.classList.remove('pvc-booting');
+          }, 2600);
+        });
+
+        card.addEventListener('pointerleave', function () {
+          window.__pvcStat.leave += 1;
+          if (current === card) armDetach(card);
+        });
+      });
     })();
   </script>
 </body>
