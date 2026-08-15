@@ -10,6 +10,66 @@ Session: Aug 07 2026 — ROUND 7+ CAMPAIGN STARTED: 5 rounds × 10 variants, ref
 - The domain appears in some older portfolio variant contact/footer content and in the fictional resume data as an external personal-site link. Those references do not make the separate site part of this project.
 - Root index redesign deployed from commit `4aeb701` and verified live on GitHub Pages on 2026-08-11.
 
+## 2026-08-15 — FIVE-STANDALONE VARIANTS ROUND (v7 replacement + v15–v18)
+
+Scope: five separate complete portfolio websites (NOT one composite site), per `docs/brief-v7-v18-five-standalone-variants.md` + `.hermes/plans/2026-08-15-v7-v15-v18-five-standalone-variants.md` (this prompt supersedes the earlier composite-theme prompt and the old `docs/brief-v7-voxel.md` voxel brief).
+
+### Variants
+
+| # | Path | Display name | Theme |
+|---|---|---|---|
+| v7 | v7-voxel/index.html (path kept) | WEATHER//SYSTEMS | Warm atmospheric instrument — isobars, wind vectors, barometer, six-station route. Complete rebuild: zero voxel/island/isometric content remains. Canvas field: DPR cap 1.5, hidden/offscreen pause, try/catch, static fallback, RM static. |
+| v15 | v15-transit-map/index.html | THE IMPOSSIBLE TRANSIT MAP | Warm map paper, cobalt/ultramarine/vermilion route lines entering from edges, station nodes, transfer marks, route rail, route-chips highlight cards; lines kept OUTSIDE the title safe-zone (vision-mandated fix). |
+| v16 | v16-black-box/index.html | BLACK BOX / ACT I | Matte black stage, bone serif, theatre-red cue marks, brass, moving spotlight, curtain seams, truss/rig marks, playbill credits; cues/acts sections. |
+| v17 | v17-strata/index.html | STRATA / CORE SAMPLE | Geological cross-section — limestone/clay/terracotta/copper/amber, core-sample column with strata bands + depth ticks + specimen chips (fixed from a collapsed-height bug), fault lines, depth rail. |
+| v18 | v18-optical-bench/index.html | OPTICAL BENCH / FOCUS | Warm optical paper, aperture/lens assembly resolving the title into focus (one-shot blur), brass calibration strip, dashed alignment guides masked behind content (vision-mandated fix), focal-plane cards. |
+
+All five: hero, sticky accessible nav (IntersectionObserver active state, 44px targets, click-to-scroll), About/Projects/Skills/Achievements/Experience/Contact with theme-native section names, resume download, email/phone/GitHub/LinkedIn, footer, responsive, reduced-motion static, keyboard focus states, file:// safe, no external images, no build system, no new npm dependency, zero console errors. All project cards carry theme-native id + canonical name/description/stack/metric from `docs/synthetic-data-pool.md` (v7 curates Windrose/Springline/Kelp/Cusp/Meridian/Beacon/Seedling/Flume; v15 Ferry/Dispatch/Spool/Atlas/Flume/Beacon/Shortwave/Crosscut; v16 Stagelight/Ghostlight/Quatrain/Warpaint/Silhouette/Switchback/Scrapbook/Ligature; v17 Stratum/Springline/Seedling/Humus/Canopy/Herbarium/Rhizome/Kelpfield; v18 Focus/Refraction/Parsec/Aphelion/Umbra/Kestrel/Cartographer/Cusp). Contact values preserved exactly (garvit9829@gmail.com, +91-8905402023, github.com/garvit-pandia, linkedin.com/in/garvit-pandia/).
+
+### Hub integration (index.html)
+
+- 18 variant cards + 1 commission card = 19 total. v7 card replaced (data-f 3d→light; scene c7-iso/c7-bar/c7-mast/c7-ticks/c7-ann + c7f-cr corners; body: "Weather//Systems", Material 07 / 18). v15–v18 cards added with class namespaces c15t-/c16-/c17-/c18- (c15- preserved for the commission card), --i:14–17, CTA now --i:18 "Material 19 / Yours · SLOT 19".
+- Rail (visible + aria-hidden duplicate): v7 renamed Voxel→Weather, +Transit/Black Box/Strata/Optics tiles; aria-label "All eighteen materials"; eyebrow "18 worlds"; sub "Eighteen materials · light, dark, dimensional, alive"; footer "eighteen materials, one practice"; meta description updated; all Material NN / 18 labels; JS live-preview selector extended to .card--v15..v18.
+- New scene motifs verified distinct at thumbnail scale (vision: v7=10, v15=9, v16=8, v17=9, v18=9).
+
+### Typevolt (v10) hover audit
+
+Found and fixed (all verified live in Chromium):
+1. Scroll choreography skipped `.hov`/`.rep` letters — hovered letters froze at a stale pose (unhover exposed a stale transform after scroll-while-hover), and `.rep` letters stayed displaced during/after scroll, incl. keyboard scrolling where no pointermove ever fires. Fix: the scroll loop now drops stale `.rep` classes and re-poses every letter each tick (`.hov` letters get the same inline pose; the `.hov` !important rule keeps the hover visual) — scroll is the single authoritative transform writer.
+2. Repulsion letters were never released on document mouseleave / tab hidden / window blur (release only happened on the next pointermove). Fix: `releaseAllReps()` bound to mouseleave + visibilitychange(hidden) + blur. Live-verified: reps 1→0 after keyboard scroll and after mouseleave.
+3. Custom-cursor mouseout used a fragile `A && !B || !B || !C` chain with a possible `.closest()` call on a non-Element relatedTarget. Fix: explicit two-sided `from && !to` check with instanceof guard. Live-verified: DIVE IN → GRAB label transitions, removal on gap/plain targets.
+
+Tested but NOT reproducible as defects: magnetic button magnetization/clear-on-leave/rapid-exit (transform resets verified); case hover-scrub exact restore (2,000+ → 2,139+ → 2,000+); `.hov` add/remove lifecycle; cursor labels between adjacent targets; hero marquee vs CTA overlap (probe artifact of smooth-scroll mid-animation — steady-state hit-testing at multiple scroll positions shows no overlap); t10c-relax spring (no-op but harmless). `node --check` on every Typevolt script block after edits: PASS.
+
+### Verification evidence
+
+Structural (all 7 edited files): every non-importmap script block node --check PASS, script open/close balanced, CSS braces balanced, zero duplicate IDs, html/head/body structure clean, zero external images.
+
+Browser (Playwright/Chromium 1237, 5 new pages): zero console errors, zero page errors, no horizontal overflow (desktop / RM / mobile 390px / print), keyboard Tab → nav brand link with visible 3px outline on all five, RM emulation static (animationName none, canvas static), coarse-pointer mobile no overflow, print media no overflow.
+
+Root hub: 19 cards (18 variants + commission), 36 rail entries (2×18), all 18 variant hrefs resolve, all 18 screenshots resolve (404s zero), filters Light=6/Dark=7/3D=1/Motion=4/All=19, shuffle pool includes v15–v18 (n=19, hasNew=true), live preview one-iframe-max (v15 src verified, detach-on-leave → 0 iframes after grace, v16 hover → 1), mobile grid span 12, RM animations none, file:// → 19 cards / 0 iframes / 0 errors / no overflow.
+
+Screenshots (all 1280×800, reveal-forced): shots/v7-voxel.png, shots/v15-transit-map.png, shots/v16-black-box.png, shots/v17-strata.png, shots/v18-optical-bench.png (each also captured projects/skills/experience/contact/390px-mobile/print under /tmp/p5shots/).
+
+### Vision QA (gemini vision aux)
+
+- v7 Weather//Systems hero: originality 9.5 · hierarchy 9 · typography 9.5 · interaction 8.5 · coherence 10 · polish 9.5 → avg 9.3. Verbatim: "exquisite thematic execution… conceptually brilliant, restrained, immersive without cartoonish"; fixes applied: barometer micro-copy darkened to storm ink, nav padding tightened.
+- v15 Transit hero: R1 hierarchy 6 — "route lines sweep directly through the headline and subcopy… 'Transit' bisected" → fixed (lines re-routed outside safe-zone, opacity .55/.45, parchment glow behind copy, subcopy #4E4A42, scroll-cue pill). R2: hierarchy 9.5 · readability 9 · polish 9.5. Verbatim R2: "lines now gracefully curve around the central text box… title completely legible".
+- v16 Black Box hero: 9.5/8.5/9/8/10/9 → avg 9.0; R2 8.5/8/9 with title breathing-room fix verified. Verbatim: "flawless execution… every detail reinforces the black-box theatre motif".
+- v17 Strata hero: R1 10/8.5/9/9/10/8.5 → avg 9.2 — "dead space on the left" → core column had collapsed height (absolute-only children); fixed with height clamp + specimen chips + darker pills. R2: hierarchy 9 · composition 9 · polish 9.5; depth-rail labels darkened. Verbatim: "fixes successfully resolved previous visual clutter".
+- v18 Optical hero: R1 9.5/8.5/9/8/10/9 → avg 9.0 — "red dashed grid cuts through text/lens" → masked with radial fade; ghost CTA thickened. R2: hierarchy 9 · readability 8.5 · polish 9; "no red dashed lines visible… do not disrupt".
+- Hub cards recognizability: v7=10, v15=9, v16=8, v17=9, v18=9 — "instantly differentiable… none look broken, empty, or cluttered".
+
+### Intentional simplifications
+
+Canvas DPR cap 1.5 + pause on hidden/offscreen + static fallback + RM static (v7, per brief); v16 spotlight is CSS (no WebGL); v15 routes are static SVG with dash animation; v17 strata are CSS gradients; v18 focus is a one-shot CSS filter transition — all file://-safe, no images, no dependencies. Hub live previews stay disabled on coarse pointers and file:// (pre-existing design).
+
+### Remaining limitations
+
+Google Fonts need network (same as all existing variants; graceful system-font fallback offline). v16 edge labels (RIG/TRUSS) intentionally dim (backstage aesthetic). Typevolt mid-animation hover probing (during smooth scroll) can transiently hit the marquee/section — steady-state behavior is correct.
+
+Timestamps: start 2026-08-15T11:05Z (16:35 IST) — first v7 write; end 2026-08-15T12:03Z (17:33 IST). All checks green; STATUS updated; committed.
+
 ## Campaign wave tracker (W1–W17)
 
 | Wave | Variants / rounds | Status |

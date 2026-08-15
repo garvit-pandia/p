@@ -767,7 +767,13 @@ function onScroll(){
       const r = sec.getBoundingClientRect();
       const p = clamp((vh * 0.5 - r.top) / r.height, 0, 1);
       const t = p - 0.5;
-      const letters = $$('.k-l', sec).filter(l => !l.classList.contains('hov') && !l.classList.contains('rep'));
+      /* scroll is the one authoritative choreographer: drop any stale repulsion
+         displacement and re-pose every letter. .hov letters get the same inline
+         pose — the .hov !important rule keeps the hover visual, so leaving hover
+         can never expose a stale pose. */
+      const reps = sec.querySelectorAll('.k-l.rep');
+      for (let rp = 0; rp < reps.length; rp++) reps[rp].classList.remove('rep');
+      const letters = $$('.k-l', sec);
       for (let i = 0; i < letters.length; i++){
         const l = letters[i];
         const dir = i % 2 ? 1 : -1;
@@ -825,9 +831,13 @@ if (finePtr && !reduced){
     }
   });
   document.addEventListener('mouseout', e => {
-    if (e.target.closest('[data-hover]') && !e.relatedTarget || !e.relatedTarget || !e.relatedTarget.closest('[data-hover]')){
-      document.body.classList.remove('cur-word');
-    }
+    /* remove the word only when leaving a data-hover target without entering
+       another one. Explicit two-sided check (relatedTarget may be null when
+       leaving the window, or a non-Element in edge cases) — no operator
+       precedence tricks, no closest() on a non-Element. */
+    const from = e.target && e.target.closest ? e.target.closest('[data-hover]') : null;
+    const to = e.relatedTarget instanceof Element ? e.relatedTarget.closest('[data-hover]') : null;
+    if (from && !to) document.body.classList.remove('cur-word');
   });
   let curRaf = null;
   (function loop(){
@@ -910,6 +920,25 @@ addEventListener('pointermove', e => {
   px = e.clientX; py = e.clientY;
   if (!raf) raf = requestAnimationFrame(frame);
 }, { passive: true });
+
+/* release every displaced letter when the pointer leaves the document,
+   the tab hides, or the window loses focus — no letter may stay displaced
+   while the user cannot see or reach it */
+function releaseAllReps(){
+  for (let s = 0; s < secs.length; s++){
+    const sec = secs[s];
+    const ls = sec.querySelectorAll('.k-l.rep');
+    if (!ls.length) continue;
+    const all = sec.querySelectorAll('.k-l');
+    for (let i = 0; i < ls.length; i++){
+      ls[i].classList.remove('rep');
+      kineticTransform(ls[i], Array.prototype.indexOf.call(all, ls[i]), sec);
+    }
+  }
+}
+document.addEventListener('mouseleave', releaseAllReps);
+document.addEventListener('visibilitychange', () => { if (document.hidden) releaseAllReps(); });
+addEventListener('blur', releaseAllReps);
 })();
 </script>
 <script>

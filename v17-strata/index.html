@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garvit Pandia — Strata / Core Sample</title>
+<meta name="description" content="Strata / Core Sample — a geological cross-section of a technical career. Projects and experience embedded in layers, with depth, evidence, and assay marks.">
+<meta property="og:title" content="Garvit Pandia — Strata / Core Sample">
+<meta property="og:description" content="Layered surfaces, cut lines, assay annotations, and one career drilled to depth.">
+<meta name="theme-color" content="#EDE7DA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23EDE7DA'/%3E%3Crect x='8' y='3' width='16' height='26' fill='%23B4522F'/%3E%3Crect x='8' y='3' width='16' height='7' fill='%23D9A13B'/%3E%3Crect x='8' y='16' width='16' height='6' fill='%233E6B5E'/%3E%3Crect x='8' y='24' width='16' height='5' fill='%232E2A26'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --limestone:#EDE7DA;
+  --cream:#F5F0E4;
+  --paper-2:#E4DCC9;
+  --clay:#C26E4B;
+  --terra:#B4522F;
+  --terra-deep:#8F3E22;
+  --basalt:#2E2A26;
+  --basalt-2:#3A3530;
+  --copper:#3E6B5E;
+  --copper-dim:#5F7A6E;
+  --amber:#D9A13B;
+  --amber-deep:#A8781F;
+  --ink:#332E27;
+  --ink-soft:#6E6555;
+  --line:#CBC2AC;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{
+  font-family:var(--mono);color:var(--ink);background:var(--limestone);
+  line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(circle at 12% 12%, rgba(194,110,75,.10), transparent 26rem),
+    radial-gradient(circle at 88% 30%, rgba(62,107,94,.08), transparent 28rem),
+    linear-gradient(90deg, rgba(51,46,39,.03) 1px, transparent 1px) 0 0/52px 52px,
+    linear-gradient(0deg, rgba(51,46,39,.03) 1px, transparent 1px) 0 0/52px 52px;
+}
+::selection{background:var(--terra);color:#fff}
+:focus-visible{outline:3px solid var(--amber-deep);outline-offset:3px;border-radius:3px}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+.mono{font-family:var(--mono)}
+.serif{font-family:var(--serif)}
+
+/* ---------- nav ---------- */
+#topnav{
+  position:sticky;top:0;z-index:80;display:flex;align-items:center;gap:14px;
+  padding:10px 3vw;min-height:66px;
+  background:color-mix(in srgb,var(--limestone) 88%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);transition:box-shadow .35s ease;
+}
+#topnav.scrolled{box-shadow:0 10px 26px -18px rgba(51,46,39,.4)}
+.brand{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.16em;color:var(--ink);white-space:nowrap}
+.brand .core-mark{
+  width:12px;height:22px;flex:none;border:1.5px solid var(--basalt);border-radius:2px;
+  background:linear-gradient(180deg, var(--amber) 0 26%, var(--clay) 26% 54%, var(--copper) 54% 78%, var(--basalt) 78%);
+}
+.brand small{color:var(--ink-soft);font-weight:400}
+.nav-links{display:flex;align-items:center;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{
+  display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+  padding:0 11px;color:var(--ink-soft);font-size:10px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;border-radius:7px;white-space:nowrap;
+  border:1px solid transparent;transition:color .25s,background .25s,border-color .25s;
+}
+.nav-links a:hover{color:var(--ink);background:rgba(180,82,47,.07)}
+.nav-links a.is-active{color:var(--terra-deep);background:rgba(180,82,47,.1);border-color:rgba(180,82,47,.32)}
+.nav-links a i{font-style:normal;font-size:7.5px;color:var(--amber-deep);margin-right:5px}
+.nav-resume{
+  margin-left:8px;min-height:44px;display:inline-flex;align-items:center;gap:8px;
+  padding:0 15px;border-radius:8px;background:var(--basalt);color:var(--cream);
+  font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease);
+}
+.nav-resume:hover{transform:translateY(-2px);box-shadow:0 10px 22px -10px rgba(46,42,38,.6)}
+
+/* ---------- depth rail (fixed right) ---------- */
+.depth-rail{
+  position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:70;
+  display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-family:var(--mono);
+}
+.depth-rail .dr-line{position:relative;width:2px;height:280px;background:var(--line);border-radius:99px;margin-bottom:8px}
+.depth-rail .dr-line i{position:absolute;top:0;left:0;right:0;height:0;background:linear-gradient(180deg,var(--amber),var(--terra),var(--copper));border-radius:99px}
+.depth-rail .dr-tick{
+  display:flex;align-items:center;gap:7px;font-size:8px;letter-spacing:.14em;color:var(--ink);
+  text-transform:uppercase;width:100%;
+}
+.depth-rail .dr-tick b{font-weight:600;color:var(--terra-deep)}
+.depth-rail .dr-tick i{width:8px;height:1.5px;background:var(--line);flex:none}
+.depth-rail .dr-tick.on b{color:var(--amber-deep)}
+@media (max-width:900px){.depth-rail{display:none}}
+
+/* ---------- hero ---------- */
+#hero{
+  position:relative;min-height:calc(100vh - 66px);display:flex;align-items:center;
+  padding:60px 4vw 100px;overflow:hidden;
+}
+.hero-grid{
+  width:min(1160px,100%);margin:0 auto;display:grid;
+  grid-template-columns:minmax(280px,380px) minmax(0,1fr);gap:clamp(28px,4vw,64px);align-items:center;
+}
+/* the core sample column */
+.core-sample{
+  position:relative;width:min(300px,86%);height:clamp(430px,62vh,570px);margin:0 auto;
+  border:2px solid var(--basalt);border-radius:10px;
+  overflow:hidden;box-shadow:0 30px 50px -30px rgba(46,42,38,.55);
+  background:linear-gradient(180deg, #E8DFC8 0 7%, var(--amber) 7% 15%, #E8DFC8 15% 19%, var(--clay) 19% 33%, #EFE8D6 33% 36%, var(--copper-dim) 36% 52%, #D9C9A8 52% 55%, var(--terra) 55% 70%, #F0E9D8 70% 73%, var(--basalt) 73% 100%);
+}
+.core-sample::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(90deg, rgba(46,42,38,.28) 0 3px, transparent 3px 12px, rgba(255,255,255,.1) 12px 14px, transparent 14px);
+}
+.core-sample .cs-depth{
+  position:absolute;left:8px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:space-between;
+  font-size:7.5px;letter-spacing:.12em;color:rgba(245,240,228,.92);text-shadow:0 1px 2px rgba(46,42,38,.6);
+}
+.core-sample .cs-label{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-90deg);
+  font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:rgba(245,240,228,.95);
+  text-shadow:0 1px 3px rgba(46,42,38,.7);white-space:nowrap;
+}
+.core-sample .cs-faults{position:absolute;inset:0;pointer-events:none}
+.core-sample .cs-faults i{
+  position:absolute;left:0;right:0;height:3px;background:rgba(46,42,38,.5);
+  transform:skewY(-2deg);
+}
+.core-sample .cs-faults i:nth-child(1){top:15%}
+.core-sample .cs-faults i:nth-child(2){top:36%}
+.core-sample .cs-faults i:nth-child(3){top:55%}
+.core-sample .cs-faults i:nth-child(4){top:73%}
+.core-sample .cs-slip{
+  position:absolute;width:100%;height:0;border-top:1.5px dashed rgba(46,42,38,.45);
+  animation:st-slip 5s ease-in-out infinite alternate;
+}
+.core-sample .cs-spec{
+  position:absolute;left:10px;font-family:var(--mono);font-size:8px;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(245,240,228,.95);background:rgba(46,42,38,.55);
+  border:1px solid rgba(245,240,228,.35);border-radius:3px;padding:3px 7px;backdrop-filter:none;
+}
+.core-sample .cs-spec.sp1{top:22%;color:var(--ink);background:rgba(245,240,228,.82);border-color:rgba(46,42,38,.4)}
+.core-sample .cs-spec.sp2{top:44%}
+.core-sample .cs-spec.sp3{top:63%;background:rgba(46,42,38,.7)}
+.core-sample .cs-slip.s1{top:26%}
+.core-sample .cs-slip.s2{top:47%;animation-delay:1.6s}
+.core-sample .cs-slip.s3{top:66%;animation-delay:3.1s}
+@keyframes st-slip{from{transform:translateX(-8px)}to{transform:translateX(10px)}}
+/* survey label over the core */
+.survey-tag{
+  position:absolute;top:-14px;right:12px;background:var(--cream);border:1px solid var(--line);
+  padding:3px 10px;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);
+  box-shadow:0 4px 10px -6px rgba(46,42,38,.4);z-index:2;
+}
+.hero-copy{position:relative}
+.kicker{
+  display:inline-flex;align-items:center;gap:10px;font-size:10px;font-weight:600;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--terra-deep);margin-bottom:20px;
+}
+.kicker::before{content:"";width:22px;height:2px;background:var(--amber);flex:none}
+.kicker b{color:var(--copper)}
+#hero h1{
+  font-family:var(--serif);font-weight:500;letter-spacing:-.015em;line-height:.96;
+  font-size:clamp(46px,7.6vw,104px);color:var(--ink);margin-bottom:18px;
+}
+#hero h1 em{font-style:italic;color:var(--terra)}
+.hero-title{font-family:var(--serif);font-size:clamp(19px,2.4vw,26px);color:var(--copper);margin-bottom:12px;font-weight:500}
+.hero-sub{color:var(--ink-soft);font-size:clamp(12.5px,1.4vw,14.5px);max-width:58ch;margin-bottom:32px}
+.hero-sub b{color:var(--ink)}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;min-height:48px;gap:10px;
+  padding:0 24px;border-radius:8px;background:var(--terra);color:#fff;
+  font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 26px -12px rgba(180,82,47,.6);background:var(--terra-deep)}
+.btn.ghost{background:transparent;color:var(--basalt);border:1.5px solid var(--basalt);box-shadow:none}
+.btn.ghost:hover{background:var(--basalt);color:var(--cream)}
+.hero-meta{
+  margin-top:26px;display:flex;gap:8px;flex-wrap:wrap;
+}
+.hero-meta .hm{
+  font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);
+  border:1.5px solid rgba(46,42,38,.55);border-radius:99px;padding:5px 11px;background:var(--cream);
+}
+.hero-meta .hm b{color:var(--terra-deep)}
+.btn.ghost{background:transparent;color:var(--basalt);border:2px solid var(--basalt);box-shadow:none}
+.scroll-cue{
+  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+  font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);
+  display:flex;flex-direction:column;align-items:center;gap:8px;white-space:nowrap;
+}
+.scroll-cue b{width:2px;height:34px;background:linear-gradient(180deg,var(--terra),transparent);animation:st-drop 2s ease-in-out infinite}
+@keyframes st-drop{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- sections / strata ---------- */
+.stratum{
+  position:relative;padding:clamp(64px,9vw,106px) 4vw;border-top:1px solid var(--line);
+  scroll-margin-top:0;
+}
+/* fault-line boundary between strata */
+.stratum::before{
+  content:"";position:absolute;top:-1px;left:0;right:0;height:7px;z-index:1;
+  clip-path:polygon(0 100%, 0 40%, 6% 60%, 12% 30%, 19% 65%, 27% 25%, 34% 58%, 42% 35%, 50% 70%, 58% 28%, 66% 55%, 74% 30%, 82% 62%, 90% 35%, 96% 55%, 100% 30%, 100% 100%);
+  background:repeating-linear-gradient(90deg, var(--amber) 0 40px, var(--clay) 40px 80px, var(--copper-dim) 80px 120px, var(--basalt) 120px 160px);
+  opacity:.5;
+}
+.wrap{width:min(1120px,100%);margin:0 auto}
+.sec-head{margin-bottom:clamp(28px,4.5vw,48px)}
+.sec-kicker{
+  font-size:9.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--copper);display:flex;align-items:center;gap:10px;margin-bottom:14px;
+}
+.sec-kicker::before{content:"";width:18px;height:2px;background:var(--amber)}
+.sec-kicker b{color:var(--terra-deep)}
+.sec-kicker .depth-mark{color:var(--amber-deep)}
+.sec-title{
+  font-family:var(--serif);font-weight:500;letter-spacing:-.015em;line-height:1.02;
+  font-size:clamp(30px,4.8vw,52px);color:var(--ink);
+}
+.sec-title em{font-style:italic;color:var(--terra)}
+.sec-note{color:var(--ink-soft);font-size:12px;margin-top:12px;max-width:64ch}
+.sec-note code{font-family:var(--mono);font-size:10px;color:var(--amber-deep);background:var(--cream);border:1px solid var(--line);padding:2px 8px;border-radius:4px}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .75s var(--ease) var(--d,0s),transform .75s var(--ease) var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- surface reading (about) ---------- */
+.about-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:18px;align-items:start}
+.reading-card{
+  background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:26px 28px;
+  box-shadow:0 16px 34px -28px rgba(46,42,38,.5);position:relative;
+}
+.reading-card::before{
+  content:"SURFACE SAMPLE — GP-01";position:absolute;top:12px;right:16px;
+  font-size:7.5px;letter-spacing:.24em;color:var(--amber-deep);
+}
+.reading-card .rc-head{
+  display:flex;align-items:center;gap:10px;margin-bottom:16px;
+  font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);
+}
+.reading-card .rc-head i{width:18px;height:2px;background:var(--terra)}
+.reading-card p{font-size:14px;color:var(--ink-soft);line-height:1.7}
+.reading-card p b{color:var(--ink)}
+.reading-card p .hl{color:var(--terra-deep);font-weight:600}
+.reading-card p + p{margin-top:10px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.stat{
+  border:1px solid var(--line);border-bottom:3px solid var(--amber);border-radius:8px;
+  background:var(--limestone);padding:11px 12px 10px;
+}
+.stat b{display:block;font-family:var(--serif);font-size:clamp(17px,2.1vw,22px);font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.stat span{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+/* specimen tray card */
+.tray{
+  background:var(--basalt);color:var(--cream);border-radius:12px;padding:22px;
+  position:relative;overflow:hidden;box-shadow:0 20px 38px -26px rgba(46,42,38,.6);
+}
+.tray::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(160deg, rgba(217,161,59,.1), transparent 40%);
+}
+.tray .t-head{
+  display:flex;justify-content:space-between;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--copper-dim);position:relative;
+}
+.tray h3{font-family:var(--serif);font-size:clamp(21px,2.5vw,27px);font-weight:500;margin:14px 0 8px;position:relative}
+.tray h3 em{font-style:italic;color:var(--amber)}
+.tray p{font-size:11.5px;color:rgba(245,240,228,.85);position:relative;line-height:1.7}
+.tray .specimens{
+  margin-top:16px;display:flex;gap:8px;position:relative;
+}
+.tray .specimens .sp{
+  flex:1;height:34px;border-radius:4px;display:flex;align-items:flex-end;justify-content:center;
+  font-size:7px;letter-spacing:.14em;color:rgba(245,240,228,.9);padding-bottom:4px;
+}
+.tray .specimens .sp.s1{background:linear-gradient(180deg,var(--amber),var(--clay))}
+.tray .specimens .sp.s2{background:linear-gradient(180deg,var(--clay),var(--terra))}
+.tray .specimens .sp.s3{background:linear-gradient(180deg,var(--copper-dim),var(--copper))}
+.tray .specimens .sp.s4{background:linear-gradient(180deg,#4A443C,var(--basalt-2))}
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.quote{
+  background:var(--cream);border:1px solid var(--line);border-top:3px solid var(--copper-dim);
+  border-radius:10px;padding:15px 16px 13px;font-family:var(--serif);font-size:13.5px;
+  color:var(--ink-soft);line-height:1.6;
+}
+.quote footer{margin-top:10px;font-family:var(--mono);font-style:normal;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--terra-deep)}
+.quote footer b{color:var(--copper)}
+
+/* ---------- embedded works (projects): specimens ---------- */
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.specimen{
+  position:relative;background:var(--cream);border:1px solid var(--line);border-radius:12px;
+  padding:22px 22px 18px;overflow:hidden;
+  transition:transform .3s var(--ease),border-color .3s,box-shadow .3s;
+}
+.specimen::before{
+  content:"";position:absolute;top:0;left:0;bottom:0;width:5px;
+  background:linear-gradient(180deg,var(--amber),var(--terra),var(--copper));
+}
+.specimen::after{
+  content:"";position:absolute;right:0;bottom:0;width:44px;height:44px;
+  background:linear-gradient(225deg, transparent 49%, rgba(62,107,94,.14) 50%);
+  clip-path:polygon(100% 0, 100% 100%, 0 100%);
+}
+.specimen:hover{transform:translateY(-4px);box-shadow:0 24px 42px -28px rgba(46,42,38,.5);border-color:var(--line)}
+.specimen:focus-within{box-shadow:0 24px 42px -28px rgba(46,42,38,.5);border-color:var(--amber-deep)}
+.sp-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}
+.sp-top .assay{
+  font-size:8.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--amber-deep);
+}
+.sp-top .depth-mark{
+  font-size:9px;letter-spacing:.14em;color:var(--terra-deep);white-space:nowrap;
+}
+.sp-top .depth-mark em{font-style:normal;font-size:7.5px;color:var(--ink-soft)}
+.specimen h3{font-family:var(--serif);font-size:clamp(19px,2.2vw,24px);font-weight:600;color:var(--ink);letter-spacing:-.01em;margin-bottom:6px}
+.specimen h3 em{font-style:italic;color:var(--terra)}
+.specimen > p{font-size:12.5px;color:var(--ink-soft);line-height:1.65;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{
+  font-size:9px;letter-spacing:.08em;color:var(--ink);
+  background:var(--limestone);border:1px solid var(--line);padding:3px 9px;border-radius:4px;
+}
+.evidence{
+  border-top:1px dashed var(--line);padding-top:10px;
+  font-size:10px;color:var(--ink-soft);display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.evidence b{color:var(--terra-deep);font-weight:600}
+.evidence .cu{color:var(--copper);font-weight:600}
+.evidence .suf{margin-left:auto;font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber-deep)}
+/* hidden assay detail — revealed on hover/focus, never the only source of truth */
+.specimen .assay-detail{
+  max-height:0;opacity:0;overflow:hidden;
+  transition:max-height .35s var(--ease),opacity .3s var(--ease),margin .3s var(--ease);
+  font-size:10.5px;color:var(--copper);font-style:italic;font-family:var(--serif);
+  border-left:2px solid var(--copper-dim);padding-left:10px;margin-top:0;
+}
+.specimen:hover .assay-detail,.specimen:focus-within .assay-detail{
+  max-height:60px;opacity:1;margin-top:12px;
+}
+
+/* ---------- material properties (skills) ---------- */
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.material{padding:22px 24px;background:var(--cream);border:1px solid var(--line);border-radius:12px;position:relative}
+.material h3{
+  font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--copper);
+  margin-bottom:18px;display:flex;align-items:center;gap:9px;
+}
+.material h3::before{content:"";width:9px;height:9px;background:var(--amber);flex:none;border-radius:2px;transform:rotate(45deg)}
+.material .m-no{position:absolute;top:14px;right:18px;font-size:8px;letter-spacing:.2em;color:var(--line)}
+.layer-row{display:grid;grid-template-columns:132px 1fr 40px;gap:12px;align-items:center;margin-bottom:10px}
+.layer-row label{font-size:11px;color:var(--ink-soft)}
+.layer-row .bed{height:10px;background:var(--limestone);border:1px solid var(--line);border-radius:3px;overflow:hidden;position:relative}
+.layer-row .bed i{
+  display:block;height:100%;transform-origin:left;transform:scaleX(0);
+  transition:transform 1.1s var(--ease) .15s;
+}
+.layer-row .bed i.sand{background:linear-gradient(90deg,var(--amber),var(--clay))}
+.layer-row .bed i.clay{background:linear-gradient(90deg,var(--clay),var(--terra))}
+.layer-row .bed i.copp{background:linear-gradient(90deg,var(--copper-dim),var(--copper))}
+.layer-row .bed i.bas{background:linear-gradient(90deg,#4A443C,var(--basalt))}
+.layer-row .bed::after{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,transparent 0 22%,rgba(46,42,38,.14) 22% 23%);
+}
+.material.in .layer-row .bed i{transform:scaleX(1)}
+.layer-row b{font-size:10px;text-align:right;color:var(--ink)}
+
+/* ---------- specimen register (achievements) ---------- */
+.reg-list{display:flex;flex-direction:column;gap:10px}
+.reg-item{
+  display:flex;align-items:center;gap:16px;background:var(--cream);border:1px solid var(--line);
+  border-radius:10px;padding:14px 18px;transition:transform .25s var(--ease),border-color .25s;
+}
+.reg-item:hover{transform:translateX(5px);border-color:var(--line)}
+.reg-item .reg-no{
+  flex:none;width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:15px;font-weight:600;
+}
+.reg-item .reg-no.amber{background:var(--amber);color:var(--basalt)}
+.reg-item .reg-no.clay{background:var(--clay);color:#fff}
+.reg-item .reg-no.terra{background:var(--terra);color:#fff}
+.reg-item .reg-no.copp{background:var(--copper);color:#fff}
+.reg-item .r-body{flex:1;min-width:0}
+.reg-item h3{font-family:var(--serif);font-size:15.5px;font-weight:600;color:var(--ink);letter-spacing:-.005em}
+.reg-item p{font-size:11px;color:var(--ink-soft);margin-top:2px}
+.reg-item .r-year{flex:none;font-size:8.5px;letter-spacing:.16em;color:var(--amber-deep);white-space:nowrap;text-transform:uppercase}
+
+/* ---------- depth log (experience) ---------- */
+.depth-log{position:relative;padding-left:36px}
+.depth-log::before{
+  content:"";position:absolute;left:11px;top:6px;bottom:6px;width:3px;
+  background:linear-gradient(180deg,var(--amber),var(--clay),var(--copper),var(--basalt));
+  border-radius:99px;opacity:.85;
+}
+.log-card{position:relative;margin-bottom:16px;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:20px 22px;box-shadow:0 12px 26px -26px rgba(46,42,38,.45)}
+.log-card::before{
+  content:"";position:absolute;left:-31px;top:24px;width:16px;height:16px;border-radius:50%;
+  background:var(--limestone);border:3.5px solid var(--terra);z-index:1;
+}
+.log-card:nth-child(3n+2)::before{border-color:var(--copper)}
+.log-card:nth-child(3n)::before{border-color:var(--amber-deep)}
+.log-card .lc-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.log-card h3{font-family:var(--serif);font-size:17.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.log-card .dates{font-size:9px;letter-spacing:.16em;color:var(--terra-deep);white-space:nowrap;text-transform:uppercase}
+.log-card .org{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--copper);margin:4px 0 9px;display:block}
+.log-card p{font-size:12.5px;color:var(--ink-soft);line-height:1.68}
+.log-card .d-mark{position:absolute;top:16px;right:18px;font-size:7.5px;letter-spacing:.22em;color:var(--line);text-transform:uppercase}
+.edu{
+  margin-top:18px;background:var(--basalt);color:var(--cream);border-radius:12px;
+  padding:22px 26px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;position:relative;overflow:hidden;
+}
+.edu::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--amber),var(--terra),var(--copper))}
+.edu .e-mark{
+  flex:none;width:54px;height:54px;border-radius:8px;background:var(--cream);color:var(--terra-deep);
+  display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:600;font-size:20px;
+}
+.edu h3{font-family:var(--serif);font-size:17px;font-weight:500;color:var(--cream)}
+.edu p{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--copper-dim);margin-top:4px}
+.edu .gpa{margin-left:auto;text-align:right;font-family:var(--serif);font-size:25px;font-weight:500;color:var(--amber)}
+.edu .gpa small{display:block;font-family:var(--mono);font-size:7.5px;letter-spacing:.2em;color:var(--copper-dim);text-transform:uppercase}
+
+/* ---------- core release (contact) ---------- */
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+.sheet{
+  background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:26px;
+  box-shadow:0 16px 34px -28px rgba(46,42,38,.5);position:relative;
+}
+.sheet::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--amber),var(--terra),var(--copper));
+}
+.sheet .sh-head{font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--copper);margin-bottom:20px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+.field input,.field textarea{
+  width:100%;background:var(--limestone);border:1.5px solid var(--line);border-radius:8px;
+  padding:12px 14px;font:inherit;font-size:13px;color:var(--ink);
+  transition:border-color .25s,box-shadow .25s;
+}
+.field textarea{resize:vertical;min-height:100px}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--terra);box-shadow:0 0 0 3px rgba(180,82,47,.15)}
+#form-status{font-size:10px;color:var(--copper);margin-top:12px;min-height:15px}
+#form-status.err{color:var(--terra-deep)}
+.links{display:flex;flex-direction:column;gap:9px}
+.linkrow{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:var(--limestone);border:1px solid var(--line);border-left:3px solid var(--copper-dim);
+  border-radius:8px;padding:13px 16px;transition:background .25s,transform .25s,border-color .25s;
+}
+.linkrow:hover{background:var(--cream);transform:translateX(4px);border-left-color:var(--terra)}
+.linkrow span{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
+.linkrow a{font-size:12px;color:var(--ink);font-weight:500;word-break:break-all}
+.linkrow a:hover{color:var(--terra-deep)}
+
+/* ---------- footer ---------- */
+footer{
+  border-top:1px solid var(--line);background:var(--paper-2);
+  padding:28px 4vw 34px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:9px;letter-spacing:.16em;color:var(--ink-soft);text-transform:uppercase;
+}
+footer b{color:var(--ink)}
+footer .terra{color:var(--terra-deep)}
+.foot-links{display:flex;gap:20px}
+.foot-links a{transition:color .25s}
+.foot-links a:hover{color:var(--terra-deep)}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:36px}
+  .core-sample{max-width:260px}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .grid-2,.skills-grid{grid-template-columns:1fr}
+  .quotes{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  #topnav{padding:8px 12px;gap:8px}
+  .brand small{display:none}
+  .nav-links a{padding:0 8px;font-size:9px}
+  .nav-links a i{display:none}
+  .nav-resume{padding:0 11px;font-size:9px}
+  #hero{padding:52px 5vw 90px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .layer-row{grid-template-columns:100px 1fr 34px;gap:8px}
+  .layer-row label{font-size:10px}
+  .reg-item{flex-wrap:wrap;gap:10px}
+  .reg-item .r-year{margin-left:auto}
+  .scroll-cue{display:none}
+  .depth-log{padding-left:28px}
+  .log-card::before{left:-23px;width:13px;height:13px}
+  .edu .gpa{margin-left:0;text-align:left}
+}
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .layer-row .bed i{transform:scaleX(1)}
+  .core-sample .cs-slip{animation:none;transform:none}
+  .specimen .assay-detail{max-height:none;opacity:1;margin-top:12px}
+}
+/* ---------- print ---------- */
+@media print{
+  :root{--limestone:#f5f2ea;--cream:#fff;--paper-2:#f2eee3;--line:#bbb;--ink:#222;--ink-soft:#555}
+  body{background:#fff}
+  .depth-rail,.scroll-cue{display:none!important}
+  #topnav{position:static;background:#fff;border-bottom:1px solid #bbb}
+  #hero{min-height:0;padding:20px 0 14px}
+  #hero h1{font-size:42px}
+  .stratum{padding:20px 0;border-top:1px solid #bbb}
+  .stratum::before{display:none}
+  .reveal{opacity:1!important;transform:none!important}
+  .layer-row .bed i{transform:scaleX(1)!important}
+  .specimen .assay-detail{max-height:none;opacity:1;margin-top:12px}
+  .reading-card,.tray,.specimen,.material,.reg-item,.log-card,.sheet,.linkrow,.stat,.quote,.edu{break-inside:avoid;box-shadow:none;background:#fff}
+  .tray{background:#33312C;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:.8em;color:#555;word-break:break-all}
+  .linkrow a::after{content:none}
+  @page{margin:12mm}
+}
+</style>
+</head>
+<body>
+
+<nav id="topnav" aria-label="Core survey navigation">
+  <a class="brand" href="#hero"><span class="core-mark" aria-hidden="true"></span>ST<small>//GARVIT PANDIA</small></a>
+  <div class="nav-links">
+    <a href="#about"><i>SR</i>Surface</a>
+    <a href="#projects"><i>EW</i>Embedded</a>
+    <a href="#skills"><i>MP</i>Properties</a>
+    <a href="#achievements"><i>REG</i>Register</a>
+    <a href="#experience"><i>DL</i>Depth Log</a>
+    <a href="#contact"><i>CR</i>Release</a>
+  </div>
+  <a class="nav-resume" href="Garvit_Pandia_Resume.pdf" download>↓ Resume</a>
+</nav>
+
+<div class="depth-rail" aria-hidden="true">
+  <div class="dr-line"><i id="drFill"></i></div>
+  <span class="dr-tick" data-dr="about"><b>0m</b><i></i>Surface</span>
+  <span class="dr-tick" data-dr="projects"><b>−6m</b><i></i>Embedded</span>
+  <span class="dr-tick" data-dr="skills"><b>−12m</b><i></i>Properties</span>
+  <span class="dr-tick" data-dr="achievements"><b>−18m</b><i></i>Register</span>
+  <span class="dr-tick" data-dr="experience"><b>−24m</b><i></i>Depth Log</span>
+  <span class="dr-tick" data-dr="contact"><b>−30m</b><i></i>Release</span>
+</div>
+
+<header id="hero">
+  <div class="hero-grid">
+    <div class="reveal" style="--d:.08s">
+      <div class="core-sample">
+        <span class="survey-tag">CORE GP-01 · SURVEY 17</span>
+        <div class="cs-depth" aria-hidden="true"><span>0M</span><span>5M</span><span>10M</span><span>15M</span><span>20M</span></div>
+        <div class="cs-faults" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div class="cs-slip s1" aria-hidden="true"></div>
+        <div class="cs-slip s2" aria-hidden="true"></div>
+        <div class="cs-slip s3" aria-hidden="true"></div>
+        <span class="cs-spec sp1" aria-hidden="true">CLAY</span>
+        <span class="cs-spec sp2" aria-hidden="true">COPPER · 12.4 M</span>
+        <span class="cs-spec sp3" aria-hidden="true">TERRA 19.8 M</span>
+        <span class="cs-label">GARVIT PANDIA — CORE SAMPLE</span>
+      </div>
+    </div>
+    <div class="hero-copy">
+      <p class="kicker reveal" style="--d:.1s">Core sample <b>GP-01</b> · Survey 17 · <b>2026</b></p>
+      <h1 class="reveal" style="--d:.16s">Strata <em>/ Core Sample</em></h1>
+      <p class="hero-title reveal" style="--d:.22s">A technical career, drilled to depth</p>
+      <p class="hero-sub reveal" style="--d:.28s"><b>Garvit Pandia</b> — engineer &amp; builder. This survey cuts a vertical cross-section through the work: every project is a specimen embedded in its layer, with depth, evidence, and assay marks. Scroll drills; nothing needs digging to be understood.</p>
+      <div class="cta reveal" style="--d:.34s">
+        <a class="btn" href="#about">Begin the survey ↓</a>
+        <a class="btn ghost" href="Garvit_Pandia_Resume.pdf" download>Download resume</a>
+      </div>
+      <div class="hero-meta reveal" style="--d:.4s">
+        <span class="hm">Lithology <b>data + craft</b></span>
+        <span class="hm">Recovery <b>100%</b></span>
+        <span class="hm">Logged <b>2019–2026</b></span>
+        <span class="hm">No images <b>· no tracking</b></span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">Drill deeper<b></b></div>
+</header>
+
+<main>
+  <section id="about" class="stratum">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-kicker reveal">CORE 01 · Surface reading — About · <b>Topsoil</b> <span class="depth-mark">0.0 M</span></p>
+        <h2 class="sec-title reveal" style="--d:.05s">Reading the <em>surface</em></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>SURVEY NOTES</code> What is visible before the drill turns.</p>
+      </div>
+      <div class="about-grid">
+        <div class="reading-card reveal" style="--d:.1s">
+          <div class="rc-head"><i></i><span>Surface sample · GP-01</span></div>
+          <p><b>Garvit Pandia</b> — engineer &amp; builder based in <span class="hl">Nainital, Uttarakhand, India</span>. B.Sc Computer Science from Uttaranga Institute of Applied Sciences (2019–2023, 8.8/10), where independent research on agri-sensor data seeded the first published workshop paper.</p>
+          <p>Beneath the surface: <b>40+ farm trials</b>, <b>5,800 specimens</b> logged, <b>60 hives</b> instrumented, <b>1.1M trees</b> mapped, <b>14 farms</b> running on systems he built. The projects here are field notes, not exhibits — some are still growing.</p>
+          <div class="stats">
+            <div class="stat"><b>40+</b><span>farm trials</span></div>
+            <div class="stat"><b>5,800</b><span>specimens logged</span></div>
+            <div class="stat"><b>60</b><span>hives instrumented</span></div>
+            <div class="stat"><b>1.1M</b><span>trees mapped</span></div>
+            <div class="stat"><b>14</b><span>farms running</span></div>
+            <div class="stat"><b>46</b><span>projects shipped</span></div>
+          </div>
+        </div>
+        <div class="tray reveal" style="--d:.18s">
+          <div class="t-head"><span>Specimen tray</span><span>GP-01</span></div>
+          <h3>Four <em>layers</em>, one core</h3>
+          <p>Data at the top, field systems below, networks in between, craft at the base — each layer grades into the next, the way real strata do.</p>
+          <div class="specimens" aria-hidden="true">
+            <span class="sp s1">DATA</span>
+            <span class="sp s2">FIELD</span>
+            <span class="sp s3">SYSTEMS</span>
+            <span class="sp s4">CRAFT</span>
+          </div>
+        </div>
+      </div>
+      <div class="quotes">
+        <div class="quote reveal" style="--d:.14s">“He took our sensor mess and returned a forecast the agriculture officers actually trust. That is rarer than it sounds.”<footer><b>Nikhil Verma</b> — CTO, Tallgrass Analytics</footer></div>
+        <div class="quote reveal" style="--d:.2s">“Every chart he built for us carries its parameters. Reproducibility is a personality trait for him.”<footer><b>Ishita Banerjee</b> — Bioinformatics Engineer, Larkspur Bio</footer></div>
+        <div class="quote reveal" style="--d:.26s">“The acidification warning system he built gave our biologists six days of lead time. Six days is a season in this field.”<footer><b>Kavya Menon</b> — Marine Data Director, Peregrine Deep</footer></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="stratum">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-kicker reveal">CORE 02 · Embedded works — Projects · <b>Specimens in situ</b> <span class="depth-mark">−6.0 M</span></p>
+        <h2 class="sec-title reveal" style="--d:.05s">Specimens, <em>in situ</em></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>FIELD COLLECTION</code> Each specimen is complete at rest. Hover or focus for the assay detail.</p>
+      </div>
+      <div class="grid-2">
+        <article class="specimen reveal" style="--d:.04s">
+          <div class="sp-top"><span class="assay">ASSAY 01 · LITHOLOGY</span><span class="depth-mark"><em>depth</em> −1.2 M</span></div>
+          <h3>Stratum</h3>
+          <p>Cross-sections from borehole logs in one command — 400+ logs rendered in under two minutes.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">matplotlib</span><span class="chip">CLI</span></div>
+          <div class="evidence"><b>400+</b> logs &lt; 2 min · <b class="cu">3</b>D layer explorer · 480★<span class="suf">SELF-SAMPLED</span></div>
+          <div class="assay-detail">Used by 2 geology departments and 1 mining consultancy; ships zero-image output.</div>
+        </article>
+        <article class="specimen reveal" style="--d:.08s">
+          <div class="sp-top"><span class="assay">ASSAY 02 · HYDRO</span><span class="depth-mark"><em>depth</em> −2.4 M</span></div>
+          <h3>Springline</h3>
+          <p>Hydrology that tells a story — rainfall, soil moisture, and stream gauges merged into one forecast surface.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">D3</span><span class="chip">PostGIS</span></div>
+          <div class="evidence"><b>4 days</b> monsoon-onset lead · <b class="cu">87%</b> seasonal accuracy<span class="suf">3 RIVER BASINS</span></div>
+          <div class="assay-detail">Six sources, one model; twelve dashboards still in daily use by district officers.</div>
+        </article>
+        <article class="specimen reveal" style="--d:.04s">
+          <div class="sp-top"><span class="assay">ASSAY 03 · AGRI</span><span class="depth-mark"><em>depth</em> −3.6 M</span></div>
+          <h3>Seedling</h3>
+          <p>Yield forecasts for smallholdings — free satellite bands plus farmer-reported samples.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">scikit-learn</span><span class="chip">satellite imagery</span></div>
+          <div class="evidence"><b>84%</b> accuracy at harvest · <b class="cu">9,000</b> smallholdings<span class="suf">3 REGIONAL LANGS</span></div>
+          <div class="assay-detail">Reports ship in three regional languages; the model retrains every season with new field data.</div>
+        </article>
+        <article class="specimen reveal" style="--d:.08s">
+          <div class="sp-top"><span class="assay">ASSAY 04 · CARBON</span><span class="depth-mark"><em>depth</em> −4.8 M</span></div>
+          <h3>Humus</h3>
+          <p>Plot-scale soil-carbon projections from five inputs — a model small enough for a spreadsheet.</p>
+          <div class="chips"><span class="chip">R</span><span class="chip">statistical modeling</span><span class="chip">CSV in/out</span></div>
+          <div class="evidence"><b>81%</b> agreement @3 yrs · <b class="cu">240</b> farms modeled<span class="suf">2 COOPERATIVES</span></div>
+          <div class="assay-detail">Two cooperatives use it for carbon-credit planning; no GPU required, by design.</div>
+        </article>
+        <article class="specimen reveal" style="--d:.04s">
+          <div class="sp-top"><span class="assay">ASSAY 05 · FOREST</span><span class="depth-mark"><em>depth</em> −6.0 M</span></div>
+          <h3>Canopy</h3>
+          <p>Drone-to-map forest inventory — a 1-GPU pipeline that maps 40 km² in a single pass.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">geospatial</span></div>
+          <div class="evidence"><b>40 km²</b> mapped · <b class="cu">1.1M</b> trees · <b>1</b>-GPU footprint<span class="suf">2 SURVEY TEAMS</span></div>
+          <div class="assay-detail">The field-data guide he wrote is still followed by both survey teams; the export format is cited by 2 papers.</div>
+        </article>
+        <article class="specimen reveal" style="--d:.08s">
+          <div class="sp-top"><span class="assay">ASSAY 06 · FLORA</span><span class="depth-mark"><em>depth</em> −7.2 M</span></div>
+          <h3>Herbarium</h3>
+          <p>A specimen identification system — 5,800 pressed specimens, searchable in seconds.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">image search</span><span class="chip">structured keys</span></div>
+          <div class="evidence"><b>5,800</b> specimens · <b class="cu">94%</b> top-5 identification<span class="suf">3 HERBARIA</span></div>
+          <div class="assay-detail">Three herbaria import their catalogs monthly; keys update from the field log.</div>
+        </article>
+        <article class="specimen reveal" style="--d:.04s">
+          <div class="sp-top"><span class="assay">ASSAY 07 · STORAGE</span><span class="depth-mark"><em>depth</em> −8.4 M</span></div>
+          <h3>Rhizome</h3>
+          <p>Storage that self-heals — a node can churn 30% and nothing is lost.</p>
+          <div class="chips"><span class="chip">Rust</span><span class="chip">erasure coding</span><span class="chip">P2P sync</span></div>
+          <div class="evidence"><b>2.6k★</b> · <b class="cu">30%</b> churn survival · <b>1,100</b> forks<span class="suf">FLAGSHIP 2</span></div>
+          <div class="assay-detail">Erasure-coded blocks with locality-aware repair; the churn test is part of CI.</div>
+        </article>
+        <article class="specimen reveal" style="--d:.08s">
+          <div class="sp-top"><span class="assay">ASSAY 08 · MARINE</span><span class="depth-mark"><em>depth</em> −9.6 M</span></div>
+          <h3>Kelpfield</h3>
+          <p>Kelp-forest regrowth monitoring — 11 restoration sites tracked from space and sonar.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">satellite imagery</span><span class="chip">sonar fusion</span></div>
+          <div class="evidence"><b>92%</b> confidence bands · <b class="cu">11</b> sites · quarterly reports<span class="suf">3 NGOS</span></div>
+          <div class="assay-detail">Quarterly reports auto-generate for three restoration NGOs; growth rates carry full uncertainty.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="stratum">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-kicker reveal">CORE 03 · Material properties — Skills · <b>Grading curves</b> <span class="depth-mark">−12.0 M</span></p>
+        <h2 class="sec-title reveal" style="--d:.05s">Material <em>properties</em></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>LAB TEST 0–100</code> Standard penetration readings, current season.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="material reveal" style="--d:.05s">
+          <h3>Data &amp; Analysis</h3><span class="m-no">LAB/01</span>
+          <div class="layer-row"><label>Pandas</label><div class="bed"><i class="sand"></i></div><b>90</b></div>
+          <div class="layer-row"><label>ETL design</label><div class="bed"><i class="clay"></i></div><b>88</b></div>
+          <div class="layer-row"><label>pipeline orchestration</label><div class="bed"><i class="copp"></i></div><b>82</b></div>
+          <div class="layer-row"><label>geospatial (PostGIS, GDAL)</label><div class="bed"><i class="sand"></i></div><b>80</b></div>
+          <div class="layer-row"><label>data lineage</label><div class="bed"><i class="bas"></i></div><b>78</b></div>
+          <div class="layer-row"><label>visualization (D3)</label><div class="bed"><i class="clay"></i></div><b>85</b></div>
+        </div>
+        <div class="material reveal" style="--d:.1s">
+          <h3>Languages</h3><span class="m-no">LAB/02</span>
+          <div class="layer-row"><label>TypeScript</label><div class="bed"><i class="sand"></i></div><b>94</b></div>
+          <div class="layer-row"><label>Python</label><div class="bed"><i class="clay"></i></div><b>93</b></div>
+          <div class="layer-row"><label>Go</label><div class="bed"><i class="copp"></i></div><b>78</b></div>
+          <div class="layer-row"><label>Rust</label><div class="bed"><i class="bas"></i></div><b>84</b></div>
+          <div class="layer-row"><label>SQL</label><div class="bed"><i class="sand"></i></div><b>88</b></div>
+          <div class="layer-row"><label>Bash</label><div class="bed"><i class="clay"></i></div><b>82</b></div>
+        </div>
+        <div class="material reveal" style="--d:.05s">
+          <h3>Systems &amp; Cloud</h3><span class="m-no">LAB/03</span>
+          <div class="layer-row"><label>Linux</label><div class="bed"><i class="sand"></i></div><b>88</b></div>
+          <div class="layer-row"><label>PostgreSQL</label><div class="bed"><i class="clay"></i></div><b>90</b></div>
+          <div class="layer-row"><label>Docker</label><div class="bed"><i class="copp"></i></div><b>86</b></div>
+          <div class="layer-row"><label>ClickHouse</label><div class="bed"><i class="bas"></i></div><b>80</b></div>
+          <div class="layer-row"><label>AWS</label><div class="bed"><i class="sand"></i></div><b>82</b></div>
+          <div class="layer-row"><label>Terraform</label><div class="bed"><i class="clay"></i></div><b>80</b></div>
+        </div>
+        <div class="material reveal" style="--d:.1s">
+          <h3>Field &amp; Craft</h3><span class="m-no">LAB/04</span>
+          <div class="layer-row"><label>sensors &amp; telemetry</label><div class="bed"><i class="sand"></i></div><b>82</b></div>
+          <div class="layer-row"><label>field documentation</label><div class="bed"><i class="clay"></i></div><b>86</b></div>
+          <div class="layer-row"><label>technical writing</label><div class="bed"><i class="copp"></i></div><b>90</b></div>
+          <div class="layer-row"><label>low-power design</label><div class="bed"><i class="bas"></i></div><b>76</b></div>
+          <div class="layer-row"><label>project scoping</label><div class="bed"><i class="sand"></i></div><b>85</b></div>
+          <div class="layer-row"><label>mentoring</label><div class="bed"><i class="clay"></i></div><b>84</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="achievements" class="stratum">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-kicker reveal">CORE 04 · Specimen register — Achievements · <b>Curated finds</b> <span class="depth-mark">−18.0 M</span></p>
+        <h2 class="sec-title reveal" style="--d:.05s">The <em>register</em></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>CATALOGUED FINDS</code> Each entry verified against the archive before cataloguing.</p>
+      </div>
+      <div class="reg-list">
+        <div class="reg-item reveal" style="--d:.04s"><span class="reg-no amber">01</span><div class="r-body"><h3>Winner — Monsoon Hack Jaipur 2021</h3><p>data-visualization track · 180 teams</p></div><span class="r-year">2021</span></div>
+        <div class="reg-item reveal" style="--d:.08s"><span class="reg-no clay">02</span><div class="r-body"><h3>Top 2% — Ocean Temperature Forecasting Challenge</h3><p>international forecasting benchmark · 2024</p></div><span class="r-year">2024</span></div>
+        <div class="reg-item reveal" style="--d:.12s"><span class="reg-no terra">03</span><div class="r-body"><h3>1st place — University Data Viz Cup 2022</h3><p>university championship</p></div><span class="r-year">2022</span></div>
+        <div class="reg-item reveal" style="--d:.16s"><span class="reg-no copp">04</span><div class="r-body"><h3>Workshop paper — “Skew-Aware Partitioning for Agricultural Sensor Streams”</h3><p>Field Data Systems Workshop · 2023</p></div><span class="r-year">2023</span></div>
+        <div class="reg-item reveal" style="--d:.2s"><span class="reg-no amber">05</span><div class="r-body"><h3>Best Student Agri-Tech Innovation — State Innovation Council</h3><p>Meridian pilot · 2024</p></div><span class="r-year">2024</span></div>
+        <div class="reg-item reveal" style="--d:.24s"><span class="reg-no terra">06</span><div class="r-body"><h3>176 pull requests merged</h3><p>31 first-time contributors mentored to merge · 12 repos</p></div><span class="r-year">ONGOING</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="stratum">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-kicker reveal">CORE 05 · Depth log — Experience · <b>Down the hole</b> <span class="depth-mark">−24.0 M</span></p>
+        <h2 class="sec-title reveal" style="--d:.05s">The depth <em>log</em></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>DRILLER'S RECORD</code> Postings in chronological depth, from recent surface down to the first hole.</p>
+      </div>
+      <div class="depth-log">
+        <div class="log-card reveal" style="--d:.05s">
+          <div class="lc-top"><h3>Data Engineer (contract)</h3><span class="dates">Aug–Dec 2024</span></div>
+          <span class="org">Larkspur Bio · bioinformatics</span>
+          <p>Built the pipeline behind Symbiont — 12k microbiome samples processed in year one. Reproducibility pass: every chart now carries its analysis parameters. Cut pipeline cost 44% with smarter caching, not faster hardware.</p>
+          <span class="d-mark">−3.0 M</span>
+        </div>
+        <div class="log-card reveal" style="--d:.11s">
+          <div class="lc-top"><h3>Data Lead (contract)</h3><span class="dates">Apr 2025–Jan 2026</span></div>
+          <span class="org">Peregrine Deep · ocean data</span>
+          <p>Shipped Kelp — pH anomaly warnings 6 days early at 91% precision; built the Kelpfield monitoring dashboard for 3 restoration NGOs; integrated Atlas offline maps for survey teams weeks off-grid.</p>
+          <span class="d-mark">−6.5 M</span>
+        </div>
+        <div class="log-card reveal" style="--d:.17s">
+          <div class="lc-top"><h3>Bioinformatics Contractor</h3><span class="dates">Apr–Jun 2025</span></div>
+          <span class="org">Larkspur Bio · forest pipelines</span>
+          <p>Ported the Canopy drone pipeline to a 1-GPU footprint — 40 km² mapped, 1.1M trees. Wrote the field-data guide that 2 survey teams still follow; the export format is cited by 2 papers.</p>
+          <span class="d-mark">−9.0 M</span>
+        </div>
+        <div class="log-card reveal" style="--d:.23s">
+          <div class="lc-top"><h3>Field Data Intern</h3><span class="dates">Jun–Aug 2021</span></div>
+          <span class="org">Tallgrass Analytics · agri-climate data</span>
+          <p>Built the sensor-ingestion path that 40+ farm trials run on; the data-quality report caught 3 faulty probe batches before they poisoned a season's model.</p>
+          <span class="d-mark">−12.0 M</span>
+        </div>
+      </div>
+      <div class="edu reveal" style="--d:.18s">
+        <span class="e-mark">U</span>
+        <div><h3>B.Sc Computer Science</h3><p>Uttaranga Institute of Applied Sciences, Nainital · 2019–2023 · independent agri-sensor research</p></div>
+        <span class="gpa">8.8<small>/10</small></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="stratum">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-kicker reveal">CORE 06 · Core release — Contact · <b>Box the core</b> <span class="depth-mark">−30.0 M</span></p>
+        <h2 class="sec-title reveal" style="--d:.05s">Core <em>release</em></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>BOXING &amp; SHIPPING</code> The core is boxed and ready — request a copy, or commission a new survey.</p>
+      </div>
+      <div class="contact-grid">
+        <form class="sheet reveal" id="contact-form" style="--d:.08s" novalidate>
+          <div class="sh-head">Sample request · ST-17</div>
+          <div class="field">
+            <label for="cf-name">Name</label>
+            <input id="cf-name" name="name" type="text" placeholder="Your name" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" name="email" type="email" placeholder="you@example.com" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="cf-msg">Message</label>
+            <textarea id="cf-msg" name="message" placeholder="Request the core, commission a survey…"></textarea>
+          </div>
+          <button class="btn" type="submit">Box the core ✦</button>
+          <p id="form-status" role="status"></p>
+        </form>
+        <div class="sheet reveal" style="--d:.15s">
+          <div class="sh-head">Direct channels · assayed daily</div>
+          <div class="links">
+            <div class="linkrow"><span>Email</span><a href="mailto:garvit9829@gmail.com">garvit9829@gmail.com</a></div>
+            <div class="linkrow"><span>Phone</span><a href="tel:+918905402023">+91-8905402023</a></div>
+            <div class="linkrow"><span>GitHub</span><a href="https://github.com/garvit-pandia" target="_blank" rel="noopener">github.com/garvit-pandia</a></div>
+            <div class="linkrow"><span>LinkedIn</span><a href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener">linkedin.com/in/garvit-pandia</a></div>
+            <div class="linkrow"><span>Location</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Nainital%2C+Uttarakhand" target="_blank" rel="noopener">Nainital, Uttarakhand, India</a></div>
+            <div class="linkrow"><span>Resume</span><a href="Garvit_Pandia_Resume.pdf" download>Garvit_Pandia_Resume.pdf ↓</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div><b>GARVIT PANDIA</b> — © 2026 · <span class="terra">Strata / Core Sample</span> · no images, no tracking</div>
+  <div class="foot-links">
+    <a href="https://github.com/garvit-pandia" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:garvit9829@gmail.com">Email</a>
+    <a href="#hero">Back to surface</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- reveals ---------- */
+  var reveals = document.querySelectorAll('.reveal');
+  function showAll() {
+    for (var r = 0; r < reveals.length; r++) { reveals[r].classList.add('in'); }
+  }
+  if (reduced || !('IntersectionObserver' in window)) {
+    showAll();
+  } else {
+    var rio = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          entries[i].target.classList.add('in');
+          rio.unobserve(entries[i].target);
+        }
+      }
+    }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+    for (var j = 0; j < reveals.length; j++) { rio.observe(reveals[j]); }
+    setTimeout(function () {
+      if (document.querySelectorAll('.reveal:not(.in)').length) { showAll(); }
+    }, 2000);
+  }
+
+  /* ---------- nav active (IntersectionObserver) ---------- */
+  var ids = ['about', 'projects', 'skills', 'achievements', 'experience', 'contact'];
+  var linkEls = {};
+  for (var li = 0; li < ids.length; li++) {
+    var a = document.querySelector('.nav-links a[href="#' + ids[li] + '"]');
+    if (a) { linkEls[ids[li]] = a; }
+  }
+  if ('IntersectionObserver' in window) {
+    var sio = new IntersectionObserver(function (entries) {
+      for (var e = 0; e < entries.length; e++) {
+        if (entries[e].isIntersecting) {
+          for (var s = 0; s < ids.length; s++) {
+            if (linkEls[ids[s]]) { linkEls[ids[s]].classList.toggle('is-active', ids[s] === entries[e].target.id); }
+          }
+        }
+      }
+    }, { rootMargin: '-40% 0px -52% 0px', threshold: 0 });
+    for (var s2 = 0; s2 < ids.length; s2++) {
+      var el = document.getElementById(ids[s2]);
+      if (el) { sio.observe(el); }
+    }
+  }
+
+  /* ---------- depth rail fill ---------- */
+  var drFill = document.getElementById('drFill');
+  var drTicks = Array.prototype.slice.call(document.querySelectorAll('.dr-tick'));
+  var railTicking = false;
+  function updateRail() {
+    if (!drFill) { return; }
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? window.scrollY / max : 0;
+    drFill.style.height = (p * 100) + '%';
+    var active = 0;
+    for (var i = ids.length - 1; i >= 0; i--) {
+      var sec = document.getElementById(ids[i]);
+      if (sec && sec.getBoundingClientRect().top <= window.innerHeight * 0.45) { active = i; break; }
+    }
+    for (var t = 0; t < drTicks.length; t++) {
+      drTicks[t].classList.toggle('on', t === active);
+    }
+  }
+  function onScroll() {
+    if (railTicking) { return; }
+    railTicking = true;
+    requestAnimationFrame(function () { updateRail(); railTicking = false; });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  updateRail();
+
+  /* ---------- nav scrolled ---------- */
+  var nav = document.getElementById('topnav');
+  function applyScroll() {
+    if (nav) { nav.classList.toggle('scrolled', window.scrollY > 24); }
+  }
+  var tick2 = false;
+  function onScroll2() {
+    if (tick2) { return; }
+    tick2 = true;
+    requestAnimationFrame(function () { applyScroll(); tick2 = false; });
+  }
+  window.addEventListener('scroll', onScroll2, { passive: true });
+  applyScroll();
+
+  /* ---------- contact form → mailto ---------- */
+  var form = document.getElementById('contact-form');
+  var statusEl = document.getElementById('form-status');
+  function setStatus(msg, isErr) {
+    if (!statusEl) { return; }
+    statusEl.textContent = msg;
+    statusEl.classList.toggle('err', !!isErr);
+  }
+  if (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var name = (document.getElementById('cf-name').value || '').trim();
+      var email = (document.getElementById('cf-email').value || '').trim();
+      var msg = (document.getElementById('cf-msg').value || '').trim();
+      if (!name || !msg) { setStatus('Please add your name and a message.', true); return; }
+      var subject = 'Portfolio contact from ' + name;
+      var body = msg + '\n\n\u2014 ' + name + (email ? ' (' + email + ')' : '');
+      setStatus('Opening your mail app\u2026');
+      window.location.href = 'mailto:garvit9829@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    });
+  }
+})();
+</script>
+</body>
+</html>
