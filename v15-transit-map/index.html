@@ -516,6 +516,101 @@ footer .verm{color:var(--verm-deep)}
   @page{margin:12mm}
 }
 </style>
+<style>
+/* ---------- C15T signature route engine ---------- */
+.c15t-engine{
+  position:relative;margin-top:16px;padding:20px;background:var(--ink);color:var(--paper);
+  border-radius:14px;overflow:hidden;box-shadow:0 18px 34px -24px rgba(51,49,44,.55);
+}
+.c15t-engine::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.42;
+  background:repeating-linear-gradient(90deg,transparent 0 42px,rgba(255,255,255,.05) 42px 43px);
+}
+.c15t-engine-head,.c15t-engine-body{position:relative;z-index:1}
+.c15t-engine-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:16px}
+.c15t-engine-kicker,.c15t-panel-label{
+  font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--field);margin-bottom:7px;
+}
+.c15t-engine-kicker::before{content:"";display:inline-block;width:18px;height:3px;margin-right:8px;vertical-align:middle;border-radius:99px;background:var(--vermilion)}
+.c15t-engine h3{font-size:clamp(20px,2.5vw,29px);font-weight:700;letter-spacing:-.02em;line-height:1.04;color:var(--paper)}
+.c15t-route-status{
+  max-width:310px;margin:0;color:var(--field);font-family:var(--mono);font-size:9.5px;line-height:1.5;text-align:right;
+}
+.c15t-engine-body{display:grid;grid-template-columns:minmax(0,1fr) 218px;gap:14px;align-items:stretch}
+.c15t-map-wrap{min-width:0;background:#242321;border:1px solid rgba(246,241,229,.18);border-radius:10px;overflow:hidden}
+.c15t-map-wrap svg{display:block;width:100%;height:auto;min-height:260px;background:linear-gradient(135deg,rgba(31,58,147,.12),rgba(212,64,42,.07))}
+.c15t-map-grid{stroke:rgba(246,241,229,.12);stroke-width:1;stroke-dasharray:2 9}
+.c15t-route-line{fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;opacity:.38;stroke-dasharray:4 8;transition:opacity .3s,stroke-width .3s,filter .3s}
+.c15t-route-a{stroke:var(--cobalt)}
+.c15t-route-b{stroke:var(--vermilion)}
+.c15t-route-c{stroke:var(--ultra)}
+.c15t-route-d{stroke:var(--field-deep)}
+.c15t-route-line.c15t-route-active{opacity:1;stroke-width:7;stroke-dasharray:14 8;animation:c15t-route-flow 3.4s linear infinite;filter:drop-shadow(0 0 3px rgba(246,241,229,.28))}
+@keyframes c15t-route-flow{to{stroke-dashoffset:-88}}
+.c15t-node{cursor:pointer;outline:none}
+.c15t-node-halo{fill:none;stroke:var(--paper);stroke-width:1.5;opacity:.38;stroke-dasharray:2 5;transition:opacity .25s,stroke .25s,transform .25s}
+.c15t-node-dot{fill:var(--paper);stroke:var(--line-2);stroke-width:2.5;transition:fill .25s,stroke .25s,stroke-width .25s}
+.c15t-node text{fill:var(--paper);font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.06em;pointer-events:none;paint-order:stroke;stroke:#242321;stroke-width:3px;stroke-linejoin:round}
+.c15t-node.c15t-lit .c15t-node-dot{stroke:var(--field);fill:#fff}
+.c15t-node[data-lines~="A"].c15t-lit .c15t-node-dot{stroke:var(--cobalt)}
+.c15t-node[data-lines~="B"].c15t-lit .c15t-node-dot{stroke:var(--vermilion)}
+.c15t-node[data-lines~="C"].c15t-lit .c15t-node-dot{stroke:var(--ultra)}
+.c15t-node[data-lines~="D"].c15t-lit .c15t-node-dot{stroke:var(--field-deep)}
+.c15t-node.c15t-target .c15t-node-halo{opacity:1;stroke:var(--vermilion);stroke-width:2.5}
+.c15t-node.c15t-target .c15t-node-dot{fill:var(--vermilion);stroke:var(--paper);stroke-width:3.5}
+.c15t-node:focus-visible .c15t-node-halo{opacity:1;stroke:var(--vermilion);stroke-width:3}
+.c15t-train{fill:var(--vermilion);stroke:var(--paper);stroke-width:3;opacity:0;filter:drop-shadow(0 0 5px rgba(212,64,42,.65));transition:opacity .25s}
+.c15t-train-core{fill:var(--paper);pointer-events:none}
+.c15t-map-note{fill:var(--field);font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;opacity:.72}
+.c15t-station-panel{display:flex;flex-direction:column;min-width:0;padding:15px;background:rgba(246,241,229,.07);border:1px solid rgba(246,241,229,.18);border-radius:10px}
+.c15t-panel-label{display:flex;justify-content:space-between;gap:8px;color:var(--field);margin-bottom:8px}
+.c15t-panel-label span{color:rgba(246,241,229,.58);font-weight:400;letter-spacing:.12em;white-space:nowrap}
+.c15t-panel-copy{color:rgba(246,241,229,.78);font-size:10.5px;line-height:1.5;margin-bottom:12px}
+.c15t-station-list{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.c15t-station{
+  display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:34px;padding:0 8px;
+  border:1px solid rgba(246,241,229,.2);border-radius:6px;background:rgba(246,241,229,.06);color:var(--paper);
+  cursor:pointer;font-family:var(--mono);font-size:8.5px;letter-spacing:.05em;text-align:left;transition:background .25s,border-color .25s,color .25s,transform .25s;
+}
+.c15t-station span{color:rgba(246,241,229,.55);font-size:7.5px}
+.c15t-station:hover{border-color:var(--field);background:rgba(246,241,229,.13);transform:translateY(-1px)}
+.c15t-station.c15t-station-selected{border-color:var(--vermilion);background:var(--vermilion);color:#fff}
+.c15t-station.c15t-station-selected span{color:#fff}
+.c15t-clear{
+  margin-top:auto;padding:10px 8px;border:1px dashed rgba(246,241,229,.35);border-radius:6px;background:transparent;color:var(--field);
+  cursor:pointer;font-family:var(--mono);font-size:8px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background .25s,border-color .25s,color .25s;
+}
+.c15t-clear:hover{background:rgba(246,241,229,.1);border-color:var(--field);color:#fff}
+.rchip.c15t-selected{border-color:var(--ink);background:var(--ink);color:#fff;box-shadow:0 0 0 2px rgba(212,64,42,.2)}
+@media (max-width:900px){
+  .c15t-engine-body{grid-template-columns:1fr}
+  .c15t-station-panel{display:block}
+  .c15t-clear{display:block;width:100%;margin-top:12px}
+}
+@media (max-width:760px){
+  .c15t-engine{padding:14px}
+  .c15t-engine-head{display:block}
+  .c15t-route-status{max-width:none;margin-top:10px;text-align:left}
+  .c15t-map-wrap svg{min-height:220px}
+}
+@media (pointer:coarse){
+  .c15t-station{min-height:46px}
+  .c15t-node{cursor:default}
+}
+@media (prefers-reduced-motion:reduce){
+  .c15t-route-line.c15t-route-active{animation:none}
+  .c15t-train{transition:none}
+}
+</style>
+<style id="c15t-touch-guard">
+  #routeChips .rchip,
+  .c15t-station,
+  .c15t-clear { min-height: 44px; }
+  #routeChips .rchip,
+  .c15t-station,
+  .c15t-clear { touch-action: manipulation; }
+</style>
 </head>
 <body>
 
@@ -633,6 +728,50 @@ footer .verm{color:var(--verm-deep)}
         <button type="button" class="rchip lb" data-route="B"><i></i>Line B · Networks</button>
         <button type="button" class="rchip lc" data-route="C"><i></i>Line C · Data</button>
         <button type="button" class="rchip ld" data-route="D"><i></i>Line D · Open Source</button>
+      </div>
+      <div class="c15t-engine reveal" style="--d:.17s" id="c15t-route-engine">
+        <div class="c15t-engine-head">
+          <div><p class="c15t-engine-kicker">Route engine · authored diagram</p><h3>Dispatch a pulse through the network.</h3></div>
+          <p class="c15t-route-status" id="c15t-route-status" role="status" aria-live="polite">All lines open · choose a line or station to dispatch the pulse.</p>
+        </div>
+        <div class="c15t-engine-body">
+          <div class="c15t-map-wrap">
+            <svg viewBox="0 0 820 360" role="group" aria-labelledby="c15t-map-title c15t-map-desc">
+              <title id="c15t-map-title">Impossible Transit route engine</title>
+              <desc id="c15t-map-desc">Four authored route lines join eight project stations. Select a line or station to dispatch a moving pulse.</desc>
+              <g class="c15t-map-grid" aria-hidden="true"><path d="M30 40H790M30 180H790M30 320H790"/><path d="M90 24V336M270 24V336M450 24V336M630 24V336M790 24V336"/></g>
+              <path class="c15t-route-line c15t-route-a" id="c15t-route-a" d="M100 100 C148 150 182 232 220 270 C360 318 540 318 700 270" data-route="A"/>
+              <path class="c15t-route-line c15t-route-b" id="c15t-route-b" d="M100 100 C142 72 190 72 220 76 C270 80 320 118 360 132 C306 190 260 242 220 270 C300 290 385 302 450 294" data-route="B"/>
+              <path class="c15t-route-line c15t-route-c" id="c15t-route-c" d="M360 132 C420 80 470 70 510 76 C560 82 620 112 650 140 C600 210 520 270 450 294 C548 320 630 296 700 270" data-route="C"/>
+              <path class="c15t-route-line c15t-route-d" id="c15t-route-d" d="M510 76 C560 130 592 210 700 270" data-route="D"/>
+              <text class="c15t-map-note" x="36" y="30">LIVE NETWORK / PULSE READY</text>
+              <g class="c15t-node" data-stop="Ferry" data-lines="A B" tabindex="0" role="button" aria-pressed="false" aria-label="Select Ferry station"><circle class="c15t-node-halo" cx="100" cy="100" r="18"/><circle class="c15t-node-dot" cx="100" cy="100" r="8"/><text x="100" y="80" text-anchor="middle">FERRY</text></g>
+              <g class="c15t-node" data-stop="Dispatch" data-lines="B" tabindex="0" role="button" aria-pressed="false" aria-label="Select Dispatch station"><circle class="c15t-node-halo" cx="220" cy="76" r="18"/><circle class="c15t-node-dot" cx="220" cy="76" r="8"/><text x="220" y="57" text-anchor="middle">DISPATCH</text></g>
+              <g class="c15t-node" data-stop="Spool" data-lines="B C" tabindex="0" role="button" aria-pressed="false" aria-label="Select Spool station"><circle class="c15t-node-halo" cx="360" cy="132" r="18"/><circle class="c15t-node-dot" cx="360" cy="132" r="8"/><text x="360" y="113" text-anchor="middle">SPOOL</text></g>
+              <g class="c15t-node" data-stop="Atlas" data-lines="C D" tabindex="0" role="button" aria-pressed="false" aria-label="Select Atlas station"><circle class="c15t-node-halo" cx="510" cy="76" r="18"/><circle class="c15t-node-dot" cx="510" cy="76" r="8"/><text x="510" y="57" text-anchor="middle">ATLAS</text></g>
+              <g class="c15t-node" data-stop="Flume" data-lines="C" tabindex="0" role="button" aria-pressed="false" aria-label="Select Flume station"><circle class="c15t-node-halo" cx="650" cy="140" r="18"/><circle class="c15t-node-dot" cx="650" cy="140" r="8"/><text x="650" y="121" text-anchor="middle">FLUME</text></g>
+              <g class="c15t-node" data-stop="Beacon" data-lines="A B" tabindex="0" role="button" aria-pressed="false" aria-label="Select Beacon station"><circle class="c15t-node-halo" cx="220" cy="270" r="18"/><circle class="c15t-node-dot" cx="220" cy="270" r="8"/><text x="220" y="298" text-anchor="middle">BEACON</text></g>
+              <g class="c15t-node" data-stop="Shortwave" data-lines="B" tabindex="0" role="button" aria-pressed="false" aria-label="Select Shortwave station"><circle class="c15t-node-halo" cx="450" cy="294" r="18"/><circle class="c15t-node-dot" cx="450" cy="294" r="8"/><text x="450" y="322" text-anchor="middle">SHORTWAVE</text></g>
+              <g class="c15t-node" data-stop="Crosscut" data-lines="A C D" tabindex="0" role="button" aria-pressed="false" aria-label="Select Crosscut station"><circle class="c15t-node-halo" cx="700" cy="270" r="18"/><circle class="c15t-node-dot" cx="700" cy="270" r="8"/><text x="700" y="298" text-anchor="middle">CROSSCUT</text></g>
+              <g id="c15t-train" class="c15t-train" aria-hidden="true"><circle r="10"/><circle class="c15t-train-core" r="3.5"/></g>
+            </svg>
+          </div>
+          <aside class="c15t-station-panel" aria-label="Station selector">
+            <div class="c15t-panel-label"><span>Station selector</span><span>08 stops</span></div>
+            <p class="c15t-panel-copy">Pick a stop to set the pulse's target line. Route chips above dispatch a full line.</p>
+            <div class="c15t-station-list">
+              <button type="button" class="c15t-station" data-stop="Ferry" aria-pressed="false"><span>01</span>Ferry</button>
+              <button type="button" class="c15t-station" data-stop="Dispatch" aria-pressed="false"><span>02</span>Dispatch</button>
+              <button type="button" class="c15t-station" data-stop="Spool" aria-pressed="false"><span>03</span>Spool</button>
+              <button type="button" class="c15t-station" data-stop="Atlas" aria-pressed="false"><span>04</span>Atlas</button>
+              <button type="button" class="c15t-station" data-stop="Flume" aria-pressed="false"><span>05</span>Flume</button>
+              <button type="button" class="c15t-station" data-stop="Beacon" aria-pressed="false"><span>06</span>Beacon</button>
+              <button type="button" class="c15t-station" data-stop="Shortwave" aria-pressed="false"><span>07</span>Shortwave</button>
+              <button type="button" class="c15t-station" data-stop="Crosscut" aria-pressed="false"><span>08</span>Crosscut</button>
+            </div>
+            <button type="button" class="c15t-clear" id="c15t-clear">Clear dispatch</button>
+          </aside>
+        </div>
       </div>
       <div class="grid-2" id="stopsGrid">
         <article class="stop-card reveal" style="--d:.04s" data-line="A B">
@@ -1023,6 +1162,213 @@ footer .verm{color:var(--verm-deep)}
       window.location.href = 'mailto:garvit9829@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     });
   }
+})();
+</script>
+<script>
+/* ============================================================
+   C15T SIGNATURE ROUTE ENGINE — authored line dispatch
+   Route chips select a line; station controls select a target.
+   The pulse follows the selected SVG path and pauses for hidden
+   tabs, offscreen maps, or reduced-motion preferences.
+   ============================================================ */
+(function () {
+  'use strict';
+  var engine = document.getElementById('c15t-route-engine');
+  var status = document.getElementById('c15t-route-status');
+  var train = document.getElementById('c15t-train');
+  var grid = document.getElementById('stopsGrid');
+  var clearButton = document.getElementById('c15t-clear');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!engine || !status || !train) { return; }
+
+  var lineNames = { A: 'Systems', B: 'Networks', C: 'Data', D: 'Open Source' };
+  var routeStops = {
+    A: ['Ferry', 'Beacon', 'Crosscut'],
+    B: ['Ferry', 'Dispatch', 'Spool', 'Beacon', 'Shortwave'],
+    C: ['Spool', 'Atlas', 'Flume', 'Shortwave', 'Crosscut'],
+    D: ['Atlas', 'Crosscut']
+  };
+  var stationLines = {
+    Ferry: ['A', 'B'], Dispatch: ['B'], Spool: ['B', 'C'], Atlas: ['C', 'D'],
+    Flume: ['C'], Beacon: ['A', 'B'], Shortwave: ['B'], Crosscut: ['A', 'C', 'D']
+  };
+  var routePaths = {
+    A: document.getElementById('c15t-route-a'),
+    B: document.getElementById('c15t-route-b'),
+    C: document.getElementById('c15t-route-c'),
+    D: document.getElementById('c15t-route-d')
+  };
+  var routeChips = Array.prototype.slice.call(document.querySelectorAll('#routeChips .rchip'));
+  var stationButtons = Array.prototype.slice.call(engine.querySelectorAll('.c15t-station'));
+  var stationNodes = Array.prototype.slice.call(engine.querySelectorAll('.c15t-node'));
+  var cards = grid ? Array.prototype.slice.call(grid.querySelectorAll('.stop-card')) : [];
+  var activeRoute = null;
+  var activeStop = null;
+  var pulseRaf = null;
+  var pulseStart = 0;
+  var mapInView = true;
+
+  function lineForStop(stop) {
+    var lines = stationLines[stop] || ['A'];
+    return lines[0];
+  }
+
+  function setCards(route) {
+    if (!grid) { return; }
+    grid.classList.toggle('hl', !!route);
+    for (var i = 0; i < cards.length; i++) {
+      var lit = !route || cards[i].dataset.line.indexOf(route) !== -1;
+      cards[i].classList.toggle('lit', lit);
+    }
+  }
+
+  function updateStatus() {
+    if (!activeRoute) {
+      status.textContent = 'All lines open · choose a line or station to dispatch the pulse.';
+      return;
+    }
+    var stopsOnLine = routeStops[activeRoute] || [];
+    var target = activeStop ? ' · target ' + activeStop : ' · looping all stops';
+    status.textContent = 'Line ' + activeRoute + ' · ' + lineNames[activeRoute] + ' selected — pulse through ' + stopsOnLine.length + ' stops' + target + '.';
+  }
+
+  function updateClasses() {
+    for (var r = 0; r < routeChips.length; r++) {
+      var route = routeChips[r].dataset.route;
+      var selected = activeRoute === route;
+      routeChips[r].classList.toggle('c15t-selected', selected);
+      routeChips[r].setAttribute('aria-pressed', selected ? 'true' : 'false');
+    }
+    for (var p = 0; p < 4; p++) {
+      var path = routePaths[String.fromCharCode(65 + p)];
+      if (path) { path.classList.toggle('c15t-route-active', path.dataset.route === activeRoute); }
+    }
+    for (var n = 0; n < stationNodes.length; n++) {
+      var nodeLines = stationNodes[n].dataset.lines || '';
+      var lit = !activeRoute || nodeLines.indexOf(activeRoute) !== -1;
+      var target = activeStop && stationNodes[n].dataset.stop === activeStop;
+      stationNodes[n].classList.toggle('c15t-lit', lit);
+      stationNodes[n].classList.toggle('c15t-target', !!target);
+      stationNodes[n].setAttribute('aria-pressed', target ? 'true' : 'false');
+    }
+    for (var s = 0; s < stationButtons.length; s++) {
+      var buttonTarget = activeStop && stationButtons[s].dataset.stop === activeStop;
+      stationButtons[s].classList.toggle('c15t-station-selected', !!buttonTarget);
+      stationButtons[s].setAttribute('aria-pressed', buttonTarget ? 'true' : 'false');
+    }
+    setCards(activeRoute);
+    updateStatus();
+  }
+
+  function placePulse(progress) {
+    var path = activeRoute ? routePaths[activeRoute] : null;
+    if (!path) { train.style.opacity = '0'; return; }
+    var point;
+    try {
+      var length = path.getTotalLength();
+      point = path.getPointAtLength(length * progress);
+    } catch (err) {
+      train.style.opacity = '0';
+      return;
+    }
+    train.setAttribute('transform', 'translate(' + point.x.toFixed(2) + ' ' + point.y.toFixed(2) + ')');
+    train.style.opacity = '1';
+  }
+
+  function stopPulse() {
+    if (pulseRaf !== null) { window.cancelAnimationFrame(pulseRaf); pulseRaf = null; }
+  }
+
+  function animatePulse(now) {
+    pulseRaf = null;
+    if (!activeRoute || reduced || document.hidden || !mapInView) { return; }
+    var duration = 5600;
+    var progress = ((now - pulseStart) % duration) / duration;
+    placePulse(progress);
+    pulseRaf = window.requestAnimationFrame(animatePulse);
+  }
+
+  function startPulse() {
+    stopPulse();
+    if (!activeRoute) { train.style.opacity = '0'; return; }
+    pulseStart = window.performance && performance.now ? performance.now() : Date.now();
+    if (reduced) { placePulse(0); return; }
+    pulseRaf = window.requestAnimationFrame(animatePulse);
+  }
+
+  function render() {
+    updateClasses();
+    startPulse();
+  }
+
+  function selectLine(route) {
+    if (!routePaths[route]) { return; }
+    if (activeRoute === route && !activeStop) {
+      activeRoute = null;
+      activeStop = null;
+    } else {
+      activeRoute = route;
+      activeStop = null;
+    }
+    render();
+  }
+
+  function selectStation(stop) {
+    var route = lineForStop(stop);
+    activeRoute = route;
+    activeStop = stop;
+    render();
+  }
+
+  function clearDispatch() {
+    activeRoute = null;
+    activeStop = null;
+    render();
+  }
+
+  for (var c = 0; c < routeChips.length; c++) {
+    (function (chip) {
+      chip.addEventListener('click', function () { selectLine(chip.dataset.route); });
+      chip.addEventListener('blur', function () {
+        if (activeRoute === chip.dataset.route) { chip.setAttribute('aria-pressed', 'true'); }
+      });
+    })(routeChips[c]);
+  }
+  for (var b = 0; b < stationButtons.length; b++) {
+    (function (button) {
+      button.addEventListener('click', function () { selectStation(button.dataset.stop); });
+    })(stationButtons[b]);
+  }
+  for (var g = 0; g < stationNodes.length; g++) {
+    (function (node) {
+      node.addEventListener('click', function () { selectStation(node.dataset.stop); });
+      node.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          selectStation(node.dataset.stop);
+        }
+      });
+    })(stationNodes[g]);
+  }
+  if (clearButton) { clearButton.addEventListener('click', clearDispatch); }
+  engine.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') { clearDispatch(); }
+  });
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { stopPulse(); }
+    else if (activeRoute && !reduced && mapInView) { startPulse(); }
+  });
+  if ('IntersectionObserver' in window) {
+    var mapObserver = new IntersectionObserver(function (entries) {
+      mapInView = entries.length ? entries[0].isIntersecting : true;
+      if (mapInView && activeRoute && !reduced && !document.hidden) { startPulse(); }
+      else if (!mapInView) { stopPulse(); }
+    }, { rootMargin: '120px 0px' });
+    mapObserver.observe(engine);
+  }
+  updateClasses();
+  train.style.opacity = '0';
 })();
 </script>
 </body>

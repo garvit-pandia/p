@@ -547,6 +547,94 @@ footer .teal{color:var(--teal-deep)}
   @page{margin:12mm}
 }
 </style>
+<style>
+/* ---------- OBFL focus-lock instrument (additive) ---------- */
+.obfl-focus-deck{
+  --obfl-rail-progress:42.6%;
+  width:min(100%,620px);margin-top:28px;padding:17px 18px 15px;
+  background:
+    linear-gradient(135deg,rgba(252,249,240,.98),rgba(237,231,214,.78)),
+    repeating-linear-gradient(0deg,transparent 0 9px,rgba(43,43,43,.025) 9px 10px);
+  border:1px solid var(--line);border-top:3px solid var(--brass);border-radius:10px;
+  box-shadow:0 18px 32px -27px rgba(43,43,43,.6),inset 0 0 0 1px rgba(255,255,255,.45);
+  position:relative;z-index:3;
+}
+.obfl-focus-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding-bottom:11px;border-bottom:1px solid var(--line)}
+.obfl-kicker{font-size:8px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:5px}
+.obfl-focus-head h2{font-family:var(--serif);font-size:clamp(19px,2.2vw,25px);font-weight:600;letter-spacing:-.015em;line-height:1.05;color:var(--ink)}
+.obfl-focus-head h2 em{font-style:italic;color:var(--lens)}
+.obfl-status{flex:none;max-width:170px;padding:6px 8px;border:1px solid rgba(31,110,110,.35);border-radius:4px;background:rgba(31,110,110,.07);font-size:8px;font-weight:600;letter-spacing:.13em;line-height:1.35;text-align:right;color:var(--teal-deep)}
+.obfl-focus-deck[data-obfl-state="resolving"] .obfl-status{border-color:rgba(169,129,59,.55);background:rgba(169,129,59,.1);color:var(--brass-deep)}
+.obfl-focus-deck[data-obfl-state="searching"] .obfl-status{border-color:rgba(198,59,42,.4);background:rgba(198,59,42,.07);color:var(--red-deep)}
+.obfl-readout{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.obfl-readout span{font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.obfl-readout b{display:block;margin-top:2px;font-size:10px;letter-spacing:.04em;color:var(--ink);font-weight:600}
+.obfl-readout span:nth-child(2) b{color:var(--red-deep)}
+.obfl-readout span:nth-child(3) b{color:var(--teal-deep);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.obfl-control{padding-top:11px}
+.obfl-range-label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.obfl-range-label b{font-family:var(--serif);font-size:17px;letter-spacing:0;color:var(--ink);font-weight:600}
+.obfl-rail{position:relative;height:38px;margin:3px 5px 0}
+.obfl-rail-ticks{position:absolute;left:1px;right:1px;top:50%;height:22px;transform:translateY(-50%);display:flex;align-items:flex-end;justify-content:space-between;pointer-events:none;z-index:0}
+.obfl-rail-ticks i{display:block;width:1px;height:7px;background:var(--brass);opacity:.72}
+.obfl-rail-ticks i:nth-child(5n+1){height:16px;background:var(--brass-deep);opacity:.9}
+.obfl-rail-ticks i:nth-child(3n){height:11px}
+.obfl-marker{position:absolute;top:5px;bottom:5px;left:var(--obfl-rail-progress);width:1px;background:var(--red);box-shadow:0 0 0 2px rgba(198,59,42,.08);transform:translateX(-50%);transition:left .16s var(--ease);pointer-events:none;z-index:1}
+.obfl-range{position:relative;z-index:2;width:100%;height:38px;margin:0;appearance:none;-webkit-appearance:none;background:transparent;cursor:ew-resize;touch-action:none}
+.obfl-range::-webkit-slider-runnable-track{height:7px;border:1px solid var(--brass-deep);border-radius:99px;background:linear-gradient(90deg,var(--brass-deep) 0 var(--obfl-rail-progress),var(--paper-2) var(--obfl-rail-progress) 100%)}
+.obfl-range::-moz-range-track{height:7px;border:1px solid var(--brass-deep);border-radius:99px;background:linear-gradient(90deg,var(--brass-deep) 0 var(--obfl-rail-progress),var(--paper-2) var(--obfl-rail-progress) 100%)}
+.obfl-range::-webkit-slider-thumb{width:22px;height:22px;margin-top:-8px;border:2px solid var(--brass-deep);border-radius:50%;background:radial-gradient(circle at 42% 38%,#fff8d8 0 15%,var(--brass) 17% 54%,var(--brass-deep) 57% 100%);box-shadow:0 2px 7px rgba(43,43,43,.35),0 0 0 4px rgba(169,129,59,.12);-webkit-appearance:none;appearance:none;cursor:grab}
+.obfl-range:active::-webkit-slider-thumb{cursor:grabbing}
+.obfl-range::-moz-range-thumb{width:18px;height:18px;border:2px solid var(--brass-deep);border-radius:50%;background:radial-gradient(circle at 42% 38%,#fff8d8 0 15%,var(--brass) 17% 54%,var(--brass-deep) 57% 100%);box-shadow:0 2px 7px rgba(43,43,43,.35),0 0 0 4px rgba(169,129,59,.12);cursor:grab}
+.obfl-range:focus-visible{outline:3px solid var(--teal);outline-offset:5px;border-radius:5px}
+.obfl-range-meta{display:flex;justify-content:space-between;gap:8px;margin:0 1px;font-size:7px;letter-spacing:.12em;color:var(--ink-soft)}
+.obfl-range-meta span:nth-child(2){color:var(--teal-deep);font-weight:600}
+.obfl-help{margin-top:9px;font-size:8px;line-height:1.55;color:var(--ink-soft)}
+.obfl-help::before{content:"↔  ";color:var(--brass-deep);font-weight:600}
+
+/* The rail moves the existing optical assembly and adds an observable ray path. */
+#hero .aperture{transform:translate3d(var(--obfl-lens-x,0px),var(--obfl-lens-y,0px),0) rotate(var(--obfl-lens-rotation,0deg));transition:transform .22s var(--ease)}
+#hero .aperture .r1{transform:rotate(var(--obfl-ring-rotation,0deg));opacity:var(--obfl-ring-outer-opacity,.7);transition:transform .22s var(--ease),opacity .22s var(--ease)}
+#hero .aperture .r2{transform:scale(var(--obfl-ring-scale,1));transition:transform .22s var(--ease)}
+#hero .aperture .r3{transform:rotate(var(--obfl-ring-counter-rotation,0deg));opacity:var(--obfl-ring-inner-opacity,.8);transition:transform .22s var(--ease),opacity .22s var(--ease)}
+#hero .aperture .iris{transform:scale(var(--obfl-iris-scale,1));transition:transform .22s var(--ease),box-shadow .22s var(--ease)}
+#hero .aperture .ticks{transform:rotate(var(--obfl-tick-rotation,0deg));opacity:var(--obfl-tick-opacity,1);transition:transform .22s var(--ease),opacity .22s var(--ease)}
+.obfl-rayfield{position:absolute;inset:8%;z-index:1;pointer-events:none;opacity:.78}
+.obfl-ray{position:absolute;left:0;right:0;top:50%;height:2px;border-radius:99px;background:linear-gradient(90deg,transparent 0%,rgba(198,59,42,.12) 12%,rgba(198,59,42,.72) 30%,rgba(255,255,255,.95) 50%,rgba(58,95,160,.72) 70%,transparent 100%);box-shadow:0 0 8px rgba(58,95,160,.25);transform-origin:50% 50%;transition:transform .22s var(--ease),opacity .22s var(--ease)}
+.obfl-ray-a{transform:var(--obfl-ray-a-transform,translateY(0) rotate(0deg))}
+.obfl-ray-b{transform:var(--obfl-ray-b-transform,translateY(0) rotate(0deg));opacity:.72}
+.obfl-ray-c{height:1px;transform:var(--obfl-ray-c-transform,translateY(0) rotate(0deg));opacity:.5}
+.obfl-plane{position:absolute;top:0;bottom:0;left:50%;width:1px;background:repeating-linear-gradient(180deg,var(--red) 0 5px,transparent 5px 10px);opacity:.72;transform:translateX(calc(-50% + var(--obfl-plane-shift,0px)));transition:transform .22s var(--ease),opacity .22s var(--ease)}
+.obfl-plane b{position:absolute;left:50%;top:50%;width:9px;height:9px;border:1px solid var(--red);border-radius:50%;background:rgba(252,249,240,.82);transform:translate(-50%,-50%);box-shadow:0 0 0 3px rgba(198,59,42,.1)}
+#calibTicks .obfl-current{height:15px;background:var(--teal);box-shadow:0 0 8px rgba(31,110,110,.28)}
+.fp-card.obfl-tracked{opacity:var(--obfl-card-alpha,1);transition:transform .3s var(--ease),border-color .3s,box-shadow .3s,opacity .22s var(--ease)}
+.fp-card.obfl-nearest{border-color:var(--teal);box-shadow:0 0 0 3px rgba(31,110,110,.14),0 22px 40px -26px rgba(43,43,43,.5);transform:translateY(-3px)}
+.fp-card.obfl-nearest::before,.fp-card.obfl-nearest::after{opacity:1}
+.fp-card.obfl-nearest .aper{background:rgba(31,110,110,.1);border-color:var(--teal);color:var(--teal-deep);transform:rotate(-12deg)}
+.fp-card.obfl-near .focal-dist{color:var(--teal-deep);font-weight:600}
+
+@media (max-width:760px){
+  .obfl-focus-head{flex-direction:column;gap:10px}
+  .obfl-status{max-width:none;text-align:left}
+  .obfl-readout{grid-template-columns:repeat(2,1fr)}
+  .obfl-readout span:nth-child(3){grid-column:1/-1}
+  .obfl-range{height:44px}
+  .obfl-range-meta{font-size:6.5px}
+}
+@media (pointer:coarse){
+  .obfl-range{height:44px}
+  .obfl-range::-webkit-slider-thumb{width:26px;height:26px;margin-top:-10px}
+  .obfl-range::-moz-range-thumb{width:22px;height:22px}
+}
+@media (prefers-reduced-motion:reduce){
+  .obfl-marker,.obfl-focus-deck *,#hero .aperture,.obfl-ray,.obfl-plane{transition:none!important}
+}
+@media print{
+  .obfl-focus-deck{break-inside:avoid;box-shadow:none;background:#fff}
+  .obfl-marker{transition:none}
+  .obfl-rayfield{opacity:.55}
+}
+</style>
 </head>
 <body>
 
@@ -577,8 +665,32 @@ footer .teal{color:var(--teal-deep)}
       <div class="calib-strip reveal" style="--d:.42s" id="calibStrip" aria-hidden="true">
         <span class="cs-label">Calibration</span>
         <div class="ticks" id="calibTicks">
-          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
         </div>
+      </div>
+      <div class="obfl-focus-deck" id="obflFocusDeck" data-obfl-state="locked">
+        <div class="obfl-focus-head">
+          <div>
+            <p class="obfl-kicker">Focus lock · observation control</p>
+            <h2>Find the <em>focal plane</em></h2>
+          </div>
+          <output class="obfl-status" id="obflStatus" for="obflFocus" role="status" aria-live="polite" aria-atomic="true">FOCUS LOCKED · 50.0 MM</output>
+        </div>
+        <div class="obfl-readout" aria-label="Live focus readout">
+          <span>Plane <b id="obflPlaneValue">50.0 MM</b></span>
+          <span>Error <b id="obflErrorValue">±0.0 MM</b></span>
+          <span>Specimen <b id="obflSpecimenValue">PARSEC</b></span>
+        </div>
+        <div class="obfl-control">
+          <label class="obfl-range-label" for="obflFocus"><span>Focal plane distance</span><b id="obflFocusValue">50.0 mm</b></label>
+          <div class="obfl-rail" id="obflRail">
+            <div class="obfl-rail-ticks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <span class="obfl-marker" aria-hidden="true"></span>
+            <input class="obfl-range" id="obflFocus" type="range" min="24" max="85" step="0.5" value="50" aria-label="Focus lock, focal plane distance in millimetres" aria-describedby="obflFocusHelp" aria-valuetext="50.0 millimetres; focus locked on Parsec">
+          </div>
+          <div class="obfl-range-meta"><span>24 MM · SEARCH</span><span>50 MM · LOCK</span><span>85 MM · SEARCH</span></div>
+        </div>
+        <p class="obfl-help" id="obflFocusHelp">Drag the brass rail or use the arrow keys. The rays, aperture, calibration marks, and specimen emphasis follow the reading.</p>
       </div>
     </div>
     <div class="reveal" style="--d:.24s">
@@ -590,6 +702,12 @@ footer .teal{color:var(--teal-deep)}
           <div class="blades" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
           <div class="iris"></div>
           <div class="ticks"></div>
+          <div class="obfl-rayfield" aria-hidden="true">
+            <i class="obfl-ray obfl-ray-a"></i>
+            <i class="obfl-ray obfl-ray-b"></i>
+            <i class="obfl-ray obfl-ray-c"></i>
+            <span class="obfl-plane"><b></b></span>
+          </div>
           <span class="fstop">f/2.8<small>IN FOCUS</small></span>
           <span class="calib-label c1">CAL 08/26</span>
           <span class="calib-label c2">APERTURE 6</span>
@@ -988,6 +1106,124 @@ footer .teal{color:var(--teal-deep)}
       window.location.href = 'mailto:garvit9829@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     });
   }
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var deck = document.getElementById('obflFocusDeck');
+  var focus = document.getElementById('obflFocus');
+  var rail = document.getElementById('obflRail');
+  var hero = document.getElementById('hero');
+  if (!deck || !focus || !rail || !hero) { return; }
+
+  var status = document.getElementById('obflStatus');
+  var planeValue = document.getElementById('obflPlaneValue');
+  var errorValue = document.getElementById('obflErrorValue');
+  var specimenValue = document.getElementById('obflSpecimenValue');
+  var focusValue = document.getElementById('obflFocusValue');
+  var focalLabel = document.querySelector('#hero .focal');
+  var aperture = document.querySelector('#hero .aperture');
+  var calibrationTicks = document.querySelectorAll('#calibTicks i');
+  var cards = document.querySelectorAll('#projects .fp-card');
+  var cardData = [];
+  var minMm = parseFloat(focus.min) || 24;
+  var maxMm = parseFloat(focus.max) || 85;
+  var lockMm = 50;
+
+  function clamp(value, low, high) {
+    return Math.min(high, Math.max(low, value));
+  }
+
+  for (var c = 0; c < cards.length; c++) {
+    var distanceEl = cards[c].querySelector('.focal-dist');
+    var titleEl = cards[c].querySelector('h3');
+    var distanceMatch = distanceEl ? distanceEl.textContent.match(/(\d+(?:\.\d+)?)/) : null;
+    cardData.push({
+      card: cards[c],
+      distance: distanceMatch ? parseFloat(distanceMatch[1]) : NaN,
+      title: titleEl ? titleEl.textContent.trim().toUpperCase() : 'SPECIMEN'
+    });
+  }
+
+  function updateFocus(rawValue) {
+    var value = clamp(parseFloat(rawValue) || lockMm, minMm, maxMm);
+    var progress = (value - minMm) / (maxMm - minMm);
+    var error = value - lockMm;
+    var distance = Math.abs(error);
+    var state = distance <= 1 ? 'locked' : (distance <= 12 ? 'resolving' : 'searching');
+    var stateLabel = state === 'locked' ? 'FOCUS LOCKED' : (state === 'resolving' ? 'RESOLVING' : 'SEARCHING');
+    var direction = error < 0 ? -1 : 1;
+    var beamOffset = Math.min(28, distance * .82);
+    var beamAngle = Math.min(12, distance * .28);
+    var nearestIndex = -1;
+    var nearestDelta = Infinity;
+
+    if (focus.value !== String(value)) { focus.value = value.toFixed(1); }
+    deck.dataset.obflState = state;
+    deck.style.setProperty('--obfl-rail-progress', (progress * 100).toFixed(2) + '%');
+    hero.style.setProperty('--obfl-lens-x', (error * .36).toFixed(2) + 'px');
+    hero.style.setProperty('--obfl-lens-y', (-error * .1).toFixed(2) + 'px');
+    hero.style.setProperty('--obfl-lens-rotation', (error * .12).toFixed(2) + 'deg');
+    hero.style.setProperty('--obfl-ring-rotation', (error * 1.3).toFixed(2) + 'deg');
+    hero.style.setProperty('--obfl-ring-counter-rotation', (-error * .95).toFixed(2) + 'deg');
+    hero.style.setProperty('--obfl-ring-scale', (1 + Math.min(distance, 30) * .002).toFixed(3));
+    hero.style.setProperty('--obfl-iris-scale', (1.18 - Math.min(distance, 35) * .009).toFixed(3));
+    hero.style.setProperty('--obfl-ring-outer-opacity', (0.7 + Math.min(distance, 30) * .006).toFixed(3));
+    hero.style.setProperty('--obfl-ring-inner-opacity', (0.8 + Math.min(distance, 30) * .004).toFixed(3));
+    hero.style.setProperty('--obfl-tick-rotation', (error * .72).toFixed(2) + 'deg');
+    hero.style.setProperty('--obfl-tick-opacity', (0.82 + (1 - Math.min(distance, 35) / 35) * .18).toFixed(3));
+    hero.style.setProperty('--obfl-plane-shift', (error * .72).toFixed(2) + 'px');
+    hero.style.setProperty('--obfl-ray-a-transform', 'translateY(' + (-beamOffset * direction).toFixed(2) + 'px) rotate(' + (beamAngle * direction).toFixed(2) + 'deg)');
+    hero.style.setProperty('--obfl-ray-b-transform', 'translateY(' + (beamOffset * direction).toFixed(2) + 'px) rotate(' + (-beamAngle * direction).toFixed(2) + 'deg)');
+    hero.style.setProperty('--obfl-ray-c-transform', 'translateY(' + (beamOffset * .48 * direction).toFixed(2) + 'px) rotate(' + (beamAngle * .48 * direction).toFixed(2) + 'deg)');
+
+    if (status) { status.textContent = stateLabel + ' · ' + value.toFixed(1) + ' MM'; }
+    if (planeValue) { planeValue.textContent = value.toFixed(1) + ' MM'; }
+    if (focusValue) { focusValue.textContent = value.toFixed(1) + ' mm'; }
+    if (errorValue) {
+      errorValue.textContent = distance < .05 ? '±0.0 MM' : (error > 0 ? '+' : '−') + distance.toFixed(1) + ' MM';
+    }
+    if (focalLabel) { focalLabel.textContent = 'focal plane · ' + value.toFixed(1) + ' mm'; }
+    if (aperture) { aperture.setAttribute('aria-label', 'Aperture ring at f/2.8, focal plane ' + value.toFixed(1) + ' millimetres, ' + stateLabel.toLowerCase()); }
+
+    for (var t = 0; t < calibrationTicks.length; t++) {
+      calibrationTicks[t].classList.toggle('obfl-current', t === Math.round(progress * (calibrationTicks.length - 1)));
+    }
+
+    for (var i = 0; i < cardData.length; i++) {
+      var delta = isFinite(cardData[i].distance) ? Math.abs(cardData[i].distance - value) : 99;
+      if (delta < nearestDelta) { nearestDelta = delta; nearestIndex = i; }
+      cardData[i].card.style.setProperty('--obfl-card-alpha', Math.max(.92, 1 - delta / 220).toFixed(3));
+      cardData[i].card.classList.add('obfl-tracked');
+      cardData[i].card.classList.toggle('obfl-near', delta <= 8);
+    }
+    for (var n = 0; n < cardData.length; n++) {
+      cardData[n].card.classList.toggle('obfl-nearest', n === nearestIndex);
+    }
+    if (specimenValue && nearestIndex >= 0) { specimenValue.textContent = cardData[nearestIndex].title; }
+    focus.setAttribute('aria-valuetext', value.toFixed(1) + ' millimetres; ' + stateLabel.toLowerCase() + (cardData.length && nearestIndex >= 0 ? ' on ' + cardData[nearestIndex].title : ''));
+  }
+
+  function setFromPointer(event) {
+    var bounds = rail.getBoundingClientRect();
+    var ratio = clamp((event.clientX - bounds.left) / bounds.width, 0, 1);
+    var next = minMm + ratio * (maxMm - minMm);
+    next = Math.round(next * 2) / 2;
+    updateFocus(next);
+  }
+
+  focus.addEventListener('input', function () { updateFocus(focus.value); });
+  rail.addEventListener('pointerdown', function (event) {
+    if (event.target !== focus) {
+      setFromPointer(event);
+      if (rail.setPointerCapture) { rail.setPointerCapture(event.pointerId); }
+    }
+  });
+  rail.addEventListener('pointermove', function (event) {
+    if (event.target !== focus && (event.buttons || event.pressure > 0)) { setFromPointer(event); }
+  });
+  updateFocus(focus.value);
 })();
 </script>
 </body>

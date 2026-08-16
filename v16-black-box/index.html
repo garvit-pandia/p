@@ -456,6 +456,74 @@ footer .red{color:var(--red-hot)}
   @page{margin:12mm}
 }
 </style>
+<style>
+/* ---------- v16 additive: director cue console ---------- */
+.c16-console{
+  position:relative;width:min(760px,100%);margin:28px auto 0;padding:14px;
+  text-align:left;background:linear-gradient(135deg,rgba(29,29,33,.94),rgba(12,12,13,.86));
+  border:1px solid rgba(169,138,91,.55);border-radius:7px;
+  box-shadow:inset 0 1px 0 rgba(237,230,216,.08),0 18px 34px -26px rgba(0,0,0,.95);
+}
+.c16-console::before,.c16-console::after{content:"";position:absolute;width:16px;height:16px;pointer-events:none}
+.c16-console::before{top:5px;left:5px;border-top:1px solid var(--red);border-left:1px solid var(--red)}
+.c16-console::after{right:5px;bottom:5px;border-right:1px solid var(--brass);border-bottom:1px solid var(--brass)}
+.c16-console-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:11px;padding:0 5px 10px;border-bottom:1px solid rgba(169,138,91,.3)}
+.c16-console-title{font-size:9.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--bone)}
+.c16-console-mark{font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass)}
+.c16-cue-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.c16-cue{
+  min-height:64px;padding:10px 9px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;
+  border:1px solid var(--line);border-radius:4px;background:rgba(22,22,24,.86);color:var(--bone-dim);
+  font:inherit;text-align:left;cursor:pointer;touch-action:manipulation;
+  transition:background .25s,border-color .25s,box-shadow .25s,color .25s;
+}
+.c16-cue:hover{border-color:var(--brass);background:rgba(169,138,91,.09);color:var(--bone)}
+.c16-cue:focus-visible{outline:3px solid var(--red-hot);outline-offset:3px}
+.c16-cue[aria-pressed="true"]{border-color:var(--red-hot);background:linear-gradient(160deg,rgba(194,51,33,.2),rgba(22,22,24,.92));box-shadow:inset 3px 0 var(--red),0 8px 18px -15px rgba(194,51,33,.9);color:var(--bone)}
+.c16-cue-num{font-size:8px;font-weight:600;letter-spacing:.2em;color:var(--red-hot)}
+.c16-cue-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:inherit}
+.c16-cue-note{font-family:var(--serif);font-size:12px;font-style:italic;color:var(--brass-dim)}
+.c16-console-foot{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:11px;padding:9px 5px 0;border-top:1px dashed rgba(169,138,91,.3)}
+.c16-cue-status{flex:1 1 340px;min-height:31px;font-size:9.5px;line-height:1.45;color:var(--bone-dim)}
+.c16-cue-status::before{content:"STATUS // ";color:var(--brass);letter-spacing:.16em;font-size:8px}
+.c16-console-keys{font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-dim)}
+.c16-reset{min-height:38px;padding:0 11px;border:1px solid var(--brass-dim);border-radius:4px;background:transparent;color:var(--bone-dim);font:inherit;font-size:8px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;touch-action:manipulation;transition:background .25s,border-color .25s,color .25s}
+.c16-reset:hover{background:rgba(169,138,91,.12);border-color:var(--brass);color:var(--bone)}
+.c16-reset:focus-visible{outline:3px solid var(--red-hot);outline-offset:3px}
+#hero[data-c16-cue] .wing{transition:transform .55s var(--ease),opacity .55s var(--ease),width .55s var(--ease)}
+#hero[data-c16-cue] .spot{transition:transform .7s var(--ease),opacity .5s var(--ease),filter .5s var(--ease),background .5s var(--ease)}
+#hero[data-c16-cue="left"] .spot{animation:none;transform:translateX(-34vw) rotate(-7deg) scaleX(.82);background:radial-gradient(ellipse 54% 50% at 50% 50%,rgba(237,230,216,.18),rgba(194,51,33,.08) 46%,transparent 73%)}
+#hero[data-c16-cue="right"] .spot{animation:none;transform:translateX(34vw) rotate(7deg) scaleX(.82);background:radial-gradient(ellipse 54% 50% at 50% 50%,rgba(237,230,216,.18),rgba(169,138,91,.1) 46%,transparent 73%)}
+#hero[data-c16-cue="crossfade"] .spot{animation:none;transform:translateX(12vw) rotate(8deg) scaleX(.48);background:radial-gradient(ellipse 52% 50% at 50% 50%,rgba(255,204,123,.27),rgba(194,51,33,.1) 40%,transparent 72%);filter:blur(1px)}
+#hero[data-c16-cue="left"] .wing.left{transform:translateX(-48%);opacity:.36}
+#hero[data-c16-cue="left"] .wing.right{transform:translateX(4%);opacity:.9}
+#hero[data-c16-cue="right"] .wing.left{transform:translateX(4%);opacity:.9}
+#hero[data-c16-cue="right"] .wing.right{transform:translateX(48%);opacity:.36}
+#hero[data-c16-cue="crossfade"] .wing{transform:scaleX(.82);opacity:.68}
+body[data-c16-cue="house"] #about .playbill{border-color:rgba(169,138,91,.7);box-shadow:0 0 0 1px rgba(169,138,91,.14),0 20px 42px -30px rgba(169,138,91,.32)}
+body[data-c16-cue="left"] #projects .casefile:nth-child(1){border-color:rgba(194,51,33,.72);box-shadow:0 0 0 1px rgba(194,51,33,.2),0 22px 42px -24px rgba(194,51,33,.28)}
+body[data-c16-cue="left"] #projects .casefile:nth-child(1)::before{opacity:1;background:radial-gradient(52% 40% at 20% 0%,rgba(232,74,46,.18),transparent 70%)}
+body[data-c16-cue="right"] #projects .casefile:nth-child(2){border-color:rgba(169,138,91,.78);box-shadow:0 0 0 1px rgba(169,138,91,.2),0 22px 42px -24px rgba(169,138,91,.3)}
+body[data-c16-cue="right"] #projects .casefile:nth-child(2)::before{opacity:1;background:radial-gradient(52% 40% at 80% 0%,rgba(169,138,91,.2),transparent 70%)}
+body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2){border-color:rgba(232,74,46,.76);box-shadow:0 0 0 1px rgba(232,74,46,.22),0 22px 44px -24px rgba(194,51,33,.32)}
+body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:1;background:radial-gradient(56% 48% at 50% 0%,rgba(255,204,123,.16),transparent 72%)}
+@media (max-width:760px){
+  .c16-console{margin-top:22px;padding:12px}
+  .c16-cue-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .c16-console-foot{align-items:flex-start}
+  .c16-cue-status{flex-basis:100%}
+  .c16-reset{min-height:44px}
+}
+@media (pointer:coarse){.c16-cue{min-height:52px}.c16-reset{min-height:46px}}
+@media (prefers-reduced-motion:reduce){
+  #hero[data-c16-cue] .spot{transition:none}
+  #hero[data-c16-cue] .wing{transition:none}
+  #hero[data-c16-cue="left"] .spot{transform:translateX(-34vw) rotate(-7deg) scaleX(.82)!important}
+  #hero[data-c16-cue="right"] .spot{transform:translateX(34vw) rotate(7deg) scaleX(.82)!important}
+  #hero[data-c16-cue="crossfade"] .spot{transform:translateX(12vw) rotate(8deg) scaleX(.48)!important}
+}
+@media print{.c16-console{display:none!important}}
+</style>
 </head>
 <body>
 
@@ -491,6 +559,31 @@ footer .red{color:var(--red-hot)}
       <a class="btn" href="#about">Raise the curtain ↓</a>
       <a class="btn ghost" href="Garvit_Pandia_Resume.pdf" download>Download resume</a>
     </div>
+    <aside class="c16-console reveal" id="c16-cue-console" style="--d:.36s" aria-labelledby="c16-console-title">
+      <div class="c16-console-head">
+        <h2 class="c16-console-title" id="c16-console-title">Director's cue console</h2>
+        <span class="c16-console-mark">Cue board · BB-16</span>
+      </div>
+      <div class="c16-cue-grid" role="group" aria-label="Director cues">
+        <button class="c16-cue" type="button" data-c16-cue="house" aria-pressed="true" aria-keyshortcuts="1" aria-controls="hero">
+          <span class="c16-cue-num">Q1</span><span class="c16-cue-label">House</span><span class="c16-cue-note">Opening look</span>
+        </button>
+        <button class="c16-cue" type="button" data-c16-cue="left" aria-pressed="false" aria-keyshortcuts="2" aria-controls="hero projects">
+          <span class="c16-cue-num">Q2</span><span class="c16-cue-label">Stage left</span><span class="c16-cue-note">Take the mark</span>
+        </button>
+        <button class="c16-cue" type="button" data-c16-cue="right" aria-pressed="false" aria-keyshortcuts="3" aria-controls="hero projects">
+          <span class="c16-cue-num">Q3</span><span class="c16-cue-label">Stage right</span><span class="c16-cue-note">Warm cross</span>
+        </button>
+        <button class="c16-cue" type="button" data-c16-cue="crossfade" aria-pressed="false" aria-keyshortcuts="4" aria-controls="hero projects">
+          <span class="c16-cue-num">Q4</span><span class="c16-cue-label">Crossfade</span><span class="c16-cue-note">Narrow beam</span>
+        </button>
+      </div>
+      <div class="c16-console-foot">
+        <p class="c16-cue-status" id="c16-cue-status" role="status" aria-live="polite">Q1 HOUSE — opening look: soft white pool, wings open, playbill ready.</p>
+        <span class="c16-console-keys">Keys 1–4 · arrows step · R reset</span>
+        <button class="c16-reset" id="c16-reset" type="button">Reset opening cue</button>
+      </div>
+    </aside>
   </div>
   <div class="scroll-cue">Scroll — the show moves on<b></b></div>
 </header>
@@ -858,6 +951,76 @@ footer .red{color:var(--red-hot)}
       window.location.href = 'mailto:garvit9829@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     });
   }
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var consoleEl = document.getElementById('c16-cue-console');
+  var hero = document.getElementById('hero');
+  var statusEl = document.getElementById('c16-cue-status');
+  var resetEl = document.getElementById('c16-reset');
+  if (!consoleEl || !hero) { return; }
+
+  var cueNames = ['house', 'left', 'right', 'crossfade'];
+  var cueCopy = {
+    house: 'Q1 HOUSE — opening look: soft white pool, wings open, playbill ready.',
+    left: 'Q2 STAGE LEFT — the left wing clears; Stagelight takes the mark.',
+    right: 'Q3 STAGE RIGHT — a brass cross finds Ghostlight in the wings.',
+    crossfade: 'Q4 CROSSFADE — narrow amber beam; Ghostlight holds the cue.'
+  };
+  var buttons = Array.prototype.slice.call(consoleEl.querySelectorAll('[data-c16-cue]'));
+
+  function activate(name, moveFocus) {
+    if (!cueCopy[name]) { name = 'house'; }
+    hero.setAttribute('data-c16-cue', name);
+    document.body.setAttribute('data-c16-cue', name);
+    for (var i = 0; i < buttons.length; i++) {
+      var isActive = buttons[i].getAttribute('data-c16-cue') === name;
+      buttons[i].setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      if (isActive && moveFocus) { buttons[i].focus(); }
+    }
+    if (statusEl) { statusEl.textContent = cueCopy[name]; }
+  }
+
+  function stepCue(direction) {
+    var current = cueNames.indexOf(hero.getAttribute('data-c16-cue'));
+    if (current < 0) { current = 0; }
+    var next = (current + direction + cueNames.length) % cueNames.length;
+    activate(cueNames[next], true);
+  }
+
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function () {
+      activate(this.getAttribute('data-c16-cue'), false);
+    });
+  }
+  consoleEl.addEventListener('keydown', function (ev) {
+    if (ev.key === 'ArrowLeft' || ev.key === 'ArrowUp') {
+      ev.preventDefault(); stepCue(-1);
+    } else if (ev.key === 'ArrowRight' || ev.key === 'ArrowDown') {
+      ev.preventDefault(); stepCue(1);
+    } else if (ev.key === 'Home') {
+      ev.preventDefault(); activate('house', true);
+    } else if (ev.key === 'End') {
+      ev.preventDefault(); activate('crossfade', true);
+    }
+  });
+  if (resetEl) {
+    resetEl.addEventListener('click', function () { activate('house', true); });
+  }
+  document.addEventListener('keydown', function (ev) {
+    if (ev.metaKey || ev.ctrlKey || ev.altKey) { return; }
+    if (ev.target !== document.body && ev.target !== document.documentElement) { return; }
+    var shortcuts = { '1': 'house', '2': 'left', '3': 'right', '4': 'crossfade' };
+    if (shortcuts[ev.key]) {
+      ev.preventDefault(); activate(shortcuts[ev.key], false);
+    } else if (ev.key.toLowerCase() === 'r') {
+      ev.preventDefault(); activate('house', false);
+    }
+  });
+
+  activate('house', false);
 })();
 </script>
 </body>

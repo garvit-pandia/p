@@ -530,6 +530,54 @@ footer .terra{color:var(--terra-deep)}
   @page{margin:12mm}
 }
 </style>
+<style>
+/* ---------- v17 additive: excavation / core-depth control ---------- */
+.s17-depth-console{
+  position:relative;margin-top:24px;max-width:720px;padding:14px 16px 13px;
+  background:rgba(245,240,228,.82);border:1px solid var(--line);border-left:4px solid var(--terra);
+  border-radius:10px;box-shadow:0 16px 30px -28px rgba(46,42,38,.6);
+}
+.s17-depth-console::after{content:"";position:absolute;right:8px;top:8px;width:28px;height:28px;border-top:1px solid rgba(62,107,94,.4);border-right:1px solid rgba(62,107,94,.4);pointer-events:none}
+.s17-depth-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.s17-depth-title{font-size:9.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink)}
+.s17-depth-mark{font-size:7.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--copper)}
+.s17-depth-label{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+.s17-depth-value{font-family:var(--serif);font-size:19px;letter-spacing:.02em;color:var(--terra-deep);font-weight:600}
+.s17-range-wrap{position:relative;padding:4px 2px 0}
+.s17-depth-range{width:100%;height:26px;display:block;margin:0;appearance:none;-webkit-appearance:none;background:transparent;cursor:grab;touch-action:pan-x}
+.s17-depth-range:active{cursor:grabbing}
+.s17-depth-range:focus-visible{outline:3px solid var(--amber-deep);outline-offset:5px;border-radius:4px}
+.s17-depth-range::-webkit-slider-runnable-track{height:7px;border:1px solid rgba(46,42,38,.24);border-radius:99px;background:linear-gradient(90deg,var(--terra) 0 var(--s17-range-progress,0%),var(--paper-2) var(--s17-range-progress,0%) 100%)}
+.s17-depth-range::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-8px;border:3px solid var(--cream);border-radius:50%;background:var(--terra);box-shadow:0 0 0 1px var(--basalt),0 3px 9px -3px rgba(46,42,38,.7);cursor:inherit}
+.s17-depth-range::-moz-range-track{height:7px;border:1px solid rgba(46,42,38,.24);border-radius:99px;background:var(--paper-2)}
+.s17-depth-range::-moz-range-progress{height:7px;border-radius:99px;background:var(--terra)}
+.s17-depth-range::-moz-range-thumb{width:16px;height:16px;border:3px solid var(--cream);border-radius:50%;background:var(--terra);box-shadow:0 0 0 1px var(--basalt),0 3px 9px -3px rgba(46,42,38,.7);cursor:inherit}
+.s17-range-scale{display:flex;justify-content:space-between;gap:8px;margin-top:5px;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.s17-depth-hint{margin-top:10px;font-size:10px;color:var(--ink-soft)}
+.s17-depth-status{min-height:31px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:9.5px;line-height:1.45;color:var(--terra-deep)}
+.s17-depth-status::before{content:"ASSAY // ";font-size:8px;letter-spacing:.16em;color:var(--copper)}
+.core-sample::after{content:"";position:absolute;left:0;right:0;top:clamp(8px,var(--s17-depth-position,0%),calc(100% - 8px));height:18%;transform:translateY(-50%);pointer-events:none;z-index:1;opacity:.36;background:linear-gradient(180deg,transparent,var(--s17-depth-glow,var(--amber)) 45%,transparent);mix-blend-mode:screen;filter:blur(1px);transition:top .35s var(--ease),background .35s var(--ease)}
+.s17-core-probe{position:absolute;left:0;right:0;top:clamp(8px,var(--s17-depth-position,0%),calc(100% - 8px));height:0;z-index:6;pointer-events:none;transition:top .35s var(--ease)}
+.s17-core-probe::before{content:"";position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--amber);box-shadow:0 0 0 1px rgba(46,42,38,.28),0 0 14px 3px var(--s17-depth-glow,var(--amber))}
+.s17-core-marker{position:absolute;right:8px;top:-16px;padding:2px 6px;border:1px solid rgba(245,240,228,.72);border-radius:3px;background:rgba(46,42,38,.78);font-size:7.5px;letter-spacing:.13em;color:var(--cream);white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.45)}
+.depth-rail{--s17-rail-y:0px}
+.depth-rail .s17-rail-handle{position:absolute;top:var(--s17-rail-y);right:-5px;width:13px;height:13px;border:3px solid var(--limestone);border-radius:50%;background:var(--terra);box-shadow:0 0 0 1px var(--basalt),0 0 12px rgba(180,82,47,.4);transform:translate(50%,-50%);pointer-events:none;transition:top .35s var(--ease)}
+.depth-rail .s17-rail-handle::after{content:"";position:absolute;top:50%;right:100%;width:18px;height:1px;background:var(--terra);opacity:.7}
+.stratum.s17-zone-active{box-shadow:inset 0 20px 42px -38px var(--s17-zone-glow,rgba(180,82,47,.5)),inset 0 -12px 30px -34px var(--s17-zone-glow,rgba(180,82,47,.35))}
+.stratum.s17-zone-active::before{opacity:.86;box-shadow:0 0 18px -8px var(--s17-zone-glow,rgba(180,82,47,.6))}
+#projects .specimen.s17-active{border-color:var(--terra);box-shadow:0 0 0 2px rgba(180,82,47,.18),0 24px 42px -28px rgba(180,82,47,.45)}
+#projects .specimen.s17-active .assay-detail{max-height:60px;opacity:1;margin-top:12px}
+@media (max-width:760px){
+  .s17-depth-console{margin-top:20px;padding:13px 14px 12px}
+  .s17-depth-head{gap:8px}
+  .s17-range-scale{font-size:6.5px;letter-spacing:.1em}
+}
+@media (pointer:coarse){.s17-depth-range{height:40px}.s17-depth-range::-webkit-slider-thumb{width:26px;height:26px;margin-top:-10px}.s17-depth-range::-moz-range-thumb{width:20px;height:20px}}
+@media (prefers-reduced-motion:reduce){
+  .core-sample::after,.s17-core-probe,.depth-rail .s17-rail-handle{transition:none}
+}
+@media print{.s17-depth-console,.s17-core-probe,.depth-rail .s17-rail-handle{display:none!important}}
+</style>
 </head>
 <body>
 
@@ -548,6 +596,7 @@ footer .terra{color:var(--terra-deep)}
 
 <div class="depth-rail" aria-hidden="true">
   <div class="dr-line"><i id="drFill"></i></div>
+  <span class="s17-rail-handle"></span>
   <span class="dr-tick" data-dr="about"><b>0m</b><i></i>Surface</span>
   <span class="dr-tick" data-dr="projects"><b>−6m</b><i></i>Embedded</span>
   <span class="dr-tick" data-dr="skills"><b>−12m</b><i></i>Properties</span>
@@ -570,6 +619,7 @@ footer .terra{color:var(--terra-deep)}
         <span class="cs-spec sp2" aria-hidden="true">COPPER · 12.4 M</span>
         <span class="cs-spec sp3" aria-hidden="true">TERRA 19.8 M</span>
         <span class="cs-label">GARVIT PANDIA — CORE SAMPLE</span>
+        <span class="s17-core-probe" id="s17-core-probe" aria-hidden="true"><span class="s17-core-marker" id="s17-core-marker">0.0 M</span></span>
       </div>
     </div>
     <div class="hero-copy">
@@ -587,6 +637,19 @@ footer .terra{color:var(--terra-deep)}
         <span class="hm">Logged <b>2019–2026</b></span>
         <span class="hm">No images <b>· no tracking</b></span>
       </div>
+      <aside class="s17-depth-console" id="s17-depth-console" data-s17-zone="surface" aria-labelledby="s17-depth-title">
+        <div class="s17-depth-head">
+          <h2 class="s17-depth-title" id="s17-depth-title">Excavation control</h2>
+          <span class="s17-depth-mark">Core GP-01 · Live assay</span>
+        </div>
+        <label class="s17-depth-label" for="s17-depth-range"><span>Drill depth</span><output class="s17-depth-value" id="s17-depth-value" for="s17-depth-range">0.0 M</output></label>
+        <div class="s17-range-wrap">
+          <input class="s17-depth-range" id="s17-depth-range" type="range" min="0" max="30" step="0.1" value="0" aria-label="Drill depth in metres" aria-describedby="s17-depth-hint s17-depth-status">
+        </div>
+        <div class="s17-range-scale" aria-hidden="true"><span>0 M · surface</span><span>10 M · embedded</span><span>20 M · register</span><span>30 M · release</span></div>
+        <p class="s17-depth-hint" id="s17-depth-hint">Drag the bit or use the arrow keys. Scroll still advances the survey.</p>
+        <p class="s17-depth-status" id="s17-depth-status" role="status" aria-live="polite">SURFACE ASSAY · 0–3 M — the reading card is on the table.</p>
+      </aside>
     </div>
   </div>
   <div class="scroll-cue">Drill deeper<b></b></div>
@@ -981,6 +1044,133 @@ footer .terra{color:var(--terra-deep)}
       window.location.href = 'mailto:garvit9829@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     });
   }
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var MAX_DEPTH = 30;
+  var depthConsole = document.getElementById('s17-depth-console');
+  var range = document.getElementById('s17-depth-range');
+  var depthValue = document.getElementById('s17-depth-value');
+  var depthStatus = document.getElementById('s17-depth-status');
+  var core = document.querySelector('.core-sample');
+  var coreMarker = document.getElementById('s17-core-marker');
+  var rail = document.querySelector('.depth-rail');
+  var railLine = rail ? rail.querySelector('.dr-line') : null;
+  if (!depthConsole || !range || !core) { return; }
+
+  var zones = [
+    { key: 'surface', section: 'about', glow: 'rgba(216,156,57,.72)', status: 'SURFACE ASSAY · 0–3 M — the reading card is on the table.' },
+    { key: 'projects', section: 'projects', glow: 'rgba(180,82,47,.72)', status: 'EMBEDDED ASSAY · 3–9 M — field specimens are under the bit.' },
+    { key: 'properties', section: 'skills', glow: 'rgba(62,107,94,.72)', status: 'LAB ASSAY · 9–15 M — material properties are illuminated.' },
+    { key: 'register', section: 'achievements', glow: 'rgba(177,116,66,.72)', status: 'ARCHIVE ASSAY · 15–21 M — the notable finds are logged.' },
+    { key: 'log', section: 'experience', glow: 'rgba(112,133,106,.72)', status: 'DEPTH LOG · 21–27 M — experience is on the drill record.' },
+    { key: 'release', section: 'contact', glow: 'rgba(180,82,47,.72)', status: 'CORE RELEASE · 27–30 M — the sample is boxed for shipping.' }
+  ];
+  var sectionEls = [];
+  for (var z = 0; z < zones.length; z++) {
+    var section = document.getElementById(zones[z].section);
+    if (section) { sectionEls.push({ element: section, zone: zones[z] }); }
+  }
+
+  var cards = Array.prototype.slice.call(document.querySelectorAll('#projects .specimen'));
+  var fallbackDepths = [1.2, 2.4, 3.6, 4.8, 6.0, 7.2, 8.4, 9.6];
+  var cardDepths = cards.map(function (card, index) {
+    var mark = card.querySelector('.depth-mark');
+    var match = mark && (mark.textContent || '').match(/[0-9]+(?:\.[0-9]+)?/);
+    return match ? parseFloat(match[0]) : fallbackDepths[index] || (index + 1) * 1.2;
+  });
+  var lastStatusKey = '';
+  var currentDepth = 0;
+
+  function labelFor(depth) {
+    return depth < 0.05 ? '0.0 M' : '−' + depth.toFixed(1) + ' M';
+  }
+
+  function zoneFor(depth) {
+    var index = 0;
+    for (var i = 1; i < zones.length; i++) {
+      var midpoint = ((i - 1) * 6) + 3;
+      if (depth >= midpoint) { index = i; }
+    }
+    return zones[index];
+  }
+
+  function cardFor(depth) {
+    if (!cards.length || depth < 0.6 || depth > (cardDepths[cardDepths.length - 1] + 0.7)) { return -1; }
+    var nearest = 0;
+    var distance = Infinity;
+    for (var i = 0; i < cardDepths.length; i++) {
+      var delta = Math.abs(cardDepths[i] - depth);
+      if (delta < distance) { distance = delta; nearest = i; }
+    }
+    return nearest;
+  }
+
+  function render(depth, syncRange, announce) {
+    depth = Math.max(0, Math.min(MAX_DEPTH, Number(depth) || 0));
+    currentDepth = depth;
+    var progress = depth / MAX_DEPTH;
+    var pct = (progress * 100).toFixed(3) + '%';
+    var label = labelFor(depth);
+    var zone = zoneFor(depth);
+    var activeCard = cardFor(depth);
+    var statusKey = zone.key + ':' + activeCard;
+
+    if (syncRange) { range.value = depth.toFixed(1); }
+    range.style.setProperty('--s17-range-progress', pct);
+    range.setAttribute('aria-valuetext', 'Depth ' + label);
+    if (depthValue) { depthValue.textContent = label; }
+    if (coreMarker) { coreMarker.textContent = label; }
+    core.style.setProperty('--s17-depth-position', pct);
+    core.style.setProperty('--s17-depth-glow', zone.glow);
+    depthConsole.setAttribute('data-s17-zone', zone.key);
+    document.body.setAttribute('data-s17-zone', zone.key);
+
+    for (var s = 0; s < sectionEls.length; s++) {
+      var isActiveSection = sectionEls[s].zone.key === zone.key;
+      sectionEls[s].element.classList.toggle('s17-zone-active', isActiveSection);
+      if (isActiveSection) { sectionEls[s].element.style.setProperty('--s17-zone-glow', zone.glow); }
+    }
+    for (var c = 0; c < cards.length; c++) {
+      cards[c].classList.toggle('s17-active', c === activeCard);
+    }
+
+    if (rail && railLine) {
+      var lineHeight = railLine.getBoundingClientRect().height || 280;
+      rail.style.setProperty('--s17-rail-y', (lineHeight * progress).toFixed(2) + 'px');
+    }
+    if (depthStatus && (announce || statusKey !== lastStatusKey)) {
+      var projectNote = '';
+      if (activeCard >= 0) {
+        var cardTitle = cards[activeCard].querySelector('h3');
+        projectNote = ' Specimen marker on ' + (cardTitle ? cardTitle.textContent.trim() : 'selected specimen') + '.';
+      }
+      depthStatus.textContent = zone.status + ' Depth ' + label + '.' + projectNote;
+      lastStatusKey = statusKey;
+    }
+  }
+
+  range.addEventListener('input', function () { render(parseFloat(this.value), false, true); });
+  range.addEventListener('change', function () { render(parseFloat(this.value), false, true); });
+
+  var scrollTicking = false;
+  function syncFromScroll() {
+    if (scrollTicking) { return; }
+    scrollTicking = true;
+    window.requestAnimationFrame(function () {
+      var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      var progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      render(progress * MAX_DEPTH, true, false);
+      scrollTicking = false;
+    });
+  }
+  window.addEventListener('scroll', syncFromScroll, { passive: true });
+  window.addEventListener('resize', syncFromScroll);
+
+  render(currentDepth, true, true);
+  syncFromScroll();
 })();
 </script>
 </body>
