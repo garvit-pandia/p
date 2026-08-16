@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Eighteen portfolio worlds by Garvit Pandia, each built from its own material — glass, paper, signal, soil, light, weather, transit, theatre, strata, and optics. Pick a material, step inside.">
+  <meta name="description" content="Fourteen portfolio worlds by Garvit Pandia, each built from its own material — glass, paper, signal, soil, light, weather. Pick a material, step inside.">
   <title>Garvit Pandia — The Material Index</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -198,7 +198,7 @@
     .sw--v4 .sw__tile { background: linear-gradient(135deg, #22281d, #e5f0be); }
     .sw--v5 .sw__tile { background: linear-gradient(135deg, #bfe3ec, #4f8798); }
     .sw--v6 .sw__tile { background: linear-gradient(135deg, #bb7354, #f0e7d6); }
-    .sw--v7 .sw__tile { background: linear-gradient(135deg, #78a6b7, #d2bb68); }
+    .sw--v7 .sw__tile { background: linear-gradient(135deg, #1f3a93, #d4402a); }
     .sw--v8 .sw__tile { background: linear-gradient(135deg, #0b1f31, #6f91c5); }
     .sw--v9 .sw__tile { background: linear-gradient(135deg, #0c171c, #69a2aa); }
     .sw--v10 .sw__tile { background: linear-gradient(135deg, #20231f, #c7654e); }
@@ -206,7 +206,6 @@
     .sw--v12 .sw__tile { background: linear-gradient(135deg, #0d1710, #74a46a); }
     .sw--v13 .sw__tile { background: linear-gradient(135deg, #c7a974, #fdf8ee); }
     .sw--v14 .sw__tile { background: linear-gradient(135deg, #0c1419, #cf6c55); }
-    .sw--v15 .sw__tile { background: linear-gradient(135deg, #1f3a93, #d4402a); }
     .sw--v16 .sw__tile { background: linear-gradient(135deg, #0c0c0d, #c23321); }
     .sw--v17 .sw__tile { background: linear-gradient(135deg, #3e6b5e, #d9a13b); }
     .sw--v18 .sw__tile { background: linear-gradient(135deg, #1f6e6e, #3a5fa0); }
@@ -947,67 +946,15 @@
   transform: rotate(-2.5deg);
 }
 
-/* card 07 voxel world scene */
+/* card 07 transit map scene (route lines + station nodes) */
 .card--v7 {
-  --bg: linear-gradient(#d9ebf0 0 60%, #bfd7ae 60%);
-  --ink: #2c3a30;
-  --mut: #4d644f;
-  --line: #9dbdab;
-  --m1: #78a6b7;
-  --m2: #d2bb68;
-  --m3: #cf735d;
-}
-.card--v7 .c7-isle {
-  left: 10%;
-  top: 48%;
-  width: 80%;
-  height: 44%;
-  background: linear-gradient(180deg, var(--m2) 0 58%, rgba(44, 58, 48, .3) 58% 100%);
-  clip-path: polygon(0 40%, 14% 6%, 30% 30%, 46% 0%, 62% 22%, 78% 4%, 92% 34%, 100% 44%, 88% 86%, 62% 70%, 40% 88%, 16% 74%);
-}
-.card--v7 .c7-cube {
-  width: 22px;
-  height: 22px;
-  background: linear-gradient(135deg, var(--m1) 0 50%, rgba(44, 58, 48, .28) 50% 100%);
-  transform: rotate(45deg);
-  box-shadow: 4px 4px 0 -1px rgba(44, 58, 48, .32);
-}
-.card--v7 .c7-c1 {
-  left: 41%;
-  top: 43%;
-  animation: c7-bob 6s ease-in-out infinite alternate;
-}
-.card--v7 .c7-c2 {
-  left: 54%;
-  top: 44%;
-  width: 18px;
-  height: 18px;
-  transition: transform .3s;
-}
-.card--v7 .c7-c3 {
-  left: 68%;
-  top: 39%;
-  width: 26px;
-  height: 26px;
-  background: linear-gradient(135deg, var(--m3) 0 50%, rgba(44, 58, 48, .3) 50% 100%);
-}
-.card--v7 .c7-beacon {
-  left: 79%;
-  top: 43%;
-  width: 10px;
-  height: 30px;
-  background:
-    radial-gradient(circle at 50% 14%, var(--m3) 0 3px, rgba(207, 115, 93, .35) 4px, transparent 5.5px),
-    linear-gradient(var(--ink), var(--ink)) center bottom / 4px 21px no-repeat;
-  animation: c7-pulse 3s ease-in-out infinite;
-}
-.card--v7 .c7-label {
-  left: 12%;
-  top: 12%;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 9px;
-  letter-spacing: .1em;
-  color: var(--ink);
+  --bg: linear-gradient(160deg, #F6F1E5 0%, #EAE2CC 100%);
+  --ink: #33312C;
+  --mut: #6B655A;
+  --line: #D8CFBA;
+  --m1: #1F3A93;
+  --m2: #D4402A;
+  --m3: #2E4AC2;
 }
 
 /* card 08 abyss scene */
@@ -1202,8 +1149,6 @@
 @media (prefers-reduced-motion: no-preference) {
   @keyframes c6-dash { from { background-position: 0 0; } to { background-position: 14px 0; } }
   @keyframes c6-sway { from { transform: rotate(-32deg); } to { transform: rotate(-20deg); } }
-  @keyframes c7-pulse { 0%, 100% { filter: drop-shadow(0 0 3px rgba(207, 115, 93, .3)); } 50% { filter: drop-shadow(0 0 10px rgba(207, 115, 93, .75)); } }
-  @keyframes c7-bob { from { transform: rotate(45deg) translateY(0); } to { transform: rotate(45deg) translateY(-3px); } }
   @keyframes c8-rise { 0% { transform: translateY(0); opacity: 0; } 12% { opacity: 1; } 100% { transform: translateY(-64px); opacity: 0; } }
   @keyframes c9-sweep { from { transform: translateY(0); } to { transform: translateY(740%); } }
   @keyframes c9-flicker { 0%, 100% { opacity: 1; } 50% { opacity: .7; } }
@@ -1214,7 +1159,15 @@
 /* scene hover reactions, card-level hover owned by the skeleton */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .card--v6:hover .c6-pin { box-shadow: 0 0 0 5px rgba(187, 115, 84, .28), 0 2px 3px rgba(58, 53, 44, .45); }
-  .card--v7:hover .c7-c2 { transform: rotate(45deg) translateY(-4px) scale(1.12); }
+  /* transit beats: route lines swell, nodes ping, transfer spins */
+  .card--v7:hover .c15t-line-a { animation: c15t-hv-a 1.5s var(--ease) infinite; }
+  .card--v7:hover .c15t-line-b { animation: c15t-hv-b 1.5s var(--ease) .3s infinite; }
+  .card--v7:hover .c15t-node { animation: c15t-hv-node .95s var(--ease) infinite; box-shadow: 0 0 0 5px rgba(31, 58, 147, .16); }
+  .card--v7:hover .c15t-transfer { animation: c15t-hv-xfer 2.4s linear infinite; }
+  @keyframes c15t-hv-a { 0%, 100% { transform: rotate(-14deg) scaleX(1); } 50% { transform: rotate(-14deg) scaleX(1.07); } }
+  @keyframes c15t-hv-b { 0%, 100% { transform: rotate(10deg) scaleX(1); } 50% { transform: rotate(10deg) scaleX(1.06); } }
+  @keyframes c15t-hv-node { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.4); } }
+  @keyframes c15t-hv-xfer { to { transform: rotate(360deg); } }
   .card--v8:hover .c8-sonar { border-color: rgba(111, 145, 197, .9); box-shadow: 0 0 24px rgba(111, 145, 197, .45), inset 0 0 24px rgba(111, 145, 197, .3), 0 0 0 12px rgba(111, 145, 197, .12); }
   .card--v9:hover .c9-bar2 { height: 30px; }
   .card--v10:hover .c10-rule { width: 46%; }
@@ -1797,19 +1750,7 @@
     .card--v6 .c6-pin { left: auto; right: 34px; top: 40px; z-index: 5; }
     .card--v6 .c6-label { left: auto; right: 16px; top: 8px; z-index: 5; }
 
-    /* ---------- 07 voxel: pixel border + isle strip ---------- */
-    .card--v7 .pvc-shot { inset: 15px; border-radius: 0; border: 3px solid #2c3a30; box-shadow: 0 0 0 3px rgba(210, 187, 104, .75); }
-    .card--v7 .c7-isle { left: 0; right: 0; bottom: 0; top: auto; width: auto; height: 15px; opacity: .9; z-index: 1; }
-    .card--v7 .c7-c1 { left: 12px; top: 9px; width: 14px; height: 14px; z-index: 6; }
-    .card--v7 .c7-c2 { left: 8px; top: 27px; width: 11px; height: 11px; z-index: 6; }
-    .card--v7 .c7-c3 { left: auto; right: 11px; top: auto; bottom: 26px; width: 15px; height: 15px; z-index: 6; }
-    .card--v7 .c7-beacon { right: 9px; top: 10px; left: auto; width: 6px; height: 18px; z-index: 6; }
-    .card--v7 .c7-label { left: 12px; top: auto; bottom: 3px; z-index: 6; font-size: 8px; }
-    .card--v7 .c7f-px { width: 6px; height: 6px; z-index: 7; }
-    .card--v7 .c7f-px.p1 { top: 8px; left: 8px; background: #78a6b7; }
-    .card--v7 .c7f-px.p2 { top: 8px; right: 8px; background: #cf735d; }
-    .card--v7 .c7f-px.p3 { bottom: 8px; left: 8px; background: #d2bb68; }
-    .card--v7 .c7f-px.p4 { bottom: 8px; right: 8px; background: #2c3a30; }
+    /* ---------- 07 transit map: navy frame (stage chrome below) ---------- */
 
     /* ---------- 08 abyss: porthole + depth rail ---------- */
     .card--v8 .pvc-shot { inset: 16px; border-radius: 10px; border: 1px solid rgba(111, 145, 197, .45); box-shadow: 0 0 20px rgba(111, 145, 197, .2), inset 0 0 24px rgba(53, 109, 142, .28); }
@@ -1912,7 +1853,6 @@
       .card--v4.rv.in .c4-cursor { animation: pvc-slam .55s cubic-bezier(.2, 1.4, .4, 1) both; animation-delay: calc(var(--i, 0) * 40ms + 320ms); }
       .card--v5.rv.in .c5-orb { animation: pvc-drop .6s cubic-bezier(.2, 1.5, .4, 1) both; animation-delay: calc(var(--i, 0) * 40ms + 300ms); }
       .card--v6.rv.in .c6f-margin { animation: pvc-draw .7s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 320ms); }
-      .card--v7.rv.in .c7-c1 { animation: pvc-pop .5s cubic-bezier(.2, 1.6, .4, 1) both; animation-delay: calc(var(--i, 0) * 40ms + 300ms); }
       .card--v8.rv.in .c8f-ticks { animation: pvc-tick .6s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 320ms); }
       .card--v9.rv.in .c9f-tl { animation: pvc-snap .4s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 300ms); }
       .card--v9.rv.in .c9f-tr { animation: pvc-snap .4s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms + 340ms); }
@@ -1948,6 +1888,7 @@
       .card.pvc-booting .pvc-shot { animation: pvc-kb 12s ease-out both; }
       .card.pvc-on .pvc-shot { animation: none; filter: saturate(1.03) contrast(1.02); }
       .card:hover .pvc-open { opacity: 1; transform: translateY(0); }
+      .card:hover .pvc-live { opacity: 1; }
       .card:hover .badge { background: var(--m2, var(--accent)); transform: scale(1.07); box-shadow: 0 4px 14px -4px rgba(0, 0, 0, .3); }
       .card:hover h2 { color: var(--m2, var(--accent)); }
       .card:hover .meta { color: var(--m2, var(--accent)); }
@@ -1960,7 +1901,7 @@
       .card--v4:hover .pvc-fx { top: 0; height: 26px; background: rgba(34, 40, 29, .85); border-left: 4px solid #d35e42; animation-name: pvc-sweep-v4; animation-timing-function: steps(7); }
       .card--v5:hover .pvc-fx { top: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .95), transparent); filter: blur(.4px); animation-name: pvc-sweep-v5; }
       .card--v6:hover .pvc-fx { bottom: 12px; left: 17px; right: 17px; top: auto; height: 2px; background: rgba(187, 115, 84, .8); transform-origin: left; animation-name: pvc-sweep-v6; }
-      .card--v7:hover .pvc-fx { top: 0; height: 10px; background: linear-gradient(90deg, #78a6b7 0 22%, #d2bb68 22% 47%, #cf735d 47% 74%, #2c3a30 74% 100%); animation-name: pvc-sweep-v7; animation-timing-function: steps(4); }
+      .card--v7:hover .pvc-fx { top: 34%; height: 5px; border-radius: 99px; background: linear-gradient(90deg, transparent 6%, rgba(212, 64, 42, .9) 22% 34%, rgba(31, 58, 147, .95) 42% 72%, transparent 90%); box-shadow: 0 0 14px rgba(212, 64, 42, .55); animation-name: pvc-sweep-v7; }
       .card--v8:hover .pvc-fx { right: 18px; bottom: 14px; left: auto; top: auto; width: 46px; height: 46px; border: 1px solid rgba(111, 145, 197, .9); border-radius: 50%; box-shadow: 0 0 14px rgba(111, 145, 197, .5); animation-name: pvc-sweep-v8; }
       .card--v9:hover .pvc-fx { top: -40px; height: 34px; background: repeating-linear-gradient(180deg, rgba(179, 216, 208, .5) 0 2px, transparent 2px 5px); border-top: 1px solid rgba(179, 216, 208, .55); border-bottom: 1px solid rgba(179, 216, 208, .55); animation-name: pvc-sweep-v9; }
       .card--v10:hover .pvc-fx { top: 0; height: 14px; background: repeating-linear-gradient(90deg, transparent 0 13px, rgba(32, 35, 31, .3) 13px 14px); border-bottom: 1px solid rgba(32, 35, 31, .35); animation-name: pvc-sweep-v10; }
@@ -1974,7 +1915,7 @@
       @keyframes pvc-sweep-v4 { from { transform: translateY(-28px); } to { transform: translateY(calc(100% + 30px)); } }
       @keyframes pvc-sweep-v5 { from { transform: translateX(-60%) skewX(-18deg); opacity: 0; } 25% { opacity: 1; } to { transform: translateX(60%) skewX(-18deg); opacity: 0; } }
       @keyframes pvc-sweep-v6 { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-      @keyframes pvc-sweep-v7 { from { transform: translateY(-12px); } to { transform: translateY(calc(100% + 12px)); } }
+      @keyframes pvc-sweep-v7 { from { transform: translateX(-90%); opacity: 0; } 12% { opacity: 1; } to { transform: translateX(90%); opacity: 0; } }
       @keyframes pvc-sweep-v8 { from { transform: scale(0); opacity: .9; } to { transform: scale(1.7); opacity: 0; } }
       @keyframes pvc-sweep-v9 { from { transform: translateY(0); } to { transform: translateY(calc(100% + 80px)); } }
       @keyframes pvc-sweep-v10 { from { transform: translateY(-16px); } to { transform: translateY(calc(100% + 16px)); } }
@@ -2024,17 +1965,6 @@
     .card--v3 .c3-blob { opacity: .65; }
     .card--v3 .c3f-knot { right: 12px; top: 10px; width: 9px; height: 9px; box-shadow: 0 0 12px rgba(198, 129, 112, 1), 0 0 3px rgba(198, 129, 112, .9); }
     .card--v3 .c3-label { color: #4f5840; letter-spacing: .22em; opacity: .72; font-size: 7px; }
-    .card--v7 .c7-isle { height: 16px; background: #2c3a30; clip-path: polygon(0 100%, 0 55%, 7% 55%, 7% 28%, 15% 28%, 15% 55%, 33% 55%, 33% 16%, 41% 16%, 41% 55%, 59% 55%, 59% 38%, 69% 38%, 69% 55%, 87% 55%, 87% 24%, 95% 24%, 95% 55%, 100% 55%, 100% 100%); }
-    .card--v7 .pvc-shot { box-shadow: 0 0 0 3px rgba(210, 187, 104, .72), inset 0 0 0 2px rgba(255, 255, 255, .14); }
-    .card--v7 .c7f-px { width: 7px; height: 7px; box-shadow: 0 0 0 1px rgba(44, 58, 48, .35); }
-    .card--v7 .c7f-px.p1 { top: 7px; left: 7px; background: #78a6b7; }
-    .card--v7 .c7f-px.p2 { top: 7px; right: 7px; background: #cf735d; }
-    .card--v7 .c7f-px.p3 { bottom: 7px; left: 7px; background: #d2bb68; }
-    .card--v7 .c7f-px.p4 { bottom: 7px; right: 7px; background: #2c3a30; }
-    .card--v7 .c7-label { left: 12px; bottom: 2px; font-size: 8px; color: #4a5a4c; letter-spacing: .24em; }
-    .card--v7 .c7-c1 { top: 7px; left: 12px; }
-    .card--v7 .c7-c2 { top: 24px; left: 7px; }
-    .card--v7 .c7-c3 { bottom: 20px; right: 9px; }
     .card--v4 .c4-letters { top: 10px; left: 16px; font-size: 16px; letter-spacing: .04em; background: #1d2219; color: #eef2dc; padding: 3px 6px 2px; box-shadow: 2px 2px 0 rgba(34, 40, 29, .85); }
     .card--v4 .c4-cursor { top: 13px; left: 64px; height: 14px; }
     .card--v8 .c8-depth { left: 18px; bottom: 6px; font-size: 8px; letter-spacing: .08em; opacity: .78; }
@@ -2043,23 +1973,13 @@
     .card--v3 .c3-weft { width: 0; background: none; }
     .card--v3 .c3-warp { width: 0; background: none; }
     .card--v3 .c3-strand { bottom: 4px; }
-    .card--v7 .stage { background: linear-gradient(180deg, #d9e4ea 0%, #eee6d3 100%); }
-    .card--v7 .c7f-px.p1 { top: 12px; left: 12px; }
-    .card--v7 .c7f-px.p2 { top: 12px; right: 12px; }
-    .card--v7 .c7f-px.p3 { bottom: 12px; left: 12px; }
-    .card--v7 .c7f-px.p4 { bottom: 12px; right: 12px; }
-    .card--v7 .c7-c1 { top: 14px; left: 18px; }
-    .card--v7 .c7-c2 { top: 34px; left: 13px; }
-    .card--v7 .c7-c3 { bottom: 26px; right: 15px; }
-    /* ---- polish pass 4: neutralize legacy shadow trails (v3 threads, v7 isle/cubes) ---- */
+    /* ---- polish pass 4: neutralize legacy shadow trails (v3 threads) ---- */
     .card--v3 .c3-strand { top: auto; left: 12px; right: 12px; bottom: 4px; width: auto; height: 0; border: 0; border-top: 1.5px solid rgba(198, 129, 112, .8); border-radius: 0; box-shadow: none; transform: none; z-index: 6; }
     .card--v3 .c3-weft, .card--v3 .c3-warp { width: 0; height: 0; border: 0; border-radius: 0; box-shadow: none; background: none; transform: none; opacity: 0; }
-    .card--v7 .c7-isle { box-shadow: none; }
-    .card--v7 .c7-c1, .card--v7 .c7-c2, .card--v7 .c7-c3 { box-shadow: none; }
-    /* ---- polish pass 5: v3/v7 artifact panels (contained screenshot on themed field) ---- */
-    .card--v3 .pvc-shot, .card--v7 .pvc-shot { left: 50%; right: auto; width: auto; transform: translateX(-50%); object-fit: contain; }
-    .card--v3 .pvc-live, .card--v7 .pvc-live { left: 50%; right: auto; width: auto; }
-    .card--v3.pvc-booting .pvc-shot, .card--v7.pvc-booting .pvc-shot { animation: none; }
+    /* ---- polish pass 5: v3 artifact panel (contained screenshot on themed field) ---- */
+    .card--v3 .pvc-shot { left: 50%; right: auto; width: auto; transform: translateX(-50%); object-fit: contain; }
+    .card--v3 .pvc-live { left: 50%; right: auto; width: auto; }
+    .card--v3.pvc-booting .pvc-shot { animation: none; }
     .card--v3 .pvc-shot { border: 1px solid rgba(125, 156, 113, .5); }
     .card--v14 .c14-static { opacity: .5; }
     .card--v14 .c14-wave { height: 26px; }
@@ -2092,7 +2012,6 @@
     .card--v3 .c3-weft { left: 0; right: auto; background: repeating-linear-gradient(180deg, rgba(125, 156, 113, .75) 0 1px, transparent 1px 7px); }
     .card--v3 .c3-warp { right: 0; left: auto; background: repeating-linear-gradient(180deg, rgba(140, 107, 157, .7) 0 1px, transparent 1px 7px); }
     /* ---- polish pass 8: legibility chips (v7 label, v8 depth), v4 window shift ---- */
-    .card--v7 .c7-label { background: #2c3a30; color: #f3edd8; padding: 2px 5px 1px; font-size: 8px; letter-spacing: .22em; bottom: 4px; left: 12px; }
     .card--v8 .c8-depth { background: rgba(18, 38, 52, .88); color: #a8c8de; padding: 2px 5px 1px; font-size: 8px; letter-spacing: .1em; border-left: 2px solid #6f91c5; bottom: 5px; left: 18px; }
     .card--v4 .pvc-shot { object-position: 50% 28%; }
     /* ---- polish pass 9: v4 window, v6 furniture, v9 window ---- */
@@ -2102,25 +2021,6 @@
     .card--v6 .c6-pin { right: 22px; top: auto; left: auto; bottom: 44px; }
     .card--v9 .pvc-shot { object-position: 50% 20%; }
     /* ---- polish pass 10: v7 sky diorama ---- */
-    .card--v7 .c7-sun { position: absolute; top: 9px; right: 36px; width: 24px; height: 24px; border-radius: 50%;
-      background: radial-gradient(circle at 40% 40%, rgba(255, 240, 190, .95), rgba(255, 226, 150, .45) 60%, rgba(255, 226, 150, 0) 72%);
-      box-shadow: 0 0 18px 6px rgba(255, 226, 150, .28); z-index: 3; }
-    .card--v7 .c7-cloud { position: absolute; z-index: 3; background: rgba(255, 255, 255, .55);
-      border-radius: 999px; height: 7px; }
-    .card--v7 .c7-cloud::before, .card--v7 .c7-cloud::after { content: ""; position: absolute; background: inherit; border-radius: 50%; }
-    .card--v7 .c7-cloud::before { width: 12px; height: 12px; top: -6px; left: 7px; }
-    .card--v7 .c7-cloud::after { width: 9px; height: 9px; top: -4px; left: 20px; }
-    .card--v7 .c7-cloud.c7-a { width: 34px; top: 14px; left: 46px; opacity: .8; }
-    .card--v7 .c7-cloud.c7-b { width: 26px; top: 21px; left: 108px; opacity: .55; }
-    .card--v7 .c7-cloud.c7-c { width: 22px; top: 8px; right: 104px; opacity: .45; }
-    .card--v7 .c7-tree { position: absolute; z-index: 3; background: #2e4434; bottom: 6px;
-      clip-path: polygon(50% 0, 100% 100%, 0 100%); }
-    .card--v7 .c7-tree.c7-t1 { width: 12px; height: 15px; left: 30px; }
-    .card--v7 .c7-tree.c7-t2 { width: 9px; height: 11px; left: 48px; bottom: 5px; }
-    .card--v7 .c7-tree.c7-t3 { width: 10px; height: 13px; right: 34px; }
-    .card--v7 .c7-tree.c7-t4 { width: 7px; height: 9px; right: 20px; bottom: 5px; }
-    .card--v7 .c7-ground { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 16px;
-      background: linear-gradient(180deg, rgba(64, 84, 66, .92), rgba(44, 60, 48, .98)); }
     /* ---- polish pass 11: frame-dominance boosts (v3 loom, v5 glass, v11 dust, v12 spores) ---- */
     .card--v3 .c3-shuttle { position: absolute; z-index: 6; right: 14%; left: auto; bottom: 8px; width: 22px; height: 7px; opacity: .7;
       background: linear-gradient(90deg, #a9745a, #d9a27e 45%, #8a5a43); border-radius: 2px;
@@ -2145,10 +2045,6 @@
     .card--v6 .c6-leaf2 { position: absolute; z-index: 6; left: 10px; top: 10px; width: 15px; height: 18px;
       background: radial-gradient(ellipse at 30% 30%, rgba(180, 148, 96, .95), rgba(120, 96, 58, .9));
       border-radius: 80% 0 80% 0; transform: rotate(-18deg); opacity: .9; }
-    .card--v7 .c7-isle2 { position: absolute; z-index: 3; left: 12px; top: 14px; width: 34px; height: 13px;
-      background: linear-gradient(180deg, rgba(150, 170, 150, .5), rgba(110, 135, 120, .42));
-      clip-path: polygon(12% 100%, 0 38%, 30% 55%, 48% 12%, 70% 48%, 100% 30%, 88% 100%);
-      transform: scale(.7); opacity: .55; }
     .card--v9 .c9-rec { position: absolute; z-index: 6; top: 9px; left: 14px; width: 7px; height: 7px;
       border-radius: 50%; background: #ff5a4e; box-shadow: 0 0 8px 2px rgba(255, 90, 78, .55); }
     .card--v9 .c9-rec::after { content: ""; position: absolute; top: -2px; left: 12px; width: 30px; height: 9px;
@@ -2172,66 +2068,15 @@
       background: linear-gradient(180deg, rgba(150, 120, 70, .28), rgba(90, 68, 34, .16) 45%, transparent);
       border-top: 1px solid rgba(199, 169, 116, .45); }
 
-    /* ================= ROUND: v7 Weather//Systems + v15–v18 ================= */
-    /* ---------- 07 weather//systems: isobar contours + pressure dial + station mast ---------- */
+    /* ================= ROUND: v7 Transit Map (slot swap 2026-08-16, ex-v15) ================= */
+    /* ---------- 07 transit map: route intersections + station nodes + transfer ---------- */
     .card--v7 {
-      --surface: #F4F0E8; --accent: #1F7A78;
-      --m1: #1F7A78; --m2: #C9964A; --m3: #C65D42;
-      --ink: #17242D; --mut: #46555F; --line: #B8B6AD;
-    }
-    .card--v7 .stage { background: linear-gradient(180deg, #F4F0E8 0%, #E7DFCC 100%); }
-    .card--v7 .c7-iso {
-      position: absolute; z-index: 1; border-radius: 50%;
-      border: 1.5px dashed rgba(31, 122, 120, .5);
-    }
-    .card--v7 .c7-iso.i1 { left: 12%; top: 10%; width: 66%; height: 60%; transform: rotate(-8deg); }
-    .card--v7 .c7-iso.i2 { left: 26%; top: 24%; width: 38%; height: 34%; border-color: rgba(201, 150, 74, .55); transform: rotate(12deg); }
-    .card--v7 .c7-bar {
-      position: absolute; z-index: 2; right: 20px; top: 46px; width: 64px; height: 64px;
-      border-radius: 50%; border: 2px solid var(--ink);
-      background: radial-gradient(circle at 50% 50%, #FBF8EF 0 58%, #E8DFC8 60% 100%);
-      box-shadow: inset 0 0 0 4px #F4F0E8, inset 0 0 0 5px rgba(23, 36, 45, .25), 0 6px 14px -6px rgba(23, 36, 45, .5);
-    }
-    .card--v7 .c7-bar::after {
-      content: ""; position: absolute; left: 50%; top: 8px; width: 2px; height: 22px;
-      background: var(--m3); transform-origin: 50% 100%; transform: rotate(28deg);
-    }
-    .card--v7 .c7-mast {
-      position: absolute; z-index: 2; left: 18%; top: 40px; width: 44px; height: 64px;
-      background:
-        radial-gradient(circle at 50% 8%, var(--m3) 0 3px, rgba(198, 93, 66, .4) 4px, transparent 6px),
-        linear-gradient(var(--ink), var(--ink)) center bottom / 3px 52px no-repeat,
-        linear-gradient(var(--ink), var(--ink)) center 6px / 30px 2px no-repeat;
-    }
-    .card--v7 .c7-ticks {
-      position: absolute; z-index: 2; left: 10%; right: 10%; bottom: 14px; height: 10px;
-      background: repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 9px);
-      opacity: .55;
-    }
-    .card--v7 .c7-ann {
-      position: absolute; z-index: 6; left: 24px; top: 20px;
-      font: 8.5px/1 "JetBrains Mono", monospace; letter-spacing: .2em;
-      color: var(--ink); background: rgba(244, 240, 232, .92);
-      border: 1px solid var(--line); padding: 4px 8px; border-radius: 3px;
-    }
-    .card--v7 .c7f-cr { position: absolute; z-index: 7; width: 10px; height: 10px; border-color: rgba(23, 36, 45, .8); border-style: solid; }
-    .card--v7 .c7f-cr.tl { left: 18px; top: 16px; border-width: 1.5px 0 0 1.5px; }
-    .card--v7 .c7f-cr.tr { right: 18px; top: 16px; border-width: 1.5px 1.5px 0 0; }
-    .card--v7 .c7f-cr.bl { left: 18px; bottom: 16px; border-width: 0 0 1.5px 1.5px; }
-    .card--v7 .c7f-cr.br { right: 18px; bottom: 16px; border-width: 0 1.5px 1.5px 0; }
-    .card--v7 .pvc-shot {
-      inset: 18px; border-radius: 4px;
-      border: 1px solid rgba(23, 36, 45, .55); outline: 1px solid rgba(201, 150, 74, .5); outline-offset: 2px;
-      box-shadow: 0 10px 22px -14px rgba(23, 36, 45, .55);
-    }
-    /* ---------- 15 transit map: route intersections + station nodes + transfer ---------- */
-    .card--v15 {
       --surface: #F6F1E5; --accent: #1F3A93;
       --m1: #1F3A93; --m2: #D4402A; --m3: #2E4AC2;
       --ink: #33312C; --mut: #6B655A; --line: #D8CFBA;
     }
-    .card--v15 .stage { background: linear-gradient(160deg, #F6F1E5 0%, #EAE2CC 100%); }
-    .card--v15 .c15t-map {
+    .card--v7 .stage { background: linear-gradient(160deg, #F6F1E5 0%, #EAE2CC 100%); }
+    .card--v7 .c15t-map {
       position: absolute; z-index: 0; inset: 0;
       background:
         radial-gradient(40% 34% at 68% 24%, rgba(46, 74, 194, .13), transparent 70%),
@@ -2239,30 +2084,94 @@
         repeating-linear-gradient(0deg, rgba(51, 49, 44, .045) 0 1px, transparent 1px 26px),
         repeating-linear-gradient(90deg, rgba(51, 49, 44, .045) 0 1px, transparent 1px 26px);
     }
-    .card--v15 .c15t-line-a, .card--v15 .c15t-line-b {
+    .card--v7 .c15t-line-a, .card--v7 .c15t-line-b {
       position: absolute; z-index: 1; height: 5px; border-radius: 99px;
     }
-    .card--v15 .c15t-line-a { left: -6%; right: -6%; top: 38%; background: linear-gradient(90deg, transparent, var(--m1) 12% 88%, transparent); transform: rotate(-14deg); opacity: .8; }
-    .card--v15 .c15t-line-b { left: -6%; right: -6%; top: 56%; background: linear-gradient(90deg, transparent, var(--m2) 14% 86%, transparent); transform: rotate(10deg); opacity: .78; }
-    .card--v15 .c15t-node {
-      position: absolute; z-index: 3; width: 13px; height: 13px; border-radius: 50%;
-      background: var(--surface); border: 3px solid var(--m1); box-shadow: 0 0 0 1.5px var(--surface);
+    .card--v7 .c15t-line-a { left: -6%; right: -6%; top: 38%; background: linear-gradient(90deg, transparent, var(--m1) 12% 88%, transparent); transform: rotate(-14deg); opacity: .6; }
+    .card--v7 .c15t-line-b { left: -6%; right: -6%; top: 56%; background: linear-gradient(90deg, transparent, var(--m2) 14% 86%, transparent); transform: rotate(10deg); opacity: .58; }
+    /* archival paper grain over the whole stage — kills the sterile AI-render look */
+    .card--v7 .stage::after {
+      content: ""; position: absolute; z-index: 4; inset: 0; pointer-events: none;
+      opacity: .05; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
     }
-    .card--v15 .c15t-node.n1 { left: 34%; top: 40%; border-color: var(--m3); }
-    .card--v15 .c15t-node.n2 { left: 62%; top: 57%; border-color: var(--m2); }
-    .card--v15 .c15t-transfer {
+    .card--v7 .c15t-node {
+      position: absolute; z-index: 3; width: 11px; height: 11px; border-radius: 50%;
+      background: var(--surface); border: 2.5px solid var(--m1); box-shadow: 0 0 0 1.5px var(--surface);
+    }
+    .card--v7 .c15t-node.n1 { left: 34%; top: 40%; border-color: var(--m3); }
+    .card--v7 .c15t-node.n2 { left: 62%; top: 57%; border-color: var(--m2); }
+    /* station typography: waypoint codes beside each node */
+    .card--v7 .c15t-node.n1::after, .card--v7 .c15t-node.n2::after {
+      content: attr(data-st); position: absolute; left: calc(100% + 4px); top: 50%;
+      transform: translateY(-50%); font: 6px/1 "JetBrains Mono", monospace; font-weight: 600;
+      letter-spacing: .08em; color: var(--mut); white-space: nowrap;
+    }
+    .card--v7 .c15t-node.n2::after { left: auto; right: calc(100% + 4px); }
+    /* map scale bar — cartographic instrument */
+    .card--v7 .c15t-scale {
+      position: absolute; z-index: 6; left: 50%; bottom: 10px; transform: translateX(-50%);
+      width: 52px; height: 8px;
+      background:
+        linear-gradient(var(--ink), var(--ink)) 0 0 / 100% 1px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) 0 100% / 100% 1px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) 0 0 / 1px 4px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) 50% 0 / 1px 4px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) 100% 0 / 1px 4px no-repeat;
+    }
+    .card--v7 .c15t-scale::after {
+      content: "KM 0 — 10"; position: absolute; left: 50%; top: 7px; transform: translateX(-50%);
+      font: 5.5px/1 "JetBrains Mono", monospace; letter-spacing: .14em; color: var(--mut); white-space: nowrap;
+    }
+    /* curator's specimen stamp — archival ink, slightly worn */
+    .card--v7 .c15t-stamp {
+      position: absolute; z-index: 6; right: 20px; top: 45%;
+      font: 600 6px/1 "JetBrains Mono", monospace; letter-spacing: .14em; color: rgba(212, 64, 42, .82);
+      border: 1.5px solid rgba(212, 64, 42, .7); border-radius: 2px; padding: 3px 5px;
+      transform: rotate(-5deg); opacity: .88;
+      box-shadow: inset 0 0 0 1px rgba(212, 64, 42, .18);
+    }
+    .card--v7 .c15t-stamp::before {
+      content: "·"; position: absolute; left: -3px; top: 50%; transform: translateY(-50%);
+      color: rgba(212, 64, 42, .5);
+    }
+    .card--v7 .c15t-stamp::after {
+      content: "·"; position: absolute; right: -3px; top: 50%; transform: translateY(-50%);
+      color: rgba(212, 64, 42, .5);
+    }
+    .card--v7 .c15t-transfer {
       position: absolute; z-index: 3; right: 22px; top: 22px; width: 15px; height: 15px;
       border: 2px solid var(--m2); border-radius: 50%;
       background: linear-gradient(var(--m2), var(--m2)) center / 9px 2px no-repeat,
                   linear-gradient(var(--m2), var(--m2)) center / 2px 9px no-repeat;
     }
-    .card--v15 .c15t-label {
+    .card--v7 .c15t-label {
       position: absolute; z-index: 6; left: 22px; top: 20px;
       font: 8.5px/1 "JetBrains Mono", monospace; letter-spacing: .18em; font-weight: 600;
       color: var(--ink); background: rgba(246, 241, 229, .94);
       border: 1px solid rgba(51, 49, 44, .5); border-radius: 2px; padding: 4px 8px;
     }
-    .card--v15 .pvc-shot {
+    /* map instruments: compass rose + live-signal dot on the OPEN button */
+    .card--v7 .c15t-compass {
+      position: absolute; z-index: 6; left: 20px; bottom: 12px; width: 14px; height: 14px;
+      border: 1px solid rgba(51, 49, 44, .65); border-radius: 50%;
+      background:
+        linear-gradient(var(--ink), var(--ink)) center / 2px 10px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) center / 10px 2px no-repeat;
+      opacity: .9;
+    }
+    .card--v7 .c15t-compass::after {
+      content: "N"; position: absolute; left: 50%; top: -8px; transform: translateX(-50%);
+      font: 6px/1 "JetBrains Mono", monospace; font-weight: 700; letter-spacing: 0;
+      color: var(--m2);
+    }
+    .card--v7.pvc-on .pvc-open::before {
+      content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 5px;
+      border-radius: 50%; background: var(--m2);
+      animation: c15t-live 1.6s ease-out infinite;
+    }
+    @keyframes c15t-live { 0% { box-shadow: 0 0 0 0 rgba(212, 64, 42, .55); } 70%, 100% { box-shadow: 0 0 0 6px rgba(212, 64, 42, 0); } }
+    .card--v7 .pvc-shot {
       inset: 18px; border-radius: 3px;
       border: 2px solid rgba(31, 58, 147, .85); box-shadow: 0 10px 22px -14px rgba(51, 49, 44, .55);
     }
@@ -2383,9 +2292,6 @@
     }
 
     /* ---------- new-card entrance boot signatures ---------- */
-    @keyframes c7-iso-in { from { opacity: 0; transform: scale(.92) rotate(-14deg); } to { opacity: .85; } }
-    @keyframes c7-bar-in { from { opacity: 0; transform: scale(.6) rotate(-30deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
-    @keyframes c7-tick-in { from { transform: scaleY(0); } to { transform: scaleY(1); } }
     @keyframes c7-ann-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: none; } }
     @keyframes c15t-line-in { from { transform: scaleX(0) rotate(-14deg); opacity: 0; } to { opacity: .8; } }
     @keyframes c15t-lineb-in { from { transform: scaleX(0) rotate(10deg); opacity: 0; } to { opacity: .78; } }
@@ -2401,16 +2307,12 @@
     @keyframes c18-ret-in { from { transform: scale(1.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     @keyframes c18-blade-in { from { opacity: 0; } to { opacity: 1; } }
     @media (prefers-reduced-motion: no-preference) {
-      .card.rv.in.card--v7 .c7-iso.i1 { animation: c7-iso-in .8s var(--ease) .1s both; }
-      .card.rv.in.card--v7 .c7-iso.i2 { animation: c7-iso-in .8s var(--ease) .22s both; }
-      .card.rv.in.card--v7 .c7-bar { animation: c7-bar-in .7s var(--ease) .3s both; }
-      .card.rv.in.card--v7 .c7-ticks { animation: c7-tick-in .7s var(--ease) .42s both; transform-origin: bottom; }
-      .card.rv.in.card--v7 .c7-ann { animation: c7-ann-in .5s var(--ease) .4s both; }
-      .card.rv.in.card--v15 .c15t-line-a { animation: c15t-line-in 1s var(--ease) .12s both; transform-origin: left; }
-      .card.rv.in.card--v15 .c15t-line-b { animation: c15t-lineb-in 1s var(--ease) .26s both; transform-origin: left; }
-      .card.rv.in.card--v15 .c15t-node { animation: c15t-node-in .45s var(--ease) .5s both; }
-      .card.rv.in.card--v15 .c15t-node.n2 { animation-delay: .62s; }
-      .card.rv.in.card--v15 .c15t-transfer { animation: c15t-xfer-in .6s var(--ease) .7s both; }
+      .card.rv.in.card--v7 .c15t-line-a { animation: c15t-line-in 1s var(--ease) .12s backwards; transform-origin: left; }
+      .card.rv.in.card--v7 .c15t-line-b { animation: c15t-lineb-in 1s var(--ease) .26s backwards; transform-origin: left; }
+      .card.rv.in.card--v7 .c15t-node { animation: c15t-node-in .45s var(--ease) .5s backwards; }
+      .card.rv.in.card--v7 .c15t-node.n2 { animation-delay: .62s; }
+      .card.rv.in.card--v7 .c15t-transfer { animation: c15t-xfer-in .6s var(--ease) .7s backwards; }
+      .card.rv.in.card--v7 .c15t-compass { animation: c15t-node-in .45s var(--ease) .85s backwards; }
       .card.rv.in.card--v16 .c16-spot { animation: c16-spot-in 1.1s var(--ease) .15s both; }
       .card.rv.in.card--v16 .c16-seam { animation: c16-seam-in .8s var(--ease) .35s both; transform-origin: top; }
       .card.rv.in.card--v16 .c16-seam.s2 { animation-delay: .45s; }
@@ -2426,13 +2328,9 @@
     }
     /* ---------- new-card hover sweeps ---------- */
     @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-      .card--v7:hover .c7-bar::after { transform: rotate(48deg); transition: transform .5s var(--ease); }
-      .card--v7:hover .c7-iso.i1 { border-color: rgba(31, 122, 120, .85); }
-      .card--v7:hover .c7-mast { filter: brightness(1.15); }
-      .card--v15:hover .c15t-line-a { opacity: 1; filter: saturate(1.25); }
-      .card--v15:hover .c15t-line-b { opacity: 1; filter: saturate(1.25); }
-      .card--v15:hover .c15t-transfer { animation: c15t-xfer-in .7s var(--ease) infinite alternate; }
-      .card--v15:hover .c15t-node { box-shadow: 0 0 0 1.5px var(--surface), 0 0 10px rgba(46, 74, 194, .55); }
+      .card--v7:hover .c15t-line-a { opacity: 1; filter: saturate(1.25); }
+      .card--v7:hover .c15t-line-b { opacity: 1; filter: saturate(1.25); }
+      .card--v7:hover .c15t-node { box-shadow: 0 0 0 1.5px var(--surface), 0 0 10px rgba(46, 74, 194, .55); }
       .card--v16:hover .c16-spot { opacity: .55; }
       .card--v16:hover .c16-seam { background: rgba(194, 51, 33, .95); }
       .card--v17:hover .c17-layers { transform: translateY(-3px); transition: transform .4s var(--ease); }
@@ -2461,7 +2359,7 @@
 
       <div class="hero">
         <div class="rv" style="--i:0">
-          <p class="eyebrow">Portfolio index · 18 worlds · 2024—2026</p>
+          <p class="eyebrow">Portfolio index · 14 worlds · 2024—2026</p>
           <h1>Choose your <em>material.</em></h1>
         </div>
         <p class="note rv" style="--i:1"><strong>Every portfolio here is built from a different material</strong> — glass, paper, signal, soil, light. Each card is a sample. Each sample is a door.</p>
@@ -2476,7 +2374,7 @@
             <a class="sw sw--v4" href="v4-brutalist/index.html"><span class="sw__tile"></span><span class="sw__name">Factory</span></a>
             <a class="sw sw--v5" href="v5-glass/index.html"><span class="sw__tile"></span><span class="sw__name">Glass</span></a>
             <a class="sw sw--v6" href="v6-scrollstory/index.html"><span class="sw__tile"></span><span class="sw__name">Journal</span></a>
-            <a class="sw sw--v7" href="v7-voxel/index.html"><span class="sw__tile"></span><span class="sw__name">Weather</span></a>
+            <a class="sw sw--v7" href="v7-voxel/index.html"><span class="sw__tile"></span><span class="sw__name">Transit</span></a>
             <a class="sw sw--v8" href="v8-abyss/index.html"><span class="sw__tile"></span><span class="sw__name">Abyss</span></a>
             <a class="sw sw--v9" href="v9-ghostware/index.html"><span class="sw__tile"></span><span class="sw__name">Ghost</span></a>
             <a class="sw sw--v10" href="v10-typevolt/index.html"><span class="sw__tile"></span><span class="sw__name">Type</span></a>
@@ -2484,11 +2382,7 @@
             <a class="sw sw--v12" href="v12-mycelium/index.html"><span class="sw__tile"></span><span class="sw__name">Mycelia</span></a>
             <a class="sw sw--v13" href="v13-origami-aurum/index.html"><span class="sw__tile"></span><span class="sw__name">Origami</span></a>
             <a class="sw sw--v14" href="v14-signal/index.html"><span class="sw__tile"></span><span class="sw__name">Signal</span></a>
-            <a class="sw sw--v15" href="v15-transit-map/index.html"><span class="sw__tile"></span><span class="sw__name">Transit</span></a>
-            <a class="sw sw--v16" href="v16-black-box/index.html"><span class="sw__tile"></span><span class="sw__name">Black Box</span></a>
-            <a class="sw sw--v17" href="v17-strata/index.html"><span class="sw__tile"></span><span class="sw__name">Strata</span></a>
-            <a class="sw sw--v18" href="v18-optical-bench/index.html"><span class="sw__tile"></span><span class="sw__name">Optics</span></a>
-          </div>
+                                                          </div>
           <div class="rail-copy" aria-hidden="true">
             <a class="sw sw--v1" href="v1-light/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Archive</span></a>
             <a class="sw sw--v2" href="v2-dark/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Midnight</span></a>
@@ -2496,7 +2390,7 @@
             <a class="sw sw--v4" href="v4-brutalist/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Factory</span></a>
             <a class="sw sw--v5" href="v5-glass/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Glass</span></a>
             <a class="sw sw--v6" href="v6-scrollstory/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Journal</span></a>
-            <a class="sw sw--v7" href="v7-voxel/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Weather</span></a>
+            <a class="sw sw--v7" href="v7-voxel/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Transit</span></a>
             <a class="sw sw--v8" href="v8-abyss/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Abyss</span></a>
             <a class="sw sw--v9" href="v9-ghostware/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Ghost</span></a>
             <a class="sw sw--v10" href="v10-typevolt/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Type</span></a>
@@ -2504,11 +2398,7 @@
             <a class="sw sw--v12" href="v12-mycelium/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Mycelia</span></a>
             <a class="sw sw--v13" href="v13-origami-aurum/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Origami</span></a>
             <a class="sw sw--v14" href="v14-signal/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Signal</span></a>
-            <a class="sw sw--v15" href="v15-transit-map/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Transit</span></a>
-            <a class="sw sw--v16" href="v16-black-box/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Black Box</span></a>
-            <a class="sw sw--v17" href="v17-strata/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Strata</span></a>
-            <a class="sw sw--v18" href="v18-optical-bench/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Optics</span></a>
-          </div>
+                                                          </div>
         </div>
       </div>
     </header>
@@ -2535,7 +2425,7 @@
         <a class="card card--v1 rv" data-f="light" href="v1-light/index.html" style="--i:0">
           <div class="stage" aria-hidden="true"><span class="c1-photo c1-print"></span><span class="c1-petal"></span><span class="c1-stamp c1-lift">POSTAGE</span><span class="c1-scribble"></span><img class="pvc-shot" src="shots/v1-light.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 01 / 18</span><span>Light · Editorial</span></div>
+            <div class="meta"><span>Material 01 / 14</span><span>Light · Editorial</span></div>
             <h2>Sunlit Archive</h2>
             <p>Warm editorial light theme with paper petals, developing photographs, stamps, and handwritten archive notes.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
@@ -2545,7 +2435,7 @@
         <a class="card card--v2 rv" data-f="dark" href="v2-dark/index.html" style="--i:1">
           <div class="stage" aria-hidden="true"><span class="c2-zenith"></span><span class="c2-nadir"></span><span class="c2-dawn"></span><span class="c2-route c2-link"></span><span class="c2-orbit"></span><span class="c2-label c2-read">COURSE PLOT</span><span class="c2f-tl"></span><span class="c2f-tr"></span><span class="c2f-bl"></span><span class="c2f-br"></span><img class="pvc-shot" src="shots/v2-dark.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 02 / 18</span><span>Dark · Cosmic</span></div>
+            <div class="meta"><span>Material 02 / 14</span><span>Dark · Cosmic</span></div>
             <h2>Midnight Index</h2>
             <p>A deep-space career map with starfield drift, orbiting rings, constellations, and a self-typing terminal.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
@@ -2555,7 +2445,7 @@
         <a class="card card--v3 rv" data-f="motion" href="v3-wild/index.html" style="--i:2">
           <div class="stage" aria-hidden="true"><span class="c3-strand"></span><span class="c3-weft c3-tint"></span><span class="c3-warp"></span><span class="c3-blob c3-swell"></span><span class="c3-label">DREAM WEAVE</span><span class="c3f-knot"></span><span class="c3-shuttle"></span><img class="pvc-shot" src="shots/v3-wild.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 03 / 18</span><span>Wild · Fluid</span></div>
+            <div class="meta"><span>Material 03 / 14</span><span>Wild · Fluid</span></div>
             <h2>Dream Loom</h2>
             <p>A living aurora, kinetic type, silk threads, and a dream palette that shifts while you explore.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
@@ -2565,7 +2455,7 @@
         <a class="card card--v4 rv" data-f="motion" href="v4-brutalist/index.html" style="--i:3">
           <div class="stage" aria-hidden="true"><span class="c4-grid"></span><span class="c4-letters c4-flip">MF</span><span class="c4-cursor"></span><span class="c4-scan"></span><span class="c4-label c4-live">LOADING</span><span class="c4f-bolt b1"></span><span class="c4f-bolt b2"></span><span class="c4f-bolt b3"></span><span class="c4f-bolt b4"></span><span class="c4-plate">PROTO 04 / 2026</span><img class="pvc-shot" src="shots/v4-brutalist.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 04 / 18</span><span>Brutalist · Mono</span></div>
+            <div class="meta"><span>Material 04 / 14</span><span>Brutalist · Mono</span></div>
             <h2>Mono Factory</h2>
             <p>A mechanical portfolio of hard borders, terminal commands, receipts, and typewriter precision.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
@@ -2575,7 +2465,7 @@
         <a class="card card--v5 rv" data-f="3d" href="v5-glass/index.html" style="--i:4">
           <div class="stage" aria-hidden="true"><span class="c5-prism c5-gleam"></span><span class="c5-panel c5-shine"></span><span class="c5-orb"></span><span class="c5-streak"></span><img class="pvc-shot" src="shots/v5-glass.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 05 / 18</span><span>Glass · Luminous</span></div>
+            <div class="meta"><span>Material 05 / 14</span><span>Glass · Luminous</span></div>
             <h2>Glass Horizon</h2>
             <p>Light through glass: drifting orbs, refraction, prisms, frosted panels, and depth.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
@@ -2585,7 +2475,7 @@
         <a class="card card--v6 rv" data-f="motion" href="v6-scrollstory/index.html" style="--i:5">
           <div class="stage" aria-hidden="true"><span class="c6-paper"></span><span class="c6-route"></span><span class="c6-leaf"></span><span class="c6-pin"></span><span class="c6-leaf2"></span><span class="c6-label">FIELD NOTE</span><span class="c6f-margin"></span><img class="pvc-shot" src="shots/v6-scrollstory.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 06 / 18</span><span>Scrollytelling · Editorial</span></div>
+            <div class="meta"><span>Material 06 / 14</span><span>Scrollytelling · Editorial</span></div>
             <h2>The Field Journal</h2>
             <p>A scroll-driven field log with pinned scenes, specimen collecting, and a self-drawing timeline.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
@@ -2593,11 +2483,11 @@
         </a>
 
         <a class="card card--v7 rv" data-f="light" href="v7-voxel/index.html" style="--i:6">
-          <div class="stage" aria-hidden="true"><span class="c7-iso i1"></span><span class="c7-iso i2"></span><span class="c7-bar"></span><span class="c7-mast"></span><span class="c7-ticks"></span><span class="c7-ann">ISOBAR 07</span><span class="c7f-cr tl"></span><span class="c7f-cr tr"></span><span class="c7f-cr bl"></span><span class="c7f-cr br"></span><img class="pvc-shot" src="shots/v7-voxel.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
+          <div class="stage" aria-hidden="true"><span class="c15t-map"></span><span class="c15t-line-a"></span><span class="c15t-line-b"></span><span class="c15t-node n1" data-st="S1"></span><span class="c15t-node n2" data-st="S2"></span><span class="c15t-transfer"></span><span class="c15t-compass"></span><span class="c15t-scale"></span><span class="c15t-stamp">SPECIMEN 07</span><span class="c15t-label">ROUTE 07</span><img class="pvc-shot" src="shots/v7-voxel.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 07 / 18</span><span>Light · Atmospheric</span></div>
-            <h2>Weather//Systems</h2>
-            <p>A warm atmospheric instrument — pressure contours, wind vectors, forecast charts, and a six-station route through the work.</p>
+            <div class="meta"><span>Material 07 / 14</span><span>Light · Cartographic</span></div>
+            <h2>Transit//Map</h2>
+            <p>Route lines, station nodes, and transfers map one long journey through the work — first line to final terminus.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
           </div>
         </a>
@@ -2605,7 +2495,7 @@
         <a class="card card--v8 rv" data-f="dark" href="v8-abyss/index.html" style="--i:7">
           <div class="stage" aria-hidden="true"><span class="c8-jelly"></span><span class="c8-tent"></span><span class="c8-sonar"></span><span class="c8-bub1"></span><span class="c8-bub2"></span><span class="c8-depth">-11,204 M</span><span class="c8f-ticks"></span><img class="pvc-shot" src="shots/v8-abyss.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 08 / 18</span><span>Dark · Bioluminescent</span></div>
+            <div class="meta"><span>Material 08 / 14</span><span>Dark · Bioluminescent</span></div>
             <h2>The Abyss</h2>
             <p>A deep-sea dive through glowing specimen jars, sonar pings, pressure, and light rays.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
@@ -2615,7 +2505,7 @@
         <a class="card card--v9 rv" data-f="dark" href="v9-ghostware/index.html" style="--i:8">
           <div class="stage" aria-hidden="true"><span class="c9-ring"></span><span class="c9-scan"></span><span class="c9-bar1"></span><span class="c9-bar2"></span><span class="c9-bar3"></span><span class="c9-serial">ARCH-0009</span><span class="c9f-tl"></span><span class="c9f-tr"></span><span class="c9f-bl"></span><span class="c9f-br"></span><span class="c9-rec"></span><span class="c9-redact">SUBJECT RECORDS · PARTIALLY CORRUPTED</span><img class="pvc-shot" src="shots/v9-ghostware.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 09 / 18</span><span>Cyber · Hologram</span></div>
+            <div class="meta"><span>Material 09 / 14</span><span>Cyber · Hologram</span></div>
             <h2>Ghostware</h2>
             <p>A holographic memory archive with scanlines, telemetry, recall slots, and a command bar.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
@@ -2625,7 +2515,7 @@
         <a class="card card--v10 rv" data-f="motion" href="v10-typevolt/index.html" style="--i:9">
           <div class="stage" aria-hidden="true"><span class="c10-ghost">V</span><span class="c10-v">V</span><span class="c10-rule"></span><span class="c10-label">LETTER/MOTION</span><span class="c10f-crop tl"></span><span class="c10f-crop tr"></span><span class="c10f-crop bl"></span><span class="c10f-crop br"></span><img class="pvc-shot" src="shots/v10-typevolt.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 10 / 18</span><span>Editorial · Kinetic</span></div>
+            <div class="meta"><span>Material 10 / 14</span><span>Editorial · Kinetic</span></div>
             <h2>Typevolt</h2>
             <p>A kinetic editorial machine where letters stretch, respond, and choreograph the work.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
@@ -2635,7 +2525,7 @@
         <a class="card card--v11 rv" data-f="dark" href="v11-event-horizon/index.html" style="--i:10">
           <div class="stage" aria-hidden="true"><span class="c11-ring"></span><span class="c11-core"></span><span class="c11-dust c11-d1"></span><span class="c11-dust c11-d2"></span><span class="c11-dust c11-d3"></span><span class="c11-dust c11-d4"></span><span class="c11-label">DESCENT</span><span class="c11f-arc"></span><img class="pvc-shot" src="shots/v11-event-horizon.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 11 / 18</span><span>Dark · Cosmic</span></div>
+            <div class="meta"><span>Material 11 / 14</span><span>Dark · Cosmic</span></div>
             <h2>Event Horizon</h2>
             <p>A black-hole portfolio where scroll becomes descent through rings of an accretion disk.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
@@ -2645,7 +2535,7 @@
         <a class="card card--v12 rv" data-f="dark" href="v12-mycelium/index.html" style="--i:11">
           <div class="stage" aria-hidden="true"><span class="c12-net"></span><span class="c12-node"></span><span class="c12-fruit"></span><span class="c12-cap"></span><span class="c12-spore c12-s1"></span><span class="c12-spore c12-s2"></span><span class="c12-spore c12-s3"></span><span class="c12-mound"></span><span class="c12-sprout"></span><span class="c12-label">GROWTH NET</span><span class="c12f-thread"></span><img class="pvc-shot" src="shots/v12-mycelium.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 12 / 18</span><span>Dark · Organic</span></div>
+            <div class="meta"><span>Material 12 / 14</span><span>Dark · Organic</span></div>
             <h2>Mycelium</h2>
             <p>A living fungal network where projects fruit, skills branch, and everything grows into view.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
@@ -2655,7 +2545,7 @@
         <a class="card card--v13 rv" data-f="light" href="v13-origami-aurum/index.html" style="--i:12">
           <div class="stage" aria-hidden="true"><span class="c13-fold"></span><span class="c13-crease-a"></span><span class="c13-crease-b"></span><span class="c13-disc"></span><span class="c13-glint"></span><span class="c13-foldline"></span><span class="c13-label">FOLD/REVEAL</span><span class="c13f-corner"></span><img class="pvc-shot" src="shots/v13-origami-aurum.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 13 / 18</span><span>Light · Paper</span></div>
+            <div class="meta"><span>Material 13 / 14</span><span>Light · Paper</span></div>
             <h2>Origami Aurum</h2>
             <p>A warm paper gallery of folded letters, dog-eared projects, gold foil, and unfolding sections.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
@@ -2665,57 +2555,21 @@
         <a class="card card--v14 rv" data-f="dark" href="v14-signal/index.html" style="--i:13">
           <div class="stage" aria-hidden="true"><span class="badge">New</span><span class="c14-static"></span><span class="c14-wave"></span><span class="c14-stamp">[DECODED]</span><span class="c14-freq">FREQ 91.4</span><span class="c14f-rail"></span><img class="pvc-shot" src="shots/v14-signal.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 14 / 18</span><span>Dark · Radio</span></div>
+            <div class="meta"><span>Material 14 / 14</span><span>Dark · Radio</span></div>
             <h2>SIGNAL//DECODE</h2>
             <p>An intercepted transmission with static, spectrograms, decoded stamps, and a channel back out.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
           </div>
         </a>
 
-        <a class="card card--v15 rv" data-f="light" href="v15-transit-map/index.html" style="--i:14">
-          <div class="stage" aria-hidden="true"><span class="c15t-map"></span><span class="c15t-line-a"></span><span class="c15t-line-b"></span><span class="c15t-node n1"></span><span class="c15t-node n2"></span><span class="c15t-transfer"></span><span class="c15t-label">ROUTE 15</span><img class="pvc-shot" src="shots/v15-transit-map.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 15 / 18</span><span>Light · Map</span></div>
-            <h2>The Impossible Transit Map</h2>
-            <p>A transit network for ideas and systems — route lines, stations, transfers, and one long journey through the work.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
 
-        <a class="card card--v16 rv" data-f="dark" href="v16-black-box/index.html" style="--i:15">
-          <div class="stage" aria-hidden="true"><span class="c16-stage"></span><span class="c16-seam s1"></span><span class="c16-seam s2"></span><span class="c16-spot"></span><span class="c16-cue">CUE 07</span><img class="pvc-shot" src="shots/v16-black-box.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 16 / 18</span><span>Dark · Theatre</span></div>
-            <h2>Black Box / Act I</h2>
-            <p>A premium black-box theatre where the portfolio is staged as acts — spotlights, cue numbers, and playbill credits.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
 
-        <a class="card card--v17 rv" data-f="light" href="v17-strata/index.html" style="--i:16">
-          <div class="stage" aria-hidden="true"><span class="c17-layers"></span><span class="c17-core"></span><span class="c17-assay">ASSAY 04</span><span class="c17-depth">−6 M</span><img class="pvc-shot" src="shots/v17-strata.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 17 / 18</span><span>Light · Strata</span></div>
-            <h2>Strata / Core Sample</h2>
-            <p>A geological cross-section of the work — projects embedded in layers, with depth, evidence, and assay marks.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
 
-        <a class="card card--v18 rv" data-f="light" href="v18-optical-bench/index.html" style="--i:17">
-          <div class="stage" aria-hidden="true"><span class="c18-grid"></span><span class="c18-ring"></span><span class="c18-blade b1"></span><span class="c18-blade b2"></span><span class="c18-blade b3"></span><span class="c18-blade b4"></span><span class="c18-blade b5"></span><span class="c18-blade b6"></span><span class="c18-iris"></span><span class="c18-reticle tl"></span><span class="c18-reticle tr"></span><span class="c18-reticle bl"></span><span class="c18-reticle br"></span><span class="c18-label">f/2.8</span><img class="pvc-shot" src="shots/v18-optical-bench.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 18 / 18</span><span>Light · Optics</span></div>
-            <h2>Optical Bench / Focus</h2>
-            <p>A precise optical laboratory — aperture rings, focal planes, calibration marks, and projects studied in crisp focus.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
 
         <a class="card card--cta rv" href="mailto:garvit9829@gmail.com" style="--i:18">
-          <div class="stage" aria-hidden="true"><span class="c15-frame"></span><span class="c15-plus"></span><span class="c15-vbar"></span><span class="c15-slot">SLOT 19</span><span class="c15-label">YOUR MATERIAL HERE</span></div>
+          <div class="stage" aria-hidden="true"><span class="c15-frame"></span><span class="c15-plus"></span><span class="c15-vbar"></span><span class="c15-slot">SLOT 15</span><span class="c15-label">YOUR MATERIAL HERE</span></div>
           <div class="body">
-            <div class="meta"><span>Material 19 / Yours</span><span>Commission</span></div>
+            <div class="meta"><span>Material 15 · Yours</span><span>Commission</span></div>
             <h2>Your material here.</h2>
             <p>Every world in this index started as a blank file and a strong idea. Tell me what yours should feel like.</p>
             <span class="foot">Commission a world <span class="arr" aria-hidden="true">→</span></span>
@@ -2814,7 +2668,7 @@
       'use strict';
       var FINE = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
       var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var cards = [].slice.call(document.querySelectorAll('.card--v1, .card--v2, .card--v3, .card--v4, .card--v5, .card--v6, .card--v7, .card--v8, .card--v9, .card--v10, .card--v11, .card--v12, .card--v13, .card--v14, .card--v15, .card--v16, .card--v17, .card--v18'));
+      var cards = [].slice.call(document.querySelectorAll('.card--v1, .card--v2, .card--v3, .card--v4, .card--v5, .card--v6, .card--v7, .card--v8, .card--v9, .card--v10, .card--v11, .card--v12, .card--v13, .card--v14'));
       var current = null;
       var timer = null;
       var io = null;

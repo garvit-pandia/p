@@ -33,6 +33,13 @@ html{scroll-behavior:smooth;scroll-padding-top:84px}
 body{
   font-family:var(--body);background:var(--paper);color:var(--ink);
   line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size:120px 120px;
+}
+/* faint paper grain over everything — printed-specimen texture */
+body::after{
+  content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)' opacity='0.5'/%3E%3C/svg%3E");
 }
 ::selection{background:var(--acid);color:var(--ink)}
 ::-webkit-scrollbar{width:12px}
@@ -166,6 +173,28 @@ h1.name.go .k-l{animation:letterPop .7s cubic-bezier(.2,1.4,.3,1) both;animation
 .sechead h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(2.4rem,7vw,5.6rem);line-height:.92;perspective:800px}
 .sechead h2 .k-l{display:inline-block;will-change:transform;transform-origin:50% 100%}
 .sechead .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-left:auto;text-align:right;white-space:nowrap}
+.sechead .tag .kernval{color:var(--red);font-weight:700;letter-spacing:.08em}
+/* fractional em ruler — letterpress measuring instrument */
+.typeruler{
+  position:relative;height:26px;margin:-22px 0 34px;border-bottom:1px solid var(--line);
+}
+.typeruler .tr-note{
+  position:absolute;left:0;top:2px;font-family:var(--mono);font-size:.58rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.typeruler .tr-tick{position:absolute;bottom:-1px;width:1px;height:8px;background:var(--ink)}
+.typeruler .tr-tick.big{height:11px}
+.typeruler .tr-lab{
+  position:absolute;bottom:9px;font-family:var(--mono);font-size:.52rem;letter-spacing:.06em;
+  color:var(--ink-soft);transform:translateX(-50%);
+}
+.typeruler .tr-em{
+  position:absolute;right:0;bottom:-1px;width:14px;height:14px;background:var(--blue);opacity:.9;
+}
+.typeruler .tr-em-lab{
+  position:absolute;right:0;bottom:17px;font-family:var(--mono);font-size:.52rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--blue);
+}
 /* reveal — hidden state only when JS is live (static frame survives no-JS) */
 .rv{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.25,1)}
 .js .rv{opacity:0;transform:translateY(34px)}   /* same specificity as .rv.in; must precede it */
@@ -272,11 +301,15 @@ html:not(.js) .skrow .bar i{width:var(--w)}
 footer{border-top:2px solid var(--ink);padding:2.4rem var(--pad) 3rem}
 footer .row{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
 footer .row b{color:var(--ink)}
-/* hover letter jiggle (headings only, pointer-fine) */
+/* hover letter jiggle (headings only, pointer-fine) — a gentle lift, no rotation,
+   so letters can never overlap a neighbour while the pointer is resting on them */
 @media (hover:hover){
   .kinetic .k-l:not(.hov){transition:none}
-  .kinetic .k-l.hov{transform:translateY(-.14em) rotate(-5deg) !important;color:var(--red) !important}
+  .kinetic .k-l.hov{transform:translateY(-.08em) !important;color:var(--red) !important}
 }
+/* settle: a beat after the last scroll tick, letters glide back to a crisp flat
+   pose — the scroll fan stays alive while moving, text is pristine at rest */
+.kinetic .k-l.t10-settle{transition:transform .5s cubic-bezier(.2,.8,.25,1)}
 /* reduced motion: kill everything kinetic */
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important}
@@ -473,7 +506,18 @@ footer .row b{color:var(--ink)}
   <div class="sechead">
     <span class="idx">02</span>
     <h2 data-split>Case Files</h2>
-    <span class="tag">8 type systems — 2021→2025</span>
+    <span class="tag">Kern <b class="kernval">AV −100</b> · 8 systems 2021→2025</span>
+  </div>
+
+  <div class="typeruler" aria-hidden="true">
+    <i class="tr-tick" style="left:12.5%"></i><b class="tr-lab" style="left:12.5%">1/8</b>
+    <i class="tr-tick big" style="left:25%"></i><b class="tr-lab" style="left:25%">2/8</b>
+    <i class="tr-tick" style="left:37.5%"></i><b class="tr-lab" style="left:37.5%">3/8</b>
+    <i class="tr-tick big" style="left:50%"></i><b class="tr-lab" style="left:50%">4/8</b>
+    <i class="tr-tick" style="left:62.5%"></i><b class="tr-lab" style="left:62.5%">5/8</b>
+    <i class="tr-tick big" style="left:75%"></i><b class="tr-lab" style="left:75%">6/8</b>
+    <i class="tr-tick" style="left:87.5%"></i><b class="tr-lab" style="left:87.5%">7/8</b>
+    <span class="tr-note">Fractional em ruler</span><i class="tr-em"></i><b class="tr-em-lab">1&nbsp;em</b>
   </div>
 
   <div class="case rv">
@@ -762,6 +806,8 @@ function onScroll(){
     if (bgword && !reduced) bgword.style.transform = 'translateY(' + (y * 0.06) + 'px)';
     if (reduced) return;
     const vh = innerHeight;
+    const settled = document.querySelectorAll('.k-l.t10-settle');
+    for (let s0 = 0; s0 < settled.length; s0++) settled[s0].classList.remove('t10-settle');
     kinetic.forEach(sec => {
       if (!kActive.has(sec)) return;
       const r = sec.getBoundingClientRect();
@@ -777,10 +823,23 @@ function onScroll(){
       for (let i = 0; i < letters.length; i++){
         const l = letters[i];
         const dir = i % 2 ? 1 : -1;
-        l.style.transform = 'translateX(' + (t * 150 * dir).toFixed(1) + 'px) translateY(' + (t * -46).toFixed(1) + 'px) rotateY(' + (t * 58 * dir).toFixed(1) + 'deg)';
+        l.style.transform = 'translateX(' + (t * 26 * dir).toFixed(1) + 'px) translateY(' + (t * -10).toFixed(1) + 'px) rotateY(' + (t * 14 * dir).toFixed(1) + 'deg)';
       }
     });
+    settleLetters();
   });
+}
+let settleT = null;
+function settleLetters(){
+  clearTimeout(settleT);
+  settleT = setTimeout(() => {
+    const sl = document.querySelectorAll('.kinetic .k-l:not(.rep)');
+    for (let i = 0; i < sl.length; i++){
+      const l = sl[i];
+      l.classList.add('t10-settle');
+      l.style.transform = 'translateX(0px) translateY(0px) rotateY(0deg)';
+    }
+  }, 240);
 }
 addEventListener('scroll', onScroll, { passive: true });
 onScroll();
@@ -877,7 +936,7 @@ form.addEventListener('submit', e => {
 'use strict';
 if (!matchMedia('(pointer: fine)').matches) return;
 if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-const R = 110, PUSH = 26;
+const R = 100, PUSH = 16;
 const clampL = (v, a, b) => Math.min(b, Math.max(a, v));
 const secs = Array.from(document.querySelectorAll('.kinetic'));
 let raf = null, px = -9999, py = -9999, lastScrollT = 0;
@@ -888,7 +947,7 @@ function kineticTransform(l, i, sec){
   const p = clampL((innerHeight * 0.5 - r.top) / r.height, 0, 1);
   const t = p - 0.5;
   const dir = i % 2 ? 1 : -1;
-  l.style.transform = 'translateX(' + (t * 150 * dir).toFixed(1) + 'px) translateY(' + (t * -46).toFixed(1) + 'px) rotateY(' + (t * 58 * dir).toFixed(1) + 'deg)';
+  l.style.transform = 'translateX(' + (t * 26 * dir).toFixed(1) + 'px) translateY(' + (t * -10).toFixed(1) + 'px) rotateY(' + (t * 14 * dir).toFixed(1) + 'deg)';
 }
 function frame(){
   raf = null;
@@ -1035,7 +1094,7 @@ if ('IntersectionObserver' in window && headings.length){
         const t = p - 0.5;
         const dir = i % 2 ? 1 : -1;
         l.style.setProperty('--t10c-pose',
-          'translateX(' + (t * 150 * dir).toFixed(1) + 'px) translateY(' + (t * -46).toFixed(1) + 'px) rotateY(' + (t * 58 * dir).toFixed(1) + 'deg)');
+          'translateX(' + (t * 26 * dir).toFixed(1) + 'px) translateY(' + (t * -10).toFixed(1) + 'px) rotateY(' + (t * 14 * dir).toFixed(1) + 'deg)');
         l.style.setProperty('--t10c-dir', dir);
       });
       h2.classList.add('t10c-snap');
@@ -1142,7 +1201,7 @@ if (finePtrD && !reducedD){
       const p = clampD((innerHeight * 0.5 - r.top) / r.height, 0, 1);
       const t = p - 0.5;
       const dir = idx % 2 ? 1 : -1;
-      l.style.transform = 'translateX(' + (t * 150 * dir).toFixed(1) + 'px) translateY(' + (t * -46).toFixed(1) + 'px) rotateY(' + (t * 58 * dir).toFixed(1) + 'deg)';
+      l.style.transform = 'translateX(' + (t * 26 * dir).toFixed(1) + 'px) translateY(' + (t * -10).toFixed(1) + 'px) rotateY(' + (t * 14 * dir).toFixed(1) + 'deg)';
     }
   }, { passive: true });
 }

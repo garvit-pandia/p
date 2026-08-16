@@ -3,487 +3,489 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Garvit Pandia — Weather//Systems · A career read through pressure &amp; forecast</title>
-<meta name="description" content="Weather//Systems — Garvit Pandia's career as an atmospheric instrument: pressure contours, forecasts, wind vectors, station logs. Engineer · Tinkerer · Field Recorder.">
-<meta property="og:title" content="Garvit Pandia — Weather//Systems">
-<meta property="og:description" content="A warm atmospheric instrument for reading a technical career through pressure, direction, forecast, and observation.">
-<meta name="theme-color" content="#F4F0E8">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23233E59' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23C9964A' stroke-width='1'/%3E%3Cpath d='M16 16 L24 10' stroke='%23C65D42' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%231F7A78'/%3E%3C/svg%3E">
+<title>Garvit Pandia — The Impossible Transit Map</title>
+<meta name="description" content="The Impossible Transit Map — a transit network for ideas, systems, skills, projects, and experience. Follow the route lines through Garvit Pandia's work.">
+<meta property="og:title" content="Garvit Pandia — The Impossible Transit Map">
+<meta property="og:description" content="Route lines, stations, transfers, and one long journey through a technical career.">
+<meta name="theme-color" content="#F6F1E5">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' rx='6' fill='%23F6F1E5' stroke='%2333312C' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23D4402A'/%3E%3Cpath d='M4 26 L28 6' stroke='%231F3A93' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F4F0E8;
-  --paper-2:#ECE7DB;
-  --card:#FBF8F1;
-  --ink:#17242D;
-  --ink-soft:#46555F;
-  --navy:#233E59;
-  --teal:#1F7A78;
-  --teal-deep:#155B59;
-  --rust:#C65D42;
-  --rust-deep:#9C4630;
-  --brass:#C9964A;
-  --brass-deep:#8F6426;
-  --fog:#A9D5DE;
-  --quiet:#B8B6AD;
-  --line:#D8D3C6;
-  --serif:'Fraunces',Georgia,'Times New Roman',serif;
-  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --paper:#F6F1E5;
+  --paper-2:#EDE5D2;
+  --card:#FBF7EE;
+  --ink:#33312C;
+  --ink-soft:#4E4A42;
+  --cobalt:#1F3A93;
+  --ultra:#2E4AC2;
+  --vermilion:#D4402A;
+  --verm-deep:#A9321F;
+  --graphite:#33312C;
+  --field:#DCE7F2;
+  --field-deep:#AEC8DE;
+  --line:#D8CFBA;
+  --line-2:#C9BFA6;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   --ease:cubic-bezier(.22,.61,.36,1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:86px}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
 body{
-  font-family:var(--mono);color:var(--ink);background:var(--paper);
+  font-family:var(--sans);color:var(--ink);background:var(--paper);
   line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased;
   background-image:
-    radial-gradient(circle at 12% 8%, rgba(169,213,222,.28), transparent 26rem),
-    radial-gradient(circle at 88% 24%, rgba(201,150,74,.10), transparent 30rem),
-    radial-gradient(circle at 50% 100%, rgba(31,122,120,.06), transparent 34rem);
+    radial-gradient(circle at 85% 10%, rgba(220,231,242,.75), transparent 26rem),
+    radial-gradient(circle at 8% 55%, rgba(220,231,242,.5), transparent 24rem),
+    linear-gradient(90deg, rgba(51,49,44,.025) 1px, transparent 1px) 0 0/44px 44px,
+    linear-gradient(0deg, rgba(51,49,44,.025) 1px, transparent 1px) 0 0/44px 44px;
 }
-::selection{background:var(--teal);color:#fff}
-:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:4px}
+::selection{background:var(--cobalt);color:#fff}
+:focus-visible{outline:3px solid var(--vermilion);outline-offset:3px;border-radius:4px}
 a{color:inherit;text-decoration:none}
 img{max-width:100%}
 .mono{font-family:var(--mono)}
-.serif{font-family:var(--serif)}
 
-/* ---------- atmospheric field canvas ---------- */
-#field{
-  position:fixed;inset:0;z-index:-2;width:100%;height:100%;
-  display:block;pointer-events:none;opacity:.9;
-}
-body.field-static #field{display:none}
-/* static paper texture fallback when canvas cannot run */
-body.field-static .texture{
-  position:fixed;inset:0;z-index:-3;pointer-events:none;
-  background:
-    repeating-linear-gradient(0deg, rgba(23,36,45,.024) 0 1px, transparent 1px 7px),
-    repeating-linear-gradient(90deg, rgba(23,36,45,.018) 0 1px, transparent 1px 11px);
-}
-.texture{display:none}
-body.field-static .texture{display:block}
-
-/* ---------- top navigation: six-station route ---------- */
+/* ---------- nav ---------- */
 #topnav{
   position:sticky;top:0;z-index:80;display:flex;align-items:center;gap:14px;
-  padding:10px 4vw;min-height:66px;
-  background:color-mix(in srgb,var(--paper) 86%,transparent);
+  padding:10px 3vw;min-height:66px;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);
-  transition:box-shadow .35s ease,background .35s ease;
+  border-bottom:1px solid var(--line);transition:box-shadow .35s ease;
 }
-#topnav.scrolled{box-shadow:0 10px 28px -18px rgba(23,36,45,.35);background:color-mix(in srgb,var(--paper) 94%,transparent)}
-.brand{
-  display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;
-  letter-spacing:.16em;color:var(--navy);white-space:nowrap;
-}
-.brand .beacon{
-  width:10px;height:10px;border-radius:50%;background:var(--rust);flex:none;
-  box-shadow:0 0 0 0 rgba(198,93,66,.4);animation:ws-beacon 2.6s ease-out infinite;
-}
-@keyframes ws-beacon{0%{box-shadow:0 0 0 0 rgba(198,93,66,.45)}70%{box-shadow:0 0 0 9px rgba(198,93,66,0)}100%{box-shadow:0 0 0 0 rgba(198,93,66,0)}}
+#topnav.scrolled{box-shadow:0 10px 26px -18px rgba(51,49,44,.4)}
+.brand{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--ink);white-space:nowrap}
+.brand .line-dot{width:9px;height:9px;border-radius:50%;background:var(--vermilion);flex:none;box-shadow:0 0 0 3px rgba(212,64,42,.18)}
 .brand small{color:var(--ink-soft);font-weight:400}
 .nav-links{display:flex;align-items:center;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
 .nav-links::-webkit-scrollbar{display:none}
 .nav-links a{
   display:inline-flex;align-items:center;justify-content:center;min-height:44px;
-  padding:0 9px;color:var(--ink-soft);font-size:10px;font-weight:500;
+  padding:0 11px;color:var(--ink-soft);font-family:var(--mono);font-size:10px;font-weight:500;
   letter-spacing:.1em;text-transform:uppercase;border-radius:8px;white-space:nowrap;
   border:1px solid transparent;transition:color .25s,background .25s,border-color .25s;
 }
-.nav-links a:hover{color:var(--ink);background:rgba(31,122,120,.07)}
-.nav-links a.is-active{color:var(--teal-deep);background:rgba(31,122,120,.1);border-color:rgba(31,122,120,.35)}
-.nav-links a i{font-style:normal;font-size:8px;color:var(--brass);margin-right:5px;letter-spacing:.2em}
+.nav-links a:hover{color:var(--ink);background:rgba(31,58,147,.06)}
+.nav-links a.is-active{color:var(--cobalt);background:rgba(31,58,147,.08);border-color:rgba(31,58,147,.3)}
+.nav-links a i{font-style:normal;font-size:8px;color:var(--vermilion);margin-right:5px}
 .nav-resume{
   margin-left:8px;min-height:44px;display:inline-flex;align-items:center;gap:8px;
-  padding:0 15px;border-radius:9px;background:var(--navy);color:#F4F0E8;
-  font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;
+  padding:0 15px;border-radius:9px;background:var(--vermilion);color:#fff;
+  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;
   transition:transform .25s var(--ease),box-shadow .25s var(--ease);
 }
-.nav-resume:hover{transform:translateY(-2px);box-shadow:0 10px 22px -10px rgba(35,62,89,.55)}
+.nav-resume:hover{transform:translateY(-2px);box-shadow:0 10px 22px -10px rgba(212,64,42,.6)}
+
+/* ---------- route progress rail (fixed right) ---------- */
+.route-rail{
+  position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:70;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.route-rail .rail-line{
+  position:absolute;top:8px;bottom:8px;width:3px;left:50%;margin-left:-1.5px;
+  background:var(--line-2);border-radius:99px;overflow:hidden;
+}
+.route-rail .rail-line i{
+  position:absolute;top:0;left:0;right:0;height:0;background:linear-gradient(180deg,var(--cobalt),var(--vermilion));
+  border-radius:99px;
+}
+.route-rail .stop{
+  position:relative;width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--paper);border:2px solid var(--line-2);color:var(--ink-soft);
+  font-family:var(--mono);font-size:8px;font-weight:600;display:flex;align-items:center;justify-content:center;
+  transition:border-color .25s,background .25s,color .25s,transform .25s;z-index:1;
+}
+.route-rail .stop:hover{transform:scale(1.12);border-color:var(--vermilion);color:var(--vermilion)}
+.route-rail .stop.on{background:var(--cobalt);border-color:var(--cobalt);color:#fff}
+.route-rail .cap{
+  position:absolute;right:42px;top:50%;transform:translateY(-50%);white-space:nowrap;
+  font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+  opacity:0;transition:opacity .2s;pointer-events:none;
+}
+.route-rail .stop:hover .cap{opacity:1}
+@media (max-width:900px){.route-rail{display:none}}
 
 /* ---------- hero ---------- */
 #hero{
   position:relative;min-height:calc(100vh - 66px);display:flex;align-items:center;
-  padding:84px 4vw 110px;overflow:hidden;
+  padding:70px 5vw 100px;overflow:hidden;
 }
-.hero-grid{
-  width:min(1180px,100%);margin:0 auto;display:grid;
-  grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:40px;align-items:center;
+/* route lines entering from the edges */
+.hero-routes{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero-routes svg{width:100%;height:100%}
+.hero-routes .rl{fill:none;stroke-width:2.5;stroke-linecap:round;opacity:.55}
+.hero-routes .rlx{opacity:.45}
+.hero-routes .rl-a{stroke:var(--cobalt)}
+.hero-routes .rl-b{stroke:var(--vermilion)}
+.hero-routes .rl-c{stroke:var(--ultra)}
+.hero-routes .rl-d{stroke:var(--field-deep)}
+.hero-routes .rlx{
+  stroke-dasharray:6 7;animation:tm-dash 26s linear infinite;
+}
+@keyframes tm-dash{to{stroke-dashoffset:-260}}
+.hero-inner{position:relative;z-index:2;width:min(1000px,100%);margin:0 auto;text-align:center}
+/* text-safe parchment glow: lifts the copy off the route lines */
+.hero-inner::before{
+  content:"";position:absolute;inset:-46px -70px;z-index:-1;pointer-events:none;
+  background:radial-gradient(closest-side, rgba(246,241,229,.92), rgba(246,241,229,.55) 55%, rgba(246,241,229,0) 100%);
 }
 .kicker{
-  display:inline-flex;align-items:center;gap:10px;color:var(--rust-deep);
-  font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;margin-bottom:22px;
+  display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10px;
+  font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--verm-deep);
+  background:var(--card);border:1px solid var(--line);border-radius:99px;padding:8px 16px;
+  margin-bottom:26px;box-shadow:0 6px 16px -12px rgba(51,49,44,.35);
 }
-.kicker::before{content:"";width:22px;height:1.5px;background:var(--brass);flex:none}
-.kicker b{color:var(--navy);font-weight:700}
+.kicker b{color:var(--cobalt)}
 #hero h1{
-  font-family:var(--serif);font-weight:600;letter-spacing:-.02em;line-height:.95;
-  font-size:clamp(52px,8.4vw,118px);color:var(--ink);margin-bottom:20px;
+  font-weight:700;letter-spacing:-.03em;line-height:.94;color:var(--ink);
+  font-size:clamp(44px,8vw,104px);margin-bottom:20px;
 }
-#hero h1 em{font-style:italic;color:var(--teal)}
-.hero-title{
-  font-family:var(--serif);font-size:clamp(19px,2.5vw,28px);font-weight:400;
-  color:var(--navy);margin-bottom:12px;letter-spacing:-.01em;
-}
-.hero-sub{color:var(--ink-soft);font-size:clamp(12.5px,1.4vw,14.5px);max-width:56ch;margin-bottom:34px}
-.hero-sub .loc{color:var(--teal-deep);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.85em}
-.cta{display:flex;gap:12px;flex-wrap:wrap}
+#hero h1 .thinline{display:block;color:var(--cobalt)}
+#hero h1 .thickline{display:block;color:var(--vermilion)}
+.hero-sub{color:var(--ink-soft);font-size:clamp(13px,1.5vw,16px);max-width:64ch;margin:0 auto 30px}
+.hero-sub b{color:var(--ink)}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;min-height:48px;gap:10px;
-  padding:0 24px;border-radius:10px;background:var(--teal);color:#fff;
-  font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:0 26px;border-radius:99px;background:var(--cobalt);color:#fff;
+  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
   transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s;
 }
-.btn:hover{transform:translateY(-2px);box-shadow:0 14px 26px -12px rgba(31,122,120,.6);background:var(--teal-deep)}
-.btn.ghost{background:transparent;color:var(--navy);border:1.5px solid var(--navy);box-shadow:none}
-.btn.ghost:hover{background:var(--navy);color:var(--paper)}
-/* pressure dial */
-.dial{
-  position:relative;width:min(340px,100%);aspect-ratio:1;margin:0 auto;
-  border-radius:50%;background:
-    radial-gradient(circle at 50% 42%, #FDFBF5 0%, #EFE9DC 58%, #DDD5C3 100%);
-  border:1px solid var(--quiet);
-  box-shadow:0 24px 44px -26px rgba(23,36,45,.45), inset 0 0 0 8px rgba(255,255,255,.4), inset 0 0 34px rgba(35,62,89,.08);
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 26px -12px rgba(31,58,147,.55);background:var(--ultra)}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);box-shadow:none}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+/* legend strip */
+.legend{
+  margin:34px auto 0;max-width:640px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
 }
-.dial::after{
-  content:"";position:absolute;inset:7%;border-radius:50%;
-  border:1px dashed var(--brass);opacity:.65;
+.legend .lg{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:9px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+  border:1px solid var(--line);border-radius:99px;padding:6px 12px;background:var(--card);
 }
-.dial .ticks{
-  position:absolute;inset:0;border-radius:50%;
-  background:
-    repeating-conic-gradient(from -90deg, rgba(35,62,89,.5) 0deg 1deg, transparent 1deg 6deg);
-  -webkit-mask:radial-gradient(circle, transparent 0 62%, #000 63% 66%, transparent 67%);
-  mask:radial-gradient(circle, transparent 0 62%, #000 63% 66%, transparent 67%);
-  opacity:.5;
+.legend .lg i{width:16px;height:3px;border-radius:99px;flex:none}
+.legend .lg.la i{background:var(--cobalt)}
+.legend .lg.lb i{background:var(--vermilion)}
+.legend .lg.lc i{background:var(--ultra)}
+.legend .lg.ld i{background:var(--field-deep)}
+/* station notice board — live service strip */
+.svc-note{
+  margin:18px auto 0;width:max-content;max-width:680px;display:flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
 }
-.dial .tick-major{
-  position:absolute;inset:0;border-radius:50%;
-  background:repeating-conic-gradient(from -90deg, var(--navy) 0deg 2deg, transparent 2deg 30deg);
-  -webkit-mask:radial-gradient(circle, transparent 0 70%, #000 71% 73%, transparent 74%);
-  mask:radial-gradient(circle, transparent 0 70%, #000 71% 73%, transparent 74%);
+.svc-note::before{
+  content:"";width:6px;height:6px;border-radius:50%;background:var(--vermilion);flex:none;
+  animation:svc-pulse 1.8s ease-out infinite;
 }
-.dial .read{
-  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
-  font-family:var(--serif);text-align:center;
+@keyframes svc-pulse{0%{box-shadow:0 0 0 0 rgba(212,64,42,.5)}70%,100%{box-shadow:0 0 0 6px rgba(212,64,42,0)}}
+/* folded map edge */
+.map-fold{
+  position:absolute;right:0;top:0;width:110px;height:110px;z-index:1;pointer-events:none;
+  background:linear-gradient(225deg, transparent 49.5%, var(--paper-2) 50%, var(--line) 52%, var(--paper) 54%);
+  box-shadow:-8px 8px 18px -12px rgba(51,49,44,.35);
 }
-.dial .read b{font-size:clamp(30px,4.6vw,46px);font-weight:600;color:var(--ink);letter-spacing:-.01em}
-.dial .read b small{font-size:.45em;color:var(--teal-deep);font-weight:600}
-.dial .read span{font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink)}
-.dial .read i{font-style:normal;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--rust-deep);margin-top:4px;font-family:var(--mono)}
-.dial .needle{
-  position:absolute;left:50%;top:50%;width:34%;height:2.5px;
-  background:linear-gradient(90deg,var(--rust-deep),var(--rust));
-  transform-origin:0 50%;transform:rotate(38deg);border-radius:99px;
+.map-fold::after{
+  content:"";position:absolute;top:0;right:0;width:0;height:0;
+  border-top:110px solid var(--paper);border-left:110px solid transparent;
 }
-.dial .needle::after{
-  content:"";position:absolute;right:-6px;top:50%;width:11px;height:11px;border-radius:50%;
-  background:var(--rust-deep);transform:translate(0,-50%);
-}
-.dial .hub{
-  position:absolute;left:50%;top:50%;width:16px;height:16px;border-radius:50%;
-  background:var(--navy);transform:translate(-50%,-50%);
-  box-shadow:0 0 0 4px rgba(35,62,89,.15), 0 2px 6px rgba(23,36,45,.4);
-}
-.dial .calib{
-  position:absolute;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);font-family:var(--mono);
-}
-.dial .calib.c1{top:12%;left:50%;transform:translateX(-50%)}
-.dial .calib.c2{bottom:16%;right:10%}
-.dial .calib.c3{bottom:16%;left:10%}
-/* isobar contours behind hero */
-.isobars{position:absolute;inset:0;pointer-events:none;z-index:-1;opacity:.5}
-.isobars svg{width:100%;height:100%}
-/* wind-direction marks */
-.windmarks{position:absolute;inset:0;pointer-events:none;z-index:-1;overflow:hidden}
-.windmarks i{
-  position:absolute;display:block;width:0;height:0;
-  border-left:5px solid var(--teal);border-top:3px solid transparent;border-bottom:3px solid transparent;
-  opacity:.35;
+.reg-mark{position:absolute;width:14px;height:14px;pointer-events:none;z-index:1}
+.reg-mark::before,.reg-mark::after{content:"";position:absolute;background:var(--line-2)}
+.reg-mark::before{left:6px;top:0;bottom:0;width:1.5px}
+.reg-mark::after{left:0;right:0;top:6px;height:1.5px}
+.reg-mark.rm1{left:14px;top:14px}
+.reg-mark.rm2{right:14px;bottom:14px}
+.reg-mark.rm3{left:14px;bottom:14px}
+/* map revision block — print-authentic surveyor's note */
+.rev-block{
+  position:absolute;left:34px;bottom:20px;z-index:2;
+  font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);
+  display:flex;flex-direction:column;gap:3px;padding-left:10px;border-left:1px solid var(--line-2);
 }
 .scroll-cue{
-  position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
-  font-size:9px;letter-spacing:.34em;text-transform:uppercase;color:var(--ink-soft);
-  display:flex;flex-direction:column;align-items:center;gap:9px;white-space:nowrap;
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);
+  display:flex;flex-direction:column;align-items:center;gap:8px;white-space:nowrap;z-index:2;
+  background:rgba(246,241,229,.8);padding:6px 14px 8px;border-radius:99px;border:1px solid var(--line);
 }
-.scroll-cue b{width:1px;height:36px;background:linear-gradient(180deg,var(--teal),rgba(31,122,120,0));animation:ws-drip 2s ease-in-out infinite}
-@keyframes ws-drip{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(0);transform-origin:bottom}}
+.scroll-cue b{width:2px;height:34px;background:linear-gradient(180deg,var(--vermilion),transparent);animation:tm-drop 1.9s ease-in-out infinite}
+@keyframes tm-drop{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(0);transform-origin:bottom}}
 
 /* ---------- sections ---------- */
-.station{
-  position:relative;padding:clamp(64px,9vw,110px) 4vw;border-top:1px solid var(--line);
-  scroll-margin-top:0;
+.station-sec{
+  position:relative;padding:clamp(64px,9vw,104px) 4vw;border-top:1px solid var(--line);
 }
-.station::before{
-  content:"";position:absolute;top:-1px;left:0;right:0;height:3px;
-  background:repeating-linear-gradient(90deg,var(--brass) 0 8px,transparent 8px 22px);
-  opacity:.5;
-}
-.wrap{width:min(1180px,100%);margin:0 auto}
-.sec-head{margin-bottom:clamp(30px,4.5vw,52px)}
+.wrap{width:min(1120px,100%);margin:0 auto}
+.sec-head{margin-bottom:clamp(28px,4vw,46px);display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap}
 .sec-kicker{
-  display:inline-flex;align-items:center;gap:10px;color:var(--teal-deep);
-  font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;margin-bottom:14px;
+  font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--verm-deep);display:flex;align-items:center;gap:9px;margin-bottom:12px;flex-basis:100%;
 }
-.sec-kicker::before{content:"";width:18px;height:1.5px;background:var(--brass)}
-.sec-kicker b{color:var(--rust-deep)}
+.sec-kicker .stn-code{
+  color:#fff;background:var(--cobalt);border-radius:5px;padding:2px 7px;letter-spacing:.18em;font-size:8.5px;
+}
+.sec-kicker b{color:var(--cobalt)}
 .sec-title{
-  font-family:var(--serif);font-weight:600;letter-spacing:-.015em;line-height:1.02;
-  font-size:clamp(30px,4.6vw,52px);color:var(--ink);
+  font-size:clamp(30px,4.8vw,52px);font-weight:700;letter-spacing:-.025em;line-height:1.02;color:var(--ink);
 }
-.sec-title em{font-style:italic;color:var(--teal)}
-.sec-note{color:var(--ink-soft);font-size:12px;margin-top:12px;max-width:64ch}
-.sec-note code{background:var(--paper-2);border:1px solid var(--line);padding:2px 7px;border-radius:5px;font-size:10.5px;color:var(--navy)}
+.sec-title .cobalt{color:var(--cobalt)}
+.sec-title .verm{color:var(--vermilion)}
+.sec-note{color:var(--ink-soft);font-size:13px;margin-top:10px;max-width:62ch}
+.sec-note code{font-family:var(--mono);font-size:10.5px;background:var(--card);border:1px solid var(--line);padding:2px 8px;border-radius:5px;color:var(--cobalt)}
 
 /* reveal */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .75s var(--ease) var(--d,0s),transform .75s var(--ease) var(--d,0s)}
 .reveal.in{opacity:1;transform:none}
 
-/* ---------- about: barometer reading ---------- */
-.about-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:clamp(20px,3vw,40px);align-items:start}
-.about-card{
-  background:var(--card);border:1px solid var(--line);border-radius:14px;
-  padding:clamp(22px,3vw,32px);box-shadow:0 16px 34px -26px rgba(23,36,45,.35);
-  position:relative;
+/* ---------- origin station (about) ---------- */
+.about-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:22px;align-items:start}
+.plate{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 28px;
+  box-shadow:0 14px 30px -26px rgba(51,49,44,.4);position:relative;
 }
-.about-card::before{
-  content:"CALIBRATED 2026-08";position:absolute;top:12px;right:16px;
-  font-size:7.5px;letter-spacing:.24em;color:var(--brass-deep);
+.plate::before{
+  content:"";position:absolute;top:10px;right:10px;width:12px;height:12px;
+  border-top:2px solid var(--vermilion);border-right:2px solid var(--vermilion);opacity:.7;
 }
-.about-card .reading{
-  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px;
-  font-family:var(--serif);
+.plate::after{
+  content:"";position:absolute;bottom:10px;left:10px;width:12px;height:12px;
+  border-bottom:2px solid var(--cobalt);border-left:2px solid var(--cobalt);opacity:.7;
 }
-.about-card .reading b{font-size:clamp(24px,3.4vw,34px);font-weight:600;color:var(--teal-deep)}
-.about-card .reading span{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
-.about-card p{font-size:13.5px;color:var(--ink-soft);font-family:var(--mono);margin-bottom:12px}
-.about-card p b{color:var(--ink);font-weight:700}
-.about-card p .hl{color:var(--teal-deep);font-weight:700}
-.about-card .log-line{border-top:1px dashed var(--quiet);padding-top:12px;margin-top:14px;font-size:11px;color:var(--ink-soft)}
-.about-card .log-line b{color:var(--rust-deep)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.plate .head{
+  display:flex;align-items:center;gap:10px;margin-bottom:16px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);
+}
+.plate .head i{width:18px;height:3px;background:var(--cobalt);border-radius:99px}
+.plate .head .rt{color:var(--verm-deep);font-weight:600}
+.plate p{font-size:14px;color:var(--ink-soft);line-height:1.7}
+.plate p b{color:var(--ink)}
+.plate p .hl{color:var(--cobalt);font-weight:600}
+.plate p + p{margin-top:10px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
 .stat{
-  background:var(--paper-2);border:1px solid var(--line);border-radius:10px;
-  padding:12px 12px 10px;position:relative;overflow:hidden;
+  border:1px solid var(--line);border-left:3px solid var(--cobalt);border-radius:9px;
+  background:var(--paper);padding:11px 12px 10px;
 }
-.stat::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
-  background:repeating-linear-gradient(90deg,var(--teal) 0 5px,transparent 5px 11px);opacity:.5;
+.stat b{display:block;font-size:clamp(17px,2vw,22px);font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.stat span{font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+/* station name board */
+.nameboard{
+  background:var(--ink);color:var(--paper);border-radius:14px;padding:24px;
+  position:relative;overflow:hidden;box-shadow:0 18px 34px -24px rgba(51,49,44,.55);
 }
-.stat b{display:block;font-family:var(--serif);font-size:clamp(18px,2.2vw,24px);font-weight:600;color:var(--ink);letter-spacing:-.01em}
-.stat span{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.nameboard::before{
+  content:"";position:absolute;inset:0;background:
+    repeating-linear-gradient(90deg, transparent 0 34px, rgba(255,255,255,.04) 34px 35px);
+}
+.nameboard .nb-top{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--field);
+}
+.nameboard h3{font-size:clamp(21px,2.6vw,27px);font-weight:700;letter-spacing:-.01em;margin:14px 0 6px;position:relative}
+.nameboard h3 .verm{color:var(--vermilion)}
+.nameboard p{font-size:11.5px;color:rgba(246,241,229,.82);position:relative;line-height:1.65}
+.nameboard .nb-route{
+  margin-top:16px;display:flex;align-items:center;gap:8px;position:relative;
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;color:var(--field);
+}
+.nameboard .nb-route i{width:26px;height:3px;border-radius:99px;background:var(--vermilion)}
 .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
 .quote{
-  background:var(--navy);color:#E8EDF2;border-radius:12px;padding:16px 16px 14px;
-  font-size:12px;line-height:1.6;position:relative;overflow:hidden;
+  background:var(--card);border:1px solid var(--line);border-left:3px solid var(--vermilion);
+  border-radius:11px;padding:15px 16px 13px;font-size:12px;color:var(--ink-soft);line-height:1.6;
 }
-.quote::after{
-  content:"";position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--brass),var(--rust),var(--fog));
-}
-.quote footer{margin-top:10px;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--fog)}
-.quote footer b{color:var(--brass)}
-/* side instrument: wind rose */
-.windrose-card{
-  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;
-  box-shadow:0 16px 34px -26px rgba(23,36,45,.35);position:relative;
-}
-.windrose-card .wr-title{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px;display:flex;justify-content:space-between}
-.windrose-card .wr-title b{color:var(--teal-deep)}
-.windrose{position:relative;width:min(240px,86%);aspect-ratio:1;margin:0 auto}
-.windrose svg{width:100%;height:100%}
-.windrose .wr-label{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;
-}
-.windrose .wr-label b{display:block;font-family:var(--serif);font-size:26px;font-weight:600;color:var(--teal-deep)}
-.windrose .wr-label span{font-size:8px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-soft)}
-.windrose-card .wr-note{font-size:10.5px;color:var(--ink-soft);margin-top:16px;border-top:1px dashed var(--quiet);padding-top:12px}
-.windrose-card .wr-note b{color:var(--rust-deep)}
+.quote footer{margin-top:10px;font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--cobalt)}
+.quote footer b{color:var(--verm-deep)}
 
-/* ---------- projects: forecast / case readings ---------- */
-.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.fc-card{
-  position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;
-  padding:24px 24px 20px;box-shadow:0 14px 30px -26px rgba(23,36,45,.32);
-  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s;
+/* ---------- interchange (projects): route stops ---------- */
+.route-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.rchip{
+  display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 15px;border-radius:99px;
+  border:1.5px solid var(--line-2);background:var(--card);cursor:pointer;
+  font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);
+  transition:border-color .25s,color .25s,transform .25s;
+}
+.rchip i{width:14px;height:3px;border-radius:99px}
+.rchip.la i{background:var(--cobalt)}.rchip.lb i{background:var(--vermilion)}
+.rchip.lc i{background:var(--ultra)}.rchip.ld i{background:var(--field-deep)}
+.rchip:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-1px)}
+.rchip.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.stop-card{
+  position:relative;background:var(--card);border:1px solid var(--line);border-radius:13px;
+  padding:22px 22px 18px;box-shadow:0 12px 26px -24px rgba(51,49,44,.4);
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),opacity .35s var(--ease),filter .35s var(--ease);
   overflow:hidden;
 }
-.fc-card::before{
-  content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
-  background:linear-gradient(180deg,var(--brass),var(--rust),var(--teal));opacity:.85;
+.stop-card::after{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:repeating-linear-gradient(90deg,var(--cobalt) 0 12px,transparent 12px 20px);opacity:.55;
 }
-.fc-card::after{
-  content:"";position:absolute;top:0;right:0;width:26px;height:26px;
-  border-top:1px solid var(--quiet);border-right:1px solid var(--quiet);
-  border-top-right-radius:13px;opacity:.8;
+.stop-card[data-line*="B"]::after{background:repeating-linear-gradient(90deg,var(--vermilion) 0 12px,transparent 12px 20px)}
+.stop-card[data-line*="C"]::after{background:repeating-linear-gradient(90deg,var(--ultra) 0 12px,transparent 12px 20px)}
+.stop-card[data-line*="D"]::after{background:repeating-linear-gradient(90deg,var(--field-deep) 0 12px,transparent 12px 20px)}
+.stop-card:hover{transform:translateY(-4px);box-shadow:0 22px 38px -24px rgba(51,49,44,.5)}
+/* route-highlight mode */
+.grid-2.hl .stop-card{opacity:.32;filter:grayscale(.7)}
+.grid-2.hl .stop-card.lit{opacity:1;filter:none}
+.stop-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}
+.stop-no{
+  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.16em;color:var(--cobalt);
 }
-.fc-card:hover{transform:translateY(-4px);box-shadow:0 26px 44px -26px rgba(23,36,45,.42);border-color:var(--quiet)}
-.fc-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
-.fc-top .synop{
-  font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass-deep);font-weight:700;
-}
-.fc-top .year{font-size:9px;letter-spacing:.14em;color:var(--ink-soft);white-space:nowrap}
-.fc-card h3{font-family:var(--serif);font-size:clamp(19px,2.1vw,24px);font-weight:600;color:var(--ink);letter-spacing:-.01em;margin-bottom:7px}
-.fc-card h3 em{font-style:italic;color:var(--teal)}
-.fc-card > p{font-size:12.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:14px;font-family:var(--mono)}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.stop-no em{font-style:normal;color:var(--verm-deep)}
+.stop-year{font-family:var(--mono);font-size:9px;color:var(--ink-soft);letter-spacing:.1em}
+.stop-card h3{font-size:clamp(18px,2vw,22px);font-weight:700;letter-spacing:-.01em;color:var(--ink);margin-bottom:6px}
+.stop-card > p{font-size:13px;color:var(--ink-soft);line-height:1.6;margin-bottom:13px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:13px}
 .chip{
-  font-size:9.5px;letter-spacing:.08em;color:var(--navy);
-  background:rgba(35,62,89,.07);border:1px solid rgba(35,62,89,.2);padding:3px 9px;border-radius:99px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--ink);
+  background:var(--paper);border:1px solid var(--line-2);padding:3px 9px;border-radius:99px;
 }
+.lines{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.lines .ln{
+  display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:8.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:99px;color:#fff;
+}
+.lines .ln.la{background:var(--cobalt)}
+.lines .ln.lb{background:var(--vermilion)}
+.lines .ln.lc{background:var(--ultra)}
+.lines .ln.ld{background:#8FAECB;color:var(--ink)}
 .metric{
-  font-size:10.5px;color:var(--ink-soft);border-top:1px dashed var(--quiet);padding-top:11px;
-  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  margin-top:13px;padding-top:11px;border-top:1px dashed var(--line-2);
+  font-family:var(--mono);font-size:10px;color:var(--ink-soft);display:flex;align-items:center;gap:8px;flex-wrap:wrap;
 }
-.metric b{color:var(--teal-deep);font-weight:700;letter-spacing:.04em}
-.metric .arrow{color:var(--rust);font-weight:700}
-.metric .suffix{margin-left:auto;font-size:8px;letter-spacing:.2em;color:var(--brass-deep);text-transform:uppercase}
-/* forecast strip: a wide "pressure trend" card */
-.trend{
-  margin-top:16px;background:var(--paper-2);border:1px solid var(--line);border-radius:14px;
-  padding:18px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
-}
-.trend .t-label{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
-.trend .t-label b{color:var(--rust-deep)}
-.trend .t-bars{display:flex;align-items:flex-end;gap:4px;height:38px;flex:1;min-width:200px}
-.trend .t-bars i{flex:1;background:linear-gradient(180deg,var(--fog),rgba(169,213,222,.25));border-radius:3px 3px 0 0;min-height:4px}
-.trend .t-bars i:nth-child(3n){background:linear-gradient(180deg,var(--teal),rgba(31,122,120,.3))}
-.trend .t-bars i:nth-child(6n){background:linear-gradient(180deg,var(--rust),rgba(198,93,66,.3))}
-.trend .t-note{font-size:10px;color:var(--ink-soft);white-space:nowrap}
-.trend .t-note b{color:var(--teal-deep)}
+.metric b{color:var(--verm-deep);font-weight:600}
+.metric .tr{color:var(--cobalt);font-weight:600}
+.metric .suf{margin-left:auto;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
 
-/* ---------- skills: instrument measurements ---------- */
-.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.instrument{padding:22px 24px 24px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 30px -26px rgba(23,36,45,.3);position:relative}
-.instrument::after{
-  content:"INST";position:absolute;top:12px;right:16px;font-size:7.5px;letter-spacing:.26em;color:var(--quiet);
+/* ---------- signal yard (skills) ---------- */
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.yard{padding:22px 24px;background:var(--card);border:1px solid var(--line);border-radius:13px;box-shadow:0 12px 26px -24px rgba(51,49,44,.35);position:relative}
+.yard h3{
+  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cobalt);margin-bottom:18px;display:flex;align-items:center;gap:9px;
 }
-.instrument h3{
-  font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--navy);
-  margin-bottom:18px;display:flex;align-items:center;gap:9px;
+.yard h3::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--vermilion);flex:none}
+.yard .yard-no{position:absolute;top:14px;right:18px;font-family:var(--mono);font-size:8px;letter-spacing:.2em;color:var(--line-2)}
+.skrow{display:grid;grid-template-columns:130px 1fr 38px;gap:12px;align-items:center;margin-bottom:10px}
+.skrow label{font-size:12px;color:var(--ink-soft)}
+.track{height:9px;border-radius:99px;background:var(--paper-2);border:1px solid var(--line);overflow:hidden;position:relative}
+.track i{
+  display:block;height:100%;border-radius:99px;transform-origin:left;transform:scaleX(0);
+  background:linear-gradient(90deg,var(--cobalt),var(--ultra));
+  transition:transform 1.1s var(--ease) .15s;
 }
-.instrument h3::before{content:"";width:9px;height:9px;border-radius:2px;background:var(--brass);flex:none;transform:rotate(45deg)}
-.gauge-row{display:grid;grid-template-columns:118px 1fr 40px;gap:12px;align-items:center;margin-bottom:10px}
-.gauge-row label{font-size:10.5px;color:var(--ink-soft);text-align:right;letter-spacing:.02em}
-.gauge{flex:1;height:10px;border-radius:99px;background:var(--paper-2);border:1px solid var(--line);overflow:hidden;position:relative}
-.gauge i{
-  display:block;height:100%;border-radius:99px;
-  background:linear-gradient(90deg,var(--fog),var(--teal) 70%,var(--rust));
-  transform-origin:left;transform:scaleX(0);transition:transform 1.1s var(--ease) .15s;
-}
-.gauge::after{
-  content:"";position:absolute;inset:0;
-  background:repeating-linear-gradient(90deg,transparent 0 24%,rgba(23,36,45,.16) 24% 25%);
-  border-radius:99px;pointer-events:none;
-}
-.instrument.in .gauge i{transform:scaleX(1)}
-.gauge-row b{font-size:10.5px;color:var(--ink);text-align:right}
+.track i.dash{background:repeating-linear-gradient(90deg,var(--vermilion) 0 8px,var(--verm-deep) 8px 10px)}
+.yard.in .track i{transform:scaleX(1)}
+.skrow b{font-family:var(--mono);font-size:10.5px;text-align:right;color:var(--ink)}
 
-/* ---------- achievements: alert records ---------- */
+/* ---------- transfer records (achievements) ---------- */
 .ach-list{display:flex;flex-direction:column;gap:10px}
-.alert{
+.transfer{
   display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);
-  border-radius:12px;padding:16px 20px;transition:transform .25s var(--ease),border-color .25s;
+  border-radius:12px;padding:15px 20px;transition:transform .25s var(--ease),border-color .25s;
 }
-.alert:hover{transform:translateX(4px);border-color:var(--quiet)}
-.alert .sev{
-  flex:none;min-width:58px;text-align:center;font-size:8px;font-weight:700;letter-spacing:.18em;
-  text-transform:uppercase;color:#fff;background:var(--teal);border-radius:7px;padding:6px 8px;line-height:1.3;
+.transfer:hover{transform:translateX(5px);border-color:var(--line-2)}
+.transfer .t-code{
+  flex:none;width:52px;height:52px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:var(--mono);font-weight:600;font-size:8.5px;letter-spacing:.08em;color:#fff;line-height:1.25;
 }
-.alert .sev.warn{background:var(--rust)}
-.alert .sev.gold{background:var(--brass);color:var(--ink)}
-.alert .sev.storm{background:var(--navy)}
-.alert .a-body{flex:1;min-width:0}
-.alert h3{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.005em}
-.alert p{font-size:11px;color:var(--ink-soft);margin-top:2px}
-.alert .yr{flex:none;font-size:9.5px;letter-spacing:.16em;color:var(--brass-deep);white-space:nowrap}
+.transfer .t-code.blue{background:var(--cobalt)}
+.transfer .t-code.red{background:var(--vermilion)}
+.transfer .t-code.gold{background:var(--ultra)}
+.transfer .t-code.slate{background:#8FAECB;color:var(--ink)}
+.transfer .t-body{flex:1;min-width:0}
+.transfer h3{font-size:15.5px;font-weight:600;letter-spacing:-.005em;color:var(--ink)}
+.transfer p{font-size:11.5px;color:var(--ink-soft);margin-top:2px}
+.transfer .t-year{flex:none;font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--verm-deep);white-space:nowrap}
 
-/* ---------- experience: station / depth log ---------- */
-.exp{display:flex;gap:20px}
-.exp .rail{flex:none;display:flex;flex-direction:column;align-items:center;padding-top:8px}
-.exp .rail i{width:12px;height:12px;background:var(--teal);border-radius:50%;box-shadow:0 0 0 4px rgba(31,122,120,.14);flex:none}
-.exp .rail i.hollow{background:var(--card);border:2px solid var(--teal)}
-.exp .rail span{width:2px;flex:1;margin:7px 0;background:repeating-linear-gradient(180deg,var(--teal) 0 6px,transparent 6px 12px);opacity:.55}
-.exp-stack{flex:1;display:flex;flex-direction:column;gap:14px}
-.exp-card{
-  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;
-  box-shadow:0 12px 26px -24px rgba(23,36,45,.35);position:relative;overflow:hidden;
+/* ---------- long route (experience) ---------- */
+.long-route{position:relative;padding-left:34px}
+.long-route::before{
+  content:"";position:absolute;left:10px;top:6px;bottom:6px;width:3px;
+  background:linear-gradient(180deg,var(--cobalt) 0%,var(--ultra) 45%,var(--vermilion) 100%);
+  border-radius:99px;opacity:.8;
 }
-.exp-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--fog) 60%,transparent)}
-.exp-card .role{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.exp-card h3{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--ink)}
-.exp-card .dates{font-size:9.5px;letter-spacing:.16em;color:var(--rust-deep);white-space:nowrap;text-transform:uppercase}
-.exp-card .org{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal-deep);margin:5px 0 10px;display:block}
-.exp-card p{font-size:12.5px;color:var(--ink-soft);line-height:1.65;font-family:var(--mono)}
-.exp-card .stn-code{position:absolute;right:16px;bottom:12px;font-size:7.5px;letter-spacing:.26em;color:var(--quiet)}
-/* education strip */
+.lr-card{position:relative;margin-bottom:16px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:20px 22px;box-shadow:0 12px 26px -24px rgba(51,49,44,.38)}
+.lr-card::before{
+  content:"";position:absolute;left:-29px;top:24px;width:15px;height:15px;border-radius:50%;
+  background:var(--paper);border:3.5px solid var(--cobalt);z-index:1;
+}
+.lr-card:nth-child(3n+2)::before{border-color:var(--ultra)}
+.lr-card:nth-child(3n)::before{border-color:var(--vermilion)}
+.lr-card .lr-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.lr-card h3{font-size:17px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.lr-card .dates{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--verm-deep);white-space:nowrap;text-transform:uppercase}
+.lr-card .org{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cobalt);margin:4px 0 9px;display:block}
+.lr-card p{font-size:12.5px;color:var(--ink-soft);line-height:1.65}
+.lr-card .route-tag{
+  position:absolute;top:14px;right:16px;font-family:var(--mono);font-size:7.5px;letter-spacing:.22em;
+  color:var(--line-2);text-transform:uppercase;
+}
 .edu{
-  margin-top:18px;background:var(--navy);color:#E8EDF2;border-radius:14px;padding:20px 24px;
-  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  margin-top:20px;background:var(--ink);color:var(--paper);border-radius:13px;padding:22px 26px;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;position:relative;overflow:hidden;
 }
+.edu::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 40px,rgba(255,255,255,.04) 40px 41px)}
 .edu .e-mark{
-  flex:none;width:52px;height:52px;border-radius:10px;background:var(--brass);color:var(--ink);
-  display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:20px;transform:rotate(-4deg);
+  flex:none;width:54px;height:54px;border-radius:50%;background:var(--vermilion);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:19px;font-family:var(--mono);
 }
-.edu h3{font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:-.005em}
-.edu p{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fog);margin-top:3px}
-.edu .cgpa{margin-left:auto;text-align:right;font-family:var(--serif);font-size:26px;font-weight:600;color:var(--brass)}
-.edu .cgpa small{display:block;font-size:7.5px;letter-spacing:.2em;color:var(--fog);font-family:var(--mono);text-transform:uppercase}
+.edu h3{font-size:17px;font-weight:700;position:relative}
+.edu p{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--field);margin-top:4px;position:relative}
+.edu .cgpa{margin-left:auto;text-align:right;font-size:26px;font-weight:700;color:var(--vermilion);position:relative}
+.edu .cgpa small{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.18em;color:var(--field)}
 
-/* ---------- contact: final transmission ---------- */
-.contact-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+/* ---------- terminus (contact) ---------- */
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
 .sheet{
-  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 26px 24px;
-  box-shadow:0 16px 34px -26px rgba(23,36,45,.35);position:relative;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;
+  box-shadow:0 14px 30px -26px rgba(51,49,44,.4);position:relative;
 }
-.sheet::before{
-  content:"TRANSMISSION SHEET — WS-07";position:absolute;top:14px;right:18px;
-  font-size:7.5px;letter-spacing:.24em;color:var(--brass-deep);
+.sheet .head{
+  display:flex;align-items:center;gap:10px;margin-bottom:18px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);
 }
-.sheet .meta{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--teal-deep);margin-bottom:18px}
+.sheet .head i{width:18px;height:3px;background:var(--vermilion);border-radius:99px}
 .field{margin-bottom:14px}
-.field label{display:block;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+.field label{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
 .field input,.field textarea{
-  width:100%;background:var(--paper);border:1px solid var(--line);border-radius:10px;
-  padding:12px 14px;font:inherit;font-size:13px;color:var(--ink);
+  width:100%;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;
+  padding:12px 14px;font:inherit;font-size:13.5px;color:var(--ink);
   transition:border-color .25s,box-shadow .25s;
 }
-.field textarea{resize:vertical;min-height:104px}
-.field input:focus,.field textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(31,122,120,.18)}
-#form-status{font-size:10.5px;color:var(--teal-deep);margin-top:12px;min-height:15px}
-#form-status.err{color:var(--rust-deep)}
+.field textarea{resize:vertical;min-height:100px}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--cobalt);box-shadow:0 0 0 3px rgba(31,58,147,.15)}
+#form-status{font-family:var(--mono);font-size:10.5px;color:var(--cobalt);margin-top:12px;min-height:15px}
+#form-status.err{color:var(--verm-deep)}
 .links{display:flex;flex-direction:column;gap:10px}
 .linkrow{
   display:flex;align-items:center;justify-content:space-between;gap:10px;
-  background:var(--paper-2);border:1px solid var(--line);border-radius:11px;padding:13px 16px;
-  transition:background .25s,transform .25s;
+  background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--cobalt);
+  border-radius:10px;padding:13px 16px;transition:background .25s,transform .25s;
 }
 .linkrow:hover{background:var(--card);transform:translateX(4px)}
-.linkrow span{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
-.linkrow a{font-size:12px;color:var(--ink);font-weight:500;word-break:break-all}
-.linkrow a:hover{color:var(--teal-deep)}
-.linkrow .ch{font-size:7.5px;letter-spacing:.2em;color:var(--brass-deep);text-transform:uppercase}
+.linkrow span{font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
+.linkrow a{font-size:12.5px;color:var(--ink);font-weight:500;word-break:break-all}
+.linkrow a:hover{color:var(--cobalt)}
 
 /* ---------- footer ---------- */
 footer{
   border-top:1px solid var(--line);background:var(--paper-2);
-  padding:30px 4vw 36px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  font-size:10px;letter-spacing:.14em;color:var(--ink-soft);text-transform:uppercase;
+  padding:28px 4vw 34px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--ink-soft);text-transform:uppercase;
 }
 footer b{color:var(--ink)}
-footer .rust{color:var(--rust-deep)}
+footer .verm{color:var(--verm-deep)}
 .foot-links{display:flex;gap:20px}
 .foot-links a{transition:color .25s}
-.foot-links a:hover{color:var(--teal-deep)}
+.foot-links a:hover{color:var(--cobalt)}
 
 /* ---------- responsive ---------- */
 @media (max-width:980px){
-  .hero-grid{grid-template-columns:1fr;gap:34px}
-  .dial{max-width:280px}
   .about-grid,.contact-grid{grid-template-columns:1fr}
   .grid-2,.skills-grid{grid-template-columns:1fr}
   .quotes{grid-template-columns:1fr}
@@ -491,19 +493,18 @@ footer .rust{color:var(--rust-deep)}
 @media (max-width:760px){
   #topnav{padding:8px 12px;gap:8px}
   .brand small{display:none}
-  .nav-links a{padding:0 8px;font-size:9.5px}
+  .nav-links a{padding:0 8px;font-size:9px}
   .nav-links a i{display:none}
-  .nav-resume{padding:0 11px;font-size:9.5px}
-  #hero{padding:64px 5vw 96px}
+  .nav-resume{padding:0 11px;font-size:9px}
+  #hero{padding:56px 5vw 92px}
   .stats{grid-template-columns:repeat(2,1fr)}
-  .exp{flex-direction:column;gap:10px}
-  .exp .rail{flex-direction:row;width:100%}
-  .exp .rail span{width:auto;height:2px;flex:1;margin:0 7px;background:repeating-linear-gradient(90deg,var(--teal) 0 6px,transparent 6px 12px)}
-  .gauge-row{grid-template-columns:96px 1fr 36px;gap:8px}
-  .gauge-row label{font-size:9.5px;text-align:left}
-  .alert{flex-wrap:wrap;gap:10px}
-  .alert .yr{margin-left:auto}
+  .skrow{grid-template-columns:96px 1fr 34px;gap:8px}
+  .skrow label{font-size:11px}
+  .transfer{flex-wrap:wrap;gap:10px}
+  .transfer .t-year{margin-left:auto}
   .scroll-cue{display:none}
+  .long-route{padding-left:26px}
+  .lr-card::before{left:-21px;width:12px;height:12px}
   .edu .cgpa{margin-left:0;text-align:left}
 }
 /* ---------- reduced motion ---------- */
@@ -511,358 +512,471 @@ footer .rust{color:var(--rust-deep)}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
-  .gauge i{transform:scaleX(1)}
+  .track i{transform:scaleX(1)}
 }
 /* ---------- print ---------- */
 @media print{
-  :root{--paper:#fff;--paper-2:#f4f2ec;--card:#fff;--line:#ccc;--ink:#17242D;--ink-soft:#46555F}
+  :root{--paper:#fff;--paper-2:#f4f1e8;--card:#fff;--line:#ccc}
   body{background:#fff}
-  #field,.texture,.scroll-cue,.windmarks,.isobars,.dial .ticks{display:none!important}
+  .hero-routes,.map-fold,.reg-mark,.route-rail,.scroll-cue{display:none!important}
   #topnav{position:static;background:#fff;border-bottom:1px solid #ccc}
-  #hero{min-height:0;padding:24px 0 16px}
-  #hero h1{font-size:44px;color:#17242D}
-  .dial{border:1px solid #ccc;box-shadow:none}
-  .station{padding:22px 0;border-top:1px solid #ccc}
+  #hero{min-height:0;padding:20px 0 12px}
+  #hero h1{font-size:40px}
+  .station-sec{padding:20px 0;border-top:1px solid #ccc}
   .reveal{opacity:1!important;transform:none!important}
-  .gauge i{transform:scaleX(1)!important}
-  .about-card,.fc-card,.instrument,.alert,.exp-card,.sheet,.linkrow,.stat,.quote,.trend,.edu{break-inside:avoid;box-shadow:none;background:#fff}
-  .quote{background:#233E59;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  a[href^="http"]::after{content:" (" attr(href) ")";color:#46555F;font-size:.8em;word-break:break-all}
+  .track i{transform:scaleX(1)!important}
+  .plate,.stop-card,.yard,.transfer,.lr-card,.sheet,.linkrow,.stat,.quote,.nameboard,.edu{break-inside:avoid;box-shadow:none;background:#fff}
+  .nameboard{background:#33312C;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:.8em;color:#555;word-break:break-all}
   .linkrow a::after{content:none}
   @page{margin:12mm}
 }
 </style>
+<style>
+/* ---------- C15T signature route engine ---------- */
+.c15t-engine{
+  position:relative;margin-top:16px;padding:20px;background:var(--ink);color:var(--paper);
+  border-radius:14px;overflow:hidden;box-shadow:0 18px 34px -24px rgba(51,49,44,.55);
+}
+.c15t-engine::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.42;
+  background:repeating-linear-gradient(90deg,transparent 0 42px,rgba(255,255,255,.05) 42px 43px);
+}
+.c15t-engine-head,.c15t-engine-body{position:relative;z-index:1}
+.c15t-engine-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:16px}
+.c15t-engine-kicker,.c15t-panel-label{
+  font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--field);margin-bottom:7px;
+}
+.c15t-engine-kicker::before{content:"";display:inline-block;width:18px;height:3px;margin-right:8px;vertical-align:middle;border-radius:99px;background:var(--vermilion)}
+.c15t-engine h3{font-size:clamp(20px,2.5vw,29px);font-weight:700;letter-spacing:-.02em;line-height:1.04;color:var(--paper)}
+.c15t-route-status{
+  max-width:310px;margin:0;color:var(--field);font-family:var(--mono);font-size:9.5px;line-height:1.5;text-align:right;
+}
+.c15t-engine-body{display:grid;grid-template-columns:minmax(0,1fr) 218px;gap:14px;align-items:stretch}
+.c15t-map-wrap{min-width:0;background:#242321;border:1px solid rgba(246,241,229,.18);border-radius:10px;overflow:hidden}
+.c15t-map-wrap svg{display:block;width:100%;height:auto;min-height:260px;background:linear-gradient(135deg,rgba(31,58,147,.12),rgba(212,64,42,.07))}
+.c15t-map-grid{stroke:rgba(246,241,229,.12);stroke-width:1;stroke-dasharray:2 9}
+.c15t-route-line{fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;opacity:.38;stroke-dasharray:4 8;transition:opacity .3s,stroke-width .3s,filter .3s}
+.c15t-route-a{stroke:var(--cobalt)}
+.c15t-route-b{stroke:var(--vermilion)}
+.c15t-route-c{stroke:var(--ultra)}
+.c15t-route-d{stroke:var(--field-deep)}
+.c15t-route-line.c15t-route-active{opacity:1;stroke-width:7;stroke-dasharray:14 8;animation:c15t-route-flow 3.4s linear infinite;filter:drop-shadow(0 0 3px rgba(246,241,229,.28))}
+@keyframes c15t-route-flow{to{stroke-dashoffset:-88}}
+.c15t-node{cursor:pointer;outline:none}
+.c15t-node-halo{fill:none;stroke:var(--paper);stroke-width:1.5;opacity:.38;stroke-dasharray:2 5;transition:opacity .25s,stroke .25s,transform .25s}
+.c15t-node-dot{fill:var(--paper);stroke:var(--line-2);stroke-width:2.5;transition:fill .25s,stroke .25s,stroke-width .25s}
+.c15t-node text{fill:var(--paper);font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.06em;pointer-events:none;paint-order:stroke;stroke:#242321;stroke-width:3px;stroke-linejoin:round}
+.c15t-node.c15t-lit .c15t-node-dot{stroke:var(--field);fill:#fff}
+.c15t-node[data-lines~="A"].c15t-lit .c15t-node-dot{stroke:var(--cobalt)}
+.c15t-node[data-lines~="B"].c15t-lit .c15t-node-dot{stroke:var(--vermilion)}
+.c15t-node[data-lines~="C"].c15t-lit .c15t-node-dot{stroke:var(--ultra)}
+.c15t-node[data-lines~="D"].c15t-lit .c15t-node-dot{stroke:var(--field-deep)}
+.c15t-node.c15t-target .c15t-node-halo{opacity:1;stroke:var(--vermilion);stroke-width:2.5}
+.c15t-node.c15t-target .c15t-node-dot{fill:var(--vermilion);stroke:var(--paper);stroke-width:3.5}
+.c15t-node:focus-visible .c15t-node-halo{opacity:1;stroke:var(--vermilion);stroke-width:3}
+.c15t-train{fill:var(--vermilion);stroke:var(--paper);stroke-width:3;opacity:0;filter:drop-shadow(0 0 5px rgba(212,64,42,.65));transition:opacity .25s}
+.c15t-train-core{fill:var(--paper);pointer-events:none}
+.c15t-map-note{fill:var(--field);font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;opacity:.72}
+.c15t-station-panel{display:flex;flex-direction:column;min-width:0;padding:15px;background:rgba(246,241,229,.07);border:1px solid rgba(246,241,229,.18);border-radius:10px}
+.c15t-panel-label{display:flex;justify-content:space-between;gap:8px;color:var(--field);margin-bottom:8px}
+.c15t-panel-label span{color:rgba(246,241,229,.58);font-weight:400;letter-spacing:.12em;white-space:nowrap}
+.c15t-panel-copy{color:rgba(246,241,229,.78);font-size:10.5px;line-height:1.5;margin-bottom:12px}
+.c15t-station-list{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.c15t-station{
+  display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:34px;padding:0 8px;
+  border:1px solid rgba(246,241,229,.2);border-radius:6px;background:rgba(246,241,229,.06);color:var(--paper);
+  cursor:pointer;font-family:var(--mono);font-size:8.5px;letter-spacing:.05em;text-align:left;transition:background .25s,border-color .25s,color .25s,transform .25s;
+}
+.c15t-station span{color:rgba(246,241,229,.55);font-size:7.5px}
+.c15t-station:hover{border-color:var(--field);background:rgba(246,241,229,.13);transform:translateY(-1px)}
+.c15t-station.c15t-station-selected{border-color:var(--vermilion);background:var(--vermilion);color:#fff}
+.c15t-station.c15t-station-selected span{color:#fff}
+.c15t-clear{
+  margin-top:auto;padding:10px 8px;border:1px dashed rgba(246,241,229,.35);border-radius:6px;background:transparent;color:var(--field);
+  cursor:pointer;font-family:var(--mono);font-size:8px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background .25s,border-color .25s,color .25s;
+}
+.c15t-clear:hover{background:rgba(246,241,229,.1);border-color:var(--field);color:#fff}
+.rchip.c15t-selected{border-color:var(--ink);background:var(--ink);color:#fff;box-shadow:0 0 0 2px rgba(212,64,42,.2)}
+@media (max-width:900px){
+  .c15t-engine-body{grid-template-columns:1fr}
+  .c15t-station-panel{display:block}
+  .c15t-clear{display:block;width:100%;margin-top:12px}
+}
+@media (max-width:760px){
+  .c15t-engine{padding:14px}
+  .c15t-engine-head{display:block}
+  .c15t-route-status{max-width:none;margin-top:10px;text-align:left}
+  .c15t-map-wrap svg{min-height:220px}
+}
+@media (pointer:coarse){
+  .c15t-station{min-height:46px}
+  .c15t-node{cursor:default}
+}
+@media (prefers-reduced-motion:reduce){
+  .c15t-route-line.c15t-route-active{animation:none}
+  .c15t-train{transition:none}
+}
+</style>
+<style id="c15t-touch-guard">
+  #routeChips .rchip,
+  .c15t-station,
+  .c15t-clear { min-height: 44px; }
+  #routeChips .rchip,
+  .c15t-station,
+  .c15t-clear { touch-action: manipulation; }
+</style>
 </head>
-<body class="">
-<canvas id="field" aria-hidden="true"></canvas>
-<div class="texture" aria-hidden="true"></div>
-<div class="isobars" aria-hidden="true">
-  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
-    <g stroke="#1F7A78" stroke-width="1" opacity=".34">
-      <ellipse cx="1180" cy="160" rx="300" ry="190" transform="rotate(-14 1180 160)"/>
-      <ellipse cx="1180" cy="160" rx="235" ry="145" transform="rotate(-14 1180 160)" opacity=".7"/>
-      <ellipse cx="1180" cy="160" rx="170" ry="100" transform="rotate(-14 1180 160)" opacity=".8"/>
-      <ellipse cx="1180" cy="160" rx="105" ry="55" transform="rotate(-14 1180 160)"/>
-    </g>
-    <g stroke="#C9964A" stroke-width="1" opacity=".4">
-      <ellipse cx="180" cy="640" rx="340" ry="230" transform="rotate(10 180 640)"/>
-      <ellipse cx="180" cy="640" rx="265" ry="175" transform="rotate(10 180 640)" opacity=".7"/>
-      <ellipse cx="180" cy="640" rx="190" ry="120" transform="rotate(10 180 640)" opacity=".8"/>
-      <ellipse cx="180" cy="640" rx="115" ry="65" transform="rotate(10 180 640)"/>
-    </g>
-    <g stroke="#233E59" stroke-width="1" opacity=".3">
-      <ellipse cx="760" cy="860" rx="420" ry="150" transform="rotate(-4 760 860)"/>
-      <ellipse cx="760" cy="860" rx="330" ry="112" transform="rotate(-4 760 860)" opacity=".7"/>
-    </g>
-  </svg>
-</div>
-<div class="windmarks" aria-hidden="true">
-  <i style="left:8%;top:22%;transform:rotate(24deg)"></i>
-  <i style="left:14%;top:30%;transform:rotate(58deg)"></i>
-  <i style="right:12%;top:16%;transform:rotate(-30deg)"></i>
-  <i style="right:7%;top:26%;transform:rotate(-64deg)"></i>
-  <i style="left:20%;bottom:14%;transform:rotate(40deg)"></i>
-  <i style="right:22%;bottom:10%;transform:rotate(-12deg)"></i>
-</div>
+<body>
 
-<nav id="topnav" aria-label="Station route">
-  <a class="brand" href="#hero"><span class="beacon" aria-hidden="true"></span>WS<small>//GARVIT PANDIA</small></a>
+<nav id="topnav" aria-label="Transit navigation">
+  <a class="brand" href="#hero"><span class="line-dot" aria-hidden="true"></span>TM<small>//GARVIT PANDIA</small></a>
   <div class="nav-links">
-    <a href="#about"><i>01</i>About</a>
-    <a href="#projects"><i>02</i>Projects</a>
-    <a href="#skills"><i>03</i>Skills</a>
-    <a href="#achievements"><i>04</i>Achievements</a>
-    <a href="#experience"><i>05</i>Experience</a>
-    <a href="#contact"><i>06</i>Contact</a>
+    <a href="#about"><i>OR</i>Origin</a>
+    <a href="#projects"><i>IC</i>Interchange</a>
+    <a href="#skills"><i>SY</i>Signal Yard</a>
+    <a href="#achievements"><i>TR</i>Transfers</a>
+    <a href="#experience"><i>LR</i>Long Route</a>
+    <a href="#contact"><i>TM</i>Terminus</a>
   </div>
   <a class="nav-resume" href="Garvit_Pandia_Resume.pdf" download>↓ Resume</a>
 </nav>
 
+<div class="route-rail" aria-hidden="true">
+  <div class="rail-line"><i id="railFill"></i></div>
+  <button class="stop" data-stop="about" title="Origin Station"><span class="cap">Origin</span>01</button>
+  <button class="stop" data-stop="projects" title="Interchange"><span class="cap">Interchange</span>02</button>
+  <button class="stop" data-stop="skills" title="Signal Yard"><span class="cap">Signal Yard</span>03</button>
+  <button class="stop" data-stop="achievements" title="Transfer Records"><span class="cap">Transfers</span>04</button>
+  <button class="stop" data-stop="experience" title="Long Route"><span class="cap">Long Route</span>05</button>
+  <button class="stop" data-stop="contact" title="Terminus"><span class="cap">Terminus</span>06</button>
+</div>
+
 <header id="hero">
-  <div class="hero-grid">
-    <div>
-      <p class="kicker reveal">Weather station <b>07</b> · Career forecast · Issued 2026</p>
-      <h1 class="reveal" style="--d:.05s">Garvit<em>Pandia</em></h1>
-      <p class="hero-title reveal" style="--d:.12s">Engineer · Tinkerer · Field Recorder</p>
-      <p class="hero-sub reveal" style="--d:.19s">Builds quiet tools and loud prototypes — <span class="loc">Bengaluru, Karnataka</span>. This station reads a technical career the way a meteorologist reads a sky: through pressure, direction, forecast, and long observation.</p>
-      <div class="cta reveal" style="--d:.26s">
-        <a class="btn" href="#about">Explore the forecast ↓</a>
-        <a class="btn ghost" href="Garvit_Pandia_Resume.pdf" download>Download resume</a>
-      </div>
-    </div>
-    <div class="reveal" style="--d:.2s">
-      <div class="dial" role="img" aria-label="Barometer dial reading steady, 1014 hPa">
-        <div class="ticks"></div>
-        <div class="tick-major"></div>
-        <div class="read">
-          <b>1014<small>hPa</small></b>
-          <span>Station pressure</span>
-          <i>Steady · career rising</i>
-        </div>
-        <div class="needle"></div>
-        <div class="hub"></div>
-        <span class="calib c1">CAL 08/26</span>
-        <span class="calib c2">STN ALT 920M</span>
-        <span class="calib c3">ISO 1013.25</span>
-      </div>
-    </div>
+  <div class="hero-routes" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <!-- routes stay OUTSIDE the title safe-zone (y 240-610, x 150-1290):
+           arcs above, below, and along the left/right margins -->
+      <path class="rl rl-a rlx" d="M-40 120 C 260 60, 520 140, 720 120 S 1240 60, 1500 140"/>
+      <path class="rl rl-b" d="M-40 700 C 240 800, 480 760, 760 780 S 1240 780, 1500 700"/>
+      <path class="rl rl-c rlx" d="M-40 660 C 300 620, 520 680, 780 660 S 1200 640, 1500 700"/>
+      <path class="rl rl-d" d="M-40 900 C 120 700, 90 460, 130 240 S 190 60, 240 -40"/>
+      <path class="rl rl-a" d="M1080 -40 C 1140 160, 1180 320, 1160 500 S 1120 760, 1200 900"/>
+      <path class="rl rl-b rlx" d="M-40 40 C 120 180, 60 340, 130 500 S 170 700, 140 900"/>
+      <g fill="none" stroke="#C9BFA6" stroke-width="1.5" stroke-dasharray="2 6">
+        <circle cx="640" cy="120" r="14"/><circle cx="760" cy="780" r="14"/><circle cx="1160" cy="320" r="14"/><circle cx="130" cy="460" r="14"/>
+      </g>
+      <g fill="#F6F1E5" stroke="#33312C" stroke-width="2">
+        <circle cx="640" cy="120" r="7"/><circle cx="760" cy="780" r="7"/><circle cx="1160" cy="320" r="7"/><circle cx="130" cy="460" r="7"/>
+      </g>
+    </svg>
   </div>
-  <div class="scroll-cue">Descend into the system<b></b></div>
+  <div class="map-fold" aria-hidden="true"></div>
+  <span class="reg-mark rm1" aria-hidden="true"></span>
+  <span class="reg-mark rm2" aria-hidden="true"></span>
+  <span class="reg-mark rm3" aria-hidden="true"></span>
+  <div class="rev-block" aria-hidden="true"><span>Rev 07 · Drawn by GP</span><span>Scale 1 : 1000 · Sheet 1 of 14</span></div>
+
+  <div class="hero-inner">
+    <p class="kicker reveal">Route map <b>07</b> · Network diagram · <b>All lines operational</b></p>
+    <h1 class="reveal" style="--d:.06s"><span class="thinline">The Impossible</span><span class="thickline">Transit Map</span></h1>
+    <p class="hero-sub reveal" style="--d:.13s">A transit network for <b>ideas, systems, skills, projects, and experience</b> — not a city map, but a career map. Every line is a practice; every station is a stop on the way through Garvit Pandia's work.</p>
+    <div class="cta reveal" style="--d:.2s">
+      <a class="btn" href="#about">Start the journey ↓</a>
+      <a class="btn ghost" href="Garvit_Pandia_Resume.pdf" download>Download resume</a>
+    </div>
+    <div class="legend reveal" style="--d:.27s">
+      <span class="lg la"><i></i>Line A · Systems</span>
+      <span class="lg lb"><i></i>Line B · Networks</span>
+      <span class="lg lc"><i></i>Line C · Data</span>
+      <span class="lg ld"><i></i>Line D · Open Source</span>
+    </div>
+    <p class="svc-note reveal" style="--d:.34s">Next service 14:05 IST · Line C diverted via Data Yard · All doors open</p>
+  </div>
+  <div class="scroll-cue">Board the next line<b></b></div>
 </header>
 
 <main>
-  <section id="about" class="station">
+  <section id="about" class="station-sec">
     <div class="wrap">
       <div class="sec-head">
-        <p class="sec-kicker reveal">Station 01 — About · <b>Barometer reading</b></p>
-        <h2 class="sec-title reveal" style="--d:.05s">The observer <em>behind the instruments</em></h2>
-        <p class="sec-note reveal" style="--d:.1s"><code>LOG GP-01</code> A reading of current conditions, taken at the start of every shift.</p>
+        <p class="sec-kicker reveal"><span class="stn-code">OR-01</span> Origin station — About · <b>Boarding platform</b></p>
+        <h2 class="sec-title reveal" style="--d:.05s">Where every route <span class="cobalt">begins</span></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>FIRST SERVICE 2019</code> The passenger, the operator, and the line history in one board.</p>
       </div>
       <div class="about-grid">
-        <div class="about-card reveal" style="--d:.1s">
-          <div class="reading"><b>STEADY, RISING</b><span>current career pressure · trend +0.4 hPa/season</span></div>
-          <p><b>Garvit Pandia</b> — engineer &amp; builder based in <span class="hl">Bengaluru, Karnataka, India</span>. B.Tech Information Technology at Kaveri Institute of Engineering, Mysuru (2021–2025), CGPA 8.7/10, hackathon team captain with 3 wins. Works the boundary layer where <span class="hl">sensor data meets weather and climate systems</span> — 46 projects shipped, 9,800 GitHub stars, 176 OSS pull requests merged, 6 hackathon wins, and 3 papers.</p>
+        <div class="plate reveal" style="--d:.08s">
+          <div class="head"><i></i><span>Passenger manifest · <span class="rt">GP-01</span></span></div>
+          <p><b>Garvit Pandia</b> — engineer &amp; builder based in <span class="hl">Kochi, Kerala, India</span>. B.Tech Computer Science &amp; Engineering at Verghese Institute of Technology (2020–2024), CGPA 8.2/10, founder of the campus open-source society (40 members by graduation).</p>
+          <p>Runs <b>46 projects</b> across <b>12 maintained repos</b> — 9,800 GitHub stars, 176 OSS pull requests merged, 6 hackathon wins, 3 papers. The lines connect what most maps keep separate: <span class="hl">networks that survive bad conditions</span>, data that flows when links drop, and tools that outlive their author.</p>
           <div class="stats">
-            <div class="stat"><b>46</b><span>projects shipped</span></div>
+            <div class="stat"><b>99.1%</b><span>delivery rate</span></div>
+            <div class="stat"><b>94%</b><span>intelligibility</span></div>
+            <div class="stat"><b>92%</b><span>metro delivery</span></div>
+            <div class="stat"><b>210 KB/s</b><span>screen handoff</span></div>
+            <div class="stat"><b>11,000</b><span>SDR hours</span></div>
             <div class="stat"><b>12</b><span>repos maintained</span></div>
-            <div class="stat"><b>9,800</b><span>GitHub stars</span></div>
-            <div class="stat"><b>176</b><span>OSS PRs merged</span></div>
-            <div class="stat"><b>6</b><span>hackathon wins</span></div>
-            <div class="stat"><b>3</b><span>papers published</span></div>
           </div>
-          <div class="log-line"><b>STATION NOTE:</b> “I collect strange data the way other people collect stamps. This portfolio is a diary I was brave enough to print.”</div>
         </div>
-        <div class="windrose-card reveal" style="--d:.18s">
-          <div class="wr-title"><span>Wind rose</span><b>FIELD BIAS</b></div>
-          <div class="windrose">
-            <svg viewBox="0 0 200 200" aria-hidden="true">
-              <g fill="none" stroke="#D8D3C6" stroke-width="1">
-                <circle cx="100" cy="100" r="90"/><circle cx="100" cy="100" r="62"/><circle cx="100" cy="100" r="34"/>
-              </g>
-              <g stroke="#233E59" stroke-width="1" opacity=".35">
-                <line x1="100" y1="4" x2="100" y2="196"/><line x1="4" y1="100" x2="196" y2="100"/>
-                <line x1="39" y1="39" x2="161" y2="161"/><line x1="161" y1="39" x2="39" y2="161"/>
-              </g>
-              <path d="M100 100 L100 30 M100 100 L52 66 M100 100 L146 74 M100 100 L120 148 M100 100 L62 132 M100 100 L84 52" stroke="#C65D42" stroke-width="2.5" stroke-linecap="round" opacity=".75"/>
-              <g fill="#1F7A78" opacity=".8">
-                <circle cx="100" cy="30" r="4"/><circle cx="52" cy="66" r="4"/><circle cx="146" cy="74" r="4"/>
-                <circle cx="120" cy="148" r="4"/><circle cx="62" cy="132" r="4"/><circle cx="84" cy="52" r="4"/>
-              </g>
-            </svg>
-            <div class="wr-label"><b>N→E</b><span>prevailing drift</span></div>
-          </div>
-          <p class="wr-note">Field seasons taught the most: monsoon deadlines, harvest-attached bugs, and <b>data that arrives from the ground</b> — sensors, satellites, and notebooks.</p>
+        <div class="nameboard reveal" style="--d:.15s">
+          <div class="nb-top"><span>Station name board</span><span>EST. 2019</span></div>
+          <h3>GARVIT <span class="verm">PANDIA</span></h3>
+          <p>Engineer · Tinkerer · Field Recorder. “I got into open source to fix one error message. I stayed for the reviews.”</p>
+          <div class="nb-route"><i></i>ALL LINES CONNECT HERE · KOCHI → THE WORLD</div>
         </div>
       </div>
       <div class="quotes">
-        <div class="quote reveal" style="--d:.14s">“He took our sensor mess and returned a forecast the agriculture officers actually trust. That is rarer than it sounds.”<footer><b>Nikhil Verma</b> — CTO, Tallgrass Analytics</footer></div>
-        <div class="quote reveal" style="--d:.2s">“The acidification warning system he built gave our biologists six days of lead time. Six days is a season in this field.”<footer><b>Kavya Menon</b> — Marine Data Director, Peregrine Deep</footer></div>
-        <div class="quote reveal" style="--d:.26s">“He rebuilt our ingestion tier and somehow made the migration boring. That is the highest compliment I can give an engineer.”<footer><b>Arjun Bhaskar</b> — Principal Engineer, Velora Systems</footer></div>
+        <div class="quote reveal" style="--d:.13s">“He treats rural networks like civic infrastructure, because they are. His relay design doubled our field-device battery life.”<footer><b>Zoya Mirza</b> — Product Lead, Fernbank Networks</footer></div>
+        <div class="quote reveal" style="--d:.19s">“My first merged PR was in his repo. He left 14 comments, all of them kind, all of them right. Now I maintain two projects myself.”<footer><b>Aisha Khan</b> — open-source maintainer</footer></div>
+        <div class="quote reveal" style="--d:.25s">“He rebuilt our ingestion tier and somehow made the migration boring. That is the highest compliment I can give an engineer.”<footer><b>Arjun Bhaskar</b> — Principal Engineer, Velora Systems</footer></div>
       </div>
     </div>
   </section>
 
-  <section id="projects" class="station">
+  <section id="projects" class="station-sec">
     <div class="wrap">
       <div class="sec-head">
-        <p class="sec-kicker reveal">Station 02 — Projects · <b>Forecast readings</b></p>
-        <h2 class="sec-title reveal" style="--d:.05s">Systems that <em>read the weather</em></h2>
-        <p class="sec-note reveal" style="--d:.1s"><code>SYNOPTIC FIELD</code> Eight case readings from the archive — each one an instrument that turns raw observation into a decision.</p>
+        <p class="sec-kicker reveal"><span class="stn-code">IC-02</span> Interchange — Projects · <b>Route stops</b></p>
+        <h2 class="sec-title reveal" style="--d:.05s">Eight stops, <span class="verm">one network</span></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>INTERCHANGE ZONE</code> Hover or focus a route chip to light only the stops on that line.</p>
       </div>
-      <div class="grid-2">
-        <article class="fc-card reveal" style="--d:.05s">
-          <div class="fc-top"><span class="synop">SYNOP 57 · ROUTING</span><span class="year">2024</span></div>
-          <h3>Windrose</h3>
-          <p>Long-range link routing that re-plans around rain fade — 31% fewer dropped sessions in monsoon trials.</p>
-          <div class="chips"><span class="chip">Go</span><span class="chip">meshtastic-adjacent stack</span><span class="chip">ML wind model</span></div>
-          <div class="metric"><b class="arrow">31% ↓</b> dropped sessions · <b>140</b> nodes · 260★<span class="suffix">VIS 09/10</span></div>
+      <div class="route-chips reveal" style="--d:.12s" id="routeChips" aria-label="Filter stops by route">
+        <button type="button" class="rchip la" data-route="A"><i></i>Line A · Systems</button>
+        <button type="button" class="rchip lb" data-route="B"><i></i>Line B · Networks</button>
+        <button type="button" class="rchip lc" data-route="C"><i></i>Line C · Data</button>
+        <button type="button" class="rchip ld" data-route="D"><i></i>Line D · Open Source</button>
+      </div>
+      <div class="c15t-engine reveal" style="--d:.17s" id="c15t-route-engine">
+        <div class="c15t-engine-head">
+          <div><p class="c15t-engine-kicker">Route engine · authored diagram</p><h3>Dispatch a pulse through the network.</h3></div>
+          <p class="c15t-route-status" id="c15t-route-status" role="status" aria-live="polite">All lines open · choose a line or station to dispatch the pulse.</p>
+        </div>
+        <div class="c15t-engine-body">
+          <div class="c15t-map-wrap">
+            <svg viewBox="0 0 820 360" role="group" aria-labelledby="c15t-map-title c15t-map-desc">
+              <title id="c15t-map-title">Impossible Transit route engine</title>
+              <desc id="c15t-map-desc">Four authored route lines join eight project stations. Select a line or station to dispatch a moving pulse.</desc>
+              <g class="c15t-map-grid" aria-hidden="true"><path d="M30 40H790M30 180H790M30 320H790"/><path d="M90 24V336M270 24V336M450 24V336M630 24V336M790 24V336"/></g>
+              <path class="c15t-route-line c15t-route-a" id="c15t-route-a" d="M100 100 C148 150 182 232 220 270 C360 318 540 318 700 270" data-route="A"/>
+              <path class="c15t-route-line c15t-route-b" id="c15t-route-b" d="M100 100 C142 72 190 72 220 76 C270 80 320 118 360 132 C306 190 260 242 220 270 C300 290 385 302 450 294" data-route="B"/>
+              <path class="c15t-route-line c15t-route-c" id="c15t-route-c" d="M360 132 C420 80 470 70 510 76 C560 82 620 112 650 140 C600 210 520 270 450 294 C548 320 630 296 700 270" data-route="C"/>
+              <path class="c15t-route-line c15t-route-d" id="c15t-route-d" d="M510 76 C560 130 592 210 700 270" data-route="D"/>
+              <text class="c15t-map-note" x="36" y="30">LIVE NETWORK / PULSE READY</text>
+              <g class="c15t-node" data-stop="Ferry" data-lines="A B" tabindex="0" role="button" aria-pressed="false" aria-label="Select Ferry station"><circle class="c15t-node-halo" cx="100" cy="100" r="18"/><circle class="c15t-node-dot" cx="100" cy="100" r="8"/><text x="100" y="80" text-anchor="middle">FERRY</text></g>
+              <g class="c15t-node" data-stop="Dispatch" data-lines="B" tabindex="0" role="button" aria-pressed="false" aria-label="Select Dispatch station"><circle class="c15t-node-halo" cx="220" cy="76" r="18"/><circle class="c15t-node-dot" cx="220" cy="76" r="8"/><text x="220" y="57" text-anchor="middle">DISPATCH</text></g>
+              <g class="c15t-node" data-stop="Spool" data-lines="B C" tabindex="0" role="button" aria-pressed="false" aria-label="Select Spool station"><circle class="c15t-node-halo" cx="360" cy="132" r="18"/><circle class="c15t-node-dot" cx="360" cy="132" r="8"/><text x="360" y="113" text-anchor="middle">SPOOL</text></g>
+              <g class="c15t-node" data-stop="Atlas" data-lines="C D" tabindex="0" role="button" aria-pressed="false" aria-label="Select Atlas station"><circle class="c15t-node-halo" cx="510" cy="76" r="18"/><circle class="c15t-node-dot" cx="510" cy="76" r="8"/><text x="510" y="57" text-anchor="middle">ATLAS</text></g>
+              <g class="c15t-node" data-stop="Flume" data-lines="C" tabindex="0" role="button" aria-pressed="false" aria-label="Select Flume station"><circle class="c15t-node-halo" cx="650" cy="140" r="18"/><circle class="c15t-node-dot" cx="650" cy="140" r="8"/><text x="650" y="121" text-anchor="middle">FLUME</text></g>
+              <g class="c15t-node" data-stop="Beacon" data-lines="A B" tabindex="0" role="button" aria-pressed="false" aria-label="Select Beacon station"><circle class="c15t-node-halo" cx="220" cy="270" r="18"/><circle class="c15t-node-dot" cx="220" cy="270" r="8"/><text x="220" y="298" text-anchor="middle">BEACON</text></g>
+              <g class="c15t-node" data-stop="Shortwave" data-lines="B" tabindex="0" role="button" aria-pressed="false" aria-label="Select Shortwave station"><circle class="c15t-node-halo" cx="450" cy="294" r="18"/><circle class="c15t-node-dot" cx="450" cy="294" r="8"/><text x="450" y="322" text-anchor="middle">SHORTWAVE</text></g>
+              <g class="c15t-node" data-stop="Crosscut" data-lines="A C D" tabindex="0" role="button" aria-pressed="false" aria-label="Select Crosscut station"><circle class="c15t-node-halo" cx="700" cy="270" r="18"/><circle class="c15t-node-dot" cx="700" cy="270" r="8"/><text x="700" y="298" text-anchor="middle">CROSSCUT</text></g>
+              <g id="c15t-train" class="c15t-train" aria-hidden="true"><circle r="10"/><circle class="c15t-train-core" r="3.5"/></g>
+            </svg>
+          </div>
+          <aside class="c15t-station-panel" aria-label="Station selector">
+            <div class="c15t-panel-label"><span>Station selector</span><span>08 stops</span></div>
+            <p class="c15t-panel-copy">Pick a stop to set the pulse's target line. Route chips above dispatch a full line.</p>
+            <div class="c15t-station-list">
+              <button type="button" class="c15t-station" data-stop="Ferry" aria-pressed="false"><span>01</span>Ferry</button>
+              <button type="button" class="c15t-station" data-stop="Dispatch" aria-pressed="false"><span>02</span>Dispatch</button>
+              <button type="button" class="c15t-station" data-stop="Spool" aria-pressed="false"><span>03</span>Spool</button>
+              <button type="button" class="c15t-station" data-stop="Atlas" aria-pressed="false"><span>04</span>Atlas</button>
+              <button type="button" class="c15t-station" data-stop="Flume" aria-pressed="false"><span>05</span>Flume</button>
+              <button type="button" class="c15t-station" data-stop="Beacon" aria-pressed="false"><span>06</span>Beacon</button>
+              <button type="button" class="c15t-station" data-stop="Shortwave" aria-pressed="false"><span>07</span>Shortwave</button>
+              <button type="button" class="c15t-station" data-stop="Crosscut" aria-pressed="false"><span>08</span>Crosscut</button>
+            </div>
+            <button type="button" class="c15t-clear" id="c15t-clear">Clear dispatch</button>
+          </aside>
+        </div>
+      </div>
+      <div class="grid-2" id="stopsGrid">
+        <article class="stop-card reveal" style="--d:.04s" data-line="A B">
+          <div class="stop-top"><span class="stop-no">STOP <em>01</em></span><span class="stop-year">2023</span></div>
+          <h3>Ferry</h3>
+          <p>Offline-first messaging — messages queue on any device and forward themselves when a link appears.</p>
+          <div class="chips"><span class="chip">Rust</span><span class="chip">LoRa</span><span class="chip">store-and-forward</span></div>
+          <div class="lines"><span class="ln la">A</span><span class="ln lb">B</span></div>
+          <div class="metric"><b class="tr">99.1%</b> same-day delivery · <b>0</b> data loss · 600★<span class="suf">LINK A→B</span></div>
         </article>
-        <article class="fc-card reveal" style="--d:.1s">
-          <div class="fc-top"><span class="synop">SYNOP 32 · HYDRO</span><span class="year">2023</span></div>
-          <h3>Springline</h3>
-          <p>Hydrology that tells a story — rainfall, soil moisture, and stream gauges merged into one forecast surface.</p>
-          <div class="chips"><span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">D3</span><span class="chip">PostGIS</span></div>
-          <div class="metric"><b>4 days</b> monsoon-onset lead · <b>87%</b> seasonal accuracy · 12 dashboards<span class="suffix">VIS 09/10</span></div>
+        <article class="stop-card reveal" style="--d:.08s" data-line="B">
+          <div class="stop-top"><span class="stop-no">STOP <em>02</em></span><span class="stop-year">2024</span></div>
+          <h3>Dispatch</h3>
+          <p>Clinic-to-clinic messaging that routes around outages instead of waiting for them to end.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">mesh routing</span><span class="chip">queue journal</span></div>
+          <div class="lines"><span class="ln lb">B</span></div>
+          <div class="metric"><b class="tr">97.4%</b> delivery within 2 min · <b>3</b> provinces<span class="suf">LINE B</span></div>
         </article>
-        <article class="fc-card reveal" style="--d:.05s">
-          <div class="fc-top"><span class="synop">SYNOP 03 · OCEAN</span><span class="year">2025</span></div>
-          <h3>Kelp</h3>
-          <p>Early-warning for coastal acidification — pH anomalies predicted up to 6 days ahead from buoy streams.</p>
-          <div class="chips"><span class="chip">Python</span><span class="chip">scikit-learn</span><span class="chip">TimescaleDB</span><span class="chip">Grafana</span></div>
-          <div class="metric"><b>91%</b> precision @48h · <b>40k</b> readings/day · 14 buoys<span class="suffix">PILOT 02</span></div>
+        <article class="stop-card reveal" style="--d:.04s" data-line="B C">
+          <div class="stop-top"><span class="stop-no">STOP <em>03</em></span><span class="stop-year">2022</span></div>
+          <h3>Spool</h3>
+          <p>A message queue built for networks that drop 60% of packets — resumes mid-message, every time.</p>
+          <div class="chips"><span class="chip">Go</span><span class="chip">RAFT-lite</span><span class="chip">partial-read resume</span></div>
+          <div class="lines"><span class="ln lb">B</span><span class="ln lc">C</span></div>
+          <div class="metric"><b>1.9 KB</b> overhead · <b>100%</b> delivery over 60% loss<span class="suf">B↔C TRANSFER</span></div>
         </article>
-        <article class="fc-card reveal" style="--d:.1s">
-          <div class="fc-top"><span class="synop">SYNOP 61 · SKY</span><span class="year">2024</span></div>
-          <h3>Cusp</h3>
-          <p>Magnetosphere data for non-specialists — live aurora-forecast maps from 15 merged data sources.</p>
-          <div class="chips"><span class="chip">Python</span><span class="chip">D3</span><span class="chip">public satellite feeds</span></div>
-          <div class="metric"><b>82%</b> correct “go outside” calls · <b>2,800</b> daily users<span class="suffix">SOLAR MAX</span></div>
+        <article class="stop-card reveal" style="--d:.08s" data-line="C D">
+          <div class="stop-top"><span class="stop-no">STOP <em>04</em></span><span class="stop-year">2023</span></div>
+          <h3>Atlas</h3>
+          <p>Offline maps for field teams — whole-region vector maps in a size that fits a low-bandwidth radio.</p>
+          <div class="chips"><span class="chip">Rust</span><span class="chip">vector tiles</span><span class="chip">MBTiles</span></div>
+          <div class="lines"><span class="ln lc">C</span><span class="ln ld">D</span></div>
+          <div class="metric"><b>14 MB</b> per region · <b>1,400</b> field users<span class="suf">C↔D TRANSFER</span></div>
         </article>
-        <article class="fc-card reveal" style="--d:.05s">
-          <div class="fc-top"><span class="synop">SYNOP 65 · SUN</span><span class="year">2022</span></div>
-          <h3>Meridian</h3>
-          <p>Sun-tracking irrigation control — open-loop schedules from solar geometry and soil probes.</p>
-          <div class="chips"><span class="chip">Arduino/C++</span><span class="chip">LoRa</span><span class="chip">solar math</span></div>
-          <div class="metric"><b>18%</b> water saved · <b>60 days</b> autonomy · 14 farms<span class="suffix">FIELD 14</span></div>
+        <article class="stop-card reveal" style="--d:.04s" data-line="C">
+          <div class="stop-top"><span class="stop-no">STOP <em>05</em></span><span class="stop-year">2022</span></div>
+          <h3>Flume</h3>
+          <p>Streaming aggregation for sensor networks — sliding-window math at 120k events per second.</p>
+          <div class="chips"><span class="chip">Rust</span><span class="chip">Kafka-compatible protocol</span><span class="chip">WASM filters</span></div>
+          <div class="lines"><span class="ln lc">C</span></div>
+          <div class="metric"><b class="tr">4×</b> latency cut · <b>120k</b> events/sec · 890★<span class="suf">LINE C</span></div>
         </article>
-        <article class="fc-card reveal" style="--d:.1s">
-          <div class="fc-top"><span class="synop">SYNOP 54 · SENSOR</span><span class="year">2023</span></div>
+        <article class="stop-card reveal" style="--d:.08s" data-line="A B">
+          <div class="stop-top"><span class="stop-no">STOP <em>06</em></span><span class="stop-year">2023</span></div>
           <h3>Beacon</h3>
           <p>Presence that respects battery — sub-milliwatt beacons, fourteen months on a coin cell.</p>
           <div class="chips"><span class="chip">Rust</span><span class="chip">BLE</span><span class="chip">LoRa</span></div>
-          <div class="metric"><b>14 mo</b> on a coin cell · <b>2,000+</b> beacons · 0.4% false presence<span class="suffix">CAMPUS</span></div>
+          <div class="lines"><span class="ln la">A</span><span class="ln lb">B</span></div>
+          <div class="metric"><b>14 mo</b> coin cell · <b>2,000+</b> beacons<span class="suf">A↔B TRANSFER</span></div>
         </article>
-        <article class="fc-card reveal" style="--d:.05s">
-          <div class="fc-top"><span class="synop">SYNOP 33 · AGRI</span><span class="year">2022</span></div>
-          <h3>Seedling</h3>
-          <p>Yield forecasts for smallholdings — free satellite bands plus farmer-reported samples.</p>
-          <div class="chips"><span class="chip">Python</span><span class="chip">scikit-learn</span><span class="chip">satellite imagery</span></div>
-          <div class="metric"><b>84%</b> accuracy at harvest · <b>9,000</b> smallholdings<span class="suffix">3 STATES</span></div>
+        <article class="stop-card reveal" style="--d:.04s" data-line="B">
+          <div class="stop-top"><span class="stop-no">STOP <em>07</em></span><span class="stop-year">2025</span></div>
+          <h3>Shortwave</h3>
+          <p>Audio that survives terrible links — voice over 4 kbps channels without sounding like it.</p>
+          <div class="chips"><span class="chip">C++</span><span class="chip">Opus-derived codec</span><span class="chip">packet-loss shaping</span></div>
+          <div class="lines"><span class="ln lb">B</span></div>
+          <div class="metric"><b>94%</b> intelligibility · <b>4 kbps</b> links<span class="suf">LINE B</span></div>
         </article>
-        <article class="fc-card reveal" style="--d:.1s">
-          <div class="fc-top"><span class="synop">SYNOP 37 · FLOW</span><span class="year">2022</span></div>
-          <h3>Flume</h3>
-          <p>Streaming aggregation for sensor nets — sliding-window math at 120k events per second.</p>
-          <div class="chips"><span class="chip">Rust</span><span class="chip">Kafka-compatible protocol</span><span class="chip">WASM filters</span></div>
-          <div class="metric"><b>120k</b> events/sec · <b>4×</b> latency cut · 890★<span class="suffix">CLIMATE PLATFORM</span></div>
+        <article class="stop-card reveal" style="--d:.08s" data-line="A C D">
+          <div class="stop-top"><span class="stop-no">STOP <em>08</em></span><span class="stop-year">2024</span></div>
+          <h3>Crosscut</h3>
+          <p>Data lineage for 4,200 tables and jobs — “what breaks if I drop this?” answered in seconds.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">SQL parser</span><span class="chip">graph store</span></div>
+          <div class="lines"><span class="ln la">A</span><span class="ln lc">C</span><span class="ln ld">D</span></div>
+          <div class="metric"><b>3 s</b> impact answers · <b>61%</b> fewer broken dashboards<span class="suf">3-LINE HUB</span></div>
         </article>
-      </div>
-      <div class="trend reveal" style="--d:.15s">
-        <span class="t-label">Pressure trend<br><b>12-MO OUTPUT</b></span>
-        <div class="t-bars" aria-hidden="true">
-          <i style="height:22%"></i><i style="height:30%"></i><i style="height:26%"></i><i style="height:38%"></i><i style="height:34%"></i><i style="height:46%"></i><i style="height:42%"></i><i style="height:54%"></i><i style="height:50%"></i><i style="height:62%"></i><i style="height:58%"></i><i style="height:74%"></i>
-        </div>
-        <span class="t-note"><b>46</b> projects shipped · <b>9,800</b>★ GitHub · <b>176</b> PRs merged</span>
       </div>
     </div>
   </section>
 
-  <section id="skills" class="station">
+  <section id="skills" class="station-sec">
     <div class="wrap">
       <div class="sec-head">
-        <p class="sec-kicker reveal">Station 03 — Skills · <b>Instrument measurements</b></p>
-        <h2 class="sec-title reveal" style="--d:.05s">Calibrated <em>instruments</em></h2>
-        <p class="sec-note reveal" style="--d:.1s"><code>BENCH SCALE 0–100</code> Every instrument is re-calibrated each season; readings below are current.</p>
+        <p class="sec-kicker reveal"><span class="stn-code">SY-03</span> Signal yard — Skills · <b>Line capacity</b></p>
+        <h2 class="sec-title reveal" style="--d:.05s">Signals the <span class="cobalt">network runs on</span></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>YARD CAPACITY 0–100</code> Four yards, each with its own signalling standard.</p>
       </div>
       <div class="skills-grid">
-        <div class="instrument reveal" style="--d:.05s">
-          <h3>Languages</h3>
-          <div class="gauge-row"><label>TypeScript</label><div class="gauge"><i></i></div><b>94</b></div>
-          <div class="gauge-row"><label>Python</label><div class="gauge"><i></i></div><b>93</b></div>
-          <div class="gauge-row"><label>Rust</label><div class="gauge"><i></i></div><b>84</b></div>
-          <div class="gauge-row"><label>Go</label><div class="gauge"><i></i></div><b>78</b></div>
-          <div class="gauge-row"><label>C++</label><div class="gauge"><i></i></div><b>72</b></div>
-          <div class="gauge-row"><label>SQL</label><div class="gauge"><i></i></div><b>88</b></div>
+        <div class="yard reveal" style="--d:.05s">
+          <h3>Languages</h3><span class="yard-no">YD/01</span>
+          <div class="skrow"><label>TypeScript</label><div class="track"><i></i></div><b>94</b></div>
+          <div class="skrow"><label>Python</label><div class="track"><i></i></div><b>93</b></div>
+          <div class="skrow"><label>Go</label><div class="track"><i></i></div><b>78</b></div>
+          <div class="skrow"><label>Rust</label><div class="track"><i></i></div><b>84</b></div>
+          <div class="skrow"><label>SQL</label><div class="track"><i></i></div><b>88</b></div>
+          <div class="skrow"><label>Bash</label><div class="track"><i></i></div><b>82</b></div>
         </div>
-        <div class="instrument reveal" style="--d:.1s">
-          <h3>AI / ML</h3>
-          <div class="gauge-row"><label>PyTorch</label><div class="gauge"><i></i></div><b>86</b></div>
-          <div class="gauge-row"><label>ONNX Runtime</label><div class="gauge"><i></i></div><b>84</b></div>
-          <div class="gauge-row"><label>time-series forecasting</label><div class="gauge"><i></i></div><b>86</b></div>
-          <div class="gauge-row"><label>eval harnesses</label><div class="gauge"><i></i></div><b>90</b></div>
-          <div class="gauge-row"><label>retrieval systems</label><div class="gauge"><i></i></div><b>88</b></div>
-          <div class="gauge-row"><label>edge inference</label><div class="gauge"><i></i></div><b>84</b></div>
+        <div class="yard reveal" style="--d:.1s">
+          <h3>Systems &amp; Cloud</h3><span class="yard-no">YD/02</span>
+          <div class="skrow"><label>Linux</label><div class="track"><i></i></div><b>88</b></div>
+          <div class="skrow"><label>Docker</label><div class="track"><i></i></div><b>86</b></div>
+          <div class="skrow"><label>Kubernetes</label><div class="track"><i></i></div><b>78</b></div>
+          <div class="skrow"><label>NATS</label><div class="track"><i></i></div><b>76</b></div>
+          <div class="skrow"><label>Redis</label><div class="track"><i></i></div><b>84</b></div>
+          <div class="skrow"><label>AWS</label><div class="track"><i></i></div><b>82</b></div>
         </div>
-        <div class="instrument reveal" style="--d:.05s">
-          <h3>Data &amp; Systems</h3>
-          <div class="gauge-row"><label>Pandas</label><div class="gauge"><i></i></div><b>90</b></div>
-          <div class="gauge-row"><label>streaming aggregation</label><div class="gauge"><i></i></div><b>86</b></div>
-          <div class="gauge-row"><label>PostgreSQL</label><div class="gauge"><i></i></div><b>90</b></div>
-          <div class="gauge-row"><label>ClickHouse</label><div class="gauge"><i></i></div><b>80</b></div>
-          <div class="gauge-row"><label>Docker</label><div class="gauge"><i></i></div><b>86</b></div>
-          <div class="gauge-row"><label>Linux</label><div class="gauge"><i></i></div><b>88</b></div>
+        <div class="yard reveal" style="--d:.05s">
+          <h3>Data &amp; Flow</h3><span class="yard-no">YD/03</span>
+          <div class="skrow"><label>streaming aggregation</label><div class="track"><i class="dash"></i></div><b>86</b></div>
+          <div class="skrow"><label>ETL design</label><div class="track"><i></i></div><b>88</b></div>
+          <div class="skrow"><label>pipeline orchestration</label><div class="track"><i></i></div><b>82</b></div>
+          <div class="skrow"><label>PostgreSQL</label><div class="track"><i></i></div><b>90</b></div>
+          <div class="skrow"><label>ClickHouse</label><div class="track"><i></i></div><b>80</b></div>
+          <div class="skrow"><label>data lineage</label><div class="track"><i class="dash"></i></div><b>78</b></div>
         </div>
-        <div class="instrument reveal" style="--d:.1s">
-          <h3>Field &amp; Craft</h3>
-          <div class="gauge-row"><label>sensors &amp; telemetry</label><div class="gauge"><i></i></div><b>82</b></div>
-          <div class="gauge-row"><label>field documentation</label><div class="gauge"><i></i></div><b>86</b></div>
-          <div class="gauge-row"><label>technical writing</label><div class="gauge"><i></i></div><b>90</b></div>
-          <div class="gauge-row"><label>data viz (D3)</label><div class="gauge"><i></i></div><b>85</b></div>
-          <div class="gauge-row"><label>low-power design</label><div class="gauge"><i></i></div><b>76</b></div>
-          <div class="gauge-row"><label>incident response</label><div class="gauge"><i></i></div><b>80</b></div>
+        <div class="yard reveal" style="--d:.1s">
+          <h3>Field &amp; Hardware</h3><span class="yard-no">YD/04</span>
+          <div class="skrow"><label>LoRa &amp; RF</label><div class="track"><i class="dash"></i></div><b>74</b></div>
+          <div class="skrow"><label>sensors &amp; telemetry</label><div class="track"><i></i></div><b>82</b></div>
+          <div class="skrow"><label>low-power design</label><div class="track"><i></i></div><b>76</b></div>
+          <div class="skrow"><label>field documentation</label><div class="track"><i></i></div><b>86</b></div>
+          <div class="skrow"><label>technical writing</label><div class="track"><i></i></div><b>90</b></div>
+          <div class="skrow"><label>incident response</label><div class="track"><i class="dash"></i></div><b>80</b></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="achievements" class="station">
+  <section id="achievements" class="station-sec">
     <div class="wrap">
       <div class="sec-head">
-        <p class="sec-kicker reveal">Station 04 — Achievements · <b>Alert records</b></p>
-        <h2 class="sec-title reveal" style="--d:.05s">Events <em>on record</em></h2>
-        <p class="sec-note reveal" style="--d:.1s"><code>OBSERVED EVENTS</code> Verified phenomena from the observation log — wins, papers, and long-running instruments.</p>
+        <p class="sec-kicker reveal"><span class="stn-code">TR-04</span> Transfer records — Achievements · <b>Validated tickets</b></p>
+        <h2 class="sec-title reveal" style="--d:.05s">Transfers <span class="verm">on record</span></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>TICKET STUB ARCHIVE</code> Every record below is stamped and verified — no unissued tickets.</p>
       </div>
       <div class="ach-list">
-        <div class="alert reveal" style="--d:.05s"><span class="sev">Win</span><div class="a-body"><h3>Winner — Monsoon Hack Jaipur 2021</h3><p>data-visualization track · 180 teams</p></div><span class="yr">2021</span></div>
-        <div class="alert reveal" style="--d:.08s"><span class="sev">Win</span><div class="a-body"><h3>Winner — CodeStorm Pune 2022</h3><p>sustainability track · 240 teams</p></div><span class="yr">2022</span></div>
-        <div class="alert reveal" style="--d:.11s"><span class="sev warn">Top 2%</span><div class="a-body"><h3>Ocean Temperature Forecasting Challenge 2024</h3><p>international forecasting benchmark</p></div><span class="yr">2024</span></div>
-        <div class="alert reveal" style="--d:.14s"><span class="sev storm">Paper</span><div class="a-body"><h3>“Skew-Aware Partitioning for Agricultural Sensor Streams”</h3><p>workshop paper · Field Data Systems Workshop 2023</p></div><span class="yr">2023</span></div>
-        <div class="alert reveal" style="--d:.17s"><span class="sev gold">State</span><div class="a-body"><h3>Best Student Agri-Tech Innovation — State Innovation Council</h3><p>Meridian pilot · 2024</p></div><span class="yr">2024</span></div>
-        <div class="alert reveal" style="--d:.2s"><span class="sev storm">OSS</span><div class="a-body"><h3>176 pull requests merged</h3><p>31 first-time contributors mentored to merge · 12 repos maintained</p></div><span class="yr">ONGOING</span></div>
+        <div class="transfer reveal" style="--d:.04s"><span class="t-code blue">BUILD<br>OFF</span><div class="t-body"><h3>Winner — BuildOff Bengaluru 2023</h3><p>dev-tools track · 300 teams</p></div><span class="t-year">2023</span></div>
+        <div class="transfer reveal" style="--d:.07s"><span class="t-code red">TREND</span><div class="t-body"><h3>GitHub Trending — featured 3×</h3><p>across 12 repos · 2024</p></div><span class="t-year">2024</span></div>
+        <div class="transfer reveal" style="--d:.1s"><span class="t-code gold">OSS</span><div class="t-body"><h3>176 pull requests merged</h3><p>31 first-time contributors mentored to merge</p></div><span class="t-year">ONGOING</span></div>
+        <div class="transfer reveal" style="--d:.13s"><span class="t-code blue">NPM</span><div class="t-body"><h3>4 npm packages published</h3><p>~320k combined weekly downloads</p></div><span class="t-year">ONGOING</span></div>
+        <div class="transfer reveal" style="--d:.16s"><span class="t-code slate">CRATE</span><div class="t-body"><h3>2 maintained crates</h3><p>~1.1M downloads on crates.io</p></div><span class="t-year">ONGOING</span></div>
+        <div class="transfer reveal" style="--d:.19s"><span class="t-code red">FOSS</span><div class="t-body"><h3>“FOSS India — top contributors” list</h3><p>featured · 2025</p></div><span class="t-year">2025</span></div>
       </div>
     </div>
   </section>
 
-  <section id="experience" class="station">
+  <section id="experience" class="station-sec">
     <div class="wrap">
       <div class="sec-head">
-        <p class="sec-kicker reveal">Station 05 — Experience · <b>Station log</b></p>
-        <h2 class="sec-title reveal" style="--d:.05s">Depth <em>log</em></h2>
-        <p class="sec-note reveal" style="--d:.1s"><code>DUTY ROSTER</code> Five postings, logged in order — each one a different altitude over the same terrain.</p>
+        <p class="sec-kicker reveal"><span class="stn-code">LR-05</span> Long route — Experience · <b>Line history</b></p>
+        <h2 class="sec-title reveal" style="--d:.05s">The long <span class="cobalt">route</span></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>SCHEDULE SINCE 2021</code> Four postings on the trunk line, each changing the colour of the map.</p>
       </div>
-      <div class="exp">
-        <div class="rail" aria-hidden="true"><i></i><span></span><i class="hollow"></i><span></span><i></i><span></span><i class="hollow"></i><span></span><i></i></div>
-        <div class="exp-stack">
-          <div class="exp-card reveal" style="--d:.06s">
-            <div class="role"><h3>Field Data Intern</h3><span class="dates">Jun–Aug 2021</span></div>
-            <span class="org">Tallgrass Analytics · agri-climate data</span>
-            <p>Built the sensor-ingestion path that 40+ farm trials run on; the data-quality report caught 3 faulty probe batches before they poisoned a season's model.</p>
-            <span class="stn-code">STN 01</span>
-          </div>
-          <div class="exp-card reveal" style="--d:.12s">
-            <div class="role"><h3>Seasonal Field Engineer</h3><span class="dates">Jul–Sep 2022 &amp; 2023</span></div>
-            <span class="org">Tallgrass Analytics · monsoon seasons</span>
-            <p>Deployed and maintained 60+ solar-powered sensor stations across 2 districts; cut station-downtime response from days to hours.</p>
-            <span class="stn-code">STN 02</span>
-          </div>
-          <div class="exp-card reveal" style="--d:.18s">
-            <div class="role"><h3>Software Engineer Intern</h3><span class="dates">May–Jul 2022</span></div>
-            <span class="org">Velora Systems · climate data platform</span>
-            <p>Owned a streaming-aggregation service that cut one platform's query latency 4×; the intern project shipped to production.</p>
-            <span class="stn-code">STN 03</span>
-          </div>
-          <div class="exp-card reveal" style="--d:.24s">
-            <div class="role"><h3>Data Lead (contract)</h3><span class="dates">Apr 2025–Jan 2026</span></div>
-            <span class="org">Peregrine Deep · ocean data</span>
-            <p>Shipped Kelp — pH anomaly warnings 6 days early at 91% precision; built the Kelpfield monitoring dashboard for 3 restoration NGOs.</p>
-            <span class="stn-code">STN 04</span>
-          </div>
-          <div class="exp-card reveal" style="--d:.3s">
-            <div class="role"><h3>Research Engineer</h3><span class="dates">Feb 2026 – present</span></div>
-            <span class="org">Peregrine Deep · sensor fusion</span>
-            <p>Leading the sensor-fusion model for 14 coastal buoys (40k readings/day); designing the open dataset release where every number traces to a public source.</p>
-            <span class="stn-code">STN 05</span>
-          </div>
+      <div class="long-route">
+        <div class="lr-card reveal" style="--d:.05s">
+          <div class="lr-top"><h3>Network Engineer (contract)</h3><span class="dates">Sep 2025 – present</span></div>
+          <span class="org">Fernbank Networks · rural connectivity</span>
+          <p>Deployed the Rapids pub/sub layer — 92% delivery under subway-hopping conditions. Tuned the Ferry relay for a pilot village: 99.1% same-day message delivery. Wrote the battery-budget guide that doubled field-device lifetime.</p>
+          <span class="route-tag">LINE B · STN 03</span>
+        </div>
+        <div class="lr-card reveal" style="--d:.11s">
+          <div class="lr-top"><h3>Mesh Systems Architect (contract)</h3><span class="dates">Jan 2026 – present</span></div>
+          <span class="org">Fernbank Networks · rural connectivity</span>
+          <p>Designing the 140-node Windrose deployment with weather-aware routing; spec'ing the beacon mesh for campus-scale presence tracking; authoring the public protocol spec that 3 hardware projects now build to.</p>
+          <span class="route-tag">LINE A/B · STN 04</span>
+        </div>
+        <div class="lr-card reveal" style="--d:.17s">
+          <div class="lr-top"><h3>Field Data Intern</h3><span class="dates">Jun–Aug 2021</span></div>
+          <span class="org">Tallgrass Analytics · agri-climate data</span>
+          <p>Built the sensor-ingestion path that 40+ farm trials run on; the data-quality report caught 3 faulty probe batches before they poisoned a season's model.</p>
+          <span class="route-tag">LINE C · STN 01</span>
+        </div>
+        <div class="lr-card reveal" style="--d:.23s">
+          <div class="lr-top"><h3>Open Source Maintainer</h3><span class="dates">2021 – present</span></div>
+          <span class="org">independent · 12 repos</span>
+          <p>Maintains 12 repos with two flagships — Harpoon (3.2k★) and Rhizome (2.6k★). 176 PRs merged by the community; 31 first-time contributors mentored to merge; release trains on a written schedule — boring on purpose, reliable as a result.</p>
+          <span class="route-tag">LINE D · STN 05</span>
         </div>
       </div>
-      <div class="edu reveal" style="--d:.2s">
-        <span class="e-mark">K</span>
-        <div><h3>B.Tech Information Technology</h3><p>Kaveri Institute of Engineering, Mysuru · 2021–2025 · hackathon team captain · 3 wins</p></div>
-        <span class="cgpa">8.7<small>/10 CGPA</small></span>
+      <div class="edu reveal" style="--d:.18s">
+        <span class="e-mark">V</span>
+        <div><h3>B.Tech Computer Science &amp; Engineering</h3><p>Verghese Institute of Technology, Kochi · 2020–2024 · campus open-source society founder</p></div>
+        <span class="cgpa">8.2<small>/10 CGPA</small></span>
       </div>
     </div>
   </section>
 
-  <section id="contact" class="station">
+  <section id="contact" class="station-sec">
     <div class="wrap">
       <div class="sec-head">
-        <p class="sec-kicker reveal">Station 06 — Contact · <b>Final transmission</b></p>
-        <h2 class="sec-title reveal" style="--d:.05s">Send a <em>signal</em></h2>
-        <p class="sec-note reveal" style="--d:.1s"><code>UPLINK OPEN</code> All channels monitored — reply within one watch cycle.</p>
+        <p class="sec-kicker reveal"><span class="stn-code">TM-06</span> Terminus — Contact · <b>End of the line</b></p>
+        <h2 class="sec-title reveal" style="--d:.05s">All lines <span class="verm">end here</span></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>DEPARTURE BOARD LIVE</code> Every channel is a platform; pick one and send a train.</p>
       </div>
       <div class="contact-grid">
         <form class="sheet reveal" id="contact-form" style="--d:.08s" novalidate>
-          <p class="meta">Transmission sheet · WS-07</p>
+          <div class="head"><i></i><span>Departure notice · DM-06</span></div>
           <div class="field">
             <label for="cf-name">Name</label>
             <input id="cf-name" name="name" type="text" placeholder="Your name" autocomplete="name">
@@ -873,20 +987,20 @@ footer .rust{color:var(--rust-deep)}
           </div>
           <div class="field">
             <label for="cf-msg">Message</label>
-            <textarea id="cf-msg" name="message" placeholder="Transmit conditions at your location…"></textarea>
+            <textarea id="cf-msg" name="message" placeholder="What line should we build together?"></textarea>
           </div>
-          <button class="btn" type="submit">Send transmission ✦</button>
+          <button class="btn" type="submit">Send to terminus ✦</button>
           <p id="form-status" role="status"></p>
         </form>
         <div class="sheet reveal" style="--d:.15s">
-          <p class="meta">Direct channels · realtime</p>
+          <div class="head"><i></i><span>Direct platforms · no transfers</span></div>
           <div class="links">
-            <div class="linkrow"><span>Email</span><a href="mailto:garvit9829@gmail.com">garvit9829@gmail.com</a><span class="ch">CH-01</span></div>
-            <div class="linkrow"><span>Phone</span><a href="tel:+918905402023">+91-8905402023</a><span class="ch">CH-02</span></div>
-            <div class="linkrow"><span>GitHub</span><a href="https://github.com/garvit-pandia" target="_blank" rel="noopener">github.com/garvit-pandia</a><span class="ch">CH-03</span></div>
-            <div class="linkrow"><span>LinkedIn</span><a href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener">linkedin.com/in/garvit-pandia</a><span class="ch">CH-04</span></div>
-            <div class="linkrow"><span>Location</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Bengaluru%2C+Karnataka" target="_blank" rel="noopener">Bengaluru, Karnataka, India</a><span class="ch">GRID</span></div>
-            <div class="linkrow"><span>Resume</span><a href="Garvit_Pandia_Resume.pdf" download>Garvit_Pandia_Resume.pdf ↓</a><span class="ch">PDF</span></div>
+            <div class="linkrow"><span>Email</span><a href="mailto:garvit9829@gmail.com">garvit9829@gmail.com</a></div>
+            <div class="linkrow"><span>Phone</span><a href="tel:+918905402023">+91-8905402023</a></div>
+            <div class="linkrow"><span>GitHub</span><a href="https://github.com/garvit-pandia" target="_blank" rel="noopener">github.com/garvit-pandia</a></div>
+            <div class="linkrow"><span>LinkedIn</span><a href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener">linkedin.com/in/garvit-pandia</a></div>
+            <div class="linkrow"><span>Location</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Kochi%2C+Kerala" target="_blank" rel="noopener">Kochi, Kerala, India</a></div>
+            <div class="linkrow"><span>Resume</span><a href="Garvit_Pandia_Resume.pdf" download>Garvit_Pandia_Resume.pdf ↓</a></div>
           </div>
         </div>
       </div>
@@ -895,12 +1009,12 @@ footer .rust{color:var(--rust-deep)}
 </main>
 
 <footer>
-  <div><b>GARVIT PANDIA</b> — © 2026 · <span class="rust">Weather//Systems</span> · no images, no tracking</div>
+  <div><b>GARVIT PANDIA</b> — © 2026 · <span class="verm">The Impossible Transit Map</span> · no images, no tracking</div>
   <div class="foot-links">
     <a href="https://github.com/garvit-pandia" target="_blank" rel="noopener">GitHub</a>
     <a href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener">LinkedIn</a>
     <a href="mailto:garvit9829@gmail.com">Email</a>
-    <a href="#hero">Station 07 · Top</a>
+    <a href="#hero">Back to origin</a>
   </div>
 </footer>
 
@@ -909,7 +1023,7 @@ footer .rust{color:var(--rust-deep)}
   'use strict';
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- scroll reveals ---------- */
+  /* ---------- reveals ---------- */
   var reveals = document.querySelectorAll('.reveal');
   function showAll() {
     for (var r = 0; r < reveals.length; r++) { reveals[r].classList.add('in'); }
@@ -926,21 +1040,18 @@ footer .rust{color:var(--rust-deep)}
       }
     }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
     for (var j = 0; j < reveals.length; j++) { rio.observe(reveals[j]); }
-    // watchdog: if IO never fires, un-hide everything
     setTimeout(function () {
-      var stuck = document.querySelectorAll('.reveal:not(.in)');
-      if (stuck.length) { showAll(); }
+      if (document.querySelectorAll('.reveal:not(.in)').length) { showAll(); }
     }, 2000);
   }
 
-  /* ---------- nav: six-station active state (IntersectionObserver) ---------- */
+  /* ---------- nav active (IntersectionObserver) ---------- */
   var ids = ['about', 'projects', 'skills', 'achievements', 'experience', 'contact'];
   var linkEls = {};
   for (var li = 0; li < ids.length; li++) {
     var a = document.querySelector('.nav-links a[href="#' + ids[li] + '"]');
     if (a) { linkEls[ids[li]] = a; }
   }
-  var nav = document.getElementById('topnav');
   if ('IntersectionObserver' in window) {
     var sio = new IntersectionObserver(function (entries) {
       for (var e = 0; e < entries.length; e++) {
@@ -957,21 +1068,98 @@ footer .rust{color:var(--rust-deep)}
     }
   }
 
-  /* ---------- nav scrolled state ---------- */
-  var ticking = false;
-  function applyScroll() {
-    if (nav) { nav.classList.toggle('scrolled', window.scrollY > 24); }
+  /* ---------- route rail: stops + progress fill ---------- */
+  var railFill = document.getElementById('railFill');
+  var stops = Array.prototype.slice.call(document.querySelectorAll('.route-rail .stop'));
+  var railTicking = false;
+  function updateRail() {
+    if (!railFill) { return; }
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? window.scrollY / max : 0;
+    railFill.style.height = (p * 100) + '%';
+    /* active stop by scroll position */
+    var active = 0;
+    for (var i = ids.length - 1; i >= 0; i--) {
+      var sec = document.getElementById(ids[i]);
+      if (sec && sec.getBoundingClientRect().top <= window.innerHeight * 0.45) { active = i; break; }
+    }
+    for (var s = 0; s < stops.length; s++) {
+      stops[s].classList.toggle('on', s === active);
+    }
   }
   function onScroll() {
-    if (ticking) { return; }
-    ticking = true;
-    requestAnimationFrame(function () { applyScroll(); ticking = false; });
+    if (railTicking) { return; }
+    railTicking = true;
+    requestAnimationFrame(function () { updateRail(); railTicking = false; });
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
+  updateRail();
+  stops.forEach(function (st) {
+    st.addEventListener('click', function () {
+      var target = document.getElementById(st.dataset.stop);
+      if (target) { target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' }); }
+    });
+  });
+
+  /* ---------- nav scrolled ---------- */
+  var nav = document.getElementById('topnav');
+  function applyScroll() {
+    if (nav) { nav.classList.toggle('scrolled', window.scrollY > 24); }
+  }
+  var tick2 = false;
+  function onScroll2() {
+    if (tick2) { return; }
+    tick2 = true;
+    requestAnimationFrame(function () { applyScroll(); tick2 = false; });
+  }
+  window.addEventListener('scroll', onScroll2, { passive: true });
   applyScroll();
 
-  /* ---------- contact form → mailto fallback ---------- */
+  /* ---------- route highlight: hover/focus a chip lights only its stops ---------- */
+  var chipsWrap = document.getElementById('routeChips');
+  var grid = document.getElementById('stopsGrid');
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  function setRoute(route) {
+    if (!grid) { return; }
+    var cards = grid.querySelectorAll('.stop-card');
+    for (var c = 0; c < cards.length; c++) {
+      var on = !route || cards[c].dataset.line.indexOf(route) !== -1;
+      cards[c].classList.toggle('lit', on);
+    }
+    grid.classList.toggle('hl', !!route);
+  }
+  if (chipsWrap) {
+    var chips = chipsWrap.querySelectorAll('.rchip');
+    for (var cc = 0; cc < chips.length; cc++) {
+      (function (chip) {
+        var route = chip.dataset.route;
+        var activate = function () {
+          chip.classList.add('on');
+          chip.setAttribute('aria-pressed', 'true');
+          setRoute(route);
+        };
+        var deactivate = function () {
+          chip.classList.remove('on');
+          chip.setAttribute('aria-pressed', 'false');
+          setRoute(null);
+        };
+        chip.setAttribute('aria-pressed', 'false');
+        if (fine) {
+          chip.addEventListener('mouseenter', activate);
+          chip.addEventListener('mouseleave', deactivate);
+        }
+        chip.addEventListener('focus', activate);
+        chip.addEventListener('blur', deactivate);
+        chip.addEventListener('click', function () {
+          if (chip.classList.contains('on')) { deactivate(); } else { activate(); }
+        });
+      })(chips[cc]);
+    }
+  }
+
+  /* ---------- contact form → mailto ---------- */
   var form = document.getElementById('contact-form');
   var statusEl = document.getElementById('form-status');
   function setStatus(msg, isErr) {
@@ -994,158 +1182,211 @@ footer .rust{color:var(--rust-deep)}
   }
 })();
 </script>
-
 <script>
 /* ============================================================
-   ATMOSPHERIC FIELD — pressure contours + wind vectors
-   One low-cost 2D canvas. DPR capped at 1.5. Pauses when the
-   tab is hidden or the canvas is offscreen. try/catch init with
-   a static paper fallback. Fully static under reduced motion.
+   C15T SIGNATURE ROUTE ENGINE — authored line dispatch
+   Route chips select a line; station controls select a target.
+   The pulse follows the selected SVG path and pauses for hidden
+   tabs, offscreen maps, or reduced-motion preferences.
    ============================================================ */
 (function () {
   'use strict';
+  var engine = document.getElementById('c15t-route-engine');
+  var status = document.getElementById('c15t-route-status');
+  var train = document.getElementById('c15t-train');
+  var grid = document.getElementById('stopsGrid');
+  var clearButton = document.getElementById('c15t-clear');
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var canvas = document.getElementById('field');
-  if (!canvas) { return; }
+  if (!engine || !status || !train) { return; }
 
-  var ctx = null;
-  try { ctx = canvas.getContext('2d'); } catch (err) { ctx = null; }
-  if (!ctx) { staticFallback(); return; }
+  var lineNames = { A: 'Systems', B: 'Networks', C: 'Data', D: 'Open Source' };
+  var routeStops = {
+    A: ['Ferry', 'Beacon', 'Crosscut'],
+    B: ['Ferry', 'Dispatch', 'Spool', 'Beacon', 'Shortwave'],
+    C: ['Spool', 'Atlas', 'Flume', 'Shortwave', 'Crosscut'],
+    D: ['Atlas', 'Crosscut']
+  };
+  var stationLines = {
+    Ferry: ['A', 'B'], Dispatch: ['B'], Spool: ['B', 'C'], Atlas: ['C', 'D'],
+    Flume: ['C'], Beacon: ['A', 'B'], Shortwave: ['B'], Crosscut: ['A', 'C', 'D']
+  };
+  var routePaths = {
+    A: document.getElementById('c15t-route-a'),
+    B: document.getElementById('c15t-route-b'),
+    C: document.getElementById('c15t-route-c'),
+    D: document.getElementById('c15t-route-d')
+  };
+  var routeChips = Array.prototype.slice.call(document.querySelectorAll('#routeChips .rchip'));
+  var stationButtons = Array.prototype.slice.call(engine.querySelectorAll('.c15t-station'));
+  var stationNodes = Array.prototype.slice.call(engine.querySelectorAll('.c15t-node'));
+  var cards = grid ? Array.prototype.slice.call(grid.querySelectorAll('.stop-card')) : [];
+  var activeRoute = null;
+  var activeStop = null;
+  var pulseRaf = null;
+  var pulseStart = 0;
+  var mapInView = true;
 
-  function staticFallback() {
-    document.body.classList.add('field-static');
+  function lineForStop(stop) {
+    var lines = stationLines[stop] || ['A'];
+    return lines[0];
   }
 
-  if (reduced) { staticFallback(); return; }
-
-  var DPR = Math.min(window.devicePixelRatio || 1, 1.5);
-  var W = 0, H = 0, raf = null, running = true;
-  var t = 0;
-
-  /* isobar field: 6 closed contours as layered distorted ellipses */
-  var CENTERS = [
-    { x: 0.18, y: 0.22, rx: 0.30, ry: 0.20, rot: -0.35, phase: 0 },
-    { x: 0.84, y: 0.18, rx: 0.26, ry: 0.17, rot: 0.3, phase: 2.1 },
-    { x: 0.72, y: 0.78, rx: 0.32, ry: 0.22, rot: -0.15, phase: 4.2 },
-    { x: 0.12, y: 0.86, rx: 0.24, ry: 0.16, rot: 0.45, phase: 1.3 },
-    { x: 0.5, y: 0.5, rx: 0.42, ry: 0.30, rot: 0.1, phase: 3.3 },
-    { x: 0.94, y: 0.5, rx: 0.16, ry: 0.11, rot: -0.5, phase: 5.1 }
-  ];
-  var COLORS = ['rgba(31,122,120,', 'rgba(35,62,89,', 'rgba(201,150,74,'];
-
-  /* wind vector seed points (drifting flecks) */
-  var VEC = [];
-  var VCOUNT = 26;
-  for (var v = 0; v < VCOUNT; v++) {
-    VEC.push({ x: Math.random(), y: Math.random(), sp: 0.0004 + Math.random() * 0.0009, ph: Math.random() * 6.283, ang: (Math.random() - 0.5) * 1.2 });
-  }
-
-  function resize() {
-    W = window.innerWidth; H = window.innerHeight;
-    canvas.width = Math.round(W * DPR);
-    canvas.height = Math.round(H * DPR);
-    canvas.style.width = W + 'px';
-    canvas.style.height = H + 'px';
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-  }
-
-  function contour(cx, cy, rx, ry, rot, ph, ring) {
-    ctx.beginPath();
-    var steps = 64;
-    for (var i = 0; i <= steps; i++) {
-      var a = (i / steps) * 6.2832 + ph * 0.15;
-      var wob = 1 + 0.05 * Math.sin(a * 3 + t * 0.35 + ph) + 0.03 * Math.sin(a * 5 - t * 0.22);
-      var px = cx + Math.cos(a) * rx * wob * ring;
-      var py = cy + Math.sin(a) * ry * wob;
-      var ca = Math.cos(rot), sa = Math.sin(rot);
-      var x = px * ca - py * sa, y = px * sa + py * ca;
-      if (i === 0) { ctx.moveTo(x, y); } else { ctx.lineTo(x, y); }
+  function setCards(route) {
+    if (!grid) { return; }
+    grid.classList.toggle('hl', !!route);
+    for (var i = 0; i < cards.length; i++) {
+      var lit = !route || cards[i].dataset.line.indexOf(route) !== -1;
+      cards[i].classList.toggle('lit', lit);
     }
-    ctx.closePath();
   }
 
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    /* contours: 3 rings per center */
-    for (var c = 0; c < CENTERS.length; c++) {
-      var C = CENTERS[c];
-      var rings = [1, 0.78, 0.55];
-      for (var r = 0; r < rings.length; r++) {
-        ctx.strokeStyle = COLORS[c % 3] + (0.16 - r * 0.03) + ')';
-        ctx.lineWidth = r === 0 ? 1 : 0.8;
-        contour(C.x * W, C.y * H, C.rx * W, C.ry * H, C.rot, C.phase, rings[r]);
-        ctx.stroke();
-      }
+  function updateStatus() {
+    if (!activeRoute) {
+      status.textContent = 'All lines open · choose a line or station to dispatch the pulse.';
+      return;
     }
-    /* wind vectors: short headed strokes drifting slowly */
-    for (var v = 0; v < VEC.length; v++) {
-      var p = VEC[v];
-      p.x += p.sp * 0.4; p.y += Math.sin(t * 0.25 + p.ph) * 0.00018;
-      if (p.x > 1.02) { p.x = -0.02; }
-      var x = p.x * W, y = p.y * H;
-      var a = p.ang + Math.sin(t * 0.3 + p.ph) * 0.35;
-      var len = 9 + 6 * Math.sin(t * 0.4 + p.ph);
-      ctx.strokeStyle = 'rgba(31,122,120,.30)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.lineTo(x + Math.cos(a) * len, y + Math.sin(a) * len);
-      ctx.stroke();
-      ctx.fillStyle = 'rgba(198,93,66,.32)';
-      ctx.beginPath();
-      var hx = x + Math.cos(a) * len, hy = y + Math.sin(a) * len;
-      ctx.moveTo(hx, hy);
-      ctx.lineTo(hx - Math.cos(a - 0.5) * 4, hy - Math.sin(a - 0.5) * 4);
-      ctx.lineTo(hx - Math.cos(a + 0.5) * 4, hy - Math.sin(a + 0.5) * 4);
-      ctx.closePath();
-      ctx.fill();
+    var stopsOnLine = routeStops[activeRoute] || [];
+    var target = activeStop ? ' · target ' + activeStop : ' · looping all stops';
+    status.textContent = 'Line ' + activeRoute + ' · ' + lineNames[activeRoute] + ' selected — pulse through ' + stopsOnLine.length + ' stops' + target + '.';
+  }
+
+  function updateClasses() {
+    for (var r = 0; r < routeChips.length; r++) {
+      var route = routeChips[r].dataset.route;
+      var selected = activeRoute === route;
+      routeChips[r].classList.toggle('c15t-selected', selected);
+      routeChips[r].setAttribute('aria-pressed', selected ? 'true' : 'false');
     }
-    t += 0.016;
+    for (var p = 0; p < 4; p++) {
+      var path = routePaths[String.fromCharCode(65 + p)];
+      if (path) { path.classList.toggle('c15t-route-active', path.dataset.route === activeRoute); }
+    }
+    for (var n = 0; n < stationNodes.length; n++) {
+      var nodeLines = stationNodes[n].dataset.lines || '';
+      var lit = !activeRoute || nodeLines.indexOf(activeRoute) !== -1;
+      var target = activeStop && stationNodes[n].dataset.stop === activeStop;
+      stationNodes[n].classList.toggle('c15t-lit', lit);
+      stationNodes[n].classList.toggle('c15t-target', !!target);
+      stationNodes[n].setAttribute('aria-pressed', target ? 'true' : 'false');
+    }
+    for (var s = 0; s < stationButtons.length; s++) {
+      var buttonTarget = activeStop && stationButtons[s].dataset.stop === activeStop;
+      stationButtons[s].classList.toggle('c15t-station-selected', !!buttonTarget);
+      stationButtons[s].setAttribute('aria-pressed', buttonTarget ? 'true' : 'false');
+    }
+    setCards(activeRoute);
+    updateStatus();
   }
 
-  function loop() {
-    raf = null;
-    if (!running) { return; }
-    draw();
-    raf = requestAnimationFrame(loop);
+  function placePulse(progress) {
+    var path = activeRoute ? routePaths[activeRoute] : null;
+    if (!path) { train.style.opacity = '0'; return; }
+    var point;
+    try {
+      var length = path.getTotalLength();
+      point = path.getPointAtLength(length * progress);
+    } catch (err) {
+      train.style.opacity = '0';
+      return;
+    }
+    train.setAttribute('transform', 'translate(' + point.x.toFixed(2) + ' ' + point.y.toFixed(2) + ')');
+    train.style.opacity = '1';
   }
 
-  function start() {
-    if (running) { return; }
-    running = true;
-    raf = requestAnimationFrame(loop);
-  }
-  function stop() {
-    running = false;
-    if (raf) { cancelAnimationFrame(raf); raf = null; }
+  function stopPulse() {
+    if (pulseRaf !== null) { window.cancelAnimationFrame(pulseRaf); pulseRaf = null; }
   }
 
-  /* pause when the tab is hidden */
+  function animatePulse(now) {
+    pulseRaf = null;
+    if (!activeRoute || reduced || document.hidden || !mapInView) { return; }
+    var duration = 5600;
+    var progress = ((now - pulseStart) % duration) / duration;
+    placePulse(progress);
+    pulseRaf = window.requestAnimationFrame(animatePulse);
+  }
+
+  function startPulse() {
+    stopPulse();
+    if (!activeRoute) { train.style.opacity = '0'; return; }
+    pulseStart = window.performance && performance.now ? performance.now() : Date.now();
+    if (reduced) { placePulse(0); return; }
+    pulseRaf = window.requestAnimationFrame(animatePulse);
+  }
+
+  function render() {
+    updateClasses();
+    startPulse();
+  }
+
+  function selectLine(route) {
+    if (!routePaths[route]) { return; }
+    if (activeRoute === route && !activeStop) {
+      activeRoute = null;
+      activeStop = null;
+    } else {
+      activeRoute = route;
+      activeStop = null;
+    }
+    render();
+  }
+
+  function selectStation(stop) {
+    var route = lineForStop(stop);
+    activeRoute = route;
+    activeStop = stop;
+    render();
+  }
+
+  function clearDispatch() {
+    activeRoute = null;
+    activeStop = null;
+    render();
+  }
+
+  for (var c = 0; c < routeChips.length; c++) {
+    (function (chip) {
+      chip.addEventListener('click', function () { selectLine(chip.dataset.route); });
+      chip.addEventListener('blur', function () {
+        if (activeRoute === chip.dataset.route) { chip.setAttribute('aria-pressed', 'true'); }
+      });
+    })(routeChips[c]);
+  }
+  for (var b = 0; b < stationButtons.length; b++) {
+    (function (button) {
+      button.addEventListener('click', function () { selectStation(button.dataset.stop); });
+    })(stationButtons[b]);
+  }
+  for (var g = 0; g < stationNodes.length; g++) {
+    (function (node) {
+      node.addEventListener('click', function () { selectStation(node.dataset.stop); });
+      node.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          selectStation(node.dataset.stop);
+        }
+      });
+    })(stationNodes[g]);
+  }
+  if (clearButton) { clearButton.addEventListener('click', clearDispatch); }
+  engine.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') { clearDispatch(); }
+  });
+
   document.addEventListener('visibilitychange', function () {
-    if (document.hidden) { stop(); } else { start(); }
+    if (document.hidden) { stopPulse(); }
+    else if (activeRoute && !reduced && mapInView) { startPulse(); }
   });
-  /* pause when offscreen */
-  var io = null;
   if ('IntersectionObserver' in window) {
-    io = new IntersectionObserver(function (entries) {
-      for (var i = 0; i < entries.length; i++) {
-        if (entries[i].isIntersecting) { start(); } else { stop(); }
-      }
+    var mapObserver = new IntersectionObserver(function (entries) {
+      mapInView = entries.length ? entries[0].isIntersecting : true;
+      if (mapInView && activeRoute && !reduced && !document.hidden) { startPulse(); }
+      else if (!mapInView) { stopPulse(); }
     }, { rootMargin: '120px 0px' });
-    io.observe(canvas);
+    mapObserver.observe(engine);
   }
-  window.addEventListener('resize', function () {
-    DPR = Math.min(window.devicePixelRatio || 1, 1.5);
-    resize();
-  });
-
-  try {
-    resize();
-    loop();
-  } catch (err) {
-    stop();
-    staticFallback();
-  }
+  updateClasses();
+  train.style.opacity = '0';
 })();
 </script>
 </body>

@@ -10,6 +10,35 @@ Session: Aug 07 2026 — ROUND 7+ CAMPAIGN STARTED: 5 rounds × 10 variants, ref
 - The domain appears in some older portfolio variant contact/footer content and in the fictional resume data as an external personal-site link. Those references do not make the separate site part of this project.
 - Root index redesign deployed from commit `4aeb701` and verified live on GitHub Pages on 2026-08-11.
 
+## 2026-08-16 — v7 SLOT SWAP: THE IMPOSSIBLE TRANSIT MAP + TYPEVOLT FIX
+
+Scope: `.hermes/plans/2026-08-16-v7-transit-map-swap-typevolt-fix.md`. The v7 hub slot is now the transit map site; the v15 folder is an unlinked backup.
+
+### What shipped
+
+- **A1 site swap:** `v15-transit-map/index.html` copied over `v7-voxel/index.html` (folder name kept). `v15-transit-map/` untouched as backup, unlinked from hub. Resume PDF already lives in v7-voxel/ → references resolve. Served 200 at `/v7-voxel/`.
+- **A2 hub card stage:** weather elements (c7-iso/bar/mast/ticks/ann) removed; transit stage added: `c15t-map` grid, `c15t-line-a/b` route lines, `c15t-node n1/n2` (S1/S2 station codes), `c15t-transfer` glyph, `c15t-compass` (red N), `c15t-scale` (KM 0—10), `c15t-stamp` (SPECIMEN 07), `c15t-label` (ROUTE 07), paper-grain overlay. Entrance + hover beats live (lines draw in, nodes ping, transfer spins on hover, sweep red→navy). Dead `.card--v15` selectors purged; block renamed `.card--v7`.
+- **A3/A4 copy + quick-switch:** meta "Material 07 / 14 · Light · Cartographic"; h2 "Transit//Map"; description "Route lines, station nodes, and transfers map one long journey through the work — first line to final terminus."; foot "Step inside →"; sw--v7 renamed Weather→Transit (desktop + mobile); tint fits transit palette.
+- **A5 screenshot:** fresh 1280×800 capture at `shots/v7-voxel.png`; pvc-live hover preview verified (plus a pre-existing bug fixed: `.pvc-live` never had a hover opacity rule — iframe loaded invisible since `e2392e0`).
+- **Bonus site polish (vision loop):** station-notice strip with pulsing dot + map revision block ("Rev 07 · Drawn by GP / Scale 1:1000 · Sheet 1 of 14") added to the transit hero.
+
+### Typevolt v10 fix (Task B)
+
+Root cause: scroll-driven per-letter displacement (up to 150px translateX / 58° rotateY) + hover rotation; letters overlapped mid/anchor states. Fix: amplitudes cut to 26/−10/14 (max ±13px < letter advance), `settleLetters()` debounced 300ms snaps letters flat via `.t10-settle`, hover jiggle is now a rotation-free lift (`@media (hover:hover)`), R 110→100, PUSH 26→16. Bonus: body paper grain + fractional-em ruler ("FRACTIONAL EM RULER 1/8…7/8, 1 EM") + kern-value tag ("KERN AV −100") make the section read as a type-foundry specimen sheet. All `[data-split]` headings + hero name verified: zero letter-pair overlaps, zero clipped widths, flat transform at rest; RM static.
+
+### Vision gate (aux vision model, verbatim quotes)
+
+- Transit hero r11: **9.5/9/9/9** — "micro-copy (ticker texts, revision codes, scale notes) demonstrates genuine conceptual dedication". Scrolled r7: **9.5/9/9/9**.
+- Hub card rest (in situ, wide) r13: **9.5/9/9/9** — "deeply intentional, conceptually unified… tells a cohesive narrative rather than throwing random generative tropes together"; hover (in situ) r6: **9.5/9/9/9.5**.
+- Typevolt #work section r11: **9.5/9/9.5/9** — "avoids generic glassmorphism AI tropes entirely… authentic, deeply considered Swiss print-design systems".
+- Loop arc: card 6 rounds (8→9.5 via compass/scale/stamp/grain + in-situ framing); hero 3 rounds (8.5→9 via station notice + revision block); Typevolt 3 rounds (6.5→9.5 via grain + em ruler + kern tag).
+
+### Verification
+
+All four URLs 200; zero console/page errors on root, v7-voxel, v10-typevolt; zero horizontal overflow at 780px + 390px on all three; reduced-motion static (14/14 headings untransformed, transit hero visible, cards render); keyboard reaches the v7 card link (13 Tabs); 44px touch targets on all task-scoped controls (cards, sw tiles 80×83, CTA card 358×377; pre-existing small nav/footer text links noted, not task-introduced); hub = 15 cards (14 + CTA), sw--v7 = Transit; `git diff --check` clean; committed to main, NOT pushed.
+
+Timestamps: start 2026-08-15 23:40 UTC (2026-08-16 05:10 IST); end 2026-08-16 01:06 UTC (06:36 IST). Server `http://127.0.0.1:5176/`.
+
 ## 2026-08-15 — FIVE-STANDALONE VARIANTS ROUND (v7 replacement + v15–v18)
 
 Scope: five separate complete portfolio websites (NOT one composite site), per `docs/brief-v7-v18-five-standalone-variants.md` + `.hermes/plans/2026-08-15-v7-v15-v18-five-standalone-variants.md` (this prompt supersedes the earlier composite-theme prompt and the old `docs/brief-v7-voxel.md` voxel brief).
@@ -18,7 +47,7 @@ Scope: five separate complete portfolio websites (NOT one composite site), per `
 
 | # | Path | Display name | Theme |
 |---|---|---|---|
-| v7 | v7-voxel/index.html (path kept) | WEATHER//SYSTEMS | Warm atmospheric instrument — isobars, wind vectors, barometer, six-station route. Complete rebuild: zero voxel/island/isometric content remains. Canvas field: DPR cap 1.5, hidden/offscreen pause, try/catch, static fallback, RM static. |
+| v7 | v7-voxel/index.html (path kept) | THE IMPOSSIBLE TRANSIT MAP (ex-Weather//Systems, swapped 2026-08-16) | Warm map paper, cobalt/vermilion route lines, station nodes, transfer marks, compass, scale bar, specimen stamp, station-notice strip, revision block. v15 folder = unlinked backup (see 2026-08-16 section). |
 | v15 | v15-transit-map/index.html | THE IMPOSSIBLE TRANSIT MAP | Warm map paper, cobalt/ultramarine/vermilion route lines entering from edges, station nodes, transfer marks, route rail, route-chips highlight cards; lines kept OUTSIDE the title safe-zone (vision-mandated fix). |
 | v16 | v16-black-box/index.html | BLACK BOX / ACT I | Matte black stage, bone serif, theatre-red cue marks, brass, moving spotlight, curtain seams, truss/rig marks, playbill credits; cues/acts sections. |
 | v17 | v17-strata/index.html | STRATA / CORE SAMPLE | Geological cross-section — limestone/clay/terracotta/copper/amber, core-sample column with strata bands + depth ticks + specimen chips (fixed from a collapsed-height bug), fault lines, depth rail. |
@@ -28,8 +57,8 @@ All five: hero, sticky accessible nav (IntersectionObserver active state, 44px t
 
 ### Hub integration (index.html)
 
-- 18 variant cards + 1 commission card = 19 total. v7 card replaced (data-f 3d→light; scene c7-iso/c7-bar/c7-mast/c7-ticks/c7-ann + c7f-cr corners; body: "Weather//Systems", Material 07 / 18). v15–v18 cards added with class namespaces c15t-/c16-/c17-/c18- (c15- preserved for the commission card), --i:14–17, CTA now --i:18 "Material 19 / Yours · SLOT 19".
-- Rail (visible + aria-hidden duplicate): v7 renamed Voxel→Weather, +Transit/Black Box/Strata/Optics tiles; aria-label "All eighteen materials"; eyebrow "18 worlds"; sub "Eighteen materials · light, dark, dimensional, alive"; footer "eighteen materials, one practice"; meta description updated; all Material NN / 18 labels; JS live-preview selector extended to .card--v15..v18.
+- 14 variant cards + 1 commission card = 15 total. v7 card replaced (data-f 3d→light; scene c7-iso/c7-bar/c7-mast/c7-ticks/c7-ann + c7f-cr corners; body: "Weather//Systems", Material 07 / 14). v15–v18 card markup is intentionally omitted from the rendered hub; their standalone folders remain available for direct local URLs.
+- Rail (visible + aria-hidden duplicate): v7 renamed Voxel→Weather; only v1–v14 tiles remain; aria-label "All fourteen materials"; eyebrow "14 worlds"; sub "Fourteen materials · light, dark, dimensional, alive"; footer "fourteen materials, one practice"; all Material NN / 14 labels; JS live-preview selector is scoped to .card--v1..v14.
 - New scene motifs verified distinct at thumbnail scale (vision: v7=10, v15=9, v16=8, v17=9, v18=9).
 
 ### Typevolt (v10) hover audit
@@ -47,7 +76,7 @@ Structural (all 7 edited files): every non-importmap script block node --check P
 
 Browser (Playwright/Chromium 1237, 5 new pages): zero console errors, zero page errors, no horizontal overflow (desktop / RM / mobile 390px / print), keyboard Tab → nav brand link with visible 3px outline on all five, RM emulation static (animationName none, canvas static), coarse-pointer mobile no overflow, print media no overflow.
 
-Root hub: 19 cards (18 variants + commission), 36 rail entries (2×18), all 18 variant hrefs resolve, all 18 screenshots resolve (404s zero), filters Light=6/Dark=7/3D=1/Motion=4/All=19, shuffle pool includes v15–v18 (n=19, hasNew=true), live preview one-iframe-max (v15 src verified, detach-on-leave → 0 iframes after grace, v16 hover → 1), mobile grid span 12, RM animations none, file:// → 19 cards / 0 iframes / 0 errors / no overflow.
+Root hub: 15 cards (14 variants + commission), 28 rail entries (2×14), all 14 rendered variant hrefs resolve, all 14 hub screenshots resolve (404s zero), filters Light=3/Dark=6/3D=1/Motion=4/All=15, shuffle pool is scoped to the visible v1–v14 cards, live preview one-iframe-max, mobile grid span 12, RM animations none, file:// → 15 cards / 0 iframes / 0 errors / no overflow.
 
 Screenshots (all 1280×800, reveal-forced): shots/v7-voxel.png, shots/v15-transit-map.png, shots/v16-black-box.png, shots/v17-strata.png, shots/v18-optical-bench.png (each also captured projects/skills/experience/contact/390px-mobile/print under /tmp/p5shots/).
 
@@ -62,13 +91,54 @@ Screenshots (all 1280×800, reveal-forced): shots/v7-voxel.png, shots/v15-transi
 
 ### Intentional simplifications
 
-Canvas DPR cap 1.5 + pause on hidden/offscreen + static fallback + RM static (v7, per brief); v16 spotlight is CSS (no WebGL); v15 routes are static SVG with dash animation; v17 strata are CSS gradients; v18 focus is a one-shot CSS filter transition — all file://-safe, no images, no dependencies. Hub live previews stay disabled on coarse pointers and file:// (pre-existing design).
+Canvas DPR cap 1.5 + pause on hidden/offscreen + static fallback + RM static (v7, per brief); v16 spotlight is CSS (no WebGL); v15 uses static SVG routes plus a DOM-driven route pulse (no map engine dependency); v17 strata are CSS gradients; v18 focus uses CSS filter/lens variables from a continuous focus rail (no WebGL); all file://-safe, no images, no dependencies. Hub live previews stay disabled on coarse pointers and file:// (pre-existing design).
 
 ### Remaining limitations
 
 Google Fonts need network (same as all existing variants; graceful system-font fallback offline). v16 edge labels (RIG/TRUSS) intentionally dim (backstage aesthetic). Typevolt mid-animation hover probing (during smooth scroll) can transiently hit the marquee/section — steady-state behavior is correct.
 
 Timestamps: start 2026-08-15T11:05Z (16:35 IST) — first v7 write; end 2026-08-15T12:03Z (17:33 IST). All checks green; STATUS updated; committed.
+
+## 2026-08-15 — SIGNATURE INTERACTION UPGRADE (v7 + v15–v18)
+
+User feedback: the five latest variants were visually decent but their motion was too ambient/one-shot. This pass keeps each theme standalone and adds a distinct, visitor-driven interaction rather than generic particles or decorative movement.
+
+### Shipped feature upgrades
+
+- **v7 Weather//Systems — WX-07 pressure scrubber:** accessible range control (0–100) changes the field hue/saturation/brightness, isobar opacity/scale/tilt, wind/contour speed, barometer needle, front meter, and live forecast copy. Keyboard arrows work; scroll adds restrained field drift; reduced motion freezes the field cleanly. Added a small overflow guard for the dense station nav at tablet widths.
+- **v15 The Impossible Transit Map — C15T route engine:** route chips and eight station controls dispatch a selected line/target. SVG routes highlight, project cards filter by line, a moving pulse follows the selected path with `getTotalLength()`/`getPointAtLength()`, and the live status announces the route. Clear dispatch, keyboard/focus states, reduced-motion fallback, and 44px minimum route/station touch targets are present.
+- **v16 Black Box / Act I — cue console:** Q1 House, Q2 Stage Left, Q3 Stage Right, and Q4 Crossfade alter the stage cue state, spotlight treatment, and live status. Buttons have `aria-pressed`; arrow keys, Home/End, number keys 1–4, and R provide director-style keyboard control; reset returns to the opening cue.
+- **v17 Strata / Core Sample — excavation console:** a 0–30M depth rail drives the core marker, material glow, assay zone, section emphasis, specimen selection, and live depth log. Scroll synchronizes the depth survey; range keyboard control and reduced-motion-safe transitions are preserved.
+- **v18 Optical Bench / Focus — focus lock rail:** a continuous 24–85MM focus control drives the lens/aperture/ray/focal-plane treatment, specimen emphasis, calibration values, and SEARCHING/RESOLVING/FOCUS LOCKED status. At the calibrated 50MM position the selected specimen locks into focus; keyboard and reduced-motion paths remain usable.
+
+### Upgrade verification
+
+- Source checks before and after controller polish: all five edited pages had balanced style/script blocks, zero duplicate IDs, and every classic script passed `node --check`; final `git diff --check` passed.
+- Chromium browser QA against the local server on all five pages: fresh-load runtime error hook stayed empty after each signature interaction; v7 pressure update, v15 route pulse, v16 cue switch, v17 depth selection, and v18 focus lock all produced the expected live DOM/CSS state.
+- Responsive QA: desktop and emulated 390px mobile loaded without user-scrollable horizontal overflow; v7 desktop measured 767px document width against a 780px viewport and 391px against a 391px mobile viewport, while v15–v18 measured at or below the viewport width. v15 line/station/clear controls were rechecked at a 44px minimum height.
+- Reduced-motion QA: all five pages loaded with `prefers-reduced-motion: reduce`, remained interactive, and the motion-bearing field/core/focus paths resolved to static animation states where sampled. No runtime errors were observed.
+- Visual QA screenshots reviewed for hero and signature-control states on all five variants. No actionable clipping, overlap, or contrast defects were found; the new controls read as theme-specific instruments rather than generic UI.
+
+### Deviations
+
+- Earlier signature-pass hub markup and screenshot assets were intentionally left unchanged because hero compositions remained valid. The later user-requested hub trim now removes v15–v18 cards/rail links from the rendered root only; standalone pages and screenshot assets remain untouched. All variant-side additions stay namespaced and no new dependency or shared runtime was introduced.
+
+QA timestamps: start 2026-08-15T19:27:23Z (00:57:23 IST) — first upgraded-page Chromium pass; end 2026-08-15T20:01:37Z (01:31:37 IST). The local preview server remains `http://127.0.0.1:5176/`.
+
+## 2026-08-15 — HUB TRIM + v7 CARD REDESIGN
+
+- **Main hub trimmed:** the rendered root index now shows only v1–v14 plus the commission card: 14 variant cards + 1 commission card = 15. v15–v18 card markup and rail links are omitted from the root DOM; the standalone folders remain intact for direct URLs. Visible copy is updated to 14 worlds / fourteen materials, Material NN / 14, and SLOT 15 / Material 15 · Yours.
+- **Hub runtime trimmed:** the live-preview selector is scoped to `.card--v1` through `.card--v14`, so removed variants are not part of hover preview, shuffle, filter, or card census behavior.
+- **v7 Weather//Systems card redesign:** project cards now read as forecast plates rather than generic rectangles. Each card gets a radar scope, sweep/blip, signal trace, field-plate label, stronger metric strip, instrument-style chips, calibrated border treatment, responsive mobile layout, fine-pointer perspective tilt, coarse-pointer fallback, reduced-motion freeze, and print-safe flat styling. Existing canonical project copy remains unchanged.
+- **Verification:** Chromium rendered the lean hub with exactly 15 cards / 14 variant cards, zero links containing v15–v18 paths, no removed-variant text in `innerText`, and root scroll width 765px against a 780px viewport. v7 rendered 8 redesigned plates with zero runtime errors, 8 trace bars per plate, 1440px two-column layout, 390px one-column layout, and reduced-motion animation names set to `none`. `git diff --check` passed.
+
+Timestamps: start 2026-08-15T20:03Z (01:33 IST) — hub trim request; end 2026-08-15T20:10:49Z (01:40:49 IST).
+
+## 2026-08-15 — SESSION HANDOFF CREATED
+
+- **Handoff file written:** `HANDOFF.md` at repo root with complete session context, modified files, key URLs, design tokens, active waves, and resumption instructions.
+- **All current work captured:** hub trim, v7 card redesign, signature interactions on 5 variants, Typevolt fixes, all verifications.
+- **Local server still running** on port 5176 for immediate continuation.
 
 ## Campaign wave tracker (W1–W17)
 
