@@ -10,6 +10,31 @@ Session: Aug 07 2026 — ROUND 7+ CAMPAIGN STARTED: 5 rounds × 10 variants, ref
 - The domain appears in some older portfolio variant contact/footer content and in the fictional resume data as an external personal-site link. Those references do not make the separate site part of this project.
 - Root index redesign deployed from commit `4aeb701` and verified live on GitHub Pages on 2026-08-11.
 
+## 2026-10-12 — HITESH CLINIC ADDED; GALLERY NOW TEN
+
+A tenth demo site, built from scratch in `v22-clinic/`: a neighbourhood chemist with its own sample room and doctor's room, set in Indore.
+
+- **Design:** light. Warm paper, pharmacy green and coral, Bricolage Grotesque with Instrument Serif italics, DM Sans and DM Mono. Photographs are cropped as capsules, tablets drift in the hero and follow the pointer, a heartbeat line runs under it, and the colours come from real sample-tube caps (lavender, gold, grey, light blue, red).
+- **Test slip (`#tests`, `#slip`):** 24 tests with search, seven category filters and a tube rack that explains each cap colour and filters by it. Single tests and four packages go on one slip. The slip removes tests a package already covers, adds a ₹60 home-collection fee below ₹800, limits the times to mornings when a fasting test is on it, hides times already past in Indian time, says when the report will be ready, validates name and phone, and ends in an on-page confirmation with a sample number. The slip is kept in `localStorage`; names and numbers are not kept anywhere.
+- **Also working:** a sample tracker (`#reports`) that takes the number from the slip or three demo numbers; a strip calculator (`#strip`) that turns tablets left and dose into a run-out date and a reorder date; a doctors' timetable (`#doctors`) and opening hours (`#visit`) that read the time in Indore; a line that fills as you scroll through the sample's day; a note form that confirms on the page.
+- **Content:** the name was given. A web search found no chemist-and-lab business called Hitesh Clinic, and the site names no doctor: the timetable lists roles. The address, phone number and `counter@hiteshclinic.example` are placeholders, and the notice at the bottom says the page is not medical advice.
+- **Photos:** 14 Unsplash photographs in `v22-clinic/img/` (1.9 MB), credited in the notice.
+- **Gallery:** card 07 of 10, a rail tile, the live-preview selector, `shots/v22-clinic.png`, and a `.vercelignore` entry for the screenshot. The commission card now sits beside the tenth card on desktop instead of taking a row to itself.
+- **Verified:** site and gallery at 1280 and 390 px with zero console errors and no sideways scroll; every feature above driven end to end in a headless browser at both widths; reduced motion shows everything with no running animations. Checks in section 4 of `docs/content-rules.md` pass.
+
+## 2026-10-12 — THREE PEOPLE SITES BUILT FROM SCRATCH; GALLERY NOW NINE
+
+Direction: the gallery mixes demo sites for businesses and for people, aimed at freelance clients. Fictional people are never me; the notice is one small line at the bottom of each site.
+
+- **`v19-photographer/` — Meera Kapoor, wedding photographer.** Ivory "album" design, Cormorant Garamond and Jost. Photo wall of 18 with five filters, shortest-column masonry and a full-screen viewer (arrows, swipe, Esc). Date check: a 17-month calendar with free / one enquiry ahead / booked days, a nearest-free-day suggestion and an enquiry form.
+- **`v20-architect/` — Arjun Sethi Architects.** White "drawing set" design, Inter Tight and IBM Plex Mono, twelve-column grid, a title block that follows the section and the cursor. Project browser of 11 with type filter, five sort orders, grid and index views, animated reordering, and a sheet per project with specs and a plan generated from the project's own numbers. Time and fee estimate by building type and area.
+- **`v21-fitness-coach/` — Kabir Anand, strength coach.** Near-black and acid lime, Anton and Barlow. Three-question plan finder that picks a program, a weekly split and a monthly price, and can hand its result to the timetable. Timetable of 32 classes with program and time-of-day filters, places left, hold and release, day tabs on phones.
+- **Photos:** 42 Unsplash photographs saved under each site's `img/` folder (5.3 MB in total), credited in the notice.
+- **Gallery:** three new cards and rail tiles, numbering and copy changed to nine, live preview covers all nine. `.vercelignore` lets the three new screenshots through.
+- **Rules:** `docs/content-rules.md` now covers fictional people and stock photographs.
+- **Verified:** all three sites and the gallery at 1280 and 390 px with zero console errors and no sideways scroll; every feature above driven in a headless browser; reduced motion shows every element with no running animations.
+- **Not done:** nothing here is committed. The six business sites still have their original names.
+
 ## 2026-10-12 — CONCEPT SITES: SIX BUSINESSES, GALLERY TRIMMED TO SIX (branch `concept-sites`)
 
 The "same portfolio, many styles" idea is dropped. Each site is now a concept website for a fictional business, built to show range. My own details appear only in a footer credit on each site. Rules are in `docs/content-rules.md`, current state in `HANDOFF.md`.

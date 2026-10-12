@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hitesh Clinic — Chemist, blood tests and check-ups on one counter</title>
+<meta name="description" content="Hitesh Clinic is a neighbourhood chemist in Indore with its own sample room and a doctor's room. Build a test slip, hold a collection slot and track your report.">
+<meta property="og:title" content="Hitesh Clinic — Chemist, lab and check-ups">
+<meta property="og:description" content="Medicines, blood tests and check-ups on one counter. Give a sample before breakfast, read the report by seven.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#f6f4ec">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%230d6b57'/%3E%3Cpath d='M26 14h12v12h12v12H38v12H26V38H14V26h12z' fill='%23fffdf8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400..600&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+:root{
+  --paper:#f6f4ec; --card:#fffdf8; --ink:#0f2f2a; --soft:#4b635d; --line:#dedbce; --line2:#ebe8dc;
+  --green:#0d6b57; --mint:#d6efe2; --coral:#ff6a4a; --blush:#ffe3da; --sun:#ffc84a; --butter:#fff1c9;
+  --lav:#b9a8ee; --lilac:#ebe5fb; --sky:#9fd0ee; --grey:#aab3b0; --red:#e2483d;
+  --disp:'Bricolage Grotesque',system-ui,sans-serif; --serif:'Instrument Serif',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif; --mono:'DM Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.2,.8,.2,1); --pop:cubic-bezier(.3,1.6,.5,1);
+  --shadow:0 1px 2px rgba(15,47,42,.06),0 18px 40px -22px rgba(15,47,42,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;overflow-x:hidden;overflow-x:clip;
+  background-image:radial-gradient(rgba(15,47,42,.07) 1px,transparent 1px);background-size:22px 22px}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+ul,ol{list-style:none}
+:focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:6px}
+::selection{background:var(--sun);color:var(--ink)}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+section{scroll-margin-top:96px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* reveal */
+html.js .rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--d,0)*80ms)}
+html.js .rv.in{opacity:1;transform:none}
+
+/* type */
+h1,h2,h3{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:1}
+h1 em,h2 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--green)}
+h2{font-size:clamp(2.1rem,4.6vw,3.7rem)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:18px}
+.eyebrow b{display:inline-grid;place-items:center;min-width:34px;height:20px;padding:0 8px;border-radius:99px;background:var(--ink);color:var(--paper);font-weight:500;letter-spacing:.04em}
+.head{display:grid;grid-template-columns:1.1fr .9fr;gap:24px 60px;align-items:end;margin-bottom:46px}
+.head p{color:var(--soft);max-width:46ch}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:12px;padding:8px 8px 8px 22px;border-radius:99px;font-weight:600;font-size:.98rem;text-decoration:none;white-space:nowrap;transition:background .3s,color .3s,box-shadow .3s}
+.btn i{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--card);color:var(--ink);font-style:normal;transition:transform .4s var(--pop)}
+.btn:hover{box-shadow:0 0 0 4px rgba(15,47,42,.12)}
+.btn:hover i{transform:rotate(-45deg)}
+.btn--ink{background:var(--ink);color:var(--paper)}
+.btn--coral{background:var(--coral);color:var(--ink);box-shadow:0 14px 26px -14px rgba(255,106,74,.9)}
+.btn--coral:hover{box-shadow:0 0 0 4px rgba(255,106,74,.28),0 14px 26px -14px rgba(255,106,74,.9)}
+.btn--line{padding:14px 22px;border:1.5px solid var(--ink)}
+.btn--line:hover{background:var(--ink);color:var(--paper)}
+.btn--sm{padding:10px 18px;font-size:.9rem}
+
+/* nav */
+.nav{position:sticky;top:12px;z-index:50;display:flex;align-items:center;gap:18px;width:min(1180px,100% - 24px);margin:12px auto 0;padding:8px 8px 8px 14px;border:1px solid var(--line);border-radius:99px;background:rgba(255,253,248,.84);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 10px 30px -22px rgba(15,47,42,.5)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+.brand__mark{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:var(--green);transition:transform .6s var(--pop)}
+.brand:hover .brand__mark{transform:rotate(90deg)}
+.brand__mark svg{width:20px;fill:var(--card)}
+.brand__name{font-family:var(--disp);font-weight:700;font-size:1.12rem;letter-spacing:-.02em;line-height:1.05}
+.brand__name small{display:block;font-family:var(--mono);font-weight:400;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.nav__links{display:flex;gap:4px}
+.nav__links a{padding:8px 13px;border-radius:99px;font-size:.93rem;font-weight:500;text-decoration:none;transition:background .25s}
+.nav__links a:hover,.nav__links a.on{background:var(--mint)}
+.nav__cta{padding:6px 6px 6px 18px;font-size:.92rem}
+.nav__cta i{width:32px;height:32px;font-family:var(--mono);font-size:.8rem;font-weight:500}
+.nav__cta.has i{background:var(--coral)}
+.nav__burger{display:none;width:44px;height:44px;border-radius:50%;background:var(--mint);position:relative}
+.nav__burger i{position:absolute;left:13px;right:13px;height:2px;background:var(--ink);border-radius:2px;transition:transform .3s var(--ease),top .3s var(--ease)}
+.nav__burger i:first-child{top:18px}.nav__burger i:last-child{top:25px}
+.nav__burger[aria-expanded=true] i:first-child{top:21px;transform:rotate(45deg)}
+.nav__burger[aria-expanded=true] i:last-child{top:21px;transform:rotate(-45deg)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:54px 0 0}
+.hero__grid{display:grid;grid-template-columns:1.08fr .92fr;gap:30px;align-items:center;min-height:min(680px,calc(100svh - 150px))}
+.open{display:inline-flex;align-items:center;gap:10px;padding:7px 14px 7px 10px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-size:.86rem;font-weight:500;margin-bottom:26px}
+.open i{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(13,107,87,.5);animation:ping 2s infinite}
+.open.shut i{background:var(--grey);animation:none}
+@keyframes ping{70%{box-shadow:0 0 0 9px rgba(13,107,87,0)}100%{box-shadow:0 0 0 0 rgba(13,107,87,0)}}
+h1{font-size:clamp(2.7rem,6.4vw,5.7rem);line-height:.96}
+h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+html.js h1 .w>span{display:inline-block;transform:translateY(110%);transition:transform .9s var(--ease);transition-delay:calc(var(--n)*55ms + 100ms)}
+html.js h1.in .w>span{transform:none}
+.lede{margin:26px 0 30px;max-width:44ch;font-size:1.13rem;color:var(--soft)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.hero__facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:34px;font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.hero__facts li{display:flex;align-items:center;gap:8px}
+.hero__facts li::before{content:"";width:16px;height:8px;border-radius:9px;background:linear-gradient(90deg,var(--coral) 50%,var(--ink) 50%)}
+
+.art{position:relative;height:620px}
+.art__main{position:absolute;right:0;top:10px;width:64%;height:590px;border-radius:999px;overflow:hidden;background:var(--mint);box-shadow:var(--shadow)}
+.art__main img,.art__dot img{width:100%;height:100%;object-fit:cover}
+.art__main img{object-position:26% 50%}
+html.js .art__main{clip-path:inset(100% 0 0 0 round 999px);transition:clip-path 1.2s var(--ease) .2s}
+html.js .art.in .art__main{clip-path:inset(0 0 0 0 round 999px)}
+.art__dot{position:absolute;left:0;top:150px;width:168px;height:168px;border-radius:50%;overflow:hidden;border:6px solid var(--paper);box-shadow:var(--shadow)}
+.badge{position:absolute;left:14%;top:0;width:128px;height:128px;filter:drop-shadow(0 12px 16px rgba(15,47,42,.18))}
+.badge .spin{transform-origin:60px 60px;animation:spin 22s linear infinite}
+.badge text{font-family:var(--mono);font-size:9.6px;font-weight:500;letter-spacing:.08em;fill:var(--ink)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rep{position:absolute;left:-4%;bottom:24px;width:278px;padding:16px 18px 14px;border-radius:22px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
+.rep__top{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-bottom:12px}
+.rep__top b{padding:3px 8px;border-radius:99px;background:var(--mint);color:var(--green);font-weight:500}
+.rng{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:9px 0;border-top:1px dashed var(--line)}
+.rng__name{font-size:.86rem;font-weight:500}
+.rng__val{font-family:var(--mono);font-size:.86rem;font-weight:500}
+.rng__val small{font-size:.68rem;font-weight:400;color:var(--soft)}
+.rng__bar{grid-column:1/-1;position:relative;height:8px;margin-top:5px;border-radius:9px;background:linear-gradient(90deg,var(--butter) 0 22%,var(--mint) 22% 76%,var(--blush) 76%)}
+.rng__bar i{position:absolute;top:-4px;left:calc(var(--p)*1%);width:6px;height:16px;margin-left:-3px;border-radius:4px;background:var(--ink);transition:left 1.4s var(--ease) .5s}
+html.js .rngs:not(.in) .rng__bar i{left:0}
+.pill,.tab{position:absolute;display:block;will-change:transform}
+.pill{width:70px;height:28px;border-radius:99px;background:linear-gradient(90deg,var(--c1,var(--coral)) 50%,var(--c2,#fff) 50%);box-shadow:inset 0 -6px 8px rgba(15,47,42,.13),inset 0 5px 6px rgba(255,255,255,.55),0 12px 18px -8px rgba(15,47,42,.35)}
+.tab{width:38px;height:38px;border-radius:50%;background:var(--c1,#fff);box-shadow:inset 0 -6px 8px rgba(15,47,42,.12),inset 0 5px 6px rgba(255,255,255,.7),0 12px 18px -8px rgba(15,47,42,.35)}
+.tab::after{content:"";position:absolute;left:8px;right:8px;top:50%;height:2px;margin-top:-1px;background:rgba(15,47,42,.16);border-radius:2px}
+.fl{animation:float var(--t,7s) ease-in-out infinite alternate}
+@keyframes float{from{translate:0 -9px;rotate:var(--r,0deg)}to{translate:0 11px;rotate:calc(var(--r,0deg) + 14deg)}}
+.ecg{display:block;width:100%;height:70px;margin-top:8px}
+.ecg path{fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.ecg .base{stroke:var(--line);stroke-width:2}
+.ecg .run{stroke:var(--coral);stroke-width:3;stroke-dasharray:.09 .91;animation:run 5s linear infinite}
+@keyframes run{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:28px;background:var(--card);overflow:hidden;margin-top:6px}
+.stat{padding:26px 26px 24px;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0}
+.stat b{display:block;font-family:var(--disp);font-size:clamp(2rem,3.6vw,3rem);font-weight:700;letter-spacing:-.04em;line-height:1}
+.stat b small{font-size:.5em;letter-spacing:0;margin-left:3px;color:var(--green)}
+.stat>span{display:block;margin-top:8px;font-size:.9rem;color:var(--soft);max-width:22ch}
+
+/* marquee */
+.mq{margin:74px 0 0;padding:20px 0;background:var(--ink);color:var(--paper);overflow:hidden;rotate:-1.2deg;scale:1.03}
+.mq__track{display:flex;width:max-content;animation:mq 36s linear infinite}
+.mq:hover .mq__track{animation-play-state:paused}
+.mq__track span{display:flex;align-items:center;gap:28px;padding-right:28px;font-family:var(--disp);font-weight:600;font-size:clamp(1.3rem,2.6vw,2rem);letter-spacing:-.02em;white-space:nowrap}
+.mq__track span::after{content:"";width:40px;height:16px;border-radius:9px;background:linear-gradient(90deg,var(--c,var(--coral)) 50%,var(--paper) 50%);rotate:-18deg}
+.mq__track span:nth-child(3n)::after{--c:var(--sun)}.mq__track span:nth-child(3n+1)::after{--c:var(--lav)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* doors */
+.sec{padding:112px 0 0}
+.doors{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.door{position:relative;display:flex;flex-direction:column;padding:26px 26px 28px;border-radius:32px;background:var(--card);border:1px solid var(--line);text-decoration:none;overflow:hidden;transition:transform .5s var(--ease),background .5s,border-color .5s}
+.door:hover{transform:translateY(-8px);background:var(--bgc);border-color:transparent}
+.door--a{--bgc:var(--mint)}.door--b{--bgc:var(--lilac)}.door--c{--bgc:var(--butter)}
+.door__n{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;color:var(--soft)}
+.door__pic{height:210px;margin:18px 0 24px;border-radius:999px;overflow:hidden;background:var(--bgc)}
+.door__pic img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.door:hover .door__pic img{transform:scale(1.08)}
+.door h3{font-size:1.7rem;margin-bottom:10px}
+.door p{color:var(--soft);font-size:.98rem;flex:1}
+.door__go{display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding-top:16px;border-top:1px dashed var(--line);font-weight:600;font-size:.94rem}
+.door__go i{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--ink);color:var(--paper);font-style:normal;transition:transform .4s var(--pop)}
+.door:hover .door__go i{transform:rotate(90deg)}
+
+/* pharmacy */
+.rx{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
+.rx__pics{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;margin:0 0 32px}
+.rx__pics div{height:230px;border-radius:999px;overflow:hidden;background:var(--mint)}
+.rx__pics div:last-child{border-radius:36px}
+.rx__pics img{width:100%;height:100%;object-fit:cover}
+.rxlist li{display:grid;grid-template-columns:44px 1fr;gap:4px 16px;padding:18px 0;border-top:1px solid var(--line)}
+.rxlist li:last-child{border-bottom:1px solid var(--line)}
+.rxlist i{grid-row:span 2;display:grid;place-items:center;width:44px;height:44px;border-radius:15px;background:var(--bgc,var(--mint));font-style:normal;font-family:var(--mono);font-size:.8rem;font-weight:500}
+.rxlist b{font-family:var(--disp);font-size:1.16rem;letter-spacing:-.02em}
+.rxlist span{color:var(--soft);font-size:.96rem}
+.fine-note{margin-top:16px;font-size:.84rem;color:var(--soft)}
+.strip{position:sticky;top:96px;padding:28px;border-radius:32px;background:var(--ink);color:var(--paper)}
+.strip h3{font-size:1.7rem;margin-bottom:6px}
+.strip h3 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--sun)}
+.strip>p{color:#b9cbc5;font-size:.94rem;margin-bottom:22px}
+.strip__row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px;font-size:.94rem}
+.step{display:flex;align-items:center;gap:6px;padding:4px;border-radius:99px;background:rgba(255,255,255,.09)}
+.step button{width:36px;height:36px;border-radius:50%;background:var(--paper);color:var(--ink);font-weight:600;font-size:1.1rem;transition:transform .2s var(--pop)}
+.step button:active{transform:scale(.88)}
+.step input{width:52px;background:none;border:0;text-align:center;font-family:var(--mono);font-size:1.05rem;color:var(--paper);-moz-appearance:textfield}
+.step input::-webkit-inner-spin-button{-webkit-appearance:none}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:8px 15px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);font-size:.88rem;font-weight:500;transition:background .25s,color .25s,border-color .25s,transform .2s var(--pop)}
+.chip:active{transform:scale(.94)}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.chip:disabled{opacity:.42;cursor:not-allowed;text-decoration:line-through}
+.strip .chip{background:none;border-color:rgba(255,255,255,.22);color:var(--paper);min-width:44px}
+.strip .chip[aria-pressed=true]{background:var(--sun);border-color:var(--sun);color:var(--ink)}
+.blister{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin:22px 0 8px;padding:16px;border-radius:20px;background:linear-gradient(135deg,#dfe6e3,#b9c4c0 48%,#e8eeeb)}
+.cell{aspect-ratio:1;border-radius:50%;background:rgba(15,47,42,.14);box-shadow:inset 0 2px 3px rgba(15,47,42,.28)}
+.cell.full{background:radial-gradient(circle at 35% 30%,#ffb39f,var(--coral) 62%);box-shadow:0 3px 5px rgba(15,47,42,.3),inset 0 -3px 4px rgba(120,30,10,.25);animation:pop .45s var(--pop) backwards;animation-delay:calc(var(--k)*16ms)}
+@keyframes pop{from{transform:scale(0)}}
+.blister__more{font-family:var(--mono);font-size:.72rem;color:#b9cbc5;letter-spacing:.06em;min-height:1.2em}
+.strip__out{margin:16px 0 20px;padding-top:18px;border-top:1px dashed rgba(255,255,255,.22);font-size:1.02rem;line-height:1.5}
+.strip__out b{color:var(--sun);font-weight:600}
+.strip__out .warn{color:var(--coral)}
+.strip__done{margin-top:16px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.08);font-size:.9rem;color:#d5e2dd}
+
+/* tests */
+.caps{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;padding:22px 26px;margin-bottom:26px;border-radius:28px;background:var(--card);border:1px solid var(--line)}
+.rack{display:flex;gap:12px;align-items:flex-end;padding:0 6px 10px;border-bottom:8px solid var(--ink);border-radius:0 0 6px 6px}
+.tube{position:relative;width:30px;height:104px;transition:transform .35s var(--pop)}
+.tube:hover,.tube[aria-pressed=true]{transform:translateY(-12px)}
+.tube::before{content:"";position:absolute;left:-2px;right:-2px;top:0;height:24px;border-radius:7px 7px 3px 3px;background:var(--c);box-shadow:inset 0 -5px 0 rgba(15,47,42,.14)}
+.tube::after{content:"";position:absolute;left:3px;right:3px;top:22px;bottom:0;border-radius:0 0 14px 14px;border:2px solid rgba(15,47,42,.22);border-top:0;background:linear-gradient(to top,var(--fill,#b3261e) var(--h,56%),rgba(255,255,255,.65) var(--h,56%))}
+.tube--cup{width:42px;height:70px}
+.tube--cup::after{border-radius:0 0 8px 8px;--fill:#f3cf5b;--h:46%}
+.tube[aria-pressed=true]::before{box-shadow:inset 0 -5px 0 rgba(15,47,42,.14),0 0 0 3px var(--paper),0 0 0 5px var(--ink)}
+.caps__txt b{font-family:var(--disp);font-size:1.2rem;letter-spacing:-.02em}
+.caps__txt p{color:var(--soft);font-size:.95rem;max-width:62ch;margin-top:2px}
+.caps__txt button{margin-top:8px;font-size:.88rem;font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.lab{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:26px;align-items:start}
+.find{display:flex;gap:10px;align-items:center;padding:6px 6px 6px 20px;border-radius:99px;background:var(--card);border:1.5px solid var(--ink);margin-bottom:14px}
+.find svg{width:18px;flex:none}
+.find input{flex:1;min-width:0;border:0;background:none;outline:0;padding:9px 0}
+.find kbd{font-family:var(--mono);font-size:.72rem;padding:6px 12px;border-radius:99px;background:var(--mint);white-space:nowrap}
+.tl{margin-top:16px;border-radius:28px;background:var(--card);border:1px solid var(--line);overflow:hidden}
+.t{display:grid;grid-template-columns:16px minmax(0,1fr) 128px 118px 62px 92px;gap:14px;align-items:center;padding:14px 18px;border-top:1px solid var(--line2);transition:background .25s}
+.t:first-child{border-top:0}
+.t:hover{background:#faf8f0}
+.t.on{background:var(--mint)}
+.t__cap{width:16px;height:16px;border-radius:5px 5px 2px 2px;background:var(--c);box-shadow:inset 0 -3px 0 rgba(15,47,42,.16)}
+.t__main b{display:block;font-weight:600;font-size:1rem;line-height:1.25}
+.t__main span{display:block;font-size:.84rem;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t__prep,.t__when{font-family:var(--mono);font-size:.72rem;letter-spacing:.02em;color:var(--soft)}
+.t__prep.fast{justify-self:start;padding:3px 9px;border-radius:99px;background:var(--butter);color:#6d4d00}
+.t__price{font-family:var(--mono);font-weight:500;text-align:right}
+.t__add{padding:8px 0;border-radius:99px;border:1.5px solid var(--ink);font-size:.86rem;font-weight:600;transition:background .25s,color .25s,transform .2s var(--pop)}
+.t__add:hover{background:var(--ink);color:var(--paper)}
+.t__add:active{transform:scale(.92)}
+.t.on .t__add{background:var(--green);border-color:var(--green);color:#fff}
+.tl__none{padding:34px 22px;text-align:center;color:var(--soft)}
+.tl__more{border-top:1px solid var(--line2)}
+.tl__more button{display:block;width:100%;padding:16px;font-weight:600;font-size:.94rem;background:var(--paper);transition:background .25s}
+.tl__more button:hover{background:var(--mint)}
+.tl__foot{margin-top:12px;font-size:.84rem;color:var(--soft)}
+
+.slip{position:sticky;top:92px;max-height:calc(100vh - 108px);overflow:auto;padding:22px 22px 26px;background:var(--card);border:1px solid var(--line);border-radius:26px 26px 0 0;box-shadow:var(--shadow);
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle at 10px 0,#000 9.5px,transparent 10px) bottom left/20px 10px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle at 10px 0,#000 9.5px,transparent 10px) bottom left/20px 10px repeat-x}
+.slip__top{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+.slip__top h3{font-size:1.5rem}
+.slip__top span{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.slip__empty{padding:26px 0 8px;color:var(--soft);font-size:.95rem}
+.slip__empty svg{width:54px;margin-bottom:10px;display:block}
+.sl{display:grid;grid-template-columns:1fr auto 26px;gap:8px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line);font-size:.93rem;animation:slin .4s var(--ease)}
+@keyframes slin{from{opacity:0;transform:translateX(-10px)}}
+.sl small{display:block;font-family:var(--mono);font-size:.68rem;color:var(--soft)}
+.sl span{font-family:var(--mono);font-size:.88rem}
+.sl button{width:26px;height:26px;border-radius:50%;background:var(--line2);font-size:.9rem;line-height:1;transition:background .2s}
+.sl button:hover{background:var(--blush)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;margin:16px 0 4px;border-radius:99px;background:var(--line2)}
+.seg button{padding:9px 6px;border-radius:99px;font-size:.88rem;font-weight:600;transition:background .3s,color .3s}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.sum{display:flex;justify-content:space-between;padding:6px 0;font-size:.92rem;color:var(--soft)}
+.sum span:last-child{font-family:var(--mono)}
+.sum--tot{margin-top:6px;padding-top:12px;border-top:2px solid var(--ink);color:var(--ink);font-weight:600;font-size:1.05rem;align-items:baseline}
+.sum--tot span:last-child{font-size:1.5rem;font-weight:500}
+.note{display:flex;gap:10px;margin-top:10px;padding:10px 12px;border-radius:14px;background:var(--butter);font-size:.84rem;line-height:1.4}
+.note::before{content:"";flex:none;width:8px;height:8px;margin-top:6px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 3px rgba(255,200,74,.35)}
+.note--g{background:var(--mint)}.note--g::before{background:var(--green);box-shadow:0 0 0 3px rgba(13,107,87,.2)}
+.lbl{display:block;margin:18px 0 8px;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.slip .chip{padding:7px 11px;font-size:.82rem}
+.days .chip{display:grid;justify-items:center;min-width:44px;padding:6px 4px;border-radius:14px;line-height:1.15;flex:1}
+.days .chip small{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;opacity:.7}
+.field{display:block;width:100%;margin-top:8px;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);background:#fff;transition:border-color .2s}
+.field:focus{outline:0;border-color:var(--ink)}
+.field.bad{border-color:var(--red);animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.slip .btn{width:100%;justify-content:space-between;margin-top:14px}
+.err{margin-top:8px;font-size:.84rem;color:var(--red);min-height:1.2em}
+.ok{text-align:center;padding:14px 0 0}
+.ok__tick{width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:var(--green);display:grid;place-items:center;animation:pop .5s var(--pop)}
+.ok__tick svg{width:28px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30;animation:draw .5s .25s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.ok__tok{display:inline-block;margin:10px 0;padding:8px 16px;border-radius:12px;border:1.5px dashed var(--ink);font-family:var(--mono);font-size:1.2rem;font-weight:500;letter-spacing:.06em}
+.ok dl{text-align:left;margin:12px 0;font-size:.9rem}
+.ok dl div{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.ok dt{color:var(--soft)}.ok dd{text-align:right;font-weight:500}
+.demo{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--line2);font-size:.8rem;color:var(--soft);text-align:left}
+.ok .link{margin-top:12px;font-size:.88rem;font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.bar{position:fixed;left:12px;right:12px;bottom:12px;z-index:40;display:none;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 20px;border-radius:99px;background:var(--ink);color:var(--paper);text-decoration:none;font-size:.92rem;box-shadow:0 18px 30px -12px rgba(15,47,42,.6);transform:translateY(140%);visibility:hidden;transition:transform .5s var(--ease),visibility .5s}
+.bar.show{transform:none;visibility:visible}
+.bar b{font-family:var(--mono);font-weight:500}
+.bar i{padding:9px 16px;border-radius:99px;background:var(--coral);color:var(--ink);font-style:normal;font-weight:600}
+.toast{position:fixed;left:50%;bottom:28px;z-index:60;max-width:calc(100% - 32px);padding:11px 20px;border-radius:99px;background:var(--ink);color:var(--paper);font-size:.9rem;transform:translate(-50%,160%);opacity:0;visibility:hidden;transition:transform .45s var(--pop),opacity .3s,visibility .45s;pointer-events:none;text-align:center}
+.toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
+@media (max-width:920px){.toast{bottom:84px}}
+
+/* packages */
+.packs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.pack{position:relative;display:flex;flex-direction:column;padding:24px 22px 22px;border-radius:30px;background:var(--bgc);transition:transform .5s var(--ease),box-shadow .5s}
+.pack:hover{transform:translateY(-8px) rotate(-.6deg);box-shadow:var(--shadow)}
+.pack:nth-child(1){--bgc:var(--mint)}.pack:nth-child(2){--bgc:var(--ink);color:var(--paper)}.pack:nth-child(3){--bgc:var(--butter)}.pack:nth-child(4){--bgc:var(--lilac)}
+.pack__tag{align-self:flex-start;padding:4px 10px;border-radius:99px;background:rgba(15,47,42,.09);font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase}
+.pack:nth-child(2) .pack__tag{background:var(--coral);color:var(--ink)}
+.pack h3{font-size:1.75rem;margin:16px 0 6px}
+.pack>p{font-size:.92rem;opacity:.78;min-height:4.2em}
+.pack ul{display:flex;flex-wrap:wrap;gap:5px;margin:14px 0 18px;flex:1;align-content:flex-start}
+.pack li{padding:3px 9px;border-radius:99px;border:1px solid currentColor;font-size:.74rem;opacity:.8}
+.pack__price{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.pack__price b{font-family:var(--disp);font-size:2.3rem;letter-spacing:-.04em;line-height:1}
+.pack__price s{font-family:var(--mono);font-size:.84rem;opacity:.6}
+.pack__save{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;margin-bottom:16px;opacity:.85}
+.pack button{padding:12px;border-radius:99px;background:var(--ink);color:var(--paper);font-weight:600;font-size:.92rem;transition:transform .2s var(--pop),background .3s}
+.pack:nth-child(2) button{background:var(--paper);color:var(--ink)}
+.pack button:active{transform:scale(.95)}
+.pack.on button{background:var(--green);color:#fff}
+.room{display:grid;grid-template-columns:.85fr 1.15fr;gap:20px;margin-top:20px}
+.room__pic{position:relative;border-radius:32px;overflow:hidden;min-height:320px;background:var(--mint)}
+.room__pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.room__list{padding:26px 28px;border-radius:32px;background:var(--card);border:1px solid var(--line)}
+.room__list h3{font-size:1.5rem;margin-bottom:6px}
+.room__list>p{color:var(--soft);font-size:.94rem;margin-bottom:12px}
+.room__list li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px dashed var(--line);font-size:.96rem}
+.room__list li span:last-child{font-family:var(--mono);font-size:.88rem;white-space:nowrap}
+
+/* journey */
+.jr{margin-top:112px;padding:96px 0 104px;background:var(--ink);color:var(--paper);border-radius:48px}
+.jr .eyebrow,.jr .head p{color:#a9c0b9}
+.jr .eyebrow b{background:var(--sun);color:var(--ink)}
+.jr h2 em{color:var(--sun)}
+.jr__pics{display:grid;grid-template-columns:1fr 1.4fr 1fr 1.2fr;gap:14px;margin-bottom:56px}
+.jr__pics div{height:190px;border-radius:999px;overflow:hidden;background:#1b423c}
+.jr__pics div:nth-child(even){border-radius:40px}
+.jr__pics img{width:100%;height:100%;object-fit:cover}
+.track{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:18px;padding-top:44px}
+.track::before,.track::after{content:"";position:absolute;left:0;right:0;top:11px;height:6px;border-radius:9px;background:rgba(255,255,255,.14)}
+.track::after{background:linear-gradient(90deg,var(--coral),var(--sun));transform-origin:left;transform:scaleX(var(--prog,0));transition:transform .25s linear}
+.stop{position:relative}
+.stop::before{content:"";position:absolute;left:0;top:-44px;width:28px;height:28px;border-radius:50%;background:var(--ink);border:3px solid rgba(255,255,255,.25);transition:background .4s,border-color .4s,transform .5s var(--pop)}
+.stop.on::before{background:var(--sun);border-color:var(--sun);transform:scale(1.15)}
+.stop time{font-family:var(--mono);font-size:.76rem;letter-spacing:.1em;color:var(--sun)}
+.stop h3{font-size:1.3rem;margin:8px 0 8px}
+.stop p{font-size:.92rem;color:#b9cbc5}
+.stop{transition:opacity .5s}
+html.js .stop{opacity:.45}
+html.js .stop.on{opacity:1}
+
+/* tracker */
+.trk{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.trk__form{display:flex;gap:8px;margin:26px 0 14px;padding:6px;border-radius:99px;background:var(--card);border:1.5px solid var(--ink)}
+.trk__form input{flex:1;min-width:0;padding:8px 0 8px 16px;border:0;background:none;outline:0;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.trk__try{font-size:.88rem;color:var(--soft);margin-bottom:8px}
+.trk .chip{font-family:var(--mono);font-size:.8rem}
+.panel{padding:28px;border-radius:32px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);min-height:380px}
+.panel__idle{display:grid;place-items:center;min-height:320px;text-align:center;color:var(--soft)}
+.panel__idle svg{width:74px;margin:0 auto 14px;display:block}
+.panel__top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px dashed var(--line)}
+.panel__top b{font-family:var(--mono);font-size:1.05rem;font-weight:500;letter-spacing:.06em}
+.state{padding:5px 12px;border-radius:99px;font-size:.8rem;font-weight:600;background:var(--butter)}
+.state.done{background:var(--mint);color:var(--green)}
+.steps li{position:relative;display:grid;grid-template-columns:26px 1fr auto;gap:14px;padding-bottom:18px;font-size:.96rem;color:var(--soft);animation:slin .5s var(--ease) backwards;animation-delay:calc(var(--k)*90ms)}
+.steps li::before{content:"";width:26px;height:26px;border-radius:50%;border:2px solid var(--line);background:var(--card);z-index:1}
+.steps li::after{content:"";position:absolute;left:12px;top:26px;bottom:0;width:2px;background:var(--line)}
+.steps li:last-child::after{display:none}
+.steps li.done{color:var(--ink)}
+.steps li.done::before{border-color:var(--green);background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/14px no-repeat}
+.steps li.done::after{background:var(--green)}
+.steps li.now{color:var(--ink);font-weight:600}
+.steps li.now::before{border-color:var(--coral);background:var(--coral);animation:pingc 1.6s infinite}
+@keyframes pingc{0%{box-shadow:0 0 0 0 rgba(255,106,74,.55)}80%,100%{box-shadow:0 0 0 10px rgba(255,106,74,0)}}
+.steps time{font-family:var(--mono);font-size:.78rem;font-weight:400}
+.mini{margin-top:6px;padding:16px 18px 6px;border-radius:20px;background:var(--paper);border:1px solid var(--line)}
+.mini__h{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-bottom:6px}
+.mini .rng:first-of-type{border-top:0}
+
+/* doctors */
+.docs{display:grid;grid-template-columns:.8fr 1.2fr;gap:26px;align-items:stretch}
+.docs__pic{position:relative;border-radius:999px 999px 36px 36px;overflow:hidden;min-height:480px;background:var(--lilac)}
+.docs__pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.docs__pic span{position:absolute;left:16px;right:16px;bottom:16px;padding:12px 16px;border-radius:20px;background:rgba(255,253,248,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:.86rem}
+.tt{border-radius:32px;background:var(--card);border:1px solid var(--line);overflow:hidden}
+.tt__row{display:grid;grid-template-columns:1.25fr 1fr auto;gap:6px 18px;align-items:center;padding:20px 24px;border-top:1px solid var(--line2);transition:background .3s}
+.tt__row:first-child{border-top:0}
+.tt__row.live{background:var(--mint)}
+.tt__row b{font-family:var(--disp);font-size:1.2rem;letter-spacing:-.02em;display:block}
+.tt__row small{color:var(--soft);font-size:.86rem}
+.tt__when{font-family:var(--mono);font-size:.78rem;line-height:1.5;color:var(--soft)}
+.tt__st{justify-self:end;padding:5px 12px;border-radius:99px;background:var(--line2);font-size:.78rem;font-weight:600;white-space:nowrap}
+.tt__row.live .tt__st{background:var(--green);color:#fff}
+.tt__foot{padding:16px 24px;border-top:1px solid var(--line2);font-size:.86rem;color:var(--soft);background:var(--paper)}
+
+/* voices */
+.voices{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.voice{padding:28px 26px;border-radius:32px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:22px;transition:transform .5s var(--ease)}
+.voice:nth-child(2){background:var(--coral);border-color:transparent;transform:translateY(22px)}
+.voice:hover{transform:translateY(-6px)}
+.voice:nth-child(2):hover{transform:translateY(14px)}
+.voice p{font-family:var(--disp);font-size:1.3rem;font-weight:500;letter-spacing:-.02em;line-height:1.22;flex:1}
+.voice p::before{content:"“";display:block;font-family:var(--serif);font-size:3.4rem;line-height:.6;margin-bottom:8px;color:var(--green)}
+.voice:nth-child(2) p::before{color:var(--ink)}
+.voice footer{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
+.since{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;margin-top:56px;padding:26px 30px;border-radius:32px;border:1.5px dashed var(--ink)}
+.since b{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3rem,7vw,5.2rem);line-height:.9;color:var(--green)}
+.since p{max-width:68ch;color:var(--soft)}
+
+/* faq */
+.faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
+.faq__pic{height:250px;margin-top:34px;border-radius:999px;overflow:hidden;background:var(--butter)}
+.faq__pic img{width:100%;height:100%;object-fit:cover}
+.faq details{border-top:1px solid var(--ink)}
+.faq details:last-child{border-bottom:1px solid var(--ink)}
+.faq summary{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:20px 0;cursor:pointer;list-style:none;font-family:var(--disp);font-size:1.22rem;font-weight:600;letter-spacing:-.02em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--mint);font-family:var(--mono);font-weight:400;transition:transform .4s var(--pop),background .3s}
+.faq details[open] summary::after{transform:rotate(45deg);background:var(--coral)}
+.faq details p{padding:0 54px 22px 0;color:var(--soft);animation:slin .4s var(--ease)}
+
+/* visit */
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.map{position:relative;border-radius:36px;overflow:hidden;background:var(--mint);min-height:440px}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.map text{font-family:var(--mono);font-size:11px;letter-spacing:.06em;fill:var(--soft);text-transform:uppercase}
+.map .pin{transform-origin:318px 204px;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-7px)}}
+.map .halo{transform-origin:318px 236px;animation:halo 2.4s ease-out infinite}
+@keyframes halo{from{transform:scale(.4);opacity:.7}to{transform:scale(1.7);opacity:0}}
+.info{padding:30px;border-radius:36px;background:var(--card);border:1px solid var(--line)}
+.info address{font-style:normal;font-size:1.06rem;margin-bottom:6px}
+.info .mail{font-family:var(--mono);font-size:.84rem;color:var(--soft)}
+.hours{margin:20px 0 6px}
+.hours li{display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:center;padding:12px 0;border-top:1px dashed var(--line);font-size:.96rem}
+.hours li span{grid-column:1/-1;grid-row:2;font-family:var(--mono);font-size:.78rem;color:var(--soft)}
+.dotst{padding:3px 10px;border-radius:99px;font-size:.72rem;font-weight:600;background:var(--line2);white-space:nowrap}
+.dotst.is{background:var(--mint);color:var(--green)}
+.msg textarea{resize:vertical;min-height:84px}
+.msg .btn{margin-top:12px}
+.msg__ok{margin-top:14px;padding:14px 16px;border-radius:16px;background:var(--mint);font-size:.92rem}
+
+/* footer */
+.foot{margin-top:112px;padding:70px 0 34px;background:var(--green);color:var(--card);border-radius:48px 48px 0 0;overflow:hidden}
+.foot__big{font-family:var(--disp);font-weight:800;font-size:clamp(3.4rem,13.4vw,11.4rem);letter-spacing:-.055em;line-height:.82;white-space:nowrap}
+.foot__big em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.02em;color:var(--sun)}
+.foot__row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 30px;margin:40px 0 28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.25);font-size:.94rem}
+.foot__row nav{display:flex;flex-wrap:wrap;gap:6px 20px}
+.foot__row a{text-decoration:none;opacity:.86}
+.foot__row a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.fine{max-width:96ch;font-size:.78rem;line-height:1.6;opacity:.78}
+.fine a{text-decoration:underline;text-underline-offset:3px}
+
+/* responsive */
+@media (max-width:1060px){
+  .nav__links{position:absolute;left:0;right:0;top:calc(100% + 8px);flex-direction:column;padding:10px;border-radius:26px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .3s,transform .3s var(--ease),visibility .3s}
+  .nav__links.open{opacity:1;visibility:visible;transform:none}
+  .nav__links a{padding:13px 16px;font-size:1.02rem}
+  .nav__burger{display:block}
+  .packs{grid-template-columns:repeat(2,1fr)}
+  .t{grid-template-columns:16px minmax(0,1fr) 62px 84px;grid-template-areas:"cap main price add" ". prep prep prep";row-gap:6px}
+  .t__cap{grid-area:cap}.t__main{grid-area:main}.t__price{grid-area:price}.t__add{grid-area:add}
+  .t__prep{grid-area:prep}.t__when{grid-area:prep;justify-self:end}
+  .t__main span{white-space:normal}
+}
+@media (max-width:920px){
+  .hero__grid,.rx,.lab,.trk,.docs,.faq,.visit,.head,.room{grid-template-columns:1fr}
+  .head{gap:16px;margin-bottom:34px}
+  .hero{padding-top:34px}
+  .art{height:520px;max-width:520px;width:100%;margin:10px auto 0}
+  .art__main{height:500px}
+  .rep{left:0;bottom:14px}
+  .art__dot{width:140px;height:140px;top:132px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3){border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+  .doors,.voices{grid-template-columns:1fr}
+  .voice:nth-child(2),.voice:nth-child(2):hover{transform:none}
+  .strip,.slip{position:static;max-height:none}
+  .bar{display:flex}
+  .jr__pics{grid-template-columns:1fr 1fr}
+  .track{grid-template-columns:1fr;gap:30px;padding:0 0 0 48px}
+  .track::before,.track::after{left:11px;right:auto;top:0;bottom:0;width:6px;height:auto}
+  .track::after{transform-origin:top;transform:scaleY(var(--prog,0))}
+  .stop::before{left:-48px;top:0}
+  .docs__pic{min-height:380px}
+  .sec{padding-top:86px}
+  .jr{margin-top:86px;padding:70px 0 76px;border-radius:36px}
+  .foot{margin-top:86px;border-radius:36px 36px 0 0}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .wrap{width:calc(100% - 32px)}
+  .brand__name small{display:none}
+  .nav__cta{padding-left:14px}
+  .art{height:430px}
+  .art__main{width:70%;height:410px}
+  .art__dot{width:108px;height:108px;top:104px}
+  .badge{width:96px;height:96px;left:2%}
+  .rep{width:232px;bottom:6px;padding:12px 14px 10px}
+  .rep__top{font-size:.58rem;white-space:nowrap}
+  .hide-s{display:none}
+  .rep .rng:nth-of-type(n+3){display:none}
+  .stat{padding:20px 18px}
+  .caps{grid-template-columns:1fr;gap:18px;padding:20px}
+  .t{padding:14px;grid-template-columns:16px minmax(0,1fr) 84px;grid-template-areas:"cap main add" ". prep price"}
+  .t__when:not(.slow){display:none}
+  .t__when.slow{justify-self:start;margin-left:92px}
+  .rack{justify-content:space-between}
+  .door__pic{height:170px}
+  .rx__pics div{height:170px}
+  .strip,.panel,.info{padding:22px 20px;border-radius:26px}
+  .blister{gap:5px;padding:12px}
+  .packs{grid-template-columns:1fr}
+  .pack>p{min-height:0}
+  .tt__row{grid-template-columns:1fr auto;padding:16px 18px}
+  .tt__when{grid-column:1/-1;grid-row:2}
+  .since{grid-template-columns:1fr;gap:10px;padding:22px}
+  .faq details p{padding-right:0}
+  .faq__pic{height:170px;margin-top:24px}
+  .map{min-height:320px}
+  .steps li{grid-template-columns:26px 1fr}
+  .steps time{grid-column:2}
+  .foot{padding-top:50px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html.js .rv,html.js h1 .w>span{opacity:1;transform:none}
+  html.js .art__main{clip-path:none}
+  html.js .rngs:not(.in) .rng__bar i{left:calc(var(--p)*1%)}
+  .ecg .run{display:none}
+  html.js .stop{opacity:1}
+}
+</style>
+</head>
+<body id="top">
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Hitesh Clinic, home">
+    <span class="brand__mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span>
+    <span class="brand__name">Hitesh Clinic<small>Chemist · Lab · Check-ups</small></span>
+  </a>
+  <nav class="nav__links" id="navLinks" aria-label="Sections">
+    <a href="#pharmacy">Chemist</a>
+    <a href="#tests">Blood tests</a>
+    <a href="#checkups">Check-ups</a>
+    <a href="#reports">Reports</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#visit">Visit</a>
+  </nav>
+  <a class="btn btn--ink nav__cta" id="navCta" href="#slip">Book a test <i id="navCount" aria-hidden="true">→</i></a>
+  <button class="nav__burger" id="burger" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Menu"><i></i><i></i></button>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <p class="open rv" id="openChip"><i></i><span>Chemist open 7 am to 10:30 pm, every day</span></p>
+      <h1 id="h1">Medicines, tests and check-ups, <em>on one counter.</em></h1>
+      <p class="lede rv" style="--d:4">A chemist&rsquo;s shop with its own sample room and a doctor&rsquo;s room at the back. Give blood before breakfast and read the report on your phone by seven that evening.</p>
+      <div class="cta rv" style="--d:5">
+        <a class="btn btn--coral" href="#tests">Book a blood test <i aria-hidden="true">→</i></a>
+        <a class="btn btn--line" href="#pharmacy">Refill a prescription</a>
+      </div>
+      <ul class="hero__facts rv" style="--d:6">
+        <li>Home collection from 6:30 am</li>
+        <li>Same-day reports</li>
+        <li>Since 1998</li>
+      </ul>
+    </div>
+
+    <div class="art" id="art">
+      <div class="art__main"><img src="img/counter.jpg" alt="A pharmacist in a white coat reaching for a box on the dispensary shelves" fetchpriority="high"></div>
+      <svg class="badge" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><path id="circ" d="M60 60m-45 0a45 45 0 1 1 90 0a45 45 0 1 1-90 0"/></defs>
+        <circle cx="60" cy="60" r="60" fill="#ffc84a"/>
+        <g class="spin"><text><textPath href="#circ" textLength="278">REPORTS BY 7 PM · SAME DAY · REPORTS BY 7 PM ·</textPath></text></g>
+        <path d="M54 44h12v10h10v12H66v10H54V66H44V54h10z" fill="#0f2f2a"/>
+      </svg>
+      <div class="rep rngs" id="heroRep" data-depth="-.02">
+        <div class="rep__top"><span>Sample report</span><b>All in range</b></div>
+        <div class="rng" style="--p:52"><span class="rng__name">Haemoglobin</span><span class="rng__val">13.8 <small>g/dL</small></span><div class="rng__bar"><i></i></div></div>
+        <div class="rng" style="--p:44"><span class="rng__name">Fasting sugar</span><span class="rng__val">92 <small>mg/dL</small></span><div class="rng__bar"><i></i></div></div>
+        <div class="rng" style="--p:61"><span class="rng__name">TSH</span><span class="rng__val">2.4 <small>mIU/L</small></span><div class="rng__bar"><i></i></div></div>
+      </div>
+      <div class="art__dot"><img src="img/capsules.jpg" alt="Orange and white capsules spilling from a bottle"></div>
+      <span class="pill fl" data-depth=".05" style="right:-2%;top:70px;--r:-24deg;--t:6s" aria-hidden="true"></span>
+      <span class="tab fl hide-s" data-depth=".08" style="left:35%;top:318px;--c1:#ffc84a;--t:8s" aria-hidden="true"></span>
+      <span class="pill fl hide-s" data-depth=".07" style="left:46%;bottom:0;--c1:#b9a8ee;--r:18deg;--t:7.5s" aria-hidden="true"></span>
+      <span class="tab fl" data-depth=".04" style="right:4%;bottom:70px;--t:9s" aria-hidden="true"></span>
+      <span class="pill fl hide-s" data-depth=".1" style="left:3%;top:92px;width:46px;height:19px;--c1:#0d6b57;--r:40deg;--t:5.5s" aria-hidden="true"></span>
+    </div>
+  </div>
+
+  <svg class="ecg" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true">
+    <path class="base" pathLength="1" d="M0 40H170l12-6 10 6h14l8 8 12-44 12 60 10-24h16q14-18 28 0H560l12-6 10 6h14l8 8 12-44 12 60 10-24h16q14-18 28 0H950l12-6 10 6h14l8 8 12-44 12 60 10-24h16q14-18 28 0H1200"/>
+    <path class="run" pathLength="1" d="M0 40H170l12-6 10 6h14l8 8 12-44 12 60 10-24h16q14-18 28 0H560l12-6 10 6h14l8 8 12-44 12 60 10-24h16q14-18 28 0H950l12-6 10 6h14l8 8 12-44 12 60 10-24h16q14-18 28 0H1200"/>
+  </svg>
+
+  <div class="wrap">
+    <div class="stats rv">
+      <div class="stat"><b><span data-count="28">28</span><small>yrs</small></b><span>on Gulmohar Lane, behind the same counter</span></div>
+      <div class="stat"><b><span data-count="4200">4,200</span></b><span>medicines on the shelf, sorted by salt, not by brand</span></div>
+      <div class="stat"><b><span data-count="180">180</span></b><span>tests, run in our own lab or sent out the same morning</span></div>
+      <div class="stat"><b>7<small>pm</small></b><span>is when today&rsquo;s report reaches you, if we have the sample by 11</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="mq" aria-hidden="true">
+  <div class="mq__track">
+    <span>Prescription medicines</span><span>Blood tests</span><span>Home sample collection</span><span>Full-body check-ups</span><span>ECG</span><span>BP and sugar checks</span><span>Vaccinations</span><span>Doctor&rsquo;s room</span>
+    <span>Prescription medicines</span><span>Blood tests</span><span>Home sample collection</span><span>Full-body check-ups</span><span>ECG</span><span>BP and sugar checks</span><span>Vaccinations</span><span>Doctor&rsquo;s room</span>
+  </div>
+</div>
+
+<section class="sec" id="doors">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow rv"><b>01</b> Under one roof</p><h2 class="rv">Three rooms, <em>one door.</em></h2></div>
+      <p class="rv" style="--d:1">Most people come in for one thing and leave having done three. The counter, the sample room and the check-up room share one register, so nobody asks for your details twice.</p>
+    </div>
+    <div class="doors">
+      <a class="door door--a rv" href="#pharmacy">
+        <span class="door__n">ROOM 01</span>
+        <div class="door__pic"><img src="img/shelves.jpg" alt="Dispensary shelves stacked with medicine boxes" loading="lazy"></div>
+        <h3>The chemist counter</h3>
+        <p>Prescription medicines, generics if you ask, and a pharmacist who reads the whole prescription before reaching for the shelf.</p>
+        <span class="door__go">Refills and delivery <i aria-hidden="true">↓</i></span>
+      </a>
+      <a class="door door--b rv" style="--d:1" href="#tests">
+        <span class="door__n">ROOM 02</span>
+        <div class="door__pic"><img src="img/tubes.jpg" alt="Rows of blood collection tubes with coloured caps" loading="lazy"></div>
+        <h3>The sample room</h3>
+        <p>Blood and urine tests, at the clinic or at your door from 6:30 in the morning. Most reports are ready the same evening.</p>
+        <span class="door__go">Build a test slip <i aria-hidden="true">↓</i></span>
+      </a>
+      <a class="door door--c rv" style="--d:2" href="#checkups">
+        <span class="door__n">ROOM 03</span>
+        <div class="door__pic"><img src="img/bp.jpg" alt="A digital blood pressure monitor on someone's arm" loading="lazy"></div>
+        <h3>The check-up room</h3>
+        <p>Blood pressure, sugar, ECG and full-body packages, with a doctor on the other side of the wall to explain the numbers.</p>
+        <span class="door__go">See the packages <i aria-hidden="true">↓</i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="pharmacy">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow rv"><b>02</b> The chemist counter</p><h2 class="rv">The right strip, <em>before it runs out.</em></h2></div>
+      <p class="rv" style="--d:1">Half our work is long-term medicine: blood pressure, sugar, thyroid. We keep a refill date for each regular customer, and we ring before the last tablet, not after.</p>
+    </div>
+    <div class="rx">
+      <div>
+        <div class="rx__pics rv">
+          <div><img src="img/organiser.jpg" alt="A hand filling a weekly pill organiser" loading="lazy"></div>
+          <div><img src="img/stethoscope.jpg" alt="A stethoscope on a pale blue surface" loading="lazy"></div>
+        </div>
+        <ul class="rxlist">
+          <li class="rv"><i>Rx</i><b>Generics, if you want them</b><span>We tell you the generic for your medicine and what it saves. You decide; the doctor&rsquo;s brand is always in stock too.</span></li>
+          <li class="rv" style="--bgc:var(--sky)"><i>2–8°</i><b>Kept cold, kept right</b><span>Insulin and vaccines stay in a monitored fridge, and the day&rsquo;s temperature log hangs beside it for anyone to read.</span></li>
+          <li class="rv" style="--bgc:var(--butter)"><i>4 km</i><b>At your door by evening</b><span>Free delivery within 4 km on orders above ₹300. Order before 5 pm and it comes the same day.</span></li>
+          <li class="rv" style="--bgc:var(--lilac)"><i>30d</i><b>A refill box every month</b><span>Your regular medicines, packed and double-checked on the same date each month. Change or pause it with one call.</span></li>
+        </ul>
+        <p class="fine-note rv">Prescription medicines are dispensed only against a valid prescription. We do not sell antibiotics or sleeping tablets without one.</p>
+      </div>
+
+      <div class="strip rv" id="strip">
+        <h3>When does my strip <em>run out?</em></h3>
+        <p>Count what is left, tell us the dose, and see the day to reorder.</p>
+        <div class="strip__row">
+          <label for="tabs">Tablets left</label>
+          <div class="step"><button type="button" id="tabsDown" aria-label="One tablet fewer">−</button><input id="tabs" type="number" inputmode="numeric" min="1" max="90" value="14"><button type="button" id="tabsUp" aria-label="One tablet more">+</button></div>
+        </div>
+        <div class="strip__row">
+          <span id="doseLbl">Tablets a day</span>
+          <div class="chips" id="dose" role="group" aria-labelledby="doseLbl">
+            <button type="button" class="chip" data-v="1" aria-pressed="true">1</button>
+            <button type="button" class="chip" data-v="2" aria-pressed="false">2</button>
+            <button type="button" class="chip" data-v="3" aria-pressed="false">3</button>
+            <button type="button" class="chip" data-v="4" aria-pressed="false">4</button>
+          </div>
+        </div>
+        <div class="blister" id="blister" aria-hidden="true"></div>
+        <p class="blister__more" id="blisterMore"></p>
+        <p class="strip__out" id="stripOut" aria-live="polite">Enter the number of tablets you have left.</p>
+        <button type="button" class="btn btn--coral" id="remind">Remind me in time <i aria-hidden="true">→</i></button>
+        <p class="strip__done" id="remindDone" hidden></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="tests">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow rv"><b>03</b> The sample room</p><h2 class="rv">Build your <em>test slip.</em></h2></div>
+      <p class="rv" style="--d:1">Search for what the doctor wrote, add it to the slip, and pick a time. The slip works out the price, whether you need to fast, and when the report will be ready.</p>
+    </div>
+
+    <div class="caps rv">
+      <div class="rack" id="rack" role="group" aria-label="Sample tubes by cap colour">
+        <button type="button" class="tube" data-cap="lav" style="--c:#b9a8ee" aria-pressed="false" aria-label="Lavender cap"></button>
+        <button type="button" class="tube" data-cap="gold" style="--c:#ffc84a;--h:44%;--fill:#c9502c" aria-pressed="false" aria-label="Gold cap"></button>
+        <button type="button" class="tube" data-cap="grey" style="--c:#aab3b0;--h:38%" aria-pressed="false" aria-label="Grey cap"></button>
+        <button type="button" class="tube" data-cap="sky" style="--c:#9fd0ee;--h:62%" aria-pressed="false" aria-label="Light blue cap"></button>
+        <button type="button" class="tube" data-cap="red" style="--c:#e2483d;--h:50%;--fill:#c9502c" aria-pressed="false" aria-label="Red cap"></button>
+        <button type="button" class="tube tube--cup" data-cap="cup" style="--c:#fffdf8" aria-pressed="false" aria-label="Sterile cup"></button>
+      </div>
+      <div class="caps__txt" aria-live="polite">
+        <b id="capName">Why are the caps different colours?</b>
+        <p id="capText">Each cap tells the lab what is inside the tube and which tests it can run. Pick a tube to see what it is for.</p>
+        <button type="button" id="capShow" hidden>Show these tests</button>
+      </div>
+    </div>
+
+    <div class="lab">
+      <div>
+        <label class="find rv">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+          <span class="sr">Search tests</span>
+          <input id="q" type="search" placeholder="Search a test: sugar, thyroid, CBC, vitamin D" autocomplete="off">
+          <kbd id="qCount">24 tests</kbd>
+        </label>
+        <div class="chips rv" id="cats" role="group" aria-label="Filter tests">
+          <button type="button" class="chip" data-cat="all" aria-pressed="true">All</button>
+          <button type="button" class="chip" data-cat="routine" aria-pressed="false">Routine</button>
+          <button type="button" class="chip" data-cat="sugar" aria-pressed="false">Sugar</button>
+          <button type="button" class="chip" data-cat="heart" aria-pressed="false">Heart</button>
+          <button type="button" class="chip" data-cat="thyroid" aria-pressed="false">Thyroid</button>
+          <button type="button" class="chip" data-cat="organs" aria-pressed="false">Liver and kidney</button>
+          <button type="button" class="chip" data-cat="vitamins" aria-pressed="false">Vitamins</button>
+          <button type="button" class="chip" data-cat="fever" aria-pressed="false">Fever</button>
+        </div>
+        <ul class="tl rv" id="testList"></ul>
+        <noscript><p class="tl__none">The test list and the slip need JavaScript. With it switched off, the counter has the full printed price list.</p></noscript>
+        <p class="tl__foot">These are the 24 tests people ask for most; the counter has the full list of 180. Reports come the same day by 7 pm unless a test says otherwise.</p>
+      </div>
+
+      <aside class="slip rv" id="slip" aria-label="Your test slip">
+        <div class="slip__top"><h3>Your slip</h3><span id="slipCount">Empty</span></div>
+        <div id="slipBody">
+          <div class="slip__empty" id="slipEmpty">
+            <svg viewBox="0 0 54 54" fill="none" stroke="#0f2f2a" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="12" y="6" width="30" height="42" rx="6" fill="#d6efe2"/><path d="M19 18h16M19 26h16M19 34h9"/></svg>
+            Nothing on the slip yet. Add a test from the list, or a whole package from the section below.
+          </div>
+          <div id="slipFull" hidden>
+            <ul id="slipLines"></ul>
+            <div class="seg" role="group" aria-label="Where to give the sample">
+              <button type="button" data-mode="walk" aria-pressed="true">Walk in</button>
+              <button type="button" data-mode="home" aria-pressed="false">Home collection</button>
+            </div>
+            <div class="sum"><span>Tests</span><span id="sumSub">₹0</span></div>
+            <div class="sum"><span id="sumFeeLbl">Home collection</span><span id="sumFee">₹0</span></div>
+            <div class="sum sum--tot"><span>To pay at the counter</span><span id="sumTot">₹0</span></div>
+            <div id="slipNotes"></div>
+            <span class="lbl" id="dayLbl">Day</span>
+            <div class="chips days" id="days" role="group" aria-labelledby="dayLbl"></div>
+            <span class="lbl" id="slotLbl">Time</span>
+            <div class="chips" id="slots" role="group" aria-labelledby="slotLbl"></div>
+            <span class="lbl">Who is it for</span>
+            <label class="sr" for="fName">Name</label><input class="field" id="fName" type="text" placeholder="Name of the person giving the sample" autocomplete="name">
+            <label class="sr" for="fPhone">Mobile number</label><input class="field" id="fPhone" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" autocomplete="tel">
+            <label class="sr" for="fArea">Address</label><input class="field" id="fArea" type="text" placeholder="House number and lane, within 4 km" hidden>
+            <p class="err" id="slipErr" role="alert"></p>
+            <button type="button" class="btn btn--coral" id="hold">Hold this slot <i aria-hidden="true">→</i></button>
+          </div>
+        </div>
+        <div class="ok" id="slipOk" hidden></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="checkups">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow rv"><b>04</b> The check-up room</p><h2 class="rv">A check-up, <em>once a year.</em></h2></div>
+      <p class="rv" style="--d:1">Four packages built from the same tests as the list above, so you can see exactly what is in each and what the bundle saves. Adding one puts it on your slip.</p>
+    </div>
+    <div class="packs" id="packs"></div>
+    <noscript><p class="tl__none">Starter ₹749 · Sugar Watch ₹1,199 · Full Body ₹2,499 · Sixty Plus ₹2,899. Ask at the counter for what each one covers.</p></noscript>
+    <div class="room">
+      <div class="room__pic rv"><img src="img/checkup.jpg" alt="A doctor taking an older patient's blood pressure across a desk" loading="lazy"></div>
+      <div class="room__list rv" style="--d:1">
+        <h3>No appointment needed for these</h3>
+        <p>Walk into the check-up room any time the chemist is open.</p>
+        <ul>
+          <li><span>Blood pressure check</span><span>Free</span></li>
+          <li><span>Sugar by finger-prick, result in a minute</span><span>₹30</span></li>
+          <li><span>Weight, height and BMI</span><span>Free</span></li>
+          <li><span>ECG, read by the physician the same day</span><span>₹250</span></li>
+          <li><span>Nebulisation</span><span>₹80</span></li>
+          <li><span>Injection or dressing, with your prescription</span><span>₹50</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="jr" id="journey">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow rv"><b>05</b> Behind the counter</p><h2 class="rv">Where your sample <em>goes all day.</em></h2></div>
+      <p class="rv" style="--d:1">A report is only as good as the twelve hours before it. This is what happens between the needle and the message on your phone.</p>
+    </div>
+    <div class="jr__pics rv">
+      <div><img src="img/collection.jpg" alt="A gloved health worker drawing blood from a person's arm" loading="lazy"></div>
+      <div><img src="img/rack.jpg" alt="A gloved hand placing a sample tube into a rack" loading="lazy"></div>
+      <div><img src="img/sample.jpg" alt="A gloved hand lifting a blood sample tube from a tray" loading="lazy"></div>
+      <div><img src="img/microscope.jpg" alt="A person in a lab coat looking through a microscope" loading="lazy"></div>
+    </div>
+    <ol class="track" id="track">
+      <li class="stop"><time>6:30 AM</time><h3>Collected</h3><p>One needle, one try. Your name and a barcode go on the tube while you are still in the chair.</p></li>
+      <li class="stop"><time>9:00 AM</time><h3>At the bench</h3><p>Tubes are checked against the slip, then spun so the serum separates from the cells.</p></li>
+      <li class="stop"><time>11:30 AM</time><h3>On the analyser</h3><p>Control samples run first. If the controls are off, nothing of yours is run until they are right.</p></li>
+      <li class="stop"><time>4:00 PM</time><h3>Read and signed</h3><p>The pathologist reads every report. Anything far out of range is repeated before it is signed.</p></li>
+      <li class="stop"><time>7:00 PM</time><h3>With you</h3><p>A PDF on your phone and a printed copy at the counter. Urgent values get a phone call first.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="reports">
+  <div class="wrap trk">
+    <div>
+      <p class="eyebrow rv"><b>06</b> Reports</p>
+      <h2 class="rv">Where is <em>my report?</em></h2>
+      <p class="rv" style="--d:1;margin-top:20px;color:var(--soft);max-width:44ch">Every slip carries a sample number. Type it here to see which bench your tube has reached.</p>
+      <form class="trk__form rv" id="trkForm" style="--d:2" novalidate>
+        <label class="sr" for="trkIn">Sample number</label>
+        <input id="trkIn" type="text" placeholder="HC-0000-000" autocomplete="off" maxlength="12">
+        <button class="btn btn--ink btn--sm" type="submit">Track</button>
+      </form>
+      <p class="trk__try rv" style="--d:3">No slip yet? Try one of these:</p>
+      <div class="chips rv" id="trkDemo" style="--d:3"></div>
+    </div>
+    <div class="panel rv" id="panel" aria-live="polite">
+      <div class="panel__idle">
+        <div>
+          <svg viewBox="0 0 74 74" fill="none" stroke="#0f2f2a" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="27" y="6" width="20" height="10" rx="3" fill="#b9a8ee"/><path d="M30 16v38a7 7 0 0 0 14 0V16" fill="#fffdf8"/><path d="M30 36h14v18a7 7 0 0 1-14 0z" fill="#ff6a4a" stroke="none"/><path d="M30 16v38a7 7 0 0 0 14 0V16"/></svg>
+          Enter a sample number to follow the tube.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="doctors">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow rv"><b>07</b> The doctor&rsquo;s room</p><h2 class="rv">Someone to <em>explain the numbers.</em></h2></div>
+      <p class="rv" style="--d:1">Five visiting doctors share the room at the back. No appointment: take a token at the counter and wait your turn. The list below knows what time it is in Indore.</p>
+    </div>
+    <div class="docs">
+      <div class="docs__pic rv"><img src="img/doctor.jpg" alt="A doctor in a white shirt with a stethoscope around his neck, arms folded" loading="lazy"><span>Any report made here is explained free of charge on your next visit.</span></div>
+      <div class="tt rv" style="--d:1" id="tt"></div>
+    </div>
+    <noscript><p class="tl__none">General physician: Monday to Saturday, 10 am to 1 pm and 6 pm to 9 pm. Other clinics run on fixed days; ask at the counter.</p></noscript>
+  </div>
+</section>
+
+<section class="sec" id="voices">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow rv"><b>08</b> From the lane</p><h2 class="rv">People who <em>keep coming back.</em></h2></div>
+      <p class="rv" style="--d:1">We asked three regulars why they have not switched to an app.</p>
+    </div>
+    <div class="voices">
+      <blockquote class="voice rv"><p>I give the sample on my way to school and the report is on my phone before the last bell.</p><footer>A schoolteacher, two lanes away</footer></blockquote>
+      <blockquote class="voice rv" style="--d:1"><p>They rang to say my father&rsquo;s refill was due. I live in another city. That call is why we stay.</p><footer>A daughter who orders from Pune</footer></blockquote>
+      <blockquote class="voice rv" style="--d:2"><p>He told me the generic cost a third as much and let me decide. Nobody had told me before.</p><footer>A retired bank clerk</footer></blockquote>
+    </div>
+    <div class="since rv">
+      <b>1998</b>
+      <p>Hitesh opened with one shelf, one fridge and a ledger of who took what. The sample room came in 2009 and the doctor&rsquo;s room in 2016. The ledger is a computer now, but he still stands at the counter most evenings and still asks how your mother&rsquo;s knee is.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="wrap faq">
+    <div>
+      <p class="eyebrow rv"><b>09</b> Before you come</p>
+      <h2 class="rv">Asked at the <em>counter daily.</em></h2>
+      <div class="faq__pic rv" style="--d:1"><img src="img/ecg.jpg" alt="Gloved hands marking an ECG printout beside a stethoscope" loading="lazy"></div>
+    </div>
+    <div class="rv" style="--d:1">
+      <details open><summary>Do I need to fast before my test?</summary><p>Only for tests marked as fasting on the list, such as fasting sugar and the lipid profile. Water is fine. Tea, coffee and breakfast are not. Ask your doctor whether to take your morning medicines before or after the sample.</p></details>
+      <details><summary>How do I get my report?</summary><p>As a PDF on your phone and as a printed copy at the counter, whichever you prefer. You can follow the sample with the number on your slip in the meantime.</p></details>
+      <details><summary>What does home collection cost?</summary><p>₹60 within 4 km. It is free when your tests come to ₹800 or more, and it is included in the Sixty Plus package.</p></details>
+      <details><summary>Do I need a prescription to buy medicine?</summary><p>For prescription medicines, yes. A clear photo is enough to place an order, and we check the original when we deliver.</p></details>
+      <details><summary>How can I pay?</summary><p>Cash, UPI or card, at the counter or to the person who delivers. Nothing is charged before the sample is taken or the medicine is handed over.</p></details>
+      <details><summary>Will someone explain my report to me?</summary><p>Yes. The general physician goes through any report made here at no charge on your next visit. For anything urgent we call you before the report is sent.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="visit">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow rv"><b>10</b> Visit</p><h2 class="rv">Third shop <em>from the banyan.</em></h2></div>
+      <p class="rv" style="--d:1">The chemist is open every day of the year. The sample room closes early on Sunday and the doctor&rsquo;s room takes the day off.</p>
+    </div>
+    <div class="visit">
+      <div class="map rv" role="img" aria-label="A drawn map showing the clinic on Gulmohar Lane, between the banyan tree and the school gate">
+        <svg viewBox="0 0 560 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="560" height="440" fill="#d6efe2"/>
+          <path d="M-20 330C120 300 250 372 600 318" stroke="#fffdf8" stroke-width="46" fill="none"/>
+          <path d="M-20 330C120 300 250 372 600 318" stroke="#dedbce" stroke-width="2" stroke-dasharray="14 14" fill="none"/>
+          <path d="M120 -20C140 120 250 200 318 236S420 330 430 470" stroke="#fffdf8" stroke-width="30" fill="none"/>
+          <path d="M318 236C400 200 470 120 600 110" stroke="#fffdf8" stroke-width="22" fill="none"/>
+          <rect x="30" y="60" width="64" height="80" rx="14" fill="#bfe3d0"/><rect x="190" y="40" width="96" height="66" rx="14" fill="#bfe3d0"/><rect x="380" y="20" width="120" height="56" rx="14" fill="#bfe3d0"/>
+          <rect x="30" y="196" width="150" height="74" rx="14" fill="#bfe3d0"/><rect x="460" y="170" width="80" height="100" rx="14" fill="#bfe3d0"/><rect x="230" y="386" width="140" height="70" rx="14" fill="#bfe3d0"/>
+          <circle cx="222" cy="172" r="26" fill="#0d6b57"/><circle cx="204" cy="158" r="16" fill="#0d6b57"/><circle cx="240" cy="156" r="18" fill="#0d6b57"/>
+          <text x="176" y="218">Banyan</text><text x="400" y="100">School gate</text><text x="42" y="366">Station road</text><text x="352" y="278">Gulmohar lane</text>
+          <ellipse class="halo" cx="318" cy="236" rx="22" ry="9" fill="#ff6a4a"/>
+          <g class="pin"><path d="M318 236c-18-22-26-34-26-46a26 26 0 1 1 52 0c0 12-8 24-26 46z" fill="#ff6a4a"/><path d="M313 176h10v9h9v10h-9v9h-10v-9h-9v-10h9z" fill="#fffdf8"/></g>
+        </svg>
+      </div>
+      <div class="info rv" style="--d:1">
+        <address>Hitesh Clinic, 12 Gulmohar Lane, off Station Road, Indore</address>
+        <p class="mail">counter@hiteshclinic.example · 0731 000 0000</p>
+        <ul class="hours" id="hours">
+          <li data-k="chem"><b>Chemist counter</b><span>Every day, 7:00 am to 10:30 pm</span><em class="dotst">—</em></li>
+          <li data-k="lab"><b>Sample room</b><span>Mon to Sat 6:30 am to 7 pm · Sun till 1 pm</span><em class="dotst">—</em></li>
+          <li data-k="doc"><b>General physician</b><span>Mon to Sat, 10 am to 1 pm and 6 to 9 pm</span><em class="dotst">—</em></li>
+        </ul>
+        <form class="msg" id="msg" novalidate>
+          <span class="lbl">Leave a note for the counter</span>
+          <label class="sr" for="mName">Your name</label><input class="field" id="mName" type="text" placeholder="Your name" autocomplete="name">
+          <label class="sr" for="mText">Your note</label><textarea class="field" id="mText" placeholder="Do you stock a medicine, can someone collect a sample on Sunday, anything"></textarea>
+          <button class="btn btn--ink" type="submit">Send the note <i aria-hidden="true">→</i></button>
+          <p class="msg__ok" id="msgOk" role="status" hidden></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="foot__big" aria-hidden="true">Get well <em>soon.</em></p>
+    <div class="foot__row">
+      <span>Hitesh Clinic · Chemist, lab and check-ups · Indore</span>
+      <nav aria-label="Footer"><a href="#pharmacy">Chemist</a><a href="#tests">Blood tests</a><a href="#checkups">Check-ups</a><a href="#reports">Reports</a><a href="#doctors">Doctors</a><a href="#visit">Visit</a></nav>
+    </div>
+    <p class="fine">Demo site. Hitesh Clinic is a fictional clinic and chemist, and the address, phone number, prices, timings, reports and quotes here are made up for illustration. Nothing on this page is medical advice, and no booking, reminder or message is sent or saved. Photographs are from Unsplash. Designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a>, who can build one like this for you. <a href="../index.html">See more demo sites</a>.</p>
+  </div>
+</footer>
+
+<a class="bar" id="bar" href="#slip"><span>Your slip · <b id="barTxt">0 tests</b></span><i>View</i></a>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  'use strict';
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
+  var rupee = function (n) { return '₹' + Math.round(n).toLocaleString('en-IN'); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  // The clinic runs on Indian time, whatever the visitor's own clock says.
+  function ist() { return new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })); }
+  function addDays(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+  function dayName(d, long) { return d.toLocaleDateString('en-IN', { weekday: long ? 'long' : 'short' }); }
+  function niceDate(d) { return d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }); }
+  function clock(h) { var hh = Math.floor(h), m = Math.round((h - hh) * 60); return ((hh + 11) % 12 + 1) + (m ? ':' + (m < 10 ? '0' : '') + m : '') + (hh < 12 ? ' am' : ' pm'); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  var toastT;
+  function toast(msg) {
+    var t = $('#toast'); t.textContent = msg; t.classList.add('show');
+    clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove('show'); }, 2600);
+  }
+
+  /* ---------- headline, reveals, counters ---------- */
+  (function () {
+    var h = $('#h1'), n = 0;
+    [].slice.call(h.childNodes).forEach(function (node) {
+      var isEm = node.nodeType === 1, frag = document.createDocumentFragment();
+      node.textContent.split(/(\s+)/).forEach(function (w) {
+        if (!w.trim()) { if (w) frag.appendChild(document.createTextNode(' ')); return; }
+        var o = document.createElement('span'), i = document.createElement(isEm ? 'em' : 'span');
+        o.className = 'w'; i.textContent = w; i.style.setProperty('--n', n++);
+        if (isEm) { var s = document.createElement('span'); s.style.setProperty('--n', n - 1); s.appendChild(i); o.appendChild(s); } else { o.appendChild(i); }
+        frag.appendChild(o);
+      });
+      h.replaceChild(frag, node);
+    });
+    requestAnimationFrame(function () { h.classList.add('in'); $('#art').classList.add('in'); });
+  })();
+
+  function countUp(el) {
+    var to = +el.dataset.count, t0 = null;
+    if (RM) return;
+    el.textContent = '0';
+    requestAnimationFrame(function step(t) {
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / 1400), e = 1 - Math.pow(1 - p, 4);
+      el.textContent = Math.round(to * e).toLocaleString('en-IN');
+      if (p < 1) requestAnimationFrame(step);
+    });
+  }
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      $$('[data-count]', e.target).forEach(countUp);
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }) : null;
+  function watch(el) { if (io) io.observe(el); else el.classList.add('in'); }
+  $$('.rv, .rngs').forEach(watch);
+
+  /* ---------- hero: drifting tablets ---------- */
+  (function () {
+    var art = $('#art'), bits = $$('[data-depth]', art);
+    if (RM || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    var tx = 0, ty = 0, x = 0, y = 0, raf = 0;
+    window.addEventListener('pointermove', function (e) {
+      tx = e.clientX - window.innerWidth / 2; ty = e.clientY - window.innerHeight / 2;
+      if (!raf) raf = requestAnimationFrame(tick);
+    }, { passive: true });
+    function tick() {
+      x += (tx - x) * 0.08; y += (ty - y) * 0.08;
+      bits.forEach(function (b) { var d = +b.dataset.depth; b.style.transform = 'translate3d(' + (x * d).toFixed(1) + 'px,' + (y * d).toFixed(1) + 'px,0)'; });
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.5 ? requestAnimationFrame(tick) : 0;
+    }
+  })();
+
+  /* ---------- nav ---------- */
+  (function () {
+    var b = $('#burger'), l = $('#navLinks');
+    function set(open) { l.classList.toggle('open', open); b.setAttribute('aria-expanded', open); }
+    b.addEventListener('click', function () { set(!l.classList.contains('open')); });
+    l.addEventListener('click', function (e) { if (e.target.tagName === 'A') set(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+    if (!io) return;
+    var links = {}; $$('a', l).forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+    var spy = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { $$('a', l).forEach(function (a) { a.classList.remove('on'); }); links[e.target.id].classList.add('on'); } });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(links).forEach(function (id) { spy.observe(document.getElementById(id)); });
+  })();
+
+  /* ---------- opening hours, live ---------- */
+  var HOURS = {
+    chem: function () { return [[7, 22.5]]; },
+    lab: function (d) { return d === 0 ? [[6.5, 13]] : [[6.5, 19]]; },
+    doc: function (d) { return d === 0 ? [] : [[10, 13], [18, 21]]; }
+  };
+  function openState(key, now) {
+    var h = now.getHours() + now.getMinutes() / 60, today = HOURS[key](now.getDay());
+    for (var i = 0; i < today.length; i++) {
+      if (h >= today[i][0] && h < today[i][1]) return { open: true, txt: 'Open till ' + clock(today[i][1]) };
+      if (h < today[i][0]) return { open: false, txt: 'Opens ' + clock(today[i][0]) };
+    }
+    for (var n = 1; n < 8; n++) {
+      var next = HOURS[key]((now.getDay() + n) % 7);
+      if (next.length) return { open: false, txt: 'Opens ' + (n === 1 ? 'tomorrow' : dayName(addDays(now, n))) + ' ' + clock(next[0][0]) };
+    }
+    return { open: false, txt: 'Closed' };
+  }
+  function paintHours() {
+    var now = ist(), c = openState('chem', now), chip = $('#openChip');
+    chip.classList.toggle('shut', !c.open);
+    $('span', chip).textContent = c.open ? 'Open now · chemist till 10:30 pm' : 'Closed now · chemist ' + c.txt.toLowerCase();
+    $$('#hours li').forEach(function (li) {
+      var s = openState(li.dataset.k, now), e = $('em', li);
+      e.textContent = s.txt; e.classList.toggle('is', s.open);
+    });
+  }
+  paintHours(); setInterval(paintHours, 60000);
+
+  /* ---------- strip calculator ---------- */
+  (function () {
+    var tabs = $('#tabs'), dose = 1, out = $('#stripOut'), bl = $('#blister'), more = $('#blisterMore'), done = $('#remindDone'), last = null;
+    function paint() {
+      var n = Math.max(1, Math.min(90, parseInt(tabs.value, 10) || 0));
+      var days = Math.floor(n / dose), now = ist(), end = addDays(now, days), order = addDays(now, Math.max(0, days - 3));
+      var shown = Math.min(30, Math.max(10, Math.ceil(n / 10) * 10)), html = '';
+      for (var i = 0; i < shown; i++) html += '<span class="cell' + (i < n ? ' full' : '') + '" style="--k:' + i + '"></span>';
+      bl.innerHTML = html;
+      more.textContent = n > 30 ? '+ ' + (n - 30) + ' more in the box' : '';
+      if (days < 1) out.innerHTML = '<span class="warn">Not enough for a full day.</span> Come by today, or ask us to deliver before 5 pm.';
+      else if (days <= 3) out.innerHTML = '<b>' + days + (days === 1 ? ' day' : ' days') + '</b> left. Your last dose is on <b>' + niceDate(addDays(now, days - 1)) + '</b>. <span class="warn">Order today</span> so there is no gap.';
+      else out.innerHTML = '<b>' + days + ' days</b> of tablets. The strip runs out on <b>' + niceDate(end) + '</b>. Order by <b>' + niceDate(order) + '</b> and you keep three days in hand.';
+      last = { days: days, order: order }; done.hidden = true;
+    }
+    function bump(d) { tabs.value = Math.max(1, Math.min(90, (parseInt(tabs.value, 10) || 0) + d)); paint(); }
+    $('#tabsUp').addEventListener('click', function () { bump(1); });
+    $('#tabsDown').addEventListener('click', function () { bump(-1); });
+    tabs.addEventListener('input', paint);
+    tabs.addEventListener('blur', function () { tabs.value = Math.max(1, Math.min(90, parseInt(tabs.value, 10) || 1)); });
+    $('#dose').addEventListener('click', function (e) {
+      var b = e.target.closest('.chip'); if (!b) return;
+      dose = +b.dataset.v; $$('.chip', this).forEach(function (c) { c.setAttribute('aria-pressed', c === b); }); paint();
+    });
+    $('#remind').addEventListener('click', function () {
+      done.textContent = 'On a real site you would now get a reminder on ' + (last.days <= 3 ? 'your phone today' : niceDate(last.order)) + '. This is a demo site, so nothing was set, saved or sent.';
+      done.hidden = false;
+    });
+    paint();
+  })();
+
+  /* ---------- tests, packages and the slip ---------- */
+  var CAPS = {
+    lav: { n: 'Lavender cap: whole blood', c: '#b9a8ee', t: 'Keeps the blood from clotting so the cells can be counted one by one. Used for the blood count, HbA1c, ESR and blood group.' },
+    gold: { n: 'Gold cap: serum', c: '#ffc84a', t: 'A gel inside separates the clear serum when the tube is spun. Thyroid, cholesterol, liver, kidney and vitamin tests all come from this one.' },
+    grey: { n: 'Grey cap: sugar', c: '#aab3b0', t: 'Stops the blood cells from using up the sugar on the way to the lab, so the reading is the one you had in the chair.' },
+    sky: { n: 'Light blue cap: clotting', c: '#9fd0ee', t: 'Measures how long your blood takes to clot. It has to be filled exactly to the line, which is why the nurse watches it so closely.' },
+    red: { n: 'Red cap: plain', c: '#e2483d', t: 'Nothing added. The blood clots by itself and the serum is used for antibody tests such as the Widal.' },
+    cup: { n: 'Sterile cup: urine', c: '#f3cf5b', t: 'The first sample of the morning, caught mid-stream. We give you the cup the day before.' }
+  };
+  var TESTS = [
+    { id: 'cbc', n: 'Complete blood count', a: 'CBC · haemoglobin, white cells, platelets', cat: 'routine fever', cap: 'lav', p: 300 },
+    { id: 'fbs', n: 'Fasting blood sugar', a: 'FBS · glucose before food', cat: 'sugar routine', cap: 'grey', fast: '8–10 h fasting', p: 80 },
+    { id: 'ppbs', n: 'Post-meal blood sugar', a: 'PPBS · glucose two hours after eating', cat: 'sugar', cap: 'grey', pp: 1, p: 80 },
+    { id: 'hba1c', n: 'HbA1c', a: 'Average sugar over three months', cat: 'sugar', cap: 'lav', p: 450 },
+    { id: 'lipid', n: 'Lipid profile', a: 'Cholesterol, HDL, LDL, triglycerides', cat: 'heart routine', cap: 'gold', fast: '10–12 h fasting', p: 500 },
+    { id: 'thy', n: 'Thyroid profile', a: 'T3, T4 and TSH', cat: 'thyroid', cap: 'gold', p: 450 },
+    { id: 'tsh', n: 'TSH only', a: 'Thyroid stimulating hormone', cat: 'thyroid', cap: 'gold', p: 250 },
+    { id: 'lft', n: 'Liver function test', a: 'LFT · bilirubin, SGOT, SGPT, proteins', cat: 'organs', cap: 'gold', p: 550 },
+    { id: 'kft', n: 'Kidney function test', a: 'KFT · urea, creatinine, BUN', cat: 'organs', cap: 'gold', p: 500 },
+    { id: 'creat', n: 'Creatinine', a: 'A quick check on the kidneys', cat: 'organs', cap: 'gold', p: 150 },
+    { id: 'elec', n: 'Electrolytes', a: 'Sodium, potassium, chloride', cat: 'organs heart', cap: 'gold', p: 350 },
+    { id: 'urine', n: 'Urine routine', a: 'Sugar, protein, cells under the microscope', cat: 'routine organs', cap: 'cup', p: 120 },
+    { id: 'vitd', n: 'Vitamin D', a: '25-hydroxy vitamin D', cat: 'vitamins', cap: 'gold', slow: 1, p: 1100 },
+    { id: 'b12', n: 'Vitamin B12', a: 'Low in many vegetarian diets', cat: 'vitamins', cap: 'gold', slow: 1, p: 800 },
+    { id: 'iron', n: 'Iron studies', a: 'Iron, ferritin, binding capacity', cat: 'vitamins', cap: 'gold', fast: '8–10 h fasting', p: 650 },
+    { id: 'cal', n: 'Calcium', a: 'Serum calcium', cat: 'vitamins', cap: 'gold', p: 200 },
+    { id: 'uric', n: 'Uric acid', a: 'Checked for gout and joint pain', cat: 'organs', cap: 'gold', p: 180 },
+    { id: 'crp', n: 'C-reactive protein', a: 'CRP · a marker of inflammation', cat: 'fever heart', cap: 'gold', p: 400 },
+    { id: 'esr', n: 'ESR', a: 'Erythrocyte sedimentation rate', cat: 'fever routine', cap: 'lav', p: 100 },
+    { id: 'dengue', n: 'Dengue NS1 antigen', a: 'Best in the first five days of fever', cat: 'fever', cap: 'gold', p: 600 },
+    { id: 'malaria', n: 'Malaria parasite', a: 'Smear and rapid antigen', cat: 'fever', cap: 'lav', p: 250 },
+    { id: 'widal', n: 'Widal test', a: 'For typhoid, after five days of fever', cat: 'fever', cap: 'red', p: 200 },
+    { id: 'pt', n: 'PT / INR', a: 'Clotting time, for people on blood thinners', cat: 'heart', cap: 'sky', p: 350 },
+    { id: 'group', n: 'Blood group', a: 'ABO and Rh type', cat: 'routine', cap: 'lav', p: 100 }
+  ];
+  var PACKS = [
+    { id: 'p-start', n: 'Starter', tag: 'Under 30', d: 'The four tests worth doing once a year even when nothing feels wrong.', t: ['cbc', 'fbs', 'lipid', 'urine'], p: 749 },
+    { id: 'p-full', n: 'Full Body', tag: 'Most booked', d: 'Blood, sugar, heart, thyroid, liver, kidney and the two vitamins that run low most often.', t: ['cbc', 'fbs', 'hba1c', 'lipid', 'thy', 'lft', 'kft', 'urine', 'vitd', 'b12', 'cal', 'uric'], p: 2499 },
+    { id: 'p-sugar', n: 'Sugar Watch', tag: 'For diabetes', d: 'A three-monthly review for anyone on sugar medicine, with the kidney check doctors ask for.', t: ['fbs', 'ppbs', 'hba1c', 'kft', 'lipid', 'urine'], p: 1199 },
+    { id: 'p-sixty', n: 'Sixty Plus', tag: 'Home visit included', d: 'Everything in Full Body, plus salts and inflammation markers. Collected at home at no charge.', t: ['cbc', 'esr', 'fbs', 'hba1c', 'lipid', 'thy', 'lft', 'kft', 'elec', 'cal', 'vitd', 'b12', 'urine', 'uric', 'crp'], p: 2899, home: 1 }
+  ];
+  // A profile already measures the single marker sold beside it.
+  var INSIDE = { thy: ['tsh'], kft: ['creat'] };
+  var byId = {}; TESTS.concat(PACKS).forEach(function (x) { byId[x.id] = x; });
+  function covers(x) {
+    var out = [];
+    (x.t || [x.id]).forEach(function (id) { if (x.t) out.push(id); out = out.concat(INSIDE[id] || []); });
+    return out;
+  }
+  var KEY = 'hc-slip', slip = { items: [], mode: 'walk' }, dayIx = 0, slot = null, booked = null, calc = null;
+  try { var saved = JSON.parse(localStorage.getItem(KEY)); if (saved && saved.items) { slip.items = saved.items.filter(function (id) { return byId[id]; }); slip.mode = saved.mode === 'home' ? 'home' : 'walk'; } } catch (e) {}
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(slip)); } catch (e) {} }
+
+  var cat = 'all', capF = null, q = '', showAll = false;
+  function prep(t) { return t.fast || (t.pp ? '2 h after a meal' : t.cap === 'cup' ? 'Morning sample' : 'No fasting'); }
+  function drawTests() {
+    var words = q.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    var rows = TESTS.filter(function (t) {
+      if (capF && t.cap !== capF) return false;
+      if (cat !== 'all' && t.cat.indexOf(cat) < 0) return false;
+      var hay = (t.n + ' ' + t.a + ' ' + t.cat).toLowerCase();
+      return words.every(function (w) { return hay.indexOf(w) > -1; });
+    });
+    $('#qCount').textContent = rows.length + (rows.length === 1 ? ' test' : ' tests');
+    var total = rows.length, cut = !showAll && cat === 'all' && !capF && !words.length && total > 10;
+    if (cut) rows = rows.slice(0, 10);
+    $('#testList').innerHTML = rows.length ? rows.map(function (t) {
+      var on = slip.items.indexOf(t.id) > -1;
+      return '<li class="t' + (on ? ' on' : '') + '" data-id="' + t.id + '"><span class="t__cap" style="--c:' + CAPS[t.cap].c + '" title="' + CAPS[t.cap].n + '"></span>' +
+        '<div class="t__main"><b>' + t.n + '</b><span>' + t.a + '</span></div>' +
+        '<span class="t__prep' + (t.fast ? ' fast' : '') + '">' + prep(t) + '</span>' +
+        '<span class="t__when' + (t.slow ? ' slow' : '') + '">' + (t.slow ? 'Next day, 11 am' : 'Same day, 7 pm') + '</span>' +
+        '<span class="t__price">' + rupee(t.p) + '</span>' +
+        '<button type="button" class="t__add" aria-pressed="' + on + '" aria-label="' + (on ? 'Remove ' : 'Add ') + t.n + '">' + (on ? 'Added ✓' : 'Add') + '</button></li>';
+    }).join('') + (cut ? '<li class="tl__more"><button type="button">Show all ' + total + ' tests ↓</button></li>' : '') : '<li class="tl__none">No test matches that. Clear the search, or ask at the counter: the full list has 180.</li>';
+  }
+  function drawPacks() {
+    $('#packs').innerHTML = PACKS.map(function (p, i) {
+      var single = p.t.reduce(function (s, id) { return s + byId[id].p; }, 0), on = slip.items.indexOf(p.id) > -1;
+      return '<article class="pack rv in' + (on ? ' on' : '') + '" style="--d:' + i + '" data-id="' + p.id + '"><span class="pack__tag">' + p.tag + '</span><h3>' + p.n + '</h3><p>' + p.d + '</p>' +
+        '<ul>' + p.t.map(function (id) { return '<li>' + byId[id].n + '</li>'; }).join('') + '</ul>' +
+        '<div class="pack__price"><b>' + rupee(p.p) + '</b><s>' + rupee(single) + '</s></div>' +
+        '<p class="pack__save">' + p.t.length + ' tests · you save ' + rupee(single - p.p) + '</p>' +
+        '<button type="button" aria-pressed="' + on + '">' + (on ? 'On your slip ✓' : 'Add to slip') + '</button></article>';
+    }).join('');
+  }
+  function coveredBy(id) {
+    for (var i = 0; i < slip.items.length; i++) { var x = byId[slip.items[i]]; if (covers(x).indexOf(id) > -1) return x; }
+    return null;
+  }
+  function toggle(id) {
+    var i = slip.items.indexOf(id), x = byId[id];
+    if (booked) resetBooking();
+    if (i > -1) { slip.items.splice(i, 1); }
+    else {
+      var c = coveredBy(id), cov = covers(x);
+      if (c) { toast(x.n + ' is already part of ' + c.n + '.'); return; }
+      var dropped = slip.items.filter(function (s) { return cov.indexOf(s) > -1; });
+      slip.items = slip.items.filter(function (s) { return cov.indexOf(s) < 0; });
+      slip.items.push(id);
+      if (dropped.length) toast(x.n + ' added. ' + dropped.length + (dropped.length === 1 ? ' test it already covers was' : ' tests it already covers were') + ' taken off.');
+      else if (x.t) toast(x.n + ' is on your slip.');
+    }
+    save(); drawTests(); drawPacks(); drawSlip();
+  }
+  function allTests() {
+    var seen = {}, out = [];
+    slip.items.forEach(function (id) { (byId[id].t || [id]).forEach(function (t) { if (!seen[t]) { seen[t] = 1; out.push(byId[t]); } }); });
+    return out;
+  }
+  function slotsFor(d, fasting) {
+    var s = [6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10];
+    if (!fasting) s = s.concat(d.getDay() === 0 ? [11, 12] : [11, 12, 16, 17, 18]);
+    return s;
+  }
+  var totShown = 0;
+  function tween(el, to) {
+    var from = totShown, t0 = null; totShown = to;
+    if (RM || from === to) { el.textContent = rupee(to); return; }
+    requestAnimationFrame(function step(t) {
+      if (!t0) t0 = t; var p = Math.min(1, (t - t0) / 450);
+      el.textContent = rupee(from + (to - from) * (1 - Math.pow(1 - p, 3)));
+      if (p < 1 && totShown === to) requestAnimationFrame(step);
+    });
+  }
+  function drawSlip() {
+    var n = slip.items.length, tests = allTests();
+    var count = tests.length, label = count + (count === 1 ? ' test' : ' tests');
+    $('#slipCount').textContent = n ? label : 'Empty';
+    $('#slipEmpty').hidden = !!n; $('#slipFull').hidden = !n;
+    $('#navCount').textContent = n ? count : '→'; $('#navCta').classList.toggle('has', !!n);
+    var sub = slip.items.reduce(function (s, id) { return s + byId[id].p; }, 0);
+    var freeHome = sub >= 800 || slip.items.some(function (id) { return byId[id].home; });
+    var fee = slip.mode === 'home' && !freeHome ? 60 : 0;
+    $('#barTxt').textContent = label + ' · ' + rupee(sub + fee);
+    barSync();
+    if (!n) { totShown = 0; return; }
+    $('#slipLines').innerHTML = slip.items.map(function (id) {
+      var x = byId[id];
+      return '<li class="sl"><div>' + x.n + (x.t ? '<small>Package · ' + x.t.length + ' tests</small>' : '') + '</div><span>' + rupee(x.p) + '</span><button type="button" data-rm="' + id + '" aria-label="Remove ' + x.n + '">×</button></li>';
+    }).join('');
+    $$('.seg button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.mode === slip.mode); });
+    $('#sumSub').textContent = rupee(sub);
+    $('#sumFeeLbl').textContent = slip.mode === 'home' ? 'Home collection' : 'Walk in';
+    $('#sumFee').textContent = slip.mode === 'home' ? (fee ? rupee(fee) : 'Free') : '₹0';
+    tween($('#sumTot'), sub + fee);
+    $('#fArea').hidden = slip.mode !== 'home';
+
+    var fasting = tests.some(function (t) { return t.fast; }), pp = tests.some(function (t) { return t.pp; });
+    var slow = tests.filter(function (t) { return t.slow; }), cup = tests.some(function (t) { return t.cap === 'cup'; });
+    var now = ist(), nowH = now.getHours() + now.getMinutes() / 60;
+    var days = []; for (var i = 0; i < 6; i++) days.push(addDays(now, i));
+    function free(di) {
+      return slotsFor(days[di], fasting).map(function (h, k) {
+        return { h: h, off: (di === 0 && h < nowH + 0.5) || (days[di].getDate() * 7 + k * 13) % 5 === 0, past: di === 0 && h < nowH + 0.5 };
+      });
+    }
+    if (!free(dayIx).some(function (s) { return !s.off; })) { dayIx = 0; while (dayIx < 5 && !free(dayIx).some(function (s) { return !s.off; })) dayIx++; }
+    var list = free(dayIx);
+    if (slot === null || !list.some(function (s) { return s.h === slot && !s.off; })) slot = (list.filter(function (s) { return !s.off; })[0] || {}).h;
+    $('#days').innerHTML = days.map(function (d, di) {
+      var none = !free(di).some(function (s) { return !s.off; });
+      return '<button type="button" class="chip" data-day="' + di + '" aria-pressed="' + (di === dayIx) + '"' + (none ? ' disabled' : '') + '><small>' + (di === 0 ? 'Today' : dayName(d)) + '</small>' + d.getDate() + '</button>';
+    }).join('');
+    $('#slots').innerHTML = list.map(function (s) {
+      return '<button type="button" class="chip" data-slot="' + s.h + '" aria-pressed="' + (s.h === slot) + '"' + (s.off ? ' disabled title="' + (s.past ? 'Already past' : 'Full') + '"' : '') + '>' + clock(s.h) + '</button>';
+    }).join('');
+
+    var notes = '';
+    if (fasting) notes += '<p class="note">Your slip has a fasting test, so only morning times are shown. Nothing but water after dinner the night before.</p>';
+    if (pp) notes += '<p class="note">Post-meal sugar needs a second sample two hours after you eat. ' + (slip.mode === 'home' ? 'The collector comes back for it.' : 'Come back to the sample room for it.') + '</p>';
+    if (cup) notes += '<p class="note">Pick up a sterile cup at the counter, or we bring one. First urine of the morning, mid-stream.</p>';
+    var sameDay = slot < 11, day = days[dayIx], ready = sameDay ? day : addDays(day, 1);
+    var when = (sameDay ? (dayIx === 0 ? 'today' : dayName(ready, 1)) + ' by 7 pm' : dayName(ready, 1) + ' by 11 am');
+    notes += '<p class="note note--g">Report ready ' + when + (slow.length ? '. ' + slow.map(function (t) { return t.n; }).join(' and ') + (slow.length > 1 ? ' take' : ' takes') + ' a day longer' : '') + '.</p>';
+    if (slip.mode === 'home' && freeHome) notes += '<p class="note note--g">Home collection is free on this slip.</p>';
+    $('#slipNotes').innerHTML = notes;
+    calc = { sub: sub, fee: fee, day: day, slot: slot, when: when, count: count };
+  }
+  function resetBooking() { booked = null; $('#slipOk').hidden = true; $('#slipBody').hidden = false; }
+
+  $('#testList').addEventListener('click', function (e) {
+    var b = e.target.closest('.t__add');
+    if (b) toggle(b.closest('.t').dataset.id);
+    else if (e.target.closest('.tl__more')) { showAll = true; drawTests(); }
+  });
+  $('#packs').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) toggle(b.closest('.pack').dataset.id); });
+  $('#q').addEventListener('input', function () { q = this.value; drawTests(); });
+  $('#cats').addEventListener('click', function (e) {
+    var b = e.target.closest('.chip'); if (!b) return;
+    cat = b.dataset.cat; capF = null; $$('.chip', this).forEach(function (c) { c.setAttribute('aria-pressed', c === b); }); drawTests();
+  });
+  (function () {
+    var cur = null, show = $('#capShow');
+    $('#rack').addEventListener('click', function (e) {
+      var b = e.target.closest('.tube'); if (!b) return;
+      cur = b.dataset.cap; $$('.tube', this).forEach(function (t) { t.setAttribute('aria-pressed', t === b); });
+      $('#capName').textContent = CAPS[cur].n; $('#capText').textContent = CAPS[cur].t;
+      var n = TESTS.filter(function (t) { return t.cap === cur; }).length;
+      show.hidden = false; show.textContent = 'Show the ' + n + (n === 1 ? ' test' : ' tests') + ' from this ' + (cur === 'cup' ? 'cup' : 'tube');
+    });
+    show.addEventListener('click', function () {
+      capF = cur; cat = 'all'; q = ''; $('#q').value = '';
+      $$('#cats .chip').forEach(function (c) { c.setAttribute('aria-pressed', 'false'); });
+      drawTests(); $('#q').closest('.find').scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' });
+    });
+  })();
+  $('#slipFull').addEventListener('click', function (e) {
+    var rm = e.target.closest('[data-rm]'), md = e.target.closest('[data-mode]'), dy = e.target.closest('[data-day]'), st = e.target.closest('[data-slot]');
+    if (rm) return toggle(rm.dataset.rm);
+    if (md) { slip.mode = md.dataset.mode; save(); }
+    else if (dy) { dayIx = +dy.dataset.day; slot = null; }
+    else if (st) { slot = +st.dataset.slot; }
+    else return;
+    drawSlip();
+  });
+  $('#fPhone').addEventListener('input', function () { this.value = this.value.replace(/\D/g, ''); });
+  $('#hold').addEventListener('click', function () {
+    var name = $('#fName'), phone = $('#fPhone'), area = $('#fArea'), err = $('#slipErr'), bad = null, c = calc;
+    [name, phone, area].forEach(function (f) { f.classList.remove('bad'); });
+    if (!name.value.trim()) bad = [name, 'Add the name of the person giving the sample.'];
+    else if (!/^\d{10}$/.test(phone.value)) bad = [phone, 'Enter a 10-digit mobile number.'];
+    else if (slip.mode === 'home' && area.value.trim().length < 4) bad = [area, 'Add the house number and lane for the collector.'];
+    else if (c.slot === undefined) bad = [name, 'No free time on that day. Pick another day.'];
+    if (bad) { err.textContent = bad[1]; void bad[0].offsetWidth; bad[0].classList.add('bad'); bad[0].focus(); return; }
+    err.textContent = '';
+    var tok = 'HC-' + pad(c.day.getDate()) + pad(c.day.getMonth() + 1) + '-' + (101 + (name.value.length * 37 + c.sub + Math.round(c.slot * 10)) % 880);
+    booked = { tok: tok, day: c.day, slot: c.slot, when: c.when, count: c.count };
+    $('#slipOk').innerHTML = '<div class="ok__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h3>Slot held, ' + esc(name.value.trim().split(/\s+/)[0]) + '.</h3>' +
+      '<span class="ok__tok">' + tok + '</span>' +
+      '<dl><div><dt>When</dt><dd>' + niceDate(c.day) + ', ' + clock(c.slot) + '</dd></div>' +
+      '<div><dt>Where</dt><dd>' + (slip.mode === 'home' ? 'At ' + esc(area.value.trim()) : 'Sample room, Hitesh Clinic') + '</dd></div>' +
+      '<div><dt>Tests</dt><dd>' + c.count + '</dd></div>' +
+      '<div><dt>To pay</dt><dd>' + rupee(c.sub + c.fee) + ', after the sample</dd></div>' +
+      '<div><dt>Report</dt><dd>' + c.when.charAt(0).toUpperCase() + c.when.slice(1) + '</dd></div></dl>' +
+      '<a class="btn btn--ink" href="#reports" id="okTrack">Track this sample <i aria-hidden="true">→</i></a>' +
+      '<p class="demo">This is a demo site. No slot was booked, and your name, number and address were not saved or sent anywhere.</p>' +
+      '<button type="button" class="link" id="okNew">Start a new slip</button>';
+    $('#slipBody').hidden = true; $('#slipOk').hidden = false;
+    name.value = phone.value = area.value = '';
+    $('#okTrack').addEventListener('click', function () { $('#trkIn').value = tok; track(tok); });
+    $('#okNew').addEventListener('click', function () { slip.items = []; save(); resetBooking(); drawTests(); drawPacks(); drawSlip(); });
+    if (window.innerWidth < 921) $('#slip').scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' });
+  });
+
+  var slipSeen = false;
+  function barSync() { $('#bar').classList.toggle('show', slip.items.length > 0 && !slipSeen && !booked); }
+  if (io) new IntersectionObserver(function (es) { slipSeen = es[0].isIntersecting; barSync(); }, { threshold: 0.05 }).observe($('#slip'));
+
+  drawTests(); drawPacks(); drawSlip();
+
+  /* ---------- journey: the line fills as you scroll ---------- */
+  (function () {
+    var tr = $('#track'), stops = $$('.stop', tr), tick = false;
+    function paint() {
+      tick = false;
+      var r = tr.getBoundingClientRect(), vh = window.innerHeight;
+      var p = Math.max(0, Math.min(1, (vh * 0.78 - r.top) / (r.height + vh * 0.28)));
+      tr.style.setProperty('--prog', p.toFixed(3));
+      stops.forEach(function (s, i) { s.classList.toggle('on', p >= i / stops.length + 0.04); });
+    }
+    if (RM) { tr.style.setProperty('--prog', 1); stops.forEach(function (s) { s.classList.add('on'); }); return; }
+    window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(paint); } }, { passive: true });
+    window.addEventListener('resize', paint); paint();
+  })();
+
+  /* ---------- report tracker ---------- */
+  var STEPS = ['Slot held', 'Sample collected', 'At the bench', 'On the analyser', 'Read and signed', 'Report sent'];
+  var now0 = ist(), stamp = pad(now0.getDate()) + pad(now0.getMonth() + 1);
+  var yest = addDays(now0, -1), ystamp = pad(yest.getDate()) + pad(yest.getMonth() + 1);
+  var DEMO = {};
+  DEMO['HC-' + ystamp + '-031'] = { at: 5, who: 'Full Body · 12 tests', times: ['Booked', '6:40 am', '9:05 am', '11:20 am', '4:12 pm', '6:48 pm'], day: niceDate(yest) };
+  DEMO['HC-' + stamp + '-044'] = { at: 3, who: 'Thyroid profile, CBC', times: ['Booked', '7:10 am', '9:00 am', 'Running now'], day: niceDate(now0) };
+  DEMO['HC-' + stamp + '-052'] = { at: 1, who: 'Sugar Watch · 6 tests', times: ['Booked', '8:30 am'], day: niceDate(now0) };
+  $('#trkDemo').innerHTML = Object.keys(DEMO).map(function (k) { return '<button type="button" class="chip" data-tok="' + k + '">' + k + '</button>'; }).join('');
+  function track(raw) {
+    var code = raw.trim().toUpperCase(), d = DEMO[code], panel = $('#panel');
+    if (!d && booked && booked.tok === code) d = { at: 0, who: booked.count + (booked.count === 1 ? ' test' : ' tests') + ' on your slip', times: ['Just now'], day: niceDate(booked.day), mine: 1 };
+    if (!d) {
+      panel.innerHTML = '<div class="panel__idle"><div><b style="font-family:var(--disp);font-size:1.3rem;color:var(--ink)">No sample with that number.</b><br>Check the slip, or try one of the demo numbers on the left.</div></div>';
+      return;
+    }
+    var done = d.at === STEPS.length - 1;
+    var html = '<div class="panel__top"><div><b>' + esc(code) + '</b><br><small style="color:var(--soft)">' + d.who + ' · ' + d.day + '</small></div><span class="state' + (done ? ' done' : '') + '">' + (done ? 'Report ready' : STEPS[d.at]) + '</span></div><ol class="steps">';
+    STEPS.forEach(function (s, i) {
+      var cls = i < d.at || done ? 'done' : i === d.at ? 'now' : '';
+      html += '<li class="' + cls + '" style="--k:' + i + '"><span>' + s + '</span><time>' + (d.times[i] || (i === 5 ? 'By 7 pm' : '')) + '</time></li>';
+    });
+    html += '</ol>';
+    if (done) html += '<div class="mini rngs in"><div class="mini__h"><span>From the report</span><span>Illustrative values</span></div>' +
+      [['Haemoglobin', '13.8', 'g/dL', 52], ['HbA1c', '5.4', '%', 40], ['LDL cholesterol', '128', 'mg/dL', 80], ['Vitamin D', '19', 'ng/mL', 14]].map(function (r) {
+        return '<div class="rng" style="--p:' + r[3] + '"><span class="rng__name">' + r[0] + '</span><span class="rng__val">' + r[1] + ' <small>' + r[2] + '</small></span><div class="rng__bar"><i></i></div></div>';
+      }).join('') + '</div><p class="demo">Two values sit outside the green band here, which is what the free report review in the doctor&rsquo;s room is for. This is a demo: there is no real report behind this number.</p>';
+    else if (d.mine) html += '<p class="demo">Your slot is held for ' + niceDate(booked.day) + ' at ' + clock(booked.slot) + '. The tube starts moving once the sample is taken. This is a demo: nothing was really booked.</p>';
+    else html += '<p class="demo">Expected ' + (d.at >= 2 ? 'by 7 pm today' : 'this evening') + '. This is a demo number, not a real sample.</p>';
+    panel.innerHTML = html;
+  }
+  $('#trkForm').addEventListener('submit', function (e) { e.preventDefault(); if ($('#trkIn').value.trim()) track($('#trkIn').value); });
+  $('#trkDemo').addEventListener('click', function (e) { var b = e.target.closest('.chip'); if (b) { $('#trkIn').value = b.dataset.tok; track(b.dataset.tok); } });
+
+  /* ---------- doctor's room timetable ---------- */
+  (function () {
+    var ROOM = [
+      { n: 'General physician', s: 'Fever, BP, sugar, and reading your reports', days: [1, 2, 3, 4, 5, 6], hrs: [[10, 13], [18, 21]], fee: 300 },
+      { n: 'Physiotherapist', s: 'Back, neck and knee pain', days: [1, 2, 3, 4, 5, 6], hrs: [[8, 10]], fee: 350 },
+      { n: 'Diabetes clinic', s: 'Diet, dose review and foot check', days: [3, 6], hrs: [[13, 15]], fee: 500 },
+      { n: 'Women’s health', s: 'Gynaecologist, with a nurse present', days: [1, 5], hrs: [[15.5, 17.5]], fee: 500 },
+      { n: 'Child specialist', s: 'Newborn to fourteen, and vaccinations', days: [2, 4, 6], hrs: [[16, 18]], fee: 400 }
+    ];
+    var D = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    function daysTxt(a) { return a.length === 6 ? 'Mon to Sat' : a.map(function (d) { return D[d]; }).join(', '); }
+    function paint() {
+      var now = ist(), h = now.getHours() + now.getMinutes() / 60, wd = now.getDay();
+      $('#tt').innerHTML = ROOM.map(function (r) {
+        var live = null, next = null;
+        if (r.days.indexOf(wd) > -1) r.hrs.forEach(function (x) { if (h >= x[0] && h < x[1]) live = x; else if (h < x[0] && !next) next = 'Today ' + clock(x[0]); });
+        for (var n = 1; !live && !next && n < 8; n++) if (r.days.indexOf((wd + n) % 7) > -1) next = (n === 1 ? 'Tomorrow' : D[(wd + n) % 7]) + ' ' + clock(r.hrs[0][0]);
+        return '<div class="tt__row' + (live ? ' live' : '') + '"><div><b>' + r.n + '</b><small>' + r.s + ' · ' + rupee(r.fee) + '</small></div>' +
+          '<div class="tt__when">' + daysTxt(r.days) + '<br>' + r.hrs.map(function (x) { return clock(x[0]) + ' to ' + clock(x[1]); }).join(', ') + '</div>' +
+          '<span class="tt__st">' + (live ? 'In the room till ' + clock(live[1]) : 'Next: ' + next) + '</span></div>';
+      }).join('') + '<p class="tt__foot">It is ' + dayName(now, 1) + ', ' + clock(h) + ' in Indore. Tokens are given at the chemist counter from half an hour before each session.</p>';
+    }
+    paint(); setInterval(paint, 60000);
+  })();
+
+  /* ---------- note to the counter ---------- */
+  $('#msg').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var n = $('#mName'), t = $('#mText'), ok = $('#msgOk');
+    [n, t].forEach(function (f) { f.classList.remove('bad'); });
+    var bad = !n.value.trim() ? n : !t.value.trim() ? t : null;
+    if (bad) { void bad.offsetWidth; bad.classList.add('bad'); bad.focus(); return; }
+    ok.textContent = 'Thank you, ' + n.value.trim().split(/\s+/)[0] + '. On a real site the counter would now have your note. This is a demo site, so nothing was sent or saved.';
+    ok.hidden = false; this.reset();
+  });
+})();
+</script>
+</body>
+</html>

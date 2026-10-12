@@ -1,6 +1,6 @@
-# Content rules — concept sites
+# Content rules — demo sites
 
-Every site in the gallery is a concept website for a business that does not exist. This
+Every site in the gallery is a demo website for a business or a person that does not exist. This
 file decides what such a site may say. It replaces `docs/synthetic-data-pool.md` and the
 older briefs, which belong to the earlier "one portfolio, many styles" idea.
 
@@ -9,10 +9,16 @@ footer credit, with real details.**
 
 ## 1. Where my real details go
 
-Only in the footer credit, on every site, in this form:
+Only in the notice at the very bottom of every site. It is small print, in the same
+style as a copyright line, and it never appears as a banner or pop-up:
 
-> *Name* is a fictional *kind of business*. Concept site designed and built by
-> [Garvit Pandia](https://garvitpandia.me) · [Back to the gallery](../index.html)
+> Demo site. *Name* is a fictional *photographer / practice / coach*, and the names,
+> prices and reviews here are made up for illustration. Designed and built by
+> [Garvit Pandia](https://garvitpandia.me), who can build one like this for you.
+> [See more demo sites](../index.html).
+
+The six business sites use the shorter form "*Name* is a fictional *kind of business*.
+Concept site designed and built by Garvit Pandia · Back to the gallery".
 
 - Name: Garvit Pandia
 - Link: https://garvitpandia.me
@@ -21,7 +27,13 @@ Nothing else of mine goes on a concept site: no email, phone, GitHub, LinkedIn, 
 employer, résumé or city. The gallery page (`index.html`) is the one place that carries my
 contact links.
 
-## 2. The fictional business
+## 2. The fictional business or person
+
+- **A fictional person is never me.** Portfolio demos are for an invented photographer,
+  architect, coach and so on, with an ordinary name. Nothing on them describes my own
+  education or work.
+- **An invented person must not be a real, findable professional** in that trade. Search
+  the name with the profession before using it.
 
 - **The name must not belong to a real business** in the same trade or city. Search it
   before using it.
@@ -55,6 +67,8 @@ contact links.
    use `you@example.com`.
 4. No college, employer, certificate or career timeline anywhere on the page, including
    the `<title>`, the meta description and the Open Graph tags.
-5. No images or scripts loaded from a stock-photo host.
+5. Photographs are free-licence stock (Unsplash), saved in the site's own `img/` folder
+   and credited in the notice. Nothing is hot-linked from a stock-photo host. A photo of a
+   recognisable person is never captioned with an invented full name.
 6. The site's feature has been used end to end in a browser, at desktop and phone width,
    with no console errors and no sideways scroll.

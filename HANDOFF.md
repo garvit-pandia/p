@@ -14,7 +14,12 @@ The repo used to be "the same portfolio, fourteen ways". Every variant needed a 
 of career details, and the placeholder copy invented a college, employers and
 certificates under my real name. That was the wrong shape for what I want to show.
 
-Now each variant is a **concept website for a fictional business**. The point is range:
+The direction settled on 2026-10-12: the gallery is a mix of **demo sites for fictional
+businesses and for fictional people** (a photographer, an architect, a coach), aimed at
+freelance clients who want a site for their own business or for themselves. New sites are
+designed from scratch for the profession rather than re-skinned from an old variant.
+
+Each site is a **demo website for a fictional client**. The point is range:
 different kinds of site, different styles, and one working feature in each. My own
 details appear in one place only, a footer credit on each site. Nothing on a concept
 site claims anything about my education or work history, so there is nothing to get wrong.
@@ -23,14 +28,18 @@ site claims anything about my education or work history, so there is nothing to 
 
 | Part | State |
 |------|-------|
-| `index.html` — the gallery | 6 site cards + 1 full-width commission card. Rail, filters, shuffle and hover live preview all work. |
+| `index.html` — the gallery | 10 site cards + 1 commission card that fills the rest of the last row. Rail, filters, shuffle and hover live preview all work. |
 | `v13-origami-aurum/` | **Kaagaz Haveli**, hotel, Udaipur. Stay calculator at `#og-stay`. |
 | `v16-black-box/` | **Saanjh Repertory**, theatre, Chandigarh. Seat map booking at `#booking`. |
 | `v5-glass/` | **Kanch Invoicing**, software. Pricing slider and monthly / yearly switch at `#pricing`. |
 | `v12-mycelium/` | **Dhingri & Co.**, mushroom farm, Solan. Shop `#myShop` and basket `#myBasket` (saved in `localStorage`). |
 | `v10-typevolt/` | **Typevolt**, type foundry. Type tester at `#tester`, eight families on Google variable fonts. |
 | `v8-abyss/` | **Paatal Dive Co.**, dive school, Andamans. Depth finder at `#finder`, depth rail 0 – 40 m. |
-| `shots/` | Fresh 1280×800 screenshots for the six. The other twelve files are old and unused by the gallery. |
+| `v19-photographer/` | **Meera Kapoor**, wedding photographer. Built from scratch. Photo wall with filters and viewer; date check at `#dates`. Photos in `img/`. |
+| `v20-architect/` | **Arjun Sethi Architects**. Built from scratch. Project browser at `#work` with sheet and generated plan; estimate at `#contact`. Photos in `img/`. |
+| `v21-fitness-coach/` | **Kabir Anand**, strength coach. Built from scratch. Plan finder at `#finder`; timetable at `#timetable`. Photos in `img/`. |
+| `v22-clinic/` | **Hitesh Clinic**, chemist, lab and doctor's room, Indore. Built from scratch. Test slip at `#tests` / `#slip` (saved in `localStorage`), packages at `#checkups`, sample tracker at `#reports`, strip calculator at `#strip`, live doctors' timetable at `#doctors`. Photos in `img/`. |
+| `shots/` | Fresh 1280×800 screenshots for the ten. The other twelve files are old and unused by the gallery. |
 | The other twelve `vN-*/` folders | Unchanged and unlinked. They still hold the old invented career copy. |
 | `DOC-20260716-WA0002.pdf` | My real résumé. Nothing links to it. |
 | `parts/` | Leftover card fragments. Unused. |
@@ -65,7 +74,11 @@ this branch ships.
 
 ## Next
 
-1. Decide what happens to the twelve old folders: rebuild more of them as concept sites, or delete.
+0. Review the three people sites. Not committed yet. Still open: plainer names for the six
+   business sites (Kaagaz Haveli, Saanjh, Kanch, Dhingri, Paatal read as forced), and which
+   professions come next (fashion designer, author, music producer, filmmaker, travel
+   planner, garden designer, podcast host were on the list).
+1. Decide what happens to the twelve old folders: rebuild more of them as demo sites, or delete.
 2. Delete the invented résumé PDFs.
 3. Commit this branch, merge to `main`, push.
 4. Update the gallery entry on `garvitpandia.me`.
@@ -87,7 +100,7 @@ this branch ships.
 - Serve from the repo root so `/shots/` and `/vN-*/` resolve. Pages also work from `file://`.
 - The gallery's hover preview loads a live iframe of the site. It only starts on a fine
   pointer with hover, so a headless browser needs that media emulated to test it.
-- The rail repeats the six tiles three times per copy so the strip is wider than the
+- The rail repeats the ten tiles twice per copy so the strip is wider than the
   screen and loops without a gap. Add a seventh site and it still works; drop below
   about four and it will not.
 - Each site is one self-contained `index.html`. Some have a `<noscript><style>` block as

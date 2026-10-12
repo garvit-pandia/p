@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kabir Anand — Strength coaching, six to a class</title>
+<meta name="description" content="Kabir Anand coaches small-group strength and conditioning in Bengaluru. Answer three questions to find your plan, then pick your classes from the weekly timetable.">
+<meta property="og:title" content="Kabir Anand — Strength coaching">
+<meta property="og:description" content="Stronger than last week. Find your plan in three questions.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0a0b09">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0b09'/%3E%3Cpath d='M18 12v40M18 34l24-22M24 30l20 22' fill='none' stroke='%23c6ff3d' stroke-width='8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+:root{
+  --bg:#0a0b09; --panel:#14160f; --panel2:#1c1f16; --volt:#c6ff3d; --text:#f1f3ea; --grey:#8e9382; --line:#2a2e22;
+  --burn:#ff6a3d; --flow:#7fe0d0;
+  --disp:'Anton',Impact,sans-serif; --sans:'Barlow',system-ui,sans-serif; --cond:'Barlow Condensed','Barlow',sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1); --snap:cubic-bezier(.3,1.5,.5,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.55;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--volt);outline-offset:3px}
+::selection{background:var(--volt);color:var(--bg)}
+.wrap{width:min(1280px,100% - 48px);margin-inline:auto}
+.lab{font-family:var(--cond);font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase}
+.volt{color:var(--volt)}
+h1,h2,h3{font-family:var(--disp);font-weight:400;text-transform:uppercase;line-height:.9;letter-spacing:.005em}
+h2{font-size:clamp(52px,9vw,140px)}
+.out{color:transparent;-webkit-text-stroke:1.5px var(--text)}
+section{padding:clamp(72px,10vw,140px) 0;position:relative}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px 40px;margin-bottom:clamp(30px,5vw,60px)}
+.head p{max-width:40ch;color:var(--grey)}
+.js .rv{opacity:0;transform:translateY(34px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--d,0)*70ms)}
+.js .rv.in{opacity:1;transform:none}
+#bar{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--volt);transform-origin:left;transform:scaleX(0);z-index:60}
+
+.btn{display:inline-flex;align-items:center;gap:12px;padding:17px 28px;font-family:var(--cond);font-weight:600;font-size:17px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:2px solid var(--volt);transition:transform .25s var(--snap),background .25s,color .25s,box-shadow .25s}
+.btn.fill{background:var(--volt);color:var(--bg)}
+.btn.fill:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--text)}
+.btn.line{color:var(--volt)}
+.btn.line:hover{background:var(--volt);color:var(--bg)}
+.btn:active{transform:none;box-shadow:none}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;inset:3px 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px clamp(18px,3vw,40px);transition:background .3s}
+.nav.stuck{background:rgba(10,11,9,.92);backdrop-filter:blur(8px)}
+.mark{font-family:var(--disp);font-size:24px;text-decoration:none;text-transform:uppercase;letter-spacing:.02em}
+.mark i{font-style:normal;color:var(--volt)}
+.nav ul{display:flex;gap:clamp(14px,2.4vw,32px);list-style:none;align-items:center}
+.nav li a{text-decoration:none;transition:color .2s}
+.nav li a:hover{color:var(--volt)}
+.nav .go{background:var(--volt);color:var(--bg);padding:10px 16px}
+.nav .go:hover{color:var(--bg);background:var(--text)}
+
+/* ---------- hero ---------- */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 0 0;overflow:hidden;position:relative;isolation:isolate}
+.hero-bg{position:absolute;inset:-6% 0 0 0;z-index:-2}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:60% 40%;filter:grayscale(1) contrast(1.15) brightness(.8)}
+.hero::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(10,11,9,.94) 0%,rgba(10,11,9,.55) 48%,rgba(10,11,9,.2) 100%),linear-gradient(0deg,var(--bg) 2%,transparent 34%)}
+.hero h1{font-size:clamp(76px,16.5vw,268px);margin:14px 0 26px}
+.hero h1 .row{display:block;overflow:hidden;padding-top:.04em}
+.hero h1 .row>span{display:inline-block}
+.js .hero h1 .row>span{transform:translateY(110%) skewY(7deg);animation:slam .8s var(--ease) forwards;animation-delay:calc(.12s + var(--d)*.12s)}
+@keyframes slam{to{transform:none}}
+.hero p.lede{max-width:46ch;font-size:20px;color:#d6d9cc}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.badge{position:absolute;right:clamp(18px,6vw,90px);top:clamp(110px,20vh,190px);width:clamp(110px,13vw,170px);aspect-ratio:1;animation:spin 14s linear infinite}
+.badge text{font-family:var(--cond);font-weight:600;font-size:13.4px;letter-spacing:.2em;fill:var(--volt);text-transform:uppercase}
+.badge-core{position:absolute;right:clamp(18px,6vw,90px);top:clamp(110px,20vh,190px);width:clamp(110px,13vw,170px);aspect-ratio:1;display:grid;place-items:center;font-family:var(--disp);font-size:clamp(26px,3.2vw,42px);color:var(--volt)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(36px,6vw,70px);border-top:1px solid var(--line)}
+.stats div{padding:20px 20px 24px 0;border-right:1px solid var(--line);color:var(--grey)}
+.stats div:not(:first-child){padding-left:20px}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font-family:var(--disp);font-weight:400;font-size:clamp(34px,4.6vw,64px);line-height:1;color:var(--text);letter-spacing:.01em}
+
+/* ---------- tape ---------- */
+.tape-clip{overflow-x:clip}
+.tape{background:var(--volt);color:var(--bg);transform:rotate(-2deg) scale(1.04);margin:clamp(30px,5vw,60px) 0;overflow:hidden;white-space:nowrap;padding:12px 0}
+.tape div{display:inline-flex;animation:run 18s linear infinite}
+.tape span{font-family:var(--disp);font-size:clamp(26px,3.6vw,48px);text-transform:uppercase;padding:0 22px}
+.tape span::after{content:'\2715';padding-left:44px;font-size:.6em;vertical-align:middle}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* ---------- coach ---------- */
+.coach{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,6vw,90px);align-items:center}
+.portrait{position:relative}
+.portrait img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1) contrast(1.1);position:relative;z-index:1}
+.portrait::before{content:'';position:absolute;inset:0;border:2px solid var(--volt);transform:translate(16px,16px);transition:transform .5s var(--ease)}
+.portrait:hover::before{transform:translate(26px,26px)}
+.portrait figcaption{position:absolute;left:-10px;bottom:26px;z-index:2;background:var(--volt);color:var(--bg);padding:8px 14px}
+.coach h2{margin-bottom:22px}
+.coach p{color:#cfd3c4;max-width:54ch;margin-bottom:16px}
+.rules{list-style:none;margin-top:28px;border-top:1px solid var(--line)}
+.rules li{display:grid;grid-template-columns:70px 1fr;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line)}
+.rules b{font-family:var(--disp);font-weight:400;font-size:38px;color:var(--volt);line-height:1}
+.rules span{font-size:19px}
+
+/* ---------- programs ---------- */
+.progs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.prog{position:relative;min-height:500px;padding:24px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--panel);isolation:isolate;transition:transform .45s var(--ease)}
+.prog:hover{transform:translateY(-8px)}
+.prog img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;filter:grayscale(1) contrast(1.2) brightness(.55);transition:transform .9s var(--ease),filter .5s}
+.prog:hover img{transform:scale(1.07);filter:grayscale(1) contrast(1.2) brightness(.8)}
+.prog::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(10,11,9,.96) 22%,rgba(10,11,9,.1) 80%)}
+.prog::after{content:'';position:absolute;inset:0;z-index:-1;background:var(--c,var(--volt));mix-blend-mode:multiply;opacity:0;transition:opacity .45s}
+.prog:hover::after{opacity:.55}
+.prog .no{position:absolute;top:18px;left:24px;color:var(--c,var(--volt))}
+.prog h3{font-size:clamp(50px,5.2vw,76px);color:var(--c,var(--volt))}
+.prog p{color:#d6d9cc;margin:10px 0 18px;font-size:16px}
+.meter{display:flex;gap:5px;margin-bottom:8px}
+.meter i{height:8px;flex:1;background:var(--line);transform-origin:left;position:relative;overflow:hidden}
+.meter i.on::after{content:'';position:absolute;inset:0;background:var(--c,var(--volt));transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease);transition-delay:calc(var(--k)*90ms + .2s)}
+.prog.in .meter i.on::after{transform:none}
+.prog .row{display:flex;justify-content:space-between;color:var(--grey)}
+
+/* ---------- plan picker ---------- */
+.finder{background:var(--panel);border-block:1px solid var(--line)}
+.picker{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(24px,5vw,80px)}
+.picker h2{font-size:clamp(48px,6.4vw,96px)}
+.dots{display:flex;gap:8px;margin:26px 0 14px}
+.dots i{height:6px;flex:1;background:var(--line);position:relative;overflow:hidden}
+.dots i::after{content:'';position:absolute;inset:0;background:var(--volt);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.dots i.done::after{transform:none}
+.stage{min-height:420px}
+.q{animation:qin .5s var(--ease) both}
+@keyframes qin{from{opacity:0;transform:translateX(40px)}}
+.q h3{font-size:clamp(40px,5.4vw,78px);margin-bottom:26px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{text-align:left;padding:22px;border:2px solid var(--line);background:var(--bg);transition:border-color .2s,transform .25s var(--snap),background .2s,color .2s}
+.opt b{display:block;font-family:var(--disp);font-weight:400;font-size:30px;text-transform:uppercase;line-height:1}
+.opt span{color:var(--grey);font-size:15px;transition:color .2s}
+.opt:hover{border-color:var(--volt);transform:translateY(-4px)}
+.opt.picked{background:var(--volt);color:var(--bg);border-color:var(--volt)}
+.opt.picked span{color:#3c4a12}
+.back{margin-top:20px;color:var(--grey);text-decoration:underline;text-underline-offset:4px}
+.back:hover{color:var(--volt)}
+.result{display:grid;grid-template-columns:1fr 1fr;gap:26px;animation:qin .6s var(--ease) both}
+.result h3{font-size:clamp(64px,9vw,128px);color:var(--volt)}
+.result .why{color:#cfd3c4;margin:12px 0 20px}
+.price{font-family:var(--disp);font-size:clamp(46px,5.4vw,72px);line-height:1}
+.price small{font-family:var(--cond);font-size:16px;letter-spacing:.14em;color:var(--grey);text-transform:uppercase;margin-left:8px}
+.week{list-style:none;border-top:1px solid var(--line)}
+.week li{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.week li span:last-child{color:var(--grey);text-align:right}
+.week li.rest{color:#5b5f51}
+.result .cta{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+/* ---------- timetable ---------- */
+.tools{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-bottom:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:10px 16px;border:2px solid var(--line);transition:all .2s}
+.chip:hover{border-color:var(--text)}
+.chip[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.chip i{display:inline-block;width:9px;height:9px;margin-right:8px;background:var(--c)}
+.daytabs{display:none;gap:6px;margin-bottom:14px}
+.daytabs button{flex:1;padding:10px 0;border:2px solid var(--line)}
+.daytabs button[aria-pressed="true"]{background:var(--volt);color:var(--bg);border-color:var(--volt)}
+.tt{display:grid;grid-template-columns:70px repeat(6,minmax(0,1fr));gap:6px}
+.tt .hd{padding:10px 8px;border-bottom:2px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+.tt .hd.today{border-color:var(--volt);color:var(--volt)}
+.tt .hd.today::after{content:'Today';font-size:11px}
+.tt .time{color:var(--grey);padding-top:12px}
+.slot{min-height:92px}
+.cls{width:100%;height:100%;min-height:92px;text-align:left;padding:10px 12px;background:var(--panel);border-left:4px solid var(--c);display:flex;flex-direction:column;justify-content:space-between;transition:transform .25s var(--snap),background .2s,opacity .3s,filter .3s}
+.cls:hover{transform:translateY(-3px);background:var(--panel2)}
+.cls b{font-family:var(--disp);font-weight:400;font-size:24px;text-transform:uppercase;line-height:1;color:var(--c)}
+.cls small{display:block;color:var(--grey);font-size:13px;line-height:1.3}
+.cls.off{opacity:.14;filter:grayscale(1);pointer-events:none}
+.cls.full small{color:var(--burn)}
+.cls.held{background:var(--volt);border-color:var(--bg)}
+.cls.held b,.cls.held small{color:var(--bg)}
+.cls.held::after{content:'\2713  Held';font-family:var(--cond);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--bg)}
+.cls.flash{animation:flash 1.1s var(--ease) 2}
+@keyframes flash{50%{box-shadow:0 0 0 3px var(--volt)}}
+.yours{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;margin-top:18px;padding:16px 18px;border:2px solid var(--line)}
+.yours button{color:var(--grey);text-decoration:underline;text-underline-offset:4px}
+.toast{position:fixed;left:50%;bottom:26px;z-index:70;transform:translate(-50%,300%);visibility:hidden;background:var(--volt);color:var(--bg);padding:14px 20px;font-weight:600;max-width:calc(100% - 32px);transition:transform .45s var(--snap),visibility .45s}
+.toast.on{transform:translate(-50%,0);visibility:visible}
+
+/* ---------- proof ---------- */
+.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.proof article{background:var(--panel);padding:28px;border-top:4px solid var(--volt)}
+.proof b{display:block;font-family:var(--disp);font-weight:400;font-size:clamp(60px,7vw,104px);line-height:.9;color:var(--volt)}
+.proof .lab{color:var(--grey);margin:8px 0 18px;display:block}
+.proof p{font-size:18px}
+.proof cite{display:block;margin-top:12px;font-style:normal;color:var(--grey);font-size:14px}
+
+/* ---------- pricing ---------- */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tier{border:2px solid var(--line);padding:30px;display:flex;flex-direction:column;transition:border-color .25s,transform .35s var(--ease)}
+.tier:hover{border-color:var(--volt);transform:translateY(-6px)}
+.tier.top{background:var(--volt);color:var(--bg);border-color:var(--volt)}
+.tier.top li{border-color:rgba(10,11,9,.2)} .tier.top .lab{color:#3c4a12}
+.tier h3{font-size:44px}
+.tier .amt{font-family:var(--disp);font-size:60px;line-height:1;margin:14px 0 4px}
+.tier .lab{color:var(--grey)}
+.tier ul{list-style:none;margin:20px 0 26px;flex:1}
+.tier li{padding:10px 0;border-top:1px solid var(--line)}
+.tier.top .btn{border-color:var(--bg);background:var(--bg);color:var(--volt)}
+
+/* ---------- start ---------- */
+.start{background:var(--volt);color:var(--bg);overflow:hidden}
+.start h2{font-size:clamp(64px,13.5vw,220px)}
+.start .out{-webkit-text-stroke-color:var(--bg)}
+form.join{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;margin-top:34px;align-items:end}
+form.join label{display:block;margin-bottom:6px}
+form.join input,form.join select{width:100%;background:transparent;border:0;border-bottom:2px solid var(--bg);padding:11px 0;color:var(--bg);border-radius:0;font-size:18px}
+form.join input::placeholder{color:#5b7016}
+form.join input:focus,form.join select:focus{outline:none;border-bottom-width:4px}
+form.join .btn{background:var(--bg);color:var(--volt);border-color:var(--bg)}
+form.join .btn:hover{box-shadow:6px 6px 0 rgba(10,11,9,.3)}
+.joined{margin-top:34px;padding:20px 22px;border:2px solid var(--bg);font-size:19px;font-weight:500}
+footer{padding:34px 0 30px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;color:var(--grey)}
+.foot a{color:var(--text);text-decoration:none;border-bottom:2px solid var(--volt)}
+.fine{margin-top:26px;font-size:11px;line-height:1.7;color:#5f6455;max-width:100ch}
+.fine a{color:#8e9382}
+
+@media (max-width:1000px){
+  .progs{grid-template-columns:1fr 1fr}
+  .coach,.picker{grid-template-columns:1fr}
+  .portrait{max-width:440px}
+  .proof,.tiers{grid-template-columns:1fr}
+  form.join{grid-template-columns:1fr 1fr}
+  .nav ul li:not(:last-child){display:none}
+  .stage{min-height:0}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{width:calc(100% - 32px)}
+  .stats{grid-template-columns:1fr 1fr}
+  .stats div:nth-child(2){border-right:0}
+  .stats div:nth-child(n+3){border-top:1px solid var(--line)}
+  .stats div:nth-child(3){padding-left:0}
+  .badge,.badge-core{top:296px;right:14px;width:86px}
+  .portrait{margin-right:16px}
+  .opts,.result{grid-template-columns:1fr}
+  .daytabs{display:flex}
+  .tt{grid-template-columns:58px 1fr}
+  .tt [data-day]:not(.show){display:none}
+  .progs{grid-template-columns:1fr}
+  .prog{min-height:380px}
+  form.join{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .rv,.js .hero h1 .row>span{opacity:1;transform:none}
+  .meter i.on::after{transform:none}
+}
+</style>
+</head>
+<body>
+<div id="bar" aria-hidden="true"></div>
+
+<nav class="nav" id="nav">
+  <a class="mark" href="#top">Kabir<i>/</i>Anand</a>
+  <ul class="lab">
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#finder">Find my plan</a></li>
+    <li><a href="#timetable">Timetable</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a class="go" href="#start">First one's free</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg" id="heroBg"><img src="img/hero.jpg" alt="" width="1800" height="1200" fetchpriority="high"></div>
+  <svg class="badge" viewBox="0 0 160 160" aria-hidden="true"><defs><path id="circ" d="M80 80m-64 0a64 64 0 1 1 128 0a64 64 0 1 1 -128 0"/></defs><text><textPath href="#circ">first session free &#10005; six to a class &#10005; no mirrors &#10005; </textPath></text></svg>
+  <div class="badge-core" aria-hidden="true">KA</div>
+  <div class="wrap">
+    <p class="lab volt rv">Strength coach &middot; Bengaluru &middot; since 2014</p>
+    <h1>
+      <span class="row"><span style="--d:0">Stronger</span></span>
+      <span class="row"><span style="--d:1"><span class="out">than</span> last</span></span>
+      <span class="row"><span class="volt" style="--d:2">week.</span></span>
+    </h1>
+    <p class="lede rv" style="--d:5">Small-group strength coaching for people with jobs, knees and limited patience. Six to a class, a plan written for you, and a coach who notices when you skip.</p>
+    <div class="cta rv" style="--d:6">
+      <a class="btn fill" href="#finder">Find my plan &rarr;</a>
+      <a class="btn line" href="#timetable">See the timetable</a>
+    </div>
+    <div class="stats lab" id="stats">
+      <div><b data-to="12">0</b>years coaching</div>
+      <div><b data-to="640">0</b>people coached</div>
+      <div><b data-to="6">0</b>to a class, never more</div>
+      <div><b>05:30</b>first class of the day</div>
+    </div>
+  </div>
+</header>
+
+<div class="tape-clip"><div class="tape" aria-hidden="true"><div>
+  <span>Lift</span><span>Carry</span><span>Breathe</span><span>Repeat</span><span>No shortcuts</span><span>Show up</span>
+  <span>Lift</span><span>Carry</span><span>Breathe</span><span>Repeat</span><span>No shortcuts</span><span>Show up</span>
+</div></div></div>
+
+<section id="coach">
+  <div class="wrap coach">
+    <figure class="portrait rv"><img src="img/coach.jpg" alt="A coach seen from behind at the top of a pull-up" width="1100" height="1650" loading="lazy"><figcaption class="lab">Kabir, 6:04 am</figcaption></figure>
+    <div>
+      <p class="lab volt rv">The coach</p>
+      <h2 class="rv" style="--d:1">I count your <span class="out">reps</span>, not your excuses.</h2>
+      <p class="rv" style="--d:2">I was a state-level sprinter until my back gave out at twenty-four. Learning to lift properly fixed it, and I have been teaching that ever since.</p>
+      <p class="rv" style="--d:3">Most of the people I coach sit at a desk for ten hours. They do not need a transformation. They need to pick up their kids, climb stairs and sleep well, for the next forty years.</p>
+      <ul class="rules">
+        <li class="rv" style="--d:3"><b>01</b><span>Technique before weight. Always.</span></li>
+        <li class="rv" style="--d:4"><b>02</b><span>Every session is written down, so next week has something to beat.</span></li>
+        <li class="rv" style="--d:5"><b>03</b><span>Three good sessions a week beat six heroic ones.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="programs">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="rv">Four <span class="volt">programs.</span></h2>
+      <p class="rv" style="--d:1">Each one runs in twelve-week blocks with a test day in week six. Not sure which is yours? The finder below takes thirty seconds.</p>
+    </div>
+    <div class="progs">
+      <article class="prog rv" style="--c:var(--volt)"><img src="img/deadlift.jpg" alt="" loading="lazy"><span class="no lab">01</span><h3>Base</h3><p>Squat, hinge, push, pull, carry. The five movements, done properly, with weight that goes up.</p><div class="meter" aria-label="Intensity 3 of 5"><i class="on" style="--k:0"></i><i class="on" style="--k:1"></i><i class="on" style="--k:2"></i><i></i><i></i></div><div class="row lab"><span>Intensity 3/5</span><span>60 min</span></div></article>
+      <article class="prog rv" style="--c:var(--burn);--d:1"><img src="img/ropes.jpg" alt="" loading="lazy"><span class="no lab">02</span><h3>Burn</h3><p>Sleds, ropes, bikes and short rests. For when the goal is a lighter body and a bigger engine.</p><div class="meter" aria-label="Intensity 5 of 5"><i class="on" style="--k:0"></i><i class="on" style="--k:1"></i><i class="on" style="--k:2"></i><i class="on" style="--k:3"></i><i class="on" style="--k:4"></i></div><div class="row lab"><span>Intensity 5/5</span><span>45 min</span></div></article>
+      <article class="prog rv" style="--c:var(--flow);--d:2"><img src="img/stairs.jpg" alt="" loading="lazy"><span class="no lab">03</span><h3>Flow</h3><p>Hips, shoulders, spine. Slow strength at the ends of your range, so the rest stops hurting.</p><div class="meter" aria-label="Intensity 2 of 5"><i class="on" style="--k:0"></i><i class="on" style="--k:1"></i><i></i><i></i><i></i></div><div class="row lab"><span>Intensity 2/5</span><span>50 min</span></div></article>
+      <article class="prog rv" style="--c:var(--text);--d:3"><img src="img/squat.jpg" alt="" loading="lazy"><span class="no lab">04</span><h3>Hybrid</h3><p>Heavy lifts twice a week, hard conditioning twice a week. For people who want both and can recover.</p><div class="meter" aria-label="Intensity 4 of 5"><i class="on" style="--k:0"></i><i class="on" style="--k:1"></i><i class="on" style="--k:2"></i><i class="on" style="--k:3"></i><i></i></div><div class="row lab"><span>Intensity 4/5</span><span>75 min</span></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="finder" id="finder">
+  <div class="wrap picker">
+    <div>
+      <p class="lab volt rv">Plan finder</p>
+      <h2 class="rv" style="--d:1">Three <span class="out">quick</span> questions.</h2>
+      <div class="dots" id="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+      <p class="lab" id="stepNote" style="color:var(--grey)" aria-live="polite">Question 1 of 3</p>
+    </div>
+    <div class="stage rv" style="--d:2" id="stage"></div>
+  </div>
+</section>
+
+<section id="timetable">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="rv">This <span class="volt">week.</span></h2>
+      <p class="rv" style="--d:1">Six places in every class. Tap one to hold your spot. Sundays are for sleeping.</p>
+    </div>
+    <div class="tools rv">
+      <div class="chips lab" id="typeChips" role="group" aria-label="Filter by program"></div>
+      <div class="chips lab" id="partChips" role="group" aria-label="Filter by time of day">
+        <button type="button" class="chip" data-p="all" aria-pressed="true">All day</button>
+        <button type="button" class="chip" data-p="am" aria-pressed="false">Mornings</button>
+        <button type="button" class="chip" data-p="pm" aria-pressed="false">Evenings</button>
+      </div>
+    </div>
+    <div class="daytabs lab" id="dayTabs" role="group" aria-label="Choose a day"></div>
+    <div class="tt rv" id="tt"></div>
+    <div class="yours lab" aria-live="polite"><span id="yours">Your week: no classes held yet</span><button type="button" class="lab" id="clearHeld" hidden>Clear</button></div>
+  </div>
+</section>
+
+<section id="proof" style="padding-top:0">
+  <div class="wrap">
+    <div class="proof">
+      <article class="rv"><b data-to="92" data-suffix="%">0</b><span class="lab">still training after a year</span><p>"I came for three months to fix my back. That was four years ago."</p><cite>A member, product designer, 41</cite></article>
+      <article class="rv" style="--d:1"><b data-to="38" data-suffix=" kg">0</b><span class="lab">average deadlift gain, first block</span><p>"Nobody shouts. Somebody just quietly adds two and a half kilos to your bar."</p><cite>A member, teacher, 34</cite></article>
+      <article class="rv" style="--d:2"><b data-to="0" data-suffix="">0</b><span class="lab">mirrors on the gym floor</span><p>"First gym I have not wanted to leave after ten minutes."</p><cite>A member, retired banker, 63</cite></article>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><h2 class="rv">Plain <span class="out">prices.</span></h2><p class="rv" style="--d:1">No joining fee and no lock-in. Pause or stop with a week's notice.</p></div>
+    <div class="tiers">
+      <article class="tier rv"><h3>Drop in</h3><p class="amt">&#8377;900</p><span class="lab">per class</span><ul><li>Any class with a free place</li><li>Your numbers logged</li><li>Good for travellers</li></ul><a class="btn line" href="#timetable">Pick a class</a></article>
+      <article class="tier top rv" style="--d:1"><h3>Member</h3><p class="amt">&#8377;5,600+</p><span class="lab">per month, by days per week</span><ul><li>Two to five classes a week</li><li>A written twelve-week plan</li><li>Test day every sixth week</li><li>Open gym on Saturdays</li></ul><a class="btn" href="#finder">Find my plan</a></article>
+      <article class="tier rv" style="--d:2"><h3>One to one</h3><p class="amt">&#8377;18,000</p><span class="lab">per month, eight sessions</span><ul><li>Just you and Kabir</li><li>Rehab and return from injury</li><li>Times outside the timetable</li></ul><a class="btn line" href="#start">Ask Kabir</a></article>
+    </div>
+  </div>
+</section>
+
+<section class="start" id="start">
+  <div class="wrap">
+    <p class="lab rv">Start here</p>
+    <h2 class="rv" style="--d:1">First one's <span class="out">free.</span></h2>
+    <form class="join rv" style="--d:2" id="join" novalidate>
+      <div><label class="lab" for="jName">Name</label><input id="jName" name="name" autocomplete="name" placeholder="Your name" required></div>
+      <div><label class="lab" for="jMail">Email</label><input id="jMail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+      <div><label class="lab" for="jWhen">Best time</label><select id="jWhen" name="when"><option>Early morning</option><option>Evening</option><option>Saturday</option></select></div>
+      <button class="btn" type="submit">Book my free session</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot lab"><span>Kabir Anand Coaching &middot; Indiranagar, Bengaluru</span><a href="mailto:kabir@kabiranand.example">kabir@kabiranand.example</a><span>Mon to Sat &middot; 05:30 to 21:00</span></div>
+    <p class="fine">Demo site. Kabir Anand is a fictional coach, and the classes, prices, numbers and quotes here are made up for illustration. Photographs are from Unsplash. Designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a>, who can build one like this for you. <a href="../index.html">See more demo sites</a>.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var $ = function(s, r){ return (r || document).querySelector(s); };
+var inr = function(n){ return '₹' + n.toLocaleString('en-IN'); };
+
+/* ---------- reveals, progress bar, hero drift ---------- */
+var io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:.14}) : null;
+document.querySelectorAll('.rv').forEach(function(el){ if(io && !reduced) io.observe(el); else el.classList.add('in'); });
+var bar = $('#bar'), nav = $('#nav'), heroBg = $('#heroBg');
+function onScroll(){
+  var max = document.documentElement.scrollHeight - innerHeight;
+  bar.style.transform = 'scaleX(' + (max > 0 ? scrollY / max : 0) + ')';
+  nav.classList.toggle('stuck', scrollY > 40);
+  if(!reduced && scrollY < innerHeight) heroBg.style.transform = 'translateY(' + (scrollY * .18).toFixed(1) + 'px)';
+}
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+function countUp(root){
+  root.querySelectorAll('b[data-to]').forEach(function(b){
+    var to = +b.dataset.to, suf = b.dataset.suffix || '', t0 = null;
+    if(reduced || !to){ b.textContent = to + suf; return; }
+    requestAnimationFrame(function step(t){ if(!t0) t0 = t; var p = Math.min((t - t0) / 1300, 1); b.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))) + suf; if(p < 1) requestAnimationFrame(step); });
+  });
+}
+[$('#stats'), $('#proof')].forEach(function(el){
+  if(!io){ countUp(el); return; }
+  var o = new IntersectionObserver(function(es){ if(es[0].isIntersecting){ countUp(el); o.disconnect(); } }, {threshold:.3}); o.observe(el);
+});
+
+/* ---------- programs ---------- */
+var PROG = {
+  base:{n:'Base', c:'var(--volt)', why:'You want strength that lasts, so we start with the five movements and add weight every week.', split:['Squat and push','Hinge and pull','Carry and core','Squat and pull','Full body']},
+  burn:{n:'Burn', c:'var(--burn)', why:'Short, hard sessions with a little lifting to keep the muscle you have while the weight comes off.', split:['Sled and bike','Ropes and row','Strength circuit','Intervals','Long engine']},
+  flow:{n:'Flow', c:'var(--flow)', why:'Slow strength through full ranges. Most people feel the difference on the stairs within three weeks.', split:['Hips and spine','Shoulders and neck','Loaded stretching','Hips and ankles','Full reset']},
+  hybrid:{n:'Hybrid', c:'var(--text)', why:'Two heavy days and the rest conditioning. It is a lot, and you told us you can take it.', split:['Heavy lower','Engine','Heavy upper','Intervals','Mixed test']}
+};
+var DAYNAMES = ['Mon','Tue','Wed','Thu','Fri','Sat'];
+var PATTERN = {2:[0,3], 3:[0,2,4], 4:[0,1,3,4], 5:[0,1,2,3,4]};
+var FEE = {2:5600, 3:7900, 4:9900, 5:11500};
+
+/* ---------- plan finder ---------- */
+var QS = [
+  {k:'goal', q:'What do you want most?', o:[['strong','Get stronger','Lift more, feel solid'],['lean','Lose fat','Lighter and fitter'],['move','Move without pain','Back, knees, shoulders'],['all','All of it','Strong and fit, no compromise']]},
+  {k:'days', q:'How many days can you really do?', o:[[2,'Two','The honest minimum'],[3,'Three','Where most people land'],[4,'Four','You like routine'],[5,'Five','It is your hobby now']]},
+  {k:'level', q:'Where are you starting from?', o:[['new','New to this','Never trained with weights'],['some','On and off','I know the basics'],['lots','Training for years','I want better coaching'],['back','Coming back','After injury or a long break']]}
+];
+var stage = $('#stage'), dots = $('#dots').children, ans = {}, step = 0, held = {};
+function choose(){
+  var p = ans.goal === 'strong' ? 'base' : ans.goal === 'lean' ? 'burn' : ans.goal === 'move' ? 'flow' : 'hybrid';
+  /* A beginner or someone returning should not start on the hardest plan, whatever they asked for. */
+  if(p === 'hybrid' && (ans.level === 'new' || ans.level === 'back' || ans.days < 4)) p = 'base';
+  if(p === 'burn' && ans.level === 'back') p = 'flow';
+  return p;
+}
+function drawQ(){
+  var Q = QS[step];
+  [].forEach.call(dots, function(d, i){ d.classList.toggle('done', i < step); });
+  $('#stepNote').textContent = 'Question ' + (step + 1) + ' of 3';
+  stage.innerHTML = '<div class="q"><h3>' + Q.q + '</h3><div class="opts">' + Q.o.map(function(o){
+    return '<button type="button" class="opt' + (ans[Q.k] === o[0] ? ' picked' : '') + '" data-v="' + o[0] + '"><b>' + o[1] + '</b><span>' + o[2] + '</span></button>'; }).join('') +
+    '</div>' + (step ? '<button type="button" class="back lab" id="backBtn">&larr; Back</button>' : '') + '</div>';
+}
+function drawResult(){
+  var key = choose(), p = PROG[key], days = PATTERN[ans.days], fee = FEE[ans.days], asked = ans.goal === 'all' && key !== 'hybrid';
+  [].forEach.call(dots, function(d){ d.classList.add('done'); });
+  $('#stepNote').textContent = 'Your plan';
+  var week = DAYNAMES.map(function(d, i){ var k = days.indexOf(i); return k < 0 ? '<li class="rest"><span>' + d + '</span><span>' + (i === 5 ? 'Open gym, if you like' : 'Rest') + '</span></li>' : '<li><span>' + d + '</span><span>' + p.split[k] + '</span></li>'; }).join('');
+  stage.innerHTML = '<div class="result" style="--c:' + p.c + '"><div><p class="lab" style="color:var(--grey)">We would start you on</p><h3 style="color:' + p.c + '">' + p.n + '</h3>' +
+    '<p class="why">' + p.why + (asked ? ' Hybrid comes later, once the basics are solid.' : '') + (ans.level === 'new' ? ' Your first two sessions are one to one, so nothing is new on day one.' : '') + '</p>' +
+    '<p class="price"><span id="feeOut">' + inr(0) + '</span><small>a month</small></p><p class="lab" style="color:var(--grey);margin-top:8px">' + ans.days + ' classes a week &middot; test day in week 6</p></div>' +
+    '<ul class="week lab">' + week + '</ul>' +
+    '<div class="cta"><button type="button" class="btn fill" id="showMine">Show my classes &darr;</button><button type="button" class="back lab" id="againBtn" style="margin:0">Start again</button></div></div>';
+  var out = $('#feeOut'), t0 = null;
+  if(reduced) out.textContent = inr(fee);
+  else requestAnimationFrame(function tick(t){ if(!t0) t0 = t; var k = Math.min((t - t0) / 900, 1); out.textContent = inr(Math.round(fee * (1 - Math.pow(1 - k, 3)) / 100) * 100); if(k < 1) requestAnimationFrame(tick); });
+  $('#showMine').addEventListener('click', function(){ setType(key); $('#timetable').scrollIntoView({behavior: reduced ? 'auto' : 'smooth'}); setTimeout(function(){ document.querySelectorAll('.cls:not(.off)').forEach(function(c){ c.classList.remove('flash'); void c.offsetWidth; c.classList.add('flash'); }); }, 700); });
+  $('#againBtn').addEventListener('click', function(){ ans = {}; step = 0; drawQ(); });
+}
+stage.addEventListener('click', function(e){
+  var o = e.target.closest('.opt');
+  if(o){ var Q = QS[step], v = isNaN(+o.dataset.v) ? o.dataset.v : +o.dataset.v; ans[Q.k] = v;
+    stage.querySelectorAll('.opt').forEach(function(x){ x.classList.toggle('picked', x === o); });
+    setTimeout(function(){ step++; if(step < QS.length) drawQ(); else drawResult(); }, reduced ? 0 : 260); return; }
+  if(e.target.id === 'backBtn'){ step--; drawQ(); }
+});
+drawQ();
+
+/* ---------- timetable ---------- */
+var TIMES = ['05:30','06:30','07:30','18:00','19:00','20:00'];
+/* rows are times, columns Mon to Sat; '' is an empty slot, open is the unsupervised Saturday hour */
+var GRIDROWS = [
+  ['base','burn','base','burn','base','hybrid'],
+  ['burn','base','hybrid','base','burn','base'],
+  ['flow','hybrid','flow','hybrid','flow','open'],
+  ['base','flow','burn','flow','base',''],
+  ['hybrid','burn','base','burn','hybrid',''],
+  ['flow','base','flow','base','',''] ];
+var COACH = ['Kabir','Kabir','Nisha','Kabir','Dev','Nisha'];
+var tt = $('#tt'), typeNow = 'all', partNow = 'all', dayNow = 0, toast = $('#toast'), toastT;
+var todayIdx = (new Date().getDay() + 6) % 7;      /* 0 = Monday, 6 = Sunday */
+dayNow = todayIdx > 5 ? 0 : todayIdx;
+function hash(s){ var h = 7; for(var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 9973; return h; }
+function build(){
+  var html = '<div class="hd"></div>';
+  DAYNAMES.forEach(function(d, i){ html += '<div class="hd lab' + (i === todayIdx ? ' today' : '') + (i === dayNow ? ' show' : '') + '" data-day="' + i + '">' + d + '</div>'; });
+  TIMES.forEach(function(t, r){
+    html += '<div class="time lab">' + t + '</div>';
+    DAYNAMES.forEach(function(d, c){
+      var k = GRIDROWS[r][c], id = d + ' ' + t, inner = '';
+      if(k){
+        var left = k === 'open' ? 6 : hash(id + k) % 7, name = k === 'open' ? 'Open gym' : PROG[k].n, col = k === 'open' ? 'var(--grey)' : PROG[k].c;
+        inner = '<button type="button" class="cls' + (left ? '' : ' full') + '" data-id="' + id + '" data-type="' + k + '" data-part="' + (r < 3 ? 'am' : 'pm') + '" data-left="' + left + '" style="--c:' + col + '" aria-pressed="false">' +
+          '<b>' + name + '</b><small>' + (k === 'open' ? 'No coach, members only' : 'with ' + COACH[(r + c) % COACH.length]) + '<br>' + (left ? left + (left === 1 ? ' place left' : ' places left') : 'Full, join the waitlist') + '</small></button>';
+      }
+      html += '<div class="slot' + (c === dayNow ? ' show' : '') + '" data-day="' + c + '">' + inner + '</div>';
+    });
+  });
+  tt.innerHTML = html;
+}
+function applyFilters(){
+  tt.querySelectorAll('.cls').forEach(function(c){
+    var ok = (typeNow === 'all' || c.dataset.type === typeNow) && (partNow === 'all' || c.dataset.part === partNow);
+    c.classList.toggle('off', !ok); c.tabIndex = ok ? 0 : -1;
+  });
+}
+function setType(t){ typeNow = t; $('#typeChips').querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed', x.dataset.t === t); }); applyFilters(); }
+function say(msg){ toast.textContent = msg; toast.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function(){ toast.classList.remove('on'); }, 3200); }
+function tally(){
+  var ids = Object.keys(held);
+  $('#yours').textContent = ids.length ? 'Your week: ' + ids.length + (ids.length === 1 ? ' class' : ' classes') + ' held · ' + ids.join(', ') : 'Your week: no classes held yet';
+  $('#clearHeld').hidden = !ids.length;
+}
+[['all','All','var(--text)'],['base','Base','var(--volt)'],['burn','Burn','var(--burn)'],['flow','Flow','var(--flow)'],['hybrid','Hybrid','var(--text)']].forEach(function(t){
+  var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.dataset.t = t[0]; b.setAttribute('aria-pressed', t[0] === 'all');
+  b.innerHTML = (t[0] === 'all' ? '' : '<i style="--c:' + t[2] + '"></i>') + t[1]; $('#typeChips').appendChild(b);
+});
+DAYNAMES.forEach(function(d, i){
+  var b = document.createElement('button'); b.type = 'button'; b.textContent = d; b.dataset.day = i; b.setAttribute('aria-pressed', i === dayNow); $('#dayTabs').appendChild(b);
+});
+$('#typeChips').addEventListener('click', function(e){ var c = e.target.closest('.chip'); if(c) setType(c.dataset.t); });
+$('#partChips').addEventListener('click', function(e){ var c = e.target.closest('.chip'); if(!c) return; partNow = c.dataset.p; this.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed', x === c); }); applyFilters(); });
+$('#dayTabs').addEventListener('click', function(e){ var b = e.target.closest('button'); if(!b) return; dayNow = +b.dataset.day;
+  this.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x === b); });
+  tt.querySelectorAll('[data-day]').forEach(function(x){ x.classList.toggle('show', +x.dataset.day === dayNow); }); });
+tt.addEventListener('click', function(e){
+  var c = e.target.closest('.cls'); if(!c) return;
+  var id = c.dataset.id, name = c.querySelector('b').textContent;
+  if(held[id]){ delete held[id]; c.classList.remove('held'); c.setAttribute('aria-pressed', 'false'); say('Released your place in ' + name + ', ' + id + '.'); }
+  else if(c.dataset.left === '0'){ say(name + ' on ' + id + ' is full. On the real site you would join the waitlist.'); }
+  else { held[id] = 1; c.classList.add('held'); c.setAttribute('aria-pressed', 'true'); say('Place held: ' + name + ', ' + id + '. Demo only, nothing is booked.'); }
+  tally();
+});
+$('#clearHeld').addEventListener('click', function(){ held = {}; tt.querySelectorAll('.held').forEach(function(c){ c.classList.remove('held'); c.setAttribute('aria-pressed', 'false'); }); tally(); });
+build(); applyFilters();
+
+/* ---------- free session form ---------- */
+$('#join').addEventListener('submit', function(e){
+  e.preventDefault();
+  var nm = $('#jName'), ml = $('#jMail');
+  if(!nm.value.trim()){ nm.focus(); return; }
+  if(!/^\S+@\S+\.\S+$/.test(ml.value.trim())){ ml.focus(); return; }
+  var box = document.createElement('p'); box.className = 'joined'; box.setAttribute('role', 'status');
+  box.textContent = 'See you soon, ' + nm.value.trim() + '. ' + $('#jWhen').value + ' it is. This is a demo site, so nothing was sent and no session is booked.';
+  this.replaceWith(box);
+});
+})();
+</script>
+</body>
+</html>

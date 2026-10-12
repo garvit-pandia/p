@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Six concept websites by Garvit Pandia, each for a different kind of business and each built from its own material: paper, glass, soil, type, stage light and deep water. Pick one and step inside.">
+  <meta name="description" content="Ten demo websites by Garvit Pandia, each for a different kind of client: a hotel, a photographer, a theatre, an architect, a coach, a clinic, a farm shop, a type foundry, a dive school and an invoicing app. Pick one and step inside.">
   <title>Garvit Pandia — The Material Index</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2348,6 +2348,28 @@
       .card--cta { flex-direction: column; }
       .card--cta .stage { width: auto; height: 170px; min-height: 0; }
     }
+
+    /* ---------- people cards: photographer, architect, coach ---------- */
+    .sw--v19 .sw__tile { background: linear-gradient(135deg, #a85d48, #f6f1e9); }
+    .sw--v20 .sw__tile { background: linear-gradient(135deg, #f1f1ec 55%, #e4572e 55%); }
+    .sw--v21 .sw__tile { background: linear-gradient(135deg, #0a0b09, #c6ff3d); }
+    .card--v19 { --surface: #f6f1e9; --accent: #a85d48; --ink: #2a2420; --mut: #7d7166; --line: #e3dacd; }
+    .card--v19 .stage { background: radial-gradient(120% 90% at 80% 0%, #fbf8f3, #e6d9c6); }
+    .card--v19 .pvc-shot { border: 5px solid #fbf8f3; border-radius: 1px; box-shadow: 0 14px 26px -16px rgba(42, 36, 32, .6); transform: rotate(-.7deg); }
+    .card--v20 { --surface: #fbfbf9; --accent: #e4572e; --ink: #111; --mut: #72726d; --line: #dcdcd6; }
+    .card--v20 .stage { background: repeating-linear-gradient(90deg, #e2e2dc 0 1px, transparent 1px 30px), #fbfbf9; }
+    .card--v20 .pvc-shot { border: 1px solid #111; border-radius: 0; box-shadow: 5px 5px 0 #e4572e; }
+    .card--v21 { --surface: #0a0b09; --accent: #c6ff3d; --ink: #f1f3ea; --mut: #8e9382; --line: #2a2e22; }
+    .card--v21 .stage { background: repeating-linear-gradient(-45deg, #171a11 0 14px, #0a0b09 14px 28px); }
+    .card--v21 .pvc-shot { border: 2px solid #c6ff3d; border-radius: 0; }
+
+    /* ---------- clinic card ---------- */
+    .sw--v22 .sw__tile { background: linear-gradient(90deg, #ff6a4a 50%, #d6efe2 50%); }
+    .card--v22 { --surface: #f6f4ec; --accent: #0d6b57; --ink: #0f2f2a; --mut: #4b635d; --line: #dedbce; }
+    .card--v22 .stage { background: radial-gradient(rgba(15, 47, 42, .12) 1px, transparent 1px) 0 0 / 14px 14px, #d6efe2; }
+    .card--v22 .pvc-shot { border: 4px solid #fffdf8; border-radius: 16px; box-shadow: 0 14px 26px -16px rgba(15, 47, 42, .55); }
+    /* ten sites leave one card on the last desktop row; the commission card takes the rest of it */
+    @media (min-width: 1024px) { .card--cta { grid-column: span 8; } }
   </style>
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -2368,50 +2390,54 @@
 
       <div class="hero">
         <div class="rv" style="--i:0">
-          <p class="eyebrow">Concept sites · 6 businesses · 2026</p>
+          <p class="eyebrow">Demo sites · 10 businesses and people · 2026</p>
           <h1>Choose your <em>material.</em></h1>
         </div>
-        <p class="note rv" style="--i:1"><strong>Every site here is for a different kind of business</strong> — a hotel, a theatre, a farm shop, a type foundry, a dive school, an invoicing app. The businesses are invented. The websites are real, and each one does something.</p>
+        <p class="note rv" style="--i:1"><strong>Every site here is built for a different kind of client</strong> — a hotel, a photographer, a theatre, an architect, a coach, a clinic, a farm shop, a type foundry, a dive school, an invoicing app. The names are invented. The websites are real, and each one does something.</p>
       </div>
 
-      <div class="rail rv" style="--i:2" aria-label="All six sites">
+      <div class="rail rv" style="--i:2" aria-label="All ten sites">
         <div class="rail-track">
           <div class="rail-copy">
             <a class="sw sw--v13" href="v13-origami-aurum/index.html"><span class="sw__tile"></span><span class="sw__name">Hotel</span></a>
+            <a class="sw sw--v19" href="v19-photographer/index.html"><span class="sw__tile"></span><span class="sw__name">Photographer</span></a>
             <a class="sw sw--v16" href="v16-black-box/index.html"><span class="sw__tile"></span><span class="sw__name">Theatre</span></a>
+            <a class="sw sw--v20" href="v20-architect/index.html"><span class="sw__tile"></span><span class="sw__name">Architect</span></a>
             <a class="sw sw--v5" href="v5-glass/index.html"><span class="sw__tile"></span><span class="sw__name">Invoicing</span></a>
+            <a class="sw sw--v21" href="v21-fitness-coach/index.html"><span class="sw__tile"></span><span class="sw__name">Coach</span></a>
+            <a class="sw sw--v22" href="v22-clinic/index.html"><span class="sw__tile"></span><span class="sw__name">Clinic</span></a>
             <a class="sw sw--v12" href="v12-mycelium/index.html"><span class="sw__tile"></span><span class="sw__name">Farm shop</span></a>
             <a class="sw sw--v10" href="v10-typevolt/index.html"><span class="sw__tile"></span><span class="sw__name">Foundry</span></a>
             <a class="sw sw--v8" href="v8-abyss/index.html"><span class="sw__tile"></span><span class="sw__name">Dive school</span></a>
             <a class="sw sw--v13" href="v13-origami-aurum/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Hotel</span></a>
+            <a class="sw sw--v19" href="v19-photographer/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Photographer</span></a>
             <a class="sw sw--v16" href="v16-black-box/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Theatre</span></a>
+            <a class="sw sw--v20" href="v20-architect/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Architect</span></a>
             <a class="sw sw--v5" href="v5-glass/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Invoicing</span></a>
-            <a class="sw sw--v12" href="v12-mycelium/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Farm shop</span></a>
-            <a class="sw sw--v10" href="v10-typevolt/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Foundry</span></a>
-            <a class="sw sw--v8" href="v8-abyss/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Dive school</span></a>
-            <a class="sw sw--v13" href="v13-origami-aurum/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Hotel</span></a>
-            <a class="sw sw--v16" href="v16-black-box/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Theatre</span></a>
-            <a class="sw sw--v5" href="v5-glass/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Invoicing</span></a>
+            <a class="sw sw--v21" href="v21-fitness-coach/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Coach</span></a>
+            <a class="sw sw--v22" href="v22-clinic/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Clinic</span></a>
             <a class="sw sw--v12" href="v12-mycelium/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Farm shop</span></a>
             <a class="sw sw--v10" href="v10-typevolt/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Foundry</span></a>
             <a class="sw sw--v8" href="v8-abyss/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Dive school</span></a>
           </div>
           <div class="rail-copy" aria-hidden="true">
             <a class="sw sw--v13" href="v13-origami-aurum/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Hotel</span></a>
+            <a class="sw sw--v19" href="v19-photographer/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Photographer</span></a>
             <a class="sw sw--v16" href="v16-black-box/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Theatre</span></a>
+            <a class="sw sw--v20" href="v20-architect/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Architect</span></a>
             <a class="sw sw--v5" href="v5-glass/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Invoicing</span></a>
+            <a class="sw sw--v21" href="v21-fitness-coach/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Coach</span></a>
+            <a class="sw sw--v22" href="v22-clinic/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Clinic</span></a>
             <a class="sw sw--v12" href="v12-mycelium/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Farm shop</span></a>
             <a class="sw sw--v10" href="v10-typevolt/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Foundry</span></a>
             <a class="sw sw--v8" href="v8-abyss/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Dive school</span></a>
             <a class="sw sw--v13" href="v13-origami-aurum/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Hotel</span></a>
+            <a class="sw sw--v19" href="v19-photographer/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Photographer</span></a>
             <a class="sw sw--v16" href="v16-black-box/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Theatre</span></a>
+            <a class="sw sw--v20" href="v20-architect/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Architect</span></a>
             <a class="sw sw--v5" href="v5-glass/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Invoicing</span></a>
-            <a class="sw sw--v12" href="v12-mycelium/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Farm shop</span></a>
-            <a class="sw sw--v10" href="v10-typevolt/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Foundry</span></a>
-            <a class="sw sw--v8" href="v8-abyss/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Dive school</span></a>
-            <a class="sw sw--v13" href="v13-origami-aurum/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Hotel</span></a>
-            <a class="sw sw--v16" href="v16-black-box/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Theatre</span></a>
-            <a class="sw sw--v5" href="v5-glass/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Invoicing</span></a>
+            <a class="sw sw--v21" href="v21-fitness-coach/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Coach</span></a>
+            <a class="sw sw--v22" href="v22-clinic/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Clinic</span></a>
             <a class="sw sw--v12" href="v12-mycelium/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Farm shop</span></a>
             <a class="sw sw--v10" href="v10-typevolt/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Foundry</span></a>
             <a class="sw sw--v8" href="v8-abyss/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Dive school</span></a>
@@ -2424,7 +2450,7 @@
       <div class="section-head rv" style="--i:3">
         <div>
           <h2>The index</h2>
-          <p class="sub">Six sites · six kinds of business · one thing each that works</p>
+          <p class="sub">Ten sites · businesses and people · one thing each that works</p>
         </div>
         <div class="head-actions">
           <nav class="filters" id="filters" aria-label="Filter sites">
@@ -2442,57 +2468,97 @@
         <a class="card card--v13 rv" data-f="light" href="v13-origami-aurum/index.html" style="--i:0">
           <div class="stage" aria-hidden="true"><span class="c13-fold"></span><span class="c13-crease-a"></span><span class="c13-crease-b"></span><span class="c13-disc"></span><span class="c13-glint"></span><span class="c13-foldline"></span><span class="c13-label">FOLD/REVEAL</span><span class="c13f-corner"></span><img class="pvc-shot" src="shots/v13-origami-aurum.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Site 01 / 06</span><span>Hotel · Booking</span></div>
+            <div class="meta"><span>Site 01 / 10</span><span>Hotel · Booking</span></div>
             <h2>Kaagaz Haveli</h2>
             <p>A twelve-room heritage hotel in a paper merchant&rsquo;s house. Folded-paper sections, six rooms, and a stay calculator that prices your dates to the rupee.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
           </div>
         </a>
 
-        <a class="card card--v16 rv" data-f="dark" href="v16-black-box/index.html" style="--i:1">
+        <a class="card card--v19 rv" data-f="light" href="v19-photographer/index.html" style="--i:1">
+          <div class="stage" aria-hidden="true"><img class="pvc-shot" src="shots/v19-photographer.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
+          <div class="body">
+            <div class="meta"><span>Site 02 / 10</span><span>Photographer · Bookings</span></div>
+            <h2>Meera Kapoor</h2>
+            <p>A wedding photographer&rsquo;s portfolio. Eighteen pictures you can filter and page through, three packages, and a calendar that tells you whether your date is free.</p>
+            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
+          </div>
+        </a>
+
+        <a class="card card--v16 rv" data-f="dark" href="v16-black-box/index.html" style="--i:2">
           <div class="stage" aria-hidden="true"><span class="c16-stage"></span><span class="c16-seam s1"></span><span class="c16-seam s2"></span><span class="c16-spot"></span><span class="c16-cue">CUE 07</span><img class="pvc-shot" src="shots/v16-black-box.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Site 02 / 06</span><span>Theatre · Ticketing</span></div>
+            <div class="meta"><span>Site 03 / 10</span><span>Theatre · Ticketing</span></div>
             <h2>Saanjh Repertory</h2>
             <p>An eighty-four-seat black-box theatre. A season of eight plays, a lighting desk you can run, and a seat map where you pick your own row.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
           </div>
         </a>
 
-        <a class="card card--v5 rv" data-f="dark 3d" href="v5-glass/index.html" style="--i:2">
+        <a class="card card--v20 rv" data-f="light" href="v20-architect/index.html" style="--i:3">
+          <div class="stage" aria-hidden="true"><img class="pvc-shot" src="shots/v20-architect.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
+          <div class="body">
+            <div class="meta"><span>Site 04 / 10</span><span>Architect · Projects</span></div>
+            <h2>Arjun Sethi Architects</h2>
+            <p>An architecture studio laid out like a drawing set. Eleven projects you can filter, sort and open, each with its own sheet and a plan that draws itself.</p>
+            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
+          </div>
+        </a>
+
+        <a class="card card--v5 rv" data-f="dark 3d" href="v5-glass/index.html" style="--i:4">
           <div class="stage" aria-hidden="true"><span class="c5-prism c5-gleam"></span><span class="c5-panel c5-shine"></span><span class="c5-orb"></span><span class="c5-streak"></span><img class="pvc-shot" src="shots/v5-glass.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Site 03 / 06</span><span>Software · Pricing</span></div>
+            <div class="meta"><span>Site 05 / 10</span><span>Software · Pricing</span></div>
             <h2>Kanch Invoicing</h2>
             <p>A product site for an invoicing app. Glass prisms in 3D, mock screens drawn in code, and a pricing slider that tells you which plan fits.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
           </div>
         </a>
 
-        <a class="card card--v12 rv" data-f="dark" href="v12-mycelium/index.html" style="--i:3">
+        <a class="card card--v21 rv" data-f="dark motion" href="v21-fitness-coach/index.html" style="--i:5">
+          <div class="stage" aria-hidden="true"><img class="pvc-shot" src="shots/v21-fitness-coach.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
+          <div class="body">
+            <div class="meta"><span>Site 06 / 10</span><span>Fitness coach · Classes</span></div>
+            <h2>Kabir Anand</h2>
+            <p>A strength coach&rsquo;s site at full volume. Three questions find your plan and price, then a weekly timetable lets you hold a place in a class.</p>
+            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
+          </div>
+        </a>
+
+        <a class="card card--v22 rv" data-f="light motion" href="v22-clinic/index.html" style="--i:6">
+          <div class="stage" aria-hidden="true"><img class="pvc-shot" src="shots/v22-clinic.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
+          <div class="body">
+            <div class="meta"><span>Site 07 / 10</span><span>Clinic · Bookings</span></div>
+            <h2>Hitesh Clinic</h2>
+            <p>A neighbourhood chemist with its own lab and doctor&rsquo;s room. A test slip that prices itself and finds a slot, a sample you can track, and a counter that knows when your tablets run out.</p>
+            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
+          </div>
+        </a>
+
+        <a class="card card--v12 rv" data-f="dark" href="v12-mycelium/index.html" style="--i:7">
           <div class="stage" aria-hidden="true"><span class="c12-net"></span><span class="c12-node"></span><span class="c12-fruit"></span><span class="c12-cap"></span><span class="c12-spore c12-s1"></span><span class="c12-spore c12-s2"></span><span class="c12-spore c12-s3"></span><span class="c12-mound"></span><span class="c12-sprout"></span><span class="c12-label">GROWTH NET</span><span class="c12f-thread"></span><img class="pvc-shot" src="shots/v12-mycelium.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Site 04 / 06</span><span>Farm · Shop</span></div>
+            <div class="meta"><span>Site 08 / 10</span><span>Farm · Shop</span></div>
             <h2>Dhingri &amp; Co.</h2>
             <p>A gourmet mushroom farm with a working shop. A living fungal network behind the page, eight things to buy, and a basket that remembers you.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
           </div>
         </a>
 
-        <a class="card card--v10 rv" data-f="light motion" href="v10-typevolt/index.html" style="--i:4">
+        <a class="card card--v10 rv" data-f="light motion" href="v10-typevolt/index.html" style="--i:8">
           <div class="stage" aria-hidden="true"><span class="c10-ghost">V</span><span class="c10-v">V</span><span class="c10-rule"></span><span class="c10-label">LETTER/MOTION</span><span class="c10f-crop tl"></span><span class="c10f-crop tr"></span><span class="c10f-crop bl"></span><span class="c10f-crop br"></span><img class="pvc-shot" src="shots/v10-typevolt.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Site 05 / 06</span><span>Type foundry · Tester</span></div>
+            <div class="meta"><span>Site 09 / 10</span><span>Type foundry · Tester</span></div>
             <h2>Typevolt</h2>
             <p>An independent type foundry. Letters that move as you scroll, eight typeface families, and a live tester to set your own words in any of them.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
           </div>
         </a>
 
-        <a class="card card--v8 rv" data-f="dark motion" href="v8-abyss/index.html" style="--i:5">
+        <a class="card card--v8 rv" data-f="dark motion" href="v8-abyss/index.html" style="--i:9">
           <div class="stage" aria-hidden="true"><span class="c8-jelly"></span><span class="c8-tent"></span><span class="c8-sonar"></span><span class="c8-bub1"></span><span class="c8-bub2"></span><span class="c8-depth">-40 M</span><span class="c8f-ticks"></span><img class="pvc-shot" src="shots/v8-abyss.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Site 06 / 06</span><span>Dive school · Courses</span></div>
+            <div class="meta"><span>Site 10 / 10</span><span>Dive school · Courses</span></div>
             <h2>Paatal Dive Co.</h2>
             <p>A dive school in the Andamans. A living sea on canvas, a depth rail down to forty metres, and a depth finder that shows what you would see at each one.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
@@ -2500,9 +2566,9 @@
         </a>
 
         <a class="card card--cta rv" href="mailto:garvit9829@gmail.com" style="--i:6">
-          <div class="stage" aria-hidden="true"><span class="c15-frame"></span><span class="c15-plus"></span><span class="c15-vbar"></span><span class="c15-slot">SLOT 07</span><span class="c15-label">YOUR BUSINESS HERE</span></div>
+          <div class="stage" aria-hidden="true"><span class="c15-frame"></span><span class="c15-plus"></span><span class="c15-vbar"></span><span class="c15-slot">SLOT 11</span><span class="c15-label">YOUR BUSINESS HERE</span></div>
           <div class="body">
-            <div class="meta"><span>Site 07 · Yours</span><span>Commission</span></div>
+            <div class="meta"><span>Site 11 · Yours</span><span>Commission</span></div>
             <h2>Your business here.</h2>
             <p>Every site in this index started as a blank file and one kind of business. Tell me what yours does and what it should feel like.</p>
             <span class="foot">Commission a site <span class="arr" aria-hidden="true">→</span></span>
@@ -2512,7 +2578,7 @@
     </main>
 
     <footer>
-      <span>© 2026 Garvit Pandia · six concept sites, one practice</span>
+      <span>© 2026 Garvit Pandia · ten demo sites, one practice</span>
       <span class="f-links">
         <a href="https://garvitpandia.me" rel="noopener">Portfolio</a>
         <a href="mailto:garvit9829@gmail.com">Email</a>
@@ -2602,7 +2668,7 @@
       'use strict';
       var FINE = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
       var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var cards = [].slice.call(document.querySelectorAll('.card--v13, .card--v16, .card--v5, .card--v12, .card--v10, .card--v8'));
+      var cards = [].slice.call(document.querySelectorAll('.card--v13, .card--v19, .card--v16, .card--v20, .card--v5, .card--v21, .card--v22, .card--v12, .card--v10, .card--v8'));
       var current = null;
       var timer = null;
       var io = null;

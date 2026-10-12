@@ -1,4 +1,4 @@
-# Vercel serves the gallery and the six concept sites only.
+# Vercel serves the gallery and the ten demo sites only.
 # Working notes, old briefs and the older portfolio experiments stay out of the deployment.
 /.hermes
 /.superpowers
@@ -30,3 +30,7 @@
 !/shots/v12-mycelium.png
 !/shots/v13-origami-aurum.png
 !/shots/v16-black-box.png
+!/shots/v19-photographer.png
+!/shots/v20-architect.png
+!/shots/v21-fitness-coach.png
+!/shots/v22-clinic.png
