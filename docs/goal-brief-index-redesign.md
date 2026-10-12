@@ -1,12 +1,12 @@
 # /goal brief — Finish & polish the Material Index (portfolio5 index.html)
 
 Paste the block below into `/goal` in a fresh session. Self-contained — no
-conversation history required. Workdir: run `cd /home/garvit/projects/portfolio5` first.
+conversation history required. Workdir: run `cd /home/garvit/projects2/portfolio-gallery` first.
 
 ---
 
 GOAL: Complete, verify, and polish the redesigned portfolio index page at
-/home/garvit/projects/portfolio5/index.html — the "Material Index": a single
+/home/garvit/projects2/portfolio-gallery/index.html — the "Material Index": a single
 self-contained HTML page where each of the 14 portfolio variants is a card
 made of that variant's own visual material (glass card for v5-glass, signal
 static for v14-signal, etc.). Finish the in-flight merge of the card scene
@@ -18,10 +18,10 @@ done after every gate below passes AND the vision rating target is met, then
 update docs/STATUS.md and write the final report.
 
 READ FIRST, in order:
-1. /home/garvit/projects/portfolio5/docs/index-redesign-brief.md — the scene-part contract (markup/CSS file formats, class prefixes, verification commands). Follow it for ANY new scene work.
-2. /home/garvit/projects/portfolio5/index.html — the current skeleton (base design, 15 card shells, JS). Read via search_files mapping + targeted chunks if large.
-3. /home/garvit/projects/portfolio5/parts/ — the scene part files cards-A.html/.css (cards 01-05), cards-B.html/.css (cards 06-10), cards-C.html/.css (cards 11-15). These may or may not be complete; a prior session dispatched 3 subagents to write them.
-4. /home/garvit/projects/portfolio5/docs/STATUS.md — project status convention; append your round.
+1. /home/garvit/projects2/portfolio-gallery/docs/index-redesign-brief.md — the scene-part contract (markup/CSS file formats, class prefixes, verification commands). Follow it for ANY new scene work.
+2. /home/garvit/projects2/portfolio-gallery/index.html — the current skeleton (base design, 15 card shells, JS). Read via search_files mapping + targeted chunks if large.
+3. /home/garvit/projects2/portfolio-gallery/parts/ — the scene part files cards-A.html/.css (cards 01-05), cards-B.html/.css (cards 06-10), cards-C.html/.css (cards 11-15). These may or may not be complete; a prior session dispatched 3 subagents to write them.
+4. /home/garvit/projects2/portfolio-gallery/docs/STATUS.md — project status convention; append your round.
 5. Load these skills with skill_view: portfolio-variant-builds, localhost-browser-qa, frontend-design. Read the localhost-browser-qa skill's setup section before any browser work.
 
 WHAT EXISTS (do not rebuild from scratch):

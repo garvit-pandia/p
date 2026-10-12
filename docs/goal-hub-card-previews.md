@@ -6,14 +6,14 @@ Upgrade the variant cards on the portfolio5 chooser hub so each card shows a REA
 
 ## 1. One-line goal
 
-Rebuild the 14 variant cards on /home/garvit/projects/portfolio5/index.html so each card shows the actual site (screenshot at rest, live scaled iframe on hover), framed by an upgraded theme-native decorative scene per variant, with boot-in entrance + hover character — zero new dependencies, variant folders untouched, works double-clicked from file:// and served over http. Every single card must rate ≥8/10 on the first vision pass and ≥9/10 on the final audit, scored per-card on creativity, design, and final look. If meeting the bar costs 3x the tokens, spend them — creativity is the product, cost is not a constraint.
+Rebuild the 14 variant cards on /home/garvit/projects2/portfolio-gallery/index.html so each card shows the actual site (screenshot at rest, live scaled iframe on hover), framed by an upgraded theme-native decorative scene per variant, with boot-in entrance + hover character — zero new dependencies, variant folders untouched, works double-clicked from file:// and served over http. Every single card must rate ≥8/10 on the first vision pass and ≥9/10 on the final audit, scored per-card on creativity, design, and final look. If meeting the bar costs 3x the tokens, spend them — creativity is the product, cost is not a constraint.
 
 ## 2. Project path
 
-/home/garvit/projects/portfolio5
+/home/garvit/projects2/portfolio-gallery
 - Hub file: index.html (single-file hub, ~1982 lines, warm light theme: parchment #f5f4ed family, terracotta accent, Georgia/Inter/JetBrains Mono, rounded corners, soft shadows — do NOT change the hub's overall design language; cards get the upgrade)
 - 14 variants in sibling folders: v1-light … v14-signal (READ-ONLY — never edit files inside any vN-* folder)
-- Dev server: python3 -m http.server 5176 (run from the project root; pin port 5176)
+- Dev server: python3 -m http.server 5186 (run from the project root; pin port 5186)
 
 ## 3. Read FIRST, in this order
 
@@ -55,7 +55,7 @@ E. CREATIVITY MANDATE (the bar)
 
 ## 5. Hard environment rules
 
-- Port 5176 only for the dev server; serve from the project root so /shots/ and /vN-*/ resolve.
+- Port 5186 only for the dev server; serve from the project root so /shots/ and /vN-*/ resolve.
 - Variant folders v1-light … v14-signal are READ-ONLY. The hub round does not touch them (an unrelated v2-dark CSS fix already landed on disk — screenshots must simply capture current disk state).
 - No npm, no build step, no new dependencies — hub stays a double-click static page plus committed image assets.
 - All index.html edits are SEQUENTIAL same-file patches, one at a time, diff-reviewed, checker-run after every patch (scripts/check-round-html.py index.html; known artifacts: the <a> loose-count false alarm and the <N> JS-loop false tag — adjudicate, don't chase). Parallel subagents are OK ONLY for independent asset generation (per-variant screenshot scripts); never two writers on index.html.
@@ -65,7 +65,7 @@ E. CREATIVITY MANDATE (the bar)
 
 ## 6. Verification gates (ALL must pass before done)
 
-1. Server check: python3 -m http.server 5176 from project root; hub loads at http://127.0.0.1:5176/ with zero console errors.
+1. Server check: python3 -m http.server 5186 from project root; hub loads at http://127.0.0.1:5186/ with zero console errors.
 2. Screenshot pass: all 14 shots exist in shots/, each matches its variant (spot-check 3 by eye/vision against the live variant), none blank/black/white.
 3. Card behavior in browser: every card shows its screenshot at rest; hover activates EXACTLY one live iframe (probe: count document.querySelectorAll('iframe:not([src*=about])') === 1 while hovering); leaving the card detaches it after the grace window; clicking a card still navigates to the variant; filters + shuffle still work.
 4. file:// pass: open index.html directly via file:// — all 14 thumbnails + frames render, no console errors, hover preview degrades gracefully (screenshot stays, no blank).
@@ -103,6 +103,6 @@ E. CREATIVITY MANDATE (the bar)
 ## Structured /goal contract (paste these lines with the brief)
 
 verify: zero console errors on hub + file://; all 14 shots exist and match; exactly one live iframe at a time on hover; filters/shuffle intact; reduced-motion and 375px passes; PER-CARD vision scores: every card ≥8/10 on the first full rating pass and ≥9/10 on the final audit (creativity + design + final look, verbatim quotes + score table in the report); STATUS.md updated
-constraints: variant folders read-only; no new deps; port 5176; sequential same-file patches on index.html; file:// must work; one-live-iframe perf contract; token spend is not a constraint
+constraints: variant folders read-only; no new deps; port 5186; sequential same-file patches on index.html; file:// must work; one-live-iframe perf contract; token spend is not a constraint
 boundaries: do not redesign the hub's overall theme or the variant sites; do not add a build step; do not remove existing card features (filters, shuffle, sw rail, badges); do not ship any card below 8.5/10
 stop when: all verification gates pass AND every card scores ≥9/10 on the final audit (or the documented 8.5+ escalation is the only blocker) AND docs/STATUS.md has the hub-round row with the per-card score table

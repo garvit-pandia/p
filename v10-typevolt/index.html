@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <script>document.documentElement.classList.add('js');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Garvit Pandia — Typevolt: Kinetic Editorial Portfolio</title>
-<meta name="description" content="Garvit Pandia — kinetic editorial engineer. B.Des Creative Technology with a CS minor. Cut, Baseline, Inkstone, Kern, Proofsheet, Ligature — type systems and exact web craft.">
+<title>Typevolt — An independent type foundry. Eight typefaces, tested in your browser</title>
+<meta name="description" content="Typevolt is an independent type foundry. Eight typeface families named after electrical units: try every one in the live tester, then license it for desktop, web or app.">
 <meta name="theme-color" content="#f4f1ea">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Garvit Pandia — Typevolt">
-<meta property="og:description" content="Kinetic editorial portfolio of Garvit Pandia — type systems & creative engineering.">
-<meta property="og:url" content="https://github.com/garvit-pandia">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23d7ff3e'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial' font-size='40' font-weight='900' text-anchor='middle' fill='%23151515'%3EG%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="Typevolt — Type foundry">
+<meta property="og:description" content="Eight typeface families, a live tester and plain licensing.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23d7ff3e'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial' font-size='40' font-weight='900' text-anchor='middle' fill='%23151515'%3ET%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&family=Inter+Tight:wght@100..900&family=JetBrains+Mono:wght@100..800&family=Newsreader:opsz,wght@6..72,200..800&family=Oswald:wght@200..700&family=Playfair+Display:wght@400..900&family=Roboto+Slab:wght@100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    TYPEVOLT — kinetic editorial machine
@@ -437,78 +437,107 @@ footer .row b{color:var(--ink)}
   a{text-decoration:underline}
   a[href^="http"]::after,a[href^="mailto:"]::after,a[href^="tel:"]::after{content:" (" attr(href) ")";font-family:var(--mono);font-size:8pt;color:#333;text-decoration:none;word-break:break-all}
 }
+
+/* ---------------- typeface rows + tester ---------------- */
+.case .face-name{text-transform:none;letter-spacing:-.01em;font-size:clamp(1.5rem,3vw,2.3rem);line-height:1.05}
+.case .try{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;border-bottom:2px solid var(--blue);min-height:44px;display:inline-flex;align-items:center}
+.case .try:hover,.case .try:focus-visible{color:var(--blue)}
+.tt{border:2px solid var(--ink);background:var(--paper)}
+.tt-bar{display:grid;grid-template-columns:1.3fr repeat(4,1fr);gap:0;border-bottom:1px solid var(--ink)}
+.tt-ctl{display:flex;flex-direction:column;gap:.5rem;padding:.9rem 1.1rem;border-right:1px solid var(--line);font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.tt-ctl:last-child{border-right:0}
+.tt-ctl span{display:flex;justify-content:space-between;gap:.6rem}
+.tt-ctl output{color:var(--ink);font-weight:700}
+.tt-ctl select{min-height:44px;font-family:var(--body);font-size:.95rem;font-weight:600;background:var(--paper);color:var(--ink);border:1px solid var(--ink);border-radius:2px;padding:0 .6rem;letter-spacing:0;text-transform:none}
+.tt-ctl input[type=range]{width:100%;height:44px;accent-color:var(--blue);background:transparent;margin:0}
+.tt-bar2{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;padding:.7rem 1.1rem}
+.tt-set{display:flex;flex-wrap:wrap;gap:.4rem}
+.tt-btn{min-height:44px;padding:0 .9rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;background:var(--paper);color:var(--ink);border:1px solid var(--ink);border-radius:2px;cursor:pointer;transition:background .15s,color .15s}
+.tt-btn:hover{background:var(--acid)}
+.tt-btn[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.tt-btn:focus-visible,.tt-ctl select:focus-visible,.tt-text:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.tt-stage{padding:clamp(1.4rem,4vw,3.2rem) clamp(1rem,3vw,2.4rem);min-height:260px;display:flex;align-items:center;overflow:hidden;background:var(--paper);color:var(--ink);transition:background .2s,color .2s}
+.tt-stage.inv{background:var(--ink);color:var(--paper)}
+.tt-text{width:100%;outline:none;overflow-wrap:anywhere;font-size:96px;line-height:1.05;font-weight:600;white-space:pre-wrap;caret-color:var(--red)}
+.tt-text.caps{text-transform:uppercase}
+.tt-text.mid{text-align:center}
+.tt-foot{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem;padding:.8rem 1.1rem;border-top:1px solid var(--ink);background:var(--paper-2)}
+.tt-foot code{flex:1;min-width:220px;font-family:var(--mono);font-size:.74rem;color:var(--ink);overflow-wrap:anywhere}
+.tt-status{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--blue);min-width:5ch}
+footer .concept{margin-top:1.4rem;padding-top:1rem;border-top:1px solid currentColor;font-family:var(--body);font-size:.8rem;letter-spacing:0;text-transform:none;line-height:1.6;opacity:.9}
+footer .concept a{text-decoration:underline;text-underline-offset:3px}
+@media (max-width:1180px){nav .links{gap:.5rem}nav .links a{font-size:.6rem}}
+@media (max-width:900px){.tt-bar{grid-template-columns:1fr 1fr}.tt-face{grid-column:1/-1}.tt-ctl{border-bottom:1px solid var(--line)}}
+@media (max-width:520px){.tt-bar{grid-template-columns:1fr}.tt-ctl{border-right:0}.tt-stage{min-height:200px}}
+@media (prefers-reduced-motion:reduce){.tt-stage,.tt-btn{transition:none}}
+@media print{.tt-bar,.tt-foot{display:none}}
 </style>
 </head>
 <body>
 <div id="prog"></div>
 <div id="cur"></div>
 <div id="curW"></div>
-
 <nav aria-label="Primary">
-  <a class="brand" href="#top">GARVIT<b>.</b>PANDIA</a>
+  <a class="brand" href="#top">TYPE<b>.</b>VOLT</a>
   <div class="links">
-    <a href="#about" data-sec="about">01 ABOUT</a>
-    <a href="#work" data-sec="work">02 WORK</a>
-    <a href="#capability" data-sec="capability">03 SKILLS</a>
-    <a href="#proof" data-sec="proof">04 PROOF</a>
-    <a href="#deploy" data-sec="deploy">05 DEPLOYMENTS</a>
-    <a href="#contact" data-sec="contact">06 CONTACT</a>
+    <a href="#about" data-sec="about">01 FOUNDRY</a>
+    <a href="#work" data-sec="work">02 TYPEFACES</a>
+    <a href="#tester" data-sec="tester">03 TESTER</a>
+    <a href="#capability" data-sec="capability">04 SPECS</a>
+    <a href="#proof" data-sec="proof">05 IN USE</a>
+    <a href="#deploy" data-sec="deploy">06 LICENSING</a>
+    <a href="#contact" data-sec="contact">07 CONTACT</a>
   </div>
-  <a class="res" href="Garvit_Pandia_Resume.pdf" download>RESUME ↓</a>
+  <a class="res" href="#tester">TRY A FONT ↓</a>
 </nav>
-
 <header id="top">
-  <p class="kicker"><span class="blk"></span> PORTFOLIO VOL.10 — KINETIC EDITORIAL ENGINEER — SET · KERN · PROOF</p>
-  <h1 class="name" id="heroName" data-split>Garvit Pandia.</h1>
-  <p class="roleline"><span class="pre">I SET</span> <span id="rotWord" aria-live="polite"><span class="w">TYPE THAT MOVES</span></span></p>
+  <p class="kicker"><span class="blk"></span> TYPEVOLT TYPE FOUNDRY — EST. 2019 — DRAW · SPACE · KERN · PROOF</p>
+  <h1 class="name" id="heroName" data-split>Typevolt Type.</h1>
+  <p class="roleline"><span class="pre">WE DRAW</span> <span id="rotWord" aria-live="polite"><span class="w">LETTERS WITH A CHARGE</span></span></p>
   <div class="stats" id="stats">
-    <div class="s"><b>900<em>+</em></b><span>Axis gallery entries</span></div>
-    <div class="s"><b>410<em>k</em></b><span>Kern games played</span></div>
-    <div class="s"><b>2,000<em>+</em></b><span>Fonts specced</span></div>
-    <div class="s"><b>96</b><span>Lighthouse score</span></div>
-    <div class="s"><b>12</b><span>Editorial templates</span></div>
-    <div class="s"><b>1.5<em>k</em></b><span>Inkstone stars</span></div>
+    <div class="s"><b>8</b><span>Typeface families</span></div>
+    <div class="s"><b>214</b><span>Styles drawn</span></div>
+    <div class="s"><b>3,400<em>+</em></b><span>Licences sold</span></div>
+    <div class="s"><b>62</b><span>Languages supported</span></div>
+    <div class="s"><b>7</b><span>Years at the desk</span></div>
+    <div class="s"><b>40<em>×</em></b><span>We redrew that g</span></div>
   </div>
   <div class="ctas">
-    <a class="btn solid mag" href="#about" data-hover="DIVE IN">SEE THE WORK <span class="arr">↓</span></a>
-    <a class="btn ghost mag" href="Garvit_Pandia_Resume.pdf" download data-hover="GRAB">DOWNLOAD RESUME</a>
+    <a class="btn solid mag" href="#work" data-hover="BROWSE">SEE THE TYPEFACES <span class="arr">↓</span></a>
+    <a class="btn ghost mag" href="#tester" data-hover="TYPE">OPEN THE TESTER</a>
   </div>
-  <div class="bgword" id="bgword">PORTFOLIO</div>
+  <div class="bgword" id="bgword">SPECIMEN</div>
 </header>
-
 <div class="marquee" aria-hidden="true">
   <div class="track" id="mqTrack">
-    <span>Top 10 — National Typography Poster Contest 2023</span><span>Toolmaker of the Month — dev-tools newsletter</span>
-    <span>Workshop lead — Design Systems India 2025</span><span>Paper — Interfaces: Design Systems Review 2024</span>
-    <span>410k kern games played</span><span>900+ axes in the gallery</span><span>2,000+ fonts specced</span>
-    <span>Top 10 — National Typography Poster Contest 2023</span><span>Toolmaker of the Month — dev-tools newsletter</span>
-    <span>Workshop lead — Design Systems India 2025</span><span>Paper — Interfaces: Design Systems Review 2024</span>
-    <span>410k kern games played</span><span>900+ axes in the gallery</span><span>2,000+ fonts specced</span>
+    <span>Ampere Serif — a Sunday paper, redesigned</span><span>Volt Grotesk — 140 metro station signs</span>
+    <span>Ohm Mono — the default in three code editors</span><span>Weber Condensed — a film festival, six years running</span>
+    <span>3,400 licences sold</span><span>214 styles drawn</span><span>62 languages supported</span>
+    <span>Ampere Serif — a Sunday paper, redesigned</span><span>Volt Grotesk — 140 metro station signs</span>
+    <span>Ohm Mono — the default in three code editors</span><span>Weber Condensed — a film festival, six years running</span>
+    <span>3,400 licences sold</span><span>214 styles drawn</span><span>62 languages supported</span>
   </div>
 </div>
-
 <section class="sec kinetic" id="about">
   <div class="sechead">
     <span class="idx">01</span>
-    <h2 data-split>About</h2>
-    <span class="tag">Identity dossier — 2026</span>
+    <h2 data-split>Foundry</h2>
+    <span class="tag">Who draws these — 2026</span>
   </div>
-  <p class="bio rv">I'm <b>Garvit Pandia</b>, a design technologist from <span class="hl">Northern Arc Institute of Design &amp; Technology</span> who treats the browser as a letterpress. I build <b>kinetic editorial systems</b> — variable-font playgrounds, kerning engines, and layout tools that set type by hand and measure it by machine.</p>
+  <p class="bio rv">Typevolt is <b>three type designers and one engineer</b> in a room above a print shop. We have released <span class="hl">eight families in seven years</span>, which is slow, and on purpose. Every typeface is named after an electrical unit, because a font is the same thing: <b>a small standard that everything else gets measured in.</b></p>
   <div class="specgrid">
-    <div class="spec rv"><h3>Focus</h3><span class="big">TYPE ×<br>CODE</span><p>Editorial systems where letters and layout are engineered, not just styled — variable fonts, grid rhythm, motion with a measure.</p></div>
-    <div class="spec rv"><h3>Method</h3><span class="big">MEASURE<br>FIRST</span><p>Written performance budgets, fixed measures, proof sheets before pixels. Every build ships with its own spec.</p></div>
-    <div class="spec rv"><h3>Belief</h3><span class="big">LESS<br>IS MORE</span><p>Typography, whitespace, and restraint. The best interfaces whisper — they don't shout.</p></div>
-    <div class="spec rv"><h3>Proof</h3><span class="big">60 FPS</span><p>Scroll scenes pinned at 60fps on mid-range phones, verified on-device — performance is part of the proof sheet.</p></div>
+    <div class="spec rv"><h3>Focus</h3><span class="big">TEXT<br>FIRST</span><p>We draw the paragraph before the poster. If a face cannot set six hundred words comfortably, it does not get a bold.</p></div>
+    <div class="spec rv"><h3>Method</h3><span class="big">SPACE,<br>THEN KERN</span><p>Most of a typeface is the white between letters. We spend more hours on spacing than on drawing, and it shows at small sizes.</p></div>
+    <div class="spec rv"><h3>Belief</h3><span class="big">FEWER,<br>BETTER</span><p>One release a year, finished. No font we sell has a version number that starts with zero.</p></div>
+    <div class="spec rv"><h3>Proof</h3><span class="big">ON PAPER</span><p>Every style is proofed on a laser printer, a risograph and the worst phone screen we can find before it ships.</p></div>
   </div>
 </section>
-
 <section class="sec kinetic" id="work">
   <div class="sechead">
     <span class="idx">02</span>
-    <h2 data-split>Case Files</h2>
-    <span class="tag">Kern <b class="kernval">AV −100</b> · 8 systems 2021→2025</span>
+    <h2 data-split>Typefaces</h2>
+    <span class="tag">Kern <b class="kernval">AV −100</b> · 8 families 2019→2026</span>
   </div>
-
   <div class="typeruler" aria-hidden="true">
     <i class="tr-tick" style="left:12.5%"></i><b class="tr-lab" style="left:12.5%">1/8</b>
     <i class="tr-tick big" style="left:25%"></i><b class="tr-lab" style="left:25%">2/8</b>
@@ -519,161 +548,194 @@ footer .row b{color:var(--ink)}
     <i class="tr-tick" style="left:87.5%"></i><b class="tr-lab" style="left:87.5%">7/8</b>
     <span class="tr-note">Fractional em ruler</span><i class="tr-em"></i><b class="tr-em-lab">1&nbsp;em</b>
   </div>
-
-  <div class="case rv">
+  <div class="case rv" data-face="volt">
     <span class="num">001</span>
-    <div><h3>Cut</h3><p>A type specimen generator for the web — one URL becomes a full specimen sheet: axis ranges, sample texts, kerning pairs.</p></div>
-    <div class="meta"><div class="chips"><span class="chip">TypeScript</span><span class="chip">variable fonts</span><span class="chip">canvas</span></div></div>
-    <div class="metric"><b>2,000+</b>fonts specced · 690★</div>
+    <div><h3 class="face-name" style="font-family:'Space Grotesk',var(--display);font-weight:600">Volt Grotesk</h3><p>The house grotesque. Square shoulders, open counters and a lowercase g we redrew forty times. Built for names on doors.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">Sans</span><span class="chip">10 styles</span><span class="chip">Variable</span></div><a class="try" href="#tester" data-try="volt" data-hover="TRY">Try it &rarr;</a></div>
+    <div class="metric"><b>&#8377;2,400</b>per style &middot; 10 styles</div>
   </div>
-  <div class="case rv">
+  <div class="case rv" data-face="ampere">
     <span class="num">002</span>
-    <div><h3>Baseline</h3><p>See the invisible geometry of type — a bookmarklet that overlays baseline, x-height, and overshoot on any live page.</p></div>
-    <div class="meta"><div class="chips"><span class="chip">JavaScript</span><span class="chip">SVG</span><span class="chip">font parsing</span></div></div>
-    <div class="metric"><b>18</b>interactive lessons · 410★</div>
+    <div><h3 class="face-name" style="font-family:'Fraunces',var(--display);font-weight:600">Ampere Serif</h3><p>A soft, wide serif with an optical-size axis, so the same family sets a masthead and the footnote under it.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">Serif</span><span class="chip">18 styles</span><span class="chip">Optical size</span></div><a class="try" href="#tester" data-try="ampere" data-hover="TRY">Try it &rarr;</a></div>
+    <div class="metric"><b>&#8377;3,600</b>per style &middot; 18 styles</div>
   </div>
-  <div class="case rv">
+  <div class="case rv" data-face="ohm">
     <span class="num">003</span>
-    <div><h3>Inkstone</h3><p>A variable-font playground — real-time axis scrubbing with comparison ghosts, 60fps with four axes live.</p></div>
-    <div class="meta"><div class="chips"><span class="chip">TypeScript</span><span class="chip">WebGL</span><span class="chip">opentype.js</span></div></div>
-    <div class="metric"><b>1,500★</b>stars · 900+ axis gallery</div>
+    <div><h3 class="face-name" style="font-family:'JetBrains Mono',var(--display);font-weight:500">Ohm Mono</h3><p>A monospace for people who read code all day. Tall x-height, a slashed zero, and no two characters you can confuse.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">Mono</span><span class="chip">16 styles</span><span class="chip">Ligatures</span></div><a class="try" href="#tester" data-try="ohm" data-hover="TRY">Try it &rarr;</a></div>
+    <div class="metric"><b>&#8377;1,800</b>per style &middot; 16 styles</div>
   </div>
-  <div class="case rv">
+  <div class="case rv" data-face="weber">
     <span class="num">004</span>
-    <div><h3>Kern</h3><p>The kerning game — daily puzzles scored against professional pairs. You will lose gracefully.</p></div>
-    <div class="meta"><div class="chips"><span class="chip">TypeScript</span><span class="chip">canvas</span><span class="chip">scoring engine</span></div></div>
-    <div class="metric"><b>410k</b>games played · 320★</div>
+    <div><h3 class="face-name" style="font-family:'Oswald',var(--display);font-weight:600">Weber Condensed</h3><p>Tall and narrow, for headlines that have to fit. It holds its colour from a poster down to a train ticket.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">Condensed</span><span class="chip">6 styles</span><span class="chip">Variable</span></div><a class="try" href="#tester" data-try="weber" data-hover="TRY">Try it &rarr;</a></div>
+    <div class="metric"><b>&#8377;2,100</b>per style &middot; 6 styles</div>
   </div>
-  <div class="case rv">
+  <div class="case rv" data-face="coulomb">
     <span class="num">005</span>
-    <div><h3>Proofsheet</h3><p>Print preview that catches the lies — simulates ink, paper, and press conditions for web-to-print.</p></div>
-    <div class="meta"><div class="chips"><span class="chip">TypeScript</span><span class="chip">print CSS</span><span class="chip">PDF export</span></div></div>
-    <div class="metric"><b>380★</b>stars · 140+ print issues caught</div>
+    <div><h3 class="face-name" style="font-family:'Roboto Slab',var(--display);font-weight:700">Coulomb Slab</h3><p>A slab with a workshop manner: sturdy brackets, even colour, and numerals that sit properly in a table.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">Slab</span><span class="chip">9 styles</span><span class="chip">Tabular figures</span></div><a class="try" href="#tester" data-try="coulomb" data-hover="TRY">Try it &rarr;</a></div>
+    <div class="metric"><b>&#8377;2,600</b>per style &middot; 9 styles</div>
   </div>
-  <div class="case rv">
+  <div class="case rv" data-face="farad">
     <span class="num">006</span>
-    <div><h3>Ligature</h3><p>An editorial layout engine — grid-rhythm long-form web with 12 ready templates and a 96 Lighthouse score.</p></div>
-    <div class="meta"><div class="chips"><span class="chip">TypeScript</span><span class="chip">CSS grid</span><span class="chip">variable fonts</span></div></div>
-    <div class="metric"><b>96</b>Lighthouse · 450★ · 2 magazines</div>
+    <div><h3 class="face-name" style="font-family:'Inter Tight',var(--display);font-weight:500">Farad Sans</h3><p>An interface sans drawn tight for dense screens. It stays legible at eleven pixels and does not shout at forty.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">Sans</span><span class="chip">18 styles</span><span class="chip">Variable</span></div><a class="try" href="#tester" data-try="farad" data-hover="TRY">Try it &rarr;</a></div>
+    <div class="metric"><b>&#8377;3,200</b>per style &middot; 18 styles</div>
   </div>
-  <div class="case rv">
+  <div class="case rv" data-face="joule">
     <span class="num">007</span>
-    <div><h3>Stagelight</h3><p>A narrative scrolling engine for long reads — scenes pause and resume cleanly, even after tab switches.</p></div>
-    <div class="meta"><div class="chips"><span class="chip">TypeScript</span><span class="chip">Web Animations</span><span class="chip">Vite</span></div></div>
-    <div class="metric"><b>60fps</b>· 12 pinned scenes · 9 long-form pieces</div>
+    <div><h3 class="face-name" style="font-family:'Playfair Display',var(--display);font-weight:800">Joule Display</h3><p>High contrast and unashamed. Hairlines that need size and space, for covers, mastheads and one word on a wall.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">Display</span><span class="chip">6 styles</span><span class="chip">Italics</span></div><a class="try" href="#tester" data-try="joule" data-hover="TRY">Try it &rarr;</a></div>
+    <div class="metric"><b>&#8377;2,900</b>per style &middot; 6 styles</div>
   </div>
-  <div class="case rv">
+  <div class="case rv" data-face="henry">
     <span class="num">008</span>
-    <div><h3>Dovetail</h3><p>API design that catches mistakes before code does — contract-first scaffolding with breaking-change detection.</p></div>
-    <div class="meta"><div class="chips"><span class="chip">TypeScript</span><span class="chip">OpenAPI</span><span class="chip">Node</span></div></div>
-    <div class="metric"><b>140+</b>breaking changes caught · 1.3k★</div>
+    <div><h3 class="face-name" style="font-family:'Newsreader',var(--display);font-weight:400">Henry Text</h3><p>The quiet one. A text face for long reading, tested on twelve-hundred-word articles and one four-hundred-page novel.</p></div>
+    <div class="meta"><div class="chips"><span class="chip">Text serif</span><span class="chip">14 styles</span><span class="chip">Optical size</span></div><a class="try" href="#tester" data-try="henry" data-hover="TRY">Try it &rarr;</a></div>
+    <div class="metric"><b>&#8377;3,400</b>per style &middot; 14 styles</div>
   </div>
 </section>
-
-<section class="sec kinetic" id="capability">
+<section class="sec kinetic" id="tester">
   <div class="sechead">
     <span class="idx">03</span>
-    <h2 data-split>Capability</h2>
-    <span class="tag">Spec sheet — 0→100</span>
+    <h2 data-split>Tester</h2>
+    <span class="tag">Type in the box — it is yours to break</span>
+  </div>
+  <div class="tt rv" id="tt">
+    <div class="tt-bar">
+      <label class="tt-ctl tt-face"><span>Typeface</span>
+        <select id="ttFace"><option value="volt">Volt Grotesk</option><option value="ampere">Ampere Serif</option><option value="ohm">Ohm Mono</option><option value="weber">Weber Condensed</option><option value="coulomb">Coulomb Slab</option><option value="farad">Farad Sans</option><option value="joule">Joule Display</option><option value="henry">Henry Text</option></select></label>
+      <label class="tt-ctl"><span>Size <output id="ttSizeO">96</output></span><input id="ttSize" type="range" min="14" max="220" value="96"></label>
+      <label class="tt-ctl"><span>Weight <output id="ttWghtO">600</output></span><input id="ttWght" type="range" min="100" max="900" step="10" value="600"></label>
+      <label class="tt-ctl"><span>Tracking <output id="ttTrkO">0</output></span><input id="ttTrk" type="range" min="-80" max="200" step="5" value="0"></label>
+      <label class="tt-ctl"><span>Leading <output id="ttLeadO">1.05</output></span><input id="ttLead" type="range" min="80" max="200" step="5" value="105"></label>
+    </div>
+    <div class="tt-bar tt-bar2">
+      <div class="tt-set" role="group" aria-label="Sample text">
+        <button type="button" class="tt-btn" data-preset="head" aria-pressed="true">Headline</button>
+        <button type="button" class="tt-btn" data-preset="para" aria-pressed="false">Paragraph</button>
+        <button type="button" class="tt-btn" data-preset="num" aria-pressed="false">Numerals</button>
+        <button type="button" class="tt-btn" data-preset="glyph" aria-pressed="false">Character set</button>
+      </div>
+      <div class="tt-set" role="group" aria-label="Display options">
+        <button type="button" class="tt-btn" id="ttCase" aria-pressed="false">ALL CAPS</button>
+        <button type="button" class="tt-btn" id="ttAlign" aria-pressed="false">Centre</button>
+        <button type="button" class="tt-btn" id="ttInvert" aria-pressed="false">Invert</button>
+      </div>
+    </div>
+    <div class="tt-stage" id="ttStage">
+      <div class="tt-text" id="ttText" contenteditable="true" spellcheck="false" role="textbox" aria-multiline="true" aria-label="Type here to test the typeface">Sphinx of black quartz, judge my vow.</div>
+    </div>
+    <div class="tt-foot">
+      <code id="ttCss"></code>
+      <button type="button" class="tt-btn" id="ttCopy">Copy CSS</button>
+      <span class="tt-status" id="ttStatus" role="status" aria-live="polite"></span>
+    </div>
+  </div>
+</section>
+<section class="sec kinetic" id="capability">
+  <div class="sechead">
+    <span class="idx">04</span>
+    <h2 data-split>Spec sheet</h2>
+    <span class="tag">The foundry, measured</span>
   </div>
   <div class="sheet">
     <div class="grp">
-      <h3><span>Languages</span><span class="n">LANG/01</span></h3>
-      <div class="skrow rv"><span class="nm">TypeScript</span><span class="bar"><i style="--w:94%"></i></span><span class="pc">94</span></div>
-      <div class="skrow rv"><span class="nm">JavaScript</span><span class="bar"><i style="--w:96%"></i></span><span class="pc">96</span></div>
-      <div class="skrow rv"><span class="nm">Python</span><span class="bar"><i style="--w:93%"></i></span><span class="pc">93</span></div>
-      <div class="skrow rv"><span class="nm">Rust</span><span class="bar"><i style="--w:84%"></i></span><span class="pc">84</span></div>
-      <div class="skrow rv"><span class="nm">SQL</span><span class="bar"><i style="--w:88%"></i></span><span class="pc">88</span></div>
-      <div class="skrow rv"><span class="nm">HTML/CSS</span><span class="bar"><i style="--w:97%"></i></span><span class="pc">97</span></div>
+      <h3><span>Language coverage</span><span class="n">LANG/01</span></h3>
+      <div class="skrow rv"><span class="nm">Western European</span><span class="bar"><i style="--w:100%"></i></span><span class="pc">100%</span></div>
+      <div class="skrow rv"><span class="nm">Central European</span><span class="bar"><i style="--w:100%"></i></span><span class="pc">100%</span></div>
+      <div class="skrow rv"><span class="nm">Vietnamese</span><span class="bar"><i style="--w:86%"></i></span><span class="pc">86%</span></div>
+      <div class="skrow rv"><span class="nm">Cyrillic</span><span class="bar"><i style="--w:72%"></i></span><span class="pc">72%</span></div>
+      <div class="skrow rv"><span class="nm">Greek</span><span class="bar"><i style="--w:64%"></i></span><span class="pc">64%</span></div>
+      <div class="skrow rv"><span class="nm">Devanagari, in progress</span><span class="bar"><i style="--w:18%"></i></span><span class="pc">18%</span></div>
     </div>
     <div class="grp">
-      <h3><span>Type / Editorial</span><span class="n">TYPE/02</span></h3>
-      <div class="skrow rv"><span class="nm">CSS motion &amp; animation</span><span class="bar"><i style="--w:94%"></i></span><span class="pc">94</span></div>
-      <div class="skrow rv"><span class="nm">design systems</span><span class="bar"><i style="--w:86%"></i></span><span class="pc">86</span></div>
-      <div class="skrow rv"><span class="nm">web accessibility</span><span class="bar"><i style="--w:88%"></i></span><span class="pc">88</span></div>
-      <div class="skrow rv"><span class="nm">Figma</span><span class="bar"><i style="--w:80%"></i></span><span class="pc">80</span></div>
-      <div class="skrow rv"><span class="nm">kinetic typography</span><span class="bar"><i style="--w:78%"></i></span><span class="pc">78</span></div>
-      <div class="skrow rv"><span class="nm">print &amp; typography systems</span><span class="bar"><i style="--w:78%"></i></span><span class="pc">78</span></div>
+      <h3><span>Where the fonts end up</span><span class="n">USE/02</span></h3>
+      <div class="skrow rv"><span class="nm">Editorial</span><span class="bar"><i style="--w:34%"></i></span><span class="pc">34%</span></div>
+      <div class="skrow rv"><span class="nm">Branding</span><span class="bar"><i style="--w:27%"></i></span><span class="pc">27%</span></div>
+      <div class="skrow rv"><span class="nm">Product interfaces</span><span class="bar"><i style="--w:21%"></i></span><span class="pc">21%</span></div>
+      <div class="skrow rv"><span class="nm">Packaging</span><span class="bar"><i style="--w:9%"></i></span><span class="pc">9%</span></div>
+      <div class="skrow rv"><span class="nm">Signage</span><span class="bar"><i style="--w:6%"></i></span><span class="pc">6%</span></div>
+      <div class="skrow rv"><span class="nm">Film titles</span><span class="bar"><i style="--w:3%"></i></span><span class="pc">3%</span></div>
     </div>
     <div class="grp">
-      <h3><span>Web / Motion</span><span class="n">WEB/03</span></h3>
-      <div class="skrow rv"><span class="nm">React</span><span class="bar"><i style="--w:93%"></i></span><span class="pc">93</span></div>
-      <div class="skrow rv"><span class="nm">Next.js</span><span class="bar"><i style="--w:88%"></i></span><span class="pc">88</span></div>
-      <div class="skrow rv"><span class="nm">Canvas 2D</span><span class="bar"><i style="--w:90%"></i></span><span class="pc">90</span></div>
-      <div class="skrow rv"><span class="nm">Three.js</span><span class="bar"><i style="--w:85%"></i></span><span class="pc">85</span></div>
-      <div class="skrow rv"><span class="nm">WebGL</span><span class="bar"><i style="--w:80%"></i></span><span class="pc">80</span></div>
-      <div class="skrow rv"><span class="nm">WebGPU</span><span class="bar"><i style="--w:72%"></i></span><span class="pc">72</span></div>
+      <h3><span>Licences sold, by kind</span><span class="n">LIC/03</span></h3>
+      <div class="skrow rv"><span class="nm">Desktop</span><span class="bar"><i style="--w:41%"></i></span><span class="pc">41%</span></div>
+      <div class="skrow rv"><span class="nm">Web</span><span class="bar"><i style="--w:36%"></i></span><span class="pc">36%</span></div>
+      <div class="skrow rv"><span class="nm">App</span><span class="bar"><i style="--w:13%"></i></span><span class="pc">13%</span></div>
+      <div class="skrow rv"><span class="nm">Enterprise</span><span class="bar"><i style="--w:6%"></i></span><span class="pc">6%</span></div>
+      <div class="skrow rv"><span class="nm">Broadcast</span><span class="bar"><i style="--w:4%"></i></span><span class="pc">4%</span></div>
+      <div class="skrow rv"><span class="nm">Trials that convert</span><span class="bar"><i style="--w:23%"></i></span><span class="pc">23%</span></div>
     </div>
     <div class="grp">
-      <h3><span>Systems / Cloud</span><span class="n">SYS/04</span></h3>
-      <div class="skrow rv"><span class="nm">Linux</span><span class="bar"><i style="--w:88%"></i></span><span class="pc">88</span></div>
-      <div class="skrow rv"><span class="nm">PostgreSQL</span><span class="bar"><i style="--w:90%"></i></span><span class="pc">90</span></div>
-      <div class="skrow rv"><span class="nm">Redis</span><span class="bar"><i style="--w:84%"></i></span><span class="pc">84</span></div>
-      <div class="skrow rv"><span class="nm">Docker</span><span class="bar"><i style="--w:86%"></i></span><span class="pc">86</span></div>
-      <div class="skrow rv"><span class="nm">AWS</span><span class="bar"><i style="--w:82%"></i></span><span class="pc">82</span></div>
-      <div class="skrow rv"><span class="nm">Kubernetes</span><span class="bar"><i style="--w:78%"></i></span><span class="pc">78</span></div>
+      <h3><span>A typeface, by hours</span><span class="n">HRS/04</span></h3>
+      <div class="skrow rv"><span class="nm">Spacing</span><span class="bar"><i style="--w:31%"></i></span><span class="pc">31%</span></div>
+      <div class="skrow rv"><span class="nm">Kerning</span><span class="bar"><i style="--w:24%"></i></span><span class="pc">24%</span></div>
+      <div class="skrow rv"><span class="nm">Drawing</span><span class="bar"><i style="--w:22%"></i></span><span class="pc">22%</span></div>
+      <div class="skrow rv"><span class="nm">Testing and hinting</span><span class="bar"><i style="--w:14%"></i></span><span class="pc">14%</span></div>
+      <div class="skrow rv"><span class="nm">Arguing about the g</span><span class="bar"><i style="--w:7%"></i></span><span class="pc">7%</span></div>
+      <div class="skrow rv"><span class="nm">Naming it</span><span class="bar"><i style="--w:2%"></i></span><span class="pc">2%</span></div>
     </div>
   </div>
 </section>
-
 <section class="sec kinetic" id="proof">
   <div class="sechead">
-    <span class="idx">04</span>
-    <h2 data-split>Proof</h2>
-    <span class="tag">Trophy case + receipts</span>
+    <span class="idx">05</span>
+    <h2 data-split>In use</h2>
+    <span class="tag">Where you have already read us</span>
   </div>
   <div class="proof">
     <div>
-      <div class="ach rv"><span class="yr">2023</span><h3>Top 10 — National Typography Poster Contest</h3><span class="det">national · type &amp; code</span></div>
-      <div class="ach rv"><span class="yr">2024</span><h3>Paper — Generative Layout Prototyping for Screen Readers</h3><span class="det">Interfaces: Design Systems Review · 2024</span></div>
-      <div class="ach rv"><span class="yr">2024</span><h3>Toolmaker of the Month — dev-tools newsletter</h3><span class="det">Harpoon · Mar 2024</span></div>
-      <div class="ach rv"><span class="yr">2025</span><h3>Workshop lead — Design Systems India</h3><span class="det">contrast math for designers</span></div>
-      <div class="ach rv"><span class="yr">2024</span><h3>GitHub Trending — featured 3×</h3><span class="det">across 12 repos</span></div>
-      <div class="ach rv"><span class="yr">ONGOING</span><h3>176 OSS PRs merged</h3><span class="det">31 first-time contributors mentored</span></div>
-      <div class="ach rv"><span class="yr">ONGOING</span><h3>4 npm packages published</h3><span class="det">~320k combined weekly downloads</span></div>
+      <div class="ach rv"><span class="yr">2026</span><h3>Ampere Serif — a national Sunday paper</h3><span class="det">masthead, headlines and text · the first redesign in nineteen years</span></div>
+      <div class="ach rv"><span class="yr">2025</span><h3>Volt Grotesk — a city metro</h3><span class="det">140 stations · signage, maps and the ticket machines</span></div>
+      <div class="ach rv"><span class="yr">2025</span><h3>Ohm Mono — three code editors</h3><span class="det">bundled as a default · roughly 600,000 installs</span></div>
+      <div class="ach rv"><span class="yr">2024</span><h3>Weber Condensed — a film festival</h3><span class="det">identity and titles, six editions running</span></div>
+      <div class="ach rv"><span class="yr">2024</span><h3>Henry Text — forty-one novels</h3><span class="det">one independent press, every title since spring</span></div>
+      <div class="ach rv"><span class="yr">2023</span><h3>Farad Sans — a banking app</h3><span class="det">eleven million people check their balance in it</span></div>
+      <div class="ach rv"><span class="yr">ONGOING</span><h3>Coulomb Slab — hardware shop receipts</h3><span class="det">our favourite, and nobody asked us</span></div>
     </div>
     <div class="quotes">
-      <blockquote class="quote rv"><p>Every site he shipped for us came with a written performance budget — and he held it. Twice he pushed back on scope and was right both times.</p><cite>Devika Rao — Studio Director, Quarry &amp; Quill</cite></blockquote>
-      <blockquote class="quote rv"><p>He learned our clients' taste faster than any contractor we've had. The hotel sites he shipped feel like the buildings themselves.</p><cite>Ananya Joshi — Design Director, Garnet &amp; Glass</cite></blockquote>
-      <blockquote class="quote rv"><p>Our writers write differently in Vellum. It is the only tool they have ever called 'quiet' as a compliment.</p><cite>Rukmini Rao — Editor, The Ghat Press</cite></blockquote>
+      <blockquote class="quote rv"><p>We tested eleven serifs for the redesign. Ampere was the only one the sub-editors stopped complaining about by Thursday.</p><cite>Art director — a national Sunday paper</cite></blockquote>
+      <blockquote class="quote rv"><p>I asked for a custom weight between Medium and Semibold. They said the Medium was already right, and sent proofs to show it. It was.</p><cite>Design lead — a product studio</cite></blockquote>
+      <blockquote class="quote rv"><p>The licence is one page and I understood all of it. I have signed software agreements longer than their entire website.</p><cite>Founder — an independent press</cite></blockquote>
     </div>
   </div>
 </section>
-
 <section class="sec kinetic" id="deploy">
   <div class="sechead">
-    <span class="idx">05</span>
-    <h2 data-split>Deployments</h2>
-    <span class="tag">Ledger — 2023→2026</span>
+    <span class="idx">06</span>
+    <h2 data-split>Licensing</h2>
+    <span class="tag">One page — no surprises</span>
   </div>
   <div class="job rv">
-    <span class="when">2025 — NOW</span>
-    <div><h3>Design Lead</h3><p class="co">KITE &amp; CRANE STUDIO — design studio</p>
-      <ul><li>Established the studio's motion language, borrowed from Stagelight, across all client work.</li><li>Set the accessibility bar: every shipped site passes WCAG AA, audited in CI.</li></ul>
+    <span class="when">FROM ₹1,800</span>
+    <div><h3>Desktop</h3><p class="co">PRINT, LOGOS, STATIC IMAGES — per style, up to five people</p>
+      <ul><li>Install on five computers. Use it for anything that ends up as ink or pixels.</li><li>Logos and wordmarks are included. No separate trademark licence.</li></ul>
     </div>
   </div>
   <div class="job rv">
-    <span class="when">Jul 2025</span>
-    <div><h3>Design Systems Consultant</h3><p class="co">QUARRY &amp; QUILL — design studio</p>
-      <ul><li>Audited 4 client design systems — 71% of AA issues traced to 3 root causes.</li><li>Wrote the token-migration guide now used by 2 product teams.</li></ul>
+    <span class="when">+ 50%</span>
+    <div><h3>Web</h3><p class="co">SELF-HOSTED WOFF2 — up to 500,000 page views a month</p>
+      <ul><li>One payment, not a subscription. We do not count your visitors or load a script.</li><li>Variable and static files, already subset for Latin and Latin Extended.</li></ul>
     </div>
   </div>
   <div class="job rv">
-    <span class="when">2022–2024</span>
-    <div><h3>Freelance Web Engineer</h3><p class="co">QUARRY &amp; QUILL — editorial &amp; product builds</p>
-      <ul><li>Delivered 6 client sites end-to-end — 2 editorial, 2 product, 1 arts nonprofit, 1 small press.</li><li>Introduced the studio to contract-first APIs and the Dovetail toolchain.</li></ul>
+    <span class="when">+ 100%</span>
+    <div><h3>App and enterprise</h3><p class="co">EMBEDDED IN SOFTWARE — or everyone in the company</p>
+      <ul><li>One app title on every platform, or unlimited desktop seats under one roof.</li><li>Includes a named person at the foundry who answers within a working day.</li></ul>
     </div>
   </div>
   <div class="edu rv">
-    <span class="logo">ARC</span>
-    <div><h3>B.Des Creative Technology</h3><p>Northern Arc Institute of Design &amp; Technology · 2021–2025 · type-design coursework</p></div>
-    <span class="cgpa">3.6<small>GPA / 4.0</small></span>
+    <span class="logo">TRY</span>
+    <div><h3>Trial fonts and students</h3><p>Full character set · every style · for pitches, coursework and making up your mind</p></div>
+    <span class="cgpa">₹0<small>no card, no expiry</small></span>
   </div>
 </section>
-
 <section class="sec kinetic" id="contact">
   <div class="sechead">
-    <span class="idx">06</span>
+    <span class="idx">07</span>
     <h2 data-split style="opacity:0;position:absolute" aria-hidden="true">Contact</h2>
   </div>
   <h2 class="big" data-split>Say Hello</h2>
@@ -681,33 +743,32 @@ footer .row b{color:var(--ink)}
     <form id="cform" novalidate>
       <div><label for="fname">Your name</label><input id="fname" name="name" type="text" required autocomplete="name" placeholder="R. Desai"></div>
       <div><label for="femail">Your email</label><input id="femail" name="email" type="email" required autocomplete="email" placeholder="rdesai@example.com"></div>
-      <div><label for="fmsg">Message</label><textarea id="fmsg" name="message" rows="5" required placeholder="Set a line, kern a pair, proof a page…"></textarea></div>
+      <div><label for="fmsg">Message</label><textarea id="fmsg" name="message" rows="5" required placeholder="A custom weight, a missing glyph, a licence question…"></textarea></div>
       <button class="btn submit mag" type="submit" data-hover="SEND">Send the proof sheet ↗</button>
-      <p class="mono" style="font-size:.64rem;letter-spacing:.14em;color:var(--ink-soft)">Opens your mail client — zero backend, zero tracking.</p>
+      <p class="mono" id="cnote" role="status" aria-live="polite" style="font-size:.64rem;letter-spacing:.14em;color:var(--ink-soft)">A type designer reads every message. Usually the one who drew the letter you are asking about.</p>
     </form>
     <div class="direct">
-      <a href="mailto:garvit9829@gmail.com" data-hover="EMAIL"><span class="lbl">EMAIL</span><span class="val">garvit9829@gmail.com</span></a>
-      <a href="tel:+918905402023" data-hover="CALL"><span class="lbl">PHONE</span><span class="val">+91-8905402023</span></a>
-      <a href="https://github.com/garvit-pandia" target="_blank" rel="noopener" data-hover="CODE"><span class="lbl">GITHUB</span><span class="val">github.com/garvit-pandia</span></a>
-      <a href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener" data-hover="NETWORK"><span class="lbl">LINKEDIN</span><span class="val">in/garvit-pandia</span></a>
-      <a href="Garvit_Pandia_Resume.pdf" download data-hover="CV"><span class="lbl">RESUME</span><span class="val">Garvit_Pandia_Resume.pdf</span></a>
+      <a href="mailto:hello@typevolt.example" data-hover="EMAIL"><span class="lbl">EMAIL</span><span class="val">hello@typevolt.example</span></a>
+      <a href="#tester" data-hover="TYPE"><span class="lbl">TRIALS</span><span class="val">Every family, free to test</span></a>
+      <a href="#deploy" data-hover="READ"><span class="lbl">LICENCE</span><span class="val">One page, plain words</span></a>
+      <a href="#contact" data-hover="ASK"><span class="lbl">CUSTOM</span><span class="val">Bespoke type from 12 weeks</span></a>
+      <a href="#about" data-hover="VISIT"><span class="lbl">STUDIO</span><span class="val">Above the print shop, by appointment</span></a>
     </div>
   </div>
 </section>
-
 <footer>
   <div class="row">
-    <span><b>GARVIT PANDIA</b> — © 2026</span>
-    <span>TYPEVOLT — BUILT WITH TYPE ONLY · NO IMAGES · NO CANVAS · NO TRACKING</span>
-    <span>DEHRADUN → THE WORLD</span>
+    <span><b>TYPEVOLT TYPE FOUNDRY</b> — © 2026</span>
+    <span>THIS SITE IS BUILT WITH TYPE ONLY · NO IMAGES · NO CANVAS · NO TRACKING</span>
+    <span>DRAWN SLOWLY</span>
     <span class="t10d-links">
-      <a class="t10d-mag" href="mailto:garvit9829@gmail.com">EMAIL</a>
-      <a class="t10d-mag" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">GITHUB</a>
-      <a class="t10d-mag" href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener">LINKEDIN</a>
+      <a class="t10d-mag" href="#work">TYPEFACES</a>
+      <a class="t10d-mag" href="#tester">TESTER</a>
+      <a class="t10d-mag" href="#deploy">LICENSING</a>
     </span>
   </div>
+  <p class="concept">Typevolt is a fictional foundry and its typefaces are not for sale; the specimens are set in open-source fonts. Concept site designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a> · <a href="../index.html">Back to the gallery</a></p>
 </footer>
-
 <script>
 (() => {
 'use strict';
@@ -742,7 +803,7 @@ if (!reduced){
 }
 
 /* ---------------- rotating word ---------------- */
-const words = ['TYPE THAT MOVES','LETTERS THAT KERN','MEASURE THAT HOLDS','GRIDS THAT BREATHE'];
+const words = ['LETTERS WITH A CHARGE','SERIFS THAT HOLD','MONOS THAT BEHAVE','SPACES THAT BREATHE'];
 const rw = $('#rotWord');
 let wi = 0;
 function swapWord(){
@@ -919,9 +980,9 @@ form.addEventListener('submit', e => {
   const em = $('#femail').value.trim();
   const m = $('#fmsg').value.trim();
   if (!n || !em || !m) return;
-  const subj = 'Portfolio inquiry from ' + n;
-  const body = m + '\n\n— ' + n + ' (' + em + ')';
-  location.href = 'mailto:garvit9829@gmail.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+  form.reset();
+  const note = $('#cnote');
+  if (note) note.textContent = 'Thank you, ' + n + '. This is a concept site, so the message was not sent anywhere.';
 });
 })();
 </script>
@@ -1256,6 +1317,82 @@ window.__t10e = (function(){
     hidden: document.hidden
   };
 })();
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var FACES = {"volt": {"n": "Volt Grotesk", "f": "'Space Grotesk',serif", "lo": 300, "hi": 700, "w": 600}, "ampere": {"n": "Ampere Serif", "f": "'Fraunces',serif", "lo": 100, "hi": 900, "w": 600}, "ohm": {"n": "Ohm Mono", "f": "'JetBrains Mono',serif", "lo": 100, "hi": 800, "w": 500}, "weber": {"n": "Weber Condensed", "f": "'Oswald',serif", "lo": 200, "hi": 700, "w": 600}, "coulomb": {"n": "Coulomb Slab", "f": "'Roboto Slab',serif", "lo": 100, "hi": 900, "w": 700}, "farad": {"n": "Farad Sans", "f": "'Inter Tight',serif", "lo": 100, "hi": 900, "w": 500}, "joule": {"n": "Joule Display", "f": "'Playfair Display',serif", "lo": 400, "hi": 900, "w": 800}, "henry": {"n": "Henry Text", "f": "'Newsreader',serif", "lo": 200, "hi": 800, "w": 400}};
+  var PRESETS = {
+    head: { t: 'Sphinx of black quartz, judge my vow.', size: 96, lead: 105, trk: -10 },
+    para: { t: 'A typeface is mostly the white between the letters. Draw the shapes badly and space them well, and people will read it for an hour. Draw them beautifully and space them badly, and nobody gets to the end of the line.', size: 24, lead: 150, trk: 0 },
+    num: { t: '0123456789  \u20B91,24,500.00  14:35  98.6%  3/8  +91', size: 72, lead: 120, trk: 0 },
+    glyph: { t: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz \u00C1\u00C7\u00C8\u00D1\u00D6\u0160\u017D \u00E1\u00E7\u00E8\u00F1\u00F6\u0161\u017E &@#?!\u2014\u201C\u201D', size: 40, lead: 135, trk: 0 }
+  };
+  var $ = function (id) { return document.getElementById(id); };
+  var text = $('ttText'), stage = $('ttStage'), face = $('ttFace'), css = $('ttCss'), status = $('ttStatus');
+  var size = $('ttSize'), wght = $('ttWght'), trk = $('ttTrk'), lead = $('ttLead');
+  if (!text || !face) return;
+
+  function apply() {
+    var f = FACES[face.value];
+    var em = (trk.value / 1000), lh = (lead.value / 100);
+    text.style.fontFamily = f.f;
+    text.style.fontSize = size.value + 'px';
+    text.style.fontWeight = wght.value;
+    text.style.letterSpacing = em + 'em';
+    text.style.lineHeight = lh;
+    $('ttSizeO').textContent = size.value;
+    $('ttWghtO').textContent = wght.value;
+    $('ttTrkO').textContent = trk.value;
+    $('ttLeadO').textContent = lh.toFixed(2);
+    css.textContent = 'font: ' + wght.value + ' ' + size.value + 'px/' + lh.toFixed(2) + ' "' + f.n + '"; letter-spacing: ' + em.toFixed(3).replace(/\.?0+$/, '') + 'em;';
+  }
+  function setFace(id) {
+    var f = FACES[id]; if (!f) return;
+    face.value = id;
+    wght.min = f.lo; wght.max = f.hi;
+    wght.value = Math.max(f.lo, Math.min(f.hi, f.w));
+    apply();
+  }
+  function preset(name) {
+    var p = PRESETS[name]; if (!p) return;
+    text.textContent = p.t;
+    size.value = Math.min(p.size, window.innerWidth < 600 ? Math.max(18, Math.round(p.size * 0.5)) : p.size);
+    lead.value = p.lead; trk.value = p.trk;
+    [].forEach.call(document.querySelectorAll('[data-preset]'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-preset') === name)); });
+    apply();
+  }
+  function toggle(btn, fn) {
+    btn.addEventListener('click', function () {
+      var on = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', String(on)); fn(on);
+    });
+  }
+  face.addEventListener('change', function () { setFace(face.value); });
+  [size, wght, trk, lead].forEach(function (el) { el.addEventListener('input', apply); });
+  [].forEach.call(document.querySelectorAll('[data-preset]'), function (b) {
+    b.addEventListener('click', function () { preset(b.getAttribute('data-preset')); });
+  });
+  toggle($('ttCase'), function (on) { text.classList.toggle('caps', on); });
+  toggle($('ttAlign'), function (on) { text.classList.toggle('mid', on); });
+  toggle($('ttInvert'), function (on) { stage.classList.toggle('inv', on); });
+  /* keep pasted text plain */
+  text.addEventListener('paste', function (ev) {
+    ev.preventDefault();
+    var t = (ev.clipboardData || window.clipboardData).getData('text');
+    var sel = window.getSelection(); if (!sel.rangeCount) return;
+    sel.deleteFromDocument(); sel.getRangeAt(0).insertNode(document.createTextNode(t)); sel.collapseToEnd();
+  });
+  $('ttCopy').addEventListener('click', function () {
+    var done = function (ok) { status.textContent = ok ? 'Copied' : 'Select and copy it'; setTimeout(function () { status.textContent = ''; }, 1800); };
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(css.textContent).then(function () { done(true); }, function () { done(false); }); }
+    else { done(false); }
+  });
+  [].forEach.call(document.querySelectorAll('[data-try]'), function (a) {
+    a.addEventListener('click', function () { setFace(a.getAttribute('data-try')); });
+  });
+  setFace('ampere'); preset('head');
 })();
 </script>
 </body>

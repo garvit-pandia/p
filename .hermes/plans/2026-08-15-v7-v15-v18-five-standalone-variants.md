@@ -1,7 +1,7 @@
 # Plan — add four standalone theme variants and replace v7
 
 Date: 2026-08-15
-Project: `/home/garvit/projects/portfolio5`
+Project: `/home/garvit/projects2/portfolio-gallery`
 
 ## Corrected scope
 
@@ -49,7 +49,7 @@ full-page glassmorphism and avoid simply duplicating v5 Glass Horizon.
 
 ## Hub integration
 
-Update root `/home/garvit/projects/portfolio5/index.html`:
+Update root `/home/garvit/projects2/portfolio-gallery/index.html`:
 
 - v7 card becomes Weather//Systems and no longer says Voxel, Island, or 3D Voxel.
 - Add four standalone cards for v15–v18 with their own scene markup, CSS, title, description,

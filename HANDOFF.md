@@ -1,105 +1,98 @@
-# Portfolio5 — Session Handoff
+# The Material Index — current state
 
-**Last updated:** 2026-08-16 (end of v7 Transit swap + Typevolt fix session)
-**Branch:** `main` (commit pending for this session's work; NOT pushed)
-**Local server:** `http://127.0.0.1:5176/` (python3 -m http.server 5176 --bind 0.0.0.0)
-
----
-
-## Current State Summary
-
-### What's Done (All Verified)
-
-| Item | Status |
-|------|--------|
-| **v7 slot = The Impossible Transit Map** — v15 site copied into `v7-voxel/index.html` (folder kept); hub card stage, copy, quick-switch, and screenshot fully transit-themed | ✅ Browser-verified, 200s, zero console errors |
-| **v15-transit-map/ = unlinked backup** — folder intact, still serves 200, no hub references | ✅ |
-| **Hub card--v7 stage** — c15t-map grid, route lines a/b, nodes n1/n2 (S1/S2), transfer glyph, compass (red N), scale bar (KM 0—10), specimen stamp, ROUTE 07 plate, paper grain; entrance + hover beats (lines pulse, nodes ping, transfer spins, red→navy sweep) | ✅ Vision 9.5/9/9/9 (rest, in situ) + 9.5/9/9/9.5 (hover, in situ) |
-| **Card copy** — meta "Material 07 / 14 · Light · Cartographic", h2 "Transit//Map", transit description, "Step inside →"; sw--v7 = "Transit" (desktop + mobile) | ✅ |
-| **Typevolt (v10) heading fix** — scroll amplitudes 150/−46/58 → 26/−10/14, `settleLetters()` (300ms debounce → `.t10-settle` flat), hover = lift-only, R 110→100, PUSH 26→16 | ✅ Zero overlap, flat at rest, RM static, hero intact |
-| **Typevolt polish (vision loop)** — body paper grain, FRACTIONAL EM RULER (1/8–7/8, 1 EM), "KERN AV −100" tag | ✅ Vision 9.5/9/9.5/9 |
-| **Transit hero polish (vision loop)** — station-notice strip (pulsing dot), map revision block "Rev 07 · Drawn by GP / Scale 1:1000 / Sheet 1 of 14" | ✅ Vision 9.5/9/9/9 |
-| **Pre-existing hub bug fixed** — `.card:hover .pvc-live { opacity: 1 }` (live preview iframe was loading invisible since `e2392e0`) | ✅ |
-| **QA gates** — 200s ×4, console/page errors 0 on root/v7-voxel/v10-typevolt, overflow 0 at 780+390, RM static, keyboard reaches v7 card, 44px on all task controls, hub = 15 cards (14 + CTA), `git diff --check` clean | ✅ |
-| **Docs** — STATUS.md new 2026-08-16 section + v7 row corrected | ✅ |
+**Last updated:** 2026-10-12
+**Folder:** `/home/garvit/projects2/portfolio-gallery`
+**Branch:** `concept-sites` (from `main`). Nothing on it is committed yet.
+**Local server:** `http://127.0.0.1:5186/` (`python3 -m http.server 5186`, registered in `../PORT-REGISTRY.md`)
+**Live:** https://garvit-pandia.github.io/p/ (GitHub Pages, serves `origin/main` from the repo root)
 
 ---
 
-## Modified Files (git status --short)
+## The idea changed
 
-```
- M STATUS.md
- M HANDOFF.md
- M index.html
- M v7-voxel/index.html
- M v10-typevolt/index.html
-```
+The repo used to be "the same portfolio, fourteen ways". Every variant needed a full set
+of career details, and the placeholder copy invented a college, employers and
+certificates under my real name. That was the wrong shape for what I want to show.
 
-Plus regenerated asset: `shots/v7-voxel.png` (fresh 1280×800 transit hero capture).
+Now each variant is a **concept website for a fictional business**. The point is range:
+different kinds of site, different styles, and one working feature in each. My own
+details appear in one place only, a footer credit on each site. Nothing on a concept
+site claims anything about my education or work history, so there is nothing to get wrong.
 
----
+## What is in the repo on this branch
 
-## Key URLs
+| Part | State |
+|------|-------|
+| `index.html` — the gallery | 6 site cards + 1 full-width commission card. Rail, filters, shuffle and hover live preview all work. |
+| `v13-origami-aurum/` | **Kaagaz Haveli**, hotel, Udaipur. Stay calculator at `#og-stay`. |
+| `v16-black-box/` | **Saanjh Repertory**, theatre, Chandigarh. Seat map booking at `#booking`. |
+| `v5-glass/` | **Kanch Invoicing**, software. Pricing slider and monthly / yearly switch at `#pricing`. |
+| `v12-mycelium/` | **Dhingri & Co.**, mushroom farm, Solan. Shop `#myShop` and basket `#myBasket` (saved in `localStorage`). |
+| `v10-typevolt/` | **Typevolt**, type foundry. Type tester at `#tester`, eight families on Google variable fonts. |
+| `v8-abyss/` | **Paatal Dive Co.**, dive school, Andamans. Depth finder at `#finder`, depth rail 0 – 40 m. |
+| `shots/` | Fresh 1280×800 screenshots for the six. The other twelve files are old and unused by the gallery. |
+| The other twelve `vN-*/` folders | Unchanged and unlinked. They still hold the old invented career copy. |
+| `DOC-20260716-WA0002.pdf` | My real résumé. Nothing links to it. |
+| `parts/` | Leftover card fragments. Unused. |
 
-| Page | URL | Notes |
-|------|-----|-------|
-| Root chooser (hub, 14 + CTA cards) | http://127.0.0.1:5176/ | card--v7 = Transit//Map |
-| v7 Transit Map (slot) | http://127.0.0.1:5176/v7-voxel/ | live site, resume PDF included |
-| v15 Transit Map (backup) | http://127.0.0.1:5176/v15-transit-map/ | unlinked from hub, do not delete |
-| v10 Typevolt | http://127.0.0.1:5176/v10-typevolt/ | headings fixed + polished |
+Shared pattern on the six sites:
 
----
+- Footer credit: "<Name> is a fictional <thing>. Concept site designed and built by
+  Garvit Pandia · Back to the gallery". Links to `https://garvitpandia.me` and `../index.html`.
+- Forms confirm on the page and say that nothing was sent. No `mailto:` on any form.
+- Contact addresses use the `.example` domain. No résumé links, no phone number of mine.
 
-## Design Tokens (v7 transit card + site)
+## Left over from the old idea
 
-- Stage: `#F6F1E5 → #EAE2CC` gradient, ink `#33312C`, mut `#6B655A`, line `#D8CFBA`, navy `#1F3A93`, red `#D4402A`, transfer blue `#2E4AC2`
-- Card instruments: `.c15t-map/-line-a/-line-b/-node/-transfer/-compass/-scale/-stamp/-label` + `.c15t-live` pulse on `.pvc-open`
-- Keyframes: `c15t-line-in`, `c15t-lineb-in`, `c15t-node-in`, `c15t-xfer-in`, `c15t-hv-a/b/node/xfer`, `c15t-live`
-- Site additions: `.svc-note` (station notice), `.rev-block` (surveyor's note), `svc-pulse`
-- Typevolt additions: body noise grain (fixed overlay, opacity .05), `.typeruler` (fractional em ruler), `.kernval` (red proofing ink)
+- **Twelve old variant folders** are still in the repo and would still be published by a
+  push, because GitHub Pages serves every folder whether or not the gallery links it.
+  They need to be rebuilt as concept sites or deleted before this branch goes live.
+- **Fourteen invented résumé PDFs** (`v1`–`v14`, `Garvit_Pandia_Resume.pdf`). The six
+  rebuilt sites no longer link to theirs, so `v5`, `v8`, `v10`, `v12`, `v13` have a PDF
+  nothing points at. All fourteen are live on `main` today.
+- `docs/synthetic-data-pool.md` and the old briefs describe the portfolio idea. The six
+  concept sites do not use them.
 
----
+## Local and live are different
 
-## QA Quick Commands
+The live site is `origin/main`: the fourteen-portfolio gallery, three commits behind
+local `main`, with the invented career copy and résumé PDFs. None of the concept-site
+work is live.
 
-```bash
-# server
-cd /home/garvit/projects/portfolio5 && python3 -m http.server 5176 --bind 0.0.0.0
-# browser QA recap scripts (if needed)
-python3 /tmp/qa_final.py        # 200s/overflow/console/RM/card situational capture
-python3 /tmp/qa_pass3.py        # full pass (note: keyboard section = /tmp/qa_pass3_tail.py)
-# vision evidence shots
-ls /tmp/qa/*.png
-```
+`garvitpandia.me` (project `../garvit`, `src/lib/data.ts`) describes this repo as
+fourteen portfolios and shows a strip of them. That text and strip need updating when
+this branch ships.
 
----
+## Next
 
-## How to Resume
+1. Decide what happens to the twelve old folders: rebuild more of them as concept sites, or delete.
+2. Delete the invented résumé PDFs.
+3. Commit this branch, merge to `main`, push.
+4. Update the gallery entry on `garvitpandia.me`.
+5. Optional: stop publishing `docs/`, `STATUS.md`, `HANDOFF.md` and `.hermes/`, which
+   GitHub Pages serves along with everything else.
 
-1. Start server (above), curl `http://127.0.0.1:5176/` for 200.
-2. Any visual change → capture + vision-model QA per user mandate (scores (a) aesthetics (b) vibe (c) originality/(d) award-worthy; gate ≥9/10, iterate max 10 rounds).
-3. Commit to `main` only; never push (GitHub Pages API unavailable).
-4. Next logical tasks: W16/W17 campaign leftovers (v6/v8 R5, v9/v10 R5) were left incomplete per the synthetic-content campaign note in STATUS.md; otherwise per user directive.
+## Which docs are current
 
----
+- **Current:** `README.md`, this file, `docs/content-rules.md`, the newest entry in `STATUS.md`.
+- **History, do not follow as instructions:** `docs/synthetic-data-pool.md`, every
+  `docs/brief-*.md`, `docs/goal-*.md`, `docs/GOAL-*.md`, `docs/iteration-campaign.md`,
+  `docs/research-digest.md`, `docs/index-redesign-brief.md`,
+  `docs/synthetic-content-update-final-report.md`, `docs/fictional-resume-data.md`,
+  `docs/superpowers/`, `.hermes/plans/`, and the older sections of `STATUS.md`. They
+  belong to the portfolio idea.
 
-## Important Context for New Session
+## Working notes
 
-- **GitHub Pages deployment:** `https://garvit-pandia.github.io/p/` (NOT `garvitpandia.me`)
-- **Canonical data:** `docs/synthetic-data-pool.md` + `docs/fictional-resume-data.md`
-- **User prefs:** light warm tones (#f5f4ed, #c96442, Georgia/Inter/JetBrains Mono), no AI-slop — load `frontend-design` + `popular-web-designs` before any UI build
-- **Verification:** ALWAYS vision-model QA screenshots after visual changes; ratings must quote the model verbatim
-- **Delivery:** major updates + completions → origin AND Telegram (`deliver='origin,telegram'`)
-- **Headless pointer gotcha:** pvc-live boots on `pointerenter` gated `(hover:hover) and (pointer:fine)` — emulate via CDP `Emulation.setEmulatedMedia` `{pointer: fine, hover: hover}` when verifying previews
-
----
-
-## Skills to Load for Continuation
-
-- `frontend-design`, `popular-web-designs`, `animated-portfolio-builds`, `portfolio-variant-builds`
-- `localhost-browser-qa` — Playwright Chromium QA in WSL
-- `computer-use` — background desktop driving
-
----
-
-*Handoff refreshed 2026-08-16 — session deliverables complete, commit pending*
+- Serve from the repo root so `/shots/` and `/vN-*/` resolve. Pages also work from `file://`.
+- The gallery's hover preview loads a live iframe of the site. It only starts on a fine
+  pointer with hover, so a headless browser needs that media emulated to test it.
+- The rail repeats the six tiles three times per copy so the strip is wider than the
+  screen and loops without a gap. Add a seventh site and it still works; drop below
+  about four and it will not.
+- Each site is one self-contained `index.html`. Some have a `<noscript><style>` block as
+  well as the main `<style>`, so check which one you are editing.
+- After changing a site's hero, retake its card screenshot: load the site at 1280×800,
+  wait about four seconds for the intro to settle, save to `shots/<folder>.png`.
+- The gallery's card scenes are CSS under `.card--vN` in `index.html`. Styles for the
+  cards that were removed are still in the file, unused.

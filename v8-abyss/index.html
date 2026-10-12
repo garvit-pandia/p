@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#020a14">
-<meta name="description" content="Dive through the work of Garvit Pandia — I make machines legible. A bioluminescent deep-sea portfolio built with canvas.">
-<title>Garvit Pandia — Abyssal Engineer</title>
+<meta name="description" content="Paatal Dive Co. is a small dive school on Swaraj Dweep in the Andaman Islands. Four divers to an instructor, nine courses from a first breath underwater to forty metres.">
+<title>Paatal Dive Co. — Learn to dive in the Andaman Islands</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23020a14'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%237df9ff'/%3E%3Ccircle cx='16' cy='16' r='10.5' fill='none' stroke='%232dd4bf' stroke-width='1.5'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -225,6 +225,40 @@ footer a{margin:0 8px;font-size:10.5px;letter-spacing:.14em;text-transform:upper
   .tl-comet{display:none}
   .btn,.spec,.contact-link,.nav-link,.stat,.glass{transition:none!important}
 }
+
+/* ---------- depth finder ---------- */
+.spec-go{margin-top:auto;padding-top:6px;min-height:44px;display:inline-flex;align-items:center;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.spec-go:hover,.spec-go:focus-visible{color:var(--ink);text-shadow:0 0 12px rgba(255,217,122,.6)}
+.df{margin-top:34px;padding:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:26px 34px}
+.df .k{display:block;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.df-label{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal)}
+.df-read{display:flex;align-items:baseline;gap:12px;margin:8px 0 6px}
+.df-read b{font:800 clamp(64px,10vw,104px)/.95 'Syne',sans-serif;color:var(--cyan);text-shadow:0 0 28px rgba(125,249,255,.5);font-variant-numeric:tabular-nums;min-width:2ch}
+.df-read span{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+#df-range{width:100%;height:44px;margin:0;background:transparent;accent-color:var(--cyan);cursor:pointer}
+#df-range:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:6px}
+.df-scale{display:flex;justify-content:space-between;font-size:9px;letter-spacing:.12em;color:var(--dim)}
+.df-zone{margin-top:16px;min-height:4.8em;font-size:13.5px;line-height:1.6;color:var(--ink)}
+.df-out{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.df-tile{padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:rgba(2,10,20,.45);display:flex;flex-direction:column;gap:5px}
+.df-tile b{font:600 24px/1.15 'IBM Plex Mono',monospace;color:var(--cyan);font-variant-numeric:tabular-nums}
+.df-tile .s{font-size:11px;color:var(--dim);line-height:1.45}
+.df-swatches{display:flex;gap:7px;margin:5px 0 2px}
+.df-swatches i{flex:1;height:24px;border-radius:6px;transition:filter .35s ease,opacity .35s ease}
+.df-swatches [data-c=red]{background:#ff4b4b}.df-swatches [data-c=orange]{background:#ff9d3c}.df-swatches [data-c=yellow]{background:#ffe04a}.df-swatches [data-c=green]{background:#3fdc8a}.df-swatches [data-c=blue]{background:#3aa2ff}
+.df-swatches i.gone{filter:grayscale(1) brightness(.55);opacity:.55}
+.df-courses{grid-column:1/-1;border-top:1px dashed rgba(125,249,255,.18);padding-top:18px}
+.df-courses ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.df-courses li{font-size:11px;letter-spacing:.08em;padding:8px 13px;border-radius:999px;border:1px solid var(--line);color:var(--dim);transition:color .25s,border-color .25s,background .25s}
+.df-courses li.on{color:var(--abyss);background:var(--cyan);border-color:var(--cyan);font-weight:600}
+.df-fine{grid-column:1/-1;font-size:10.5px;color:var(--dim);letter-spacing:.04em}
+footer .concept{margin-top:14px;font-size:11px;line-height:1.6;color:var(--dim)}
+footer .concept a{margin:0;color:var(--cyan);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:1180px){.nav-link{padding:0 7px;letter-spacing:.1em}}
+@media (max-width:860px){.df{grid-template-columns:1fr;padding:20px 16px}}
+@media (max-width:460px){.df-out{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.df-swatches i,.df-courses li{transition:none}}
+@media print{#df-range{display:none}}
 </style>
 <style>
 /* ============ R2 · dive-pacing corridor (ab3- prefix) ============
@@ -331,24 +365,22 @@ body.ab3-diving #rail-readout{color:var(--gold);text-shadow:0 0 12px rgba(255,21
 </style>
 </head>
 <body>
-
 <canvas id="bg" aria-hidden="true"></canvas>
 <div class="vignette" aria-hidden="true"></div>
 <div id="cursor-light" aria-hidden="true"></div>
 <div id="ab3-corridor" aria-hidden="true"></div>
-
 <header class="nav" role="banner">
-  <a class="brand" href="#hero">GP<span class="brand-dot">·</span>ABYSS</a>
+  <a class="brand" href="#hero">PAATAL<span class="brand-dot">·</span>DIVE</a>
   <nav class="nav-links" aria-label="Dive stations">
-    <a class="nav-link" href="#about" data-nav="about">Diver</a>
-    <a class="nav-link" href="#projects" data-nav="projects">Specimens</a>
-    <a class="nav-link" href="#skills" data-nav="skills">Crew</a>
-    <a class="nav-link" href="#achievements" data-nav="achievements">Records</a>
-    <a class="nav-link" href="#experience" data-nav="experience">Descent</a>
-    <a class="nav-link" href="#contact" data-nav="contact">Resurface</a>
+    <a class="nav-link" href="#about" data-nav="about">School</a>
+    <a class="nav-link" href="#projects" data-nav="projects">Courses</a>
+    <a class="nav-link" href="#finder" data-nav="finder">Depth finder</a>
+    <a class="nav-link" href="#skills" data-nav="skills">Conditions</a>
+    <a class="nav-link" href="#achievements" data-nav="achievements">Dive sites</a>
+    <a class="nav-link" href="#experience" data-nav="experience">Your week</a>
+    <a class="nav-link" href="#contact" data-nav="contact">Book</a>
   </nav>
 </header>
-
 <aside id="rail" aria-hidden="true">
   <div class="rail-labels"><span>0m</span></div>
   <div class="rail-track" id="rail-track">
@@ -356,351 +388,355 @@ body.ab3-diving #rail-readout{color:var(--gold);text-shadow:0 0 12px rgba(255,21
       <span class="rail-readout" id="rail-readout">0 m</span>
     </div>
   </div>
-  <div class="rail-labels"><span class="rail-bottom">11,204m</span></div>
-  <div class="rail-caption">Challenger deep — the floor. Resurface to say hello.</div>
+  <div class="rail-labels"><span class="rail-bottom">40m</span></div>
+  <div class="rail-caption">Forty metres — the recreational limit. Resurface to book.</div>
 </aside>
-
 <main>
-
   <!-- ============ HERO · SURFACE ============ -->
   <section class="hero" id="hero" data-ping>
     <div class="wrap" id="hero-wrap">
       <p class="hero-tag" data-reveal>Log 001 — Surface<span class="cursor"></span></p>
-      <h1 class="hero-name" data-reveal>Garvit<br>Pandia</h1>
-      <p class="hero-role" data-reveal>I make machines legible</p>
-      <p class="hero-sub" data-reveal>Descending through intelligent systems, interactive worlds, and the occasional trench of production code. Bioluminescence included.</p>
+      <h1 class="hero-name" data-reveal>Paatal<br>Dive Co.</h1>
+      <p class="hero-role" data-reveal>Learn to dive in the Andaman Islands</p>
+      <p class="hero-sub" data-reveal>A small dive school on Swaraj Dweep. Four divers to an instructor, warm clear water, and nobody rushed past the thing they came to look at. Bioluminescence included.</p>
       <div class="stats" data-reveal>
-        <div class="stat glass"><b>14</b><span>buoys monitored</span></div>
-        <div class="stat glass"><b>40k</b><span>readings per day</span></div>
-        <div class="stat glass"><b>6 days</b><span>of early warning</span></div>
-        <div class="stat glass"><b>310k</b><span>demo plays</span></div>
-        <div class="stat glass"><b>96%</b><span>positive reviews</span></div>
-        <div class="stat glass"><b>99.98%</b><span>uptime · 14-month record</span></div>
+        <div class="stat glass"><b>28°C</b><span>water, all season</span></div>
+        <div class="stat glass"><b>25 m</b><span>visibility in February</span></div>
+        <div class="stat glass"><b>4 : 1</b><span>divers to an instructor</span></div>
+        <div class="stat glass"><b>31</b><span>dive sites by boat</span></div>
+        <div class="stat glass"><b>9,400</b><span>dives logged since 2016</span></div>
+        <div class="stat glass"><b>2,150</b><span>divers certified</span></div>
       </div>
       <div class="hero-cta" data-reveal>
         <a class="btn btn-primary" href="#about">Begin the dive ↓</a>
-        <a class="btn btn-ghost" href="Garvit_Pandia_Resume.pdf" download>Download resume</a>
+        <a class="btn btn-ghost" href="#finder">Find your depth</a>
       </div>
-      <p class="hero-foot" data-reveal>Est. descent — 11,204 m to the floor · Oxygen: infinite · Curiosity: critical</p>
+      <p class="hero-foot" data-reveal>Est. descent — 40 m to the limit · Air: checked twice · Curiosity: required</p>
     </div>
     <div class="hero-scrollcue" aria-hidden="true"></div>
   </section>
-
-  <!-- ============ ABOUT · DIVER PROFILE ============ -->
+  <!-- ============ ABOUT · THE SCHOOL ============ -->
   <section class="section" id="about" data-ping>
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="log">Log 002 — Diver profile<span class="cursor"></span></p>
-        <h2 class="sec-title">About the diver</h2>
-        <p class="sec-depth">Depth 2,240 m — Twilight Zone</p>
+        <p class="log">Log 002 — The school<span class="cursor"></span></p>
+        <h2 class="sec-title">About the school</h2>
+        <p class="sec-depth">Depth 5 m — the lagoon</p>
         <div class="rule"></div>
       </div>
       <div class="bio">
         <div class="bio-copy" data-reveal>
-          <p>Garvit Pandia is an <em>engineer of quiet systems</em>, based in Kochi, Kerala. The projects here are field notes, not exhibits — some are still growing. He descends through the full stack, from sensor streams to renderers, and brings working specimens back to the surface.</p>
-          <p>Education: <em>B.Tech Computer Science &amp; Engineering, Verghese Institute of Technology, Kochi · 2020 – 2024</em> · CGPA 8.2/10 · founded the campus open-source society (40 members by graduation). Current depth rating: comfortable at 11,204 metres of production code.</p>
-          <p>He ships at depth: 176 pull requests merged across 12 open-source repos, 46 projects shipped end-to-end, and a conviction that the best interfaces feel alive — like something glowing in the dark.</p>
+          <p>Paatal is the old word for <em>the world underneath</em>. We opened in 2016 with one boat and two instructors, on a beach where the reef starts thirty metres from the door. We are still small, and we mean to stay that way.</p>
+          <p>The rule the school is built on: <em>never more than four divers to one instructor</em>, and two for a first dive. It means we turn people away in January. It also means nobody here has ever been hurried through a skill they were not ready for.</p>
+          <p>Most of our students arrive nervous and a third arrive unable to swim well. You do not need to be brave. You need to be able to breathe slowly, and we can teach you that on the sand.</p>
         </div>
         <div class="divecard glass" data-reveal>
-          <h3>Mission manifest</h3>
-          <div class="dive-row"><span class="k">Role</span><span class="v">I make machines legible</span></div>
-          <div class="dive-row"><span class="k">Base</span><span class="v">Kochi, Kerala</span></div>
-          <div class="dive-row"><span class="k">Education</span><span class="v">B.Tech CSE — Verghese Institute, Kochi</span></div>
-          <div class="dive-row"><span class="k">Tenure</span><span class="v">2020 – 2024</span></div>
-          <div class="dive-row"><span class="k">Standing</span><span class="v">CGPA 8.2/10 · OSS society founder</span></div>
-          <div class="dive-row"><span class="k">Signal</span><span class="v">garvit9829@gmail.com</span></div>
-          <div class="dive-row"><span class="k">Max depth</span><span class="v">11,204 m — Challenger Deep</span></div>
+          <h3>Dive plan</h3>
+          <div class="dive-row"><span class="k">Base</span><span class="v">Beach No. 3, Swaraj Dweep</span></div>
+          <div class="dive-row"><span class="k">Season</span><span class="v">October to May</span></div>
+          <div class="dive-row"><span class="k">Ratio</span><span class="v">4 divers : 1 instructor</span></div>
+          <div class="dive-row"><span class="k">Boats</span><span class="v">Two, both with oxygen and a radio</span></div>
+          <div class="dive-row"><span class="k">Taught in</span><span class="v">English, Hindi, Bengali, Tamil</span></div>
+          <div class="dive-row"><span class="k">Signal</span><span class="v">dive@paatal.example</span></div>
+          <div class="dive-row"><span class="k">Max depth</span><span class="v">40 m — the recreational limit</span></div>
         </div>
       </div>
       <div class="signals" data-reveal>
         <p class="log">Signal log — surface reports<span class="cursor"></span></p>
         <div class="signal-grid">
-          <blockquote class="signal glass"><p>"The acidification warning system he built gave our biologists six days of lead time. Six days is a season in this field."</p><cite>— Kavya Menon, Marine Data Director, Peregrine Deep</cite></blockquote>
-          <blockquote class="signal glass"><p>"He found three bugs in our data pipeline that would have surfaced during harvest. The harvest thanked him."</p><cite>— Shreya Pillai, UX Researcher, Velora Systems</cite></blockquote>
-          <blockquote class="signal glass"><p>"He beta-tested our field spectrometer in conditions we wouldn't ship a phone into. The calibration log he sent back was better than our QA's."</p><cite>— Devendra Pillai, Lab Head, Pebblebrook Instruments</cite></blockquote>
+          <blockquote class="signal glass"><p>"I cried into my mask at three metres and my instructor just waited, holding my hand, until I was done. Then we went and found a turtle."</p><cite>— Open Water student, from Bengaluru</cite></blockquote>
+          <blockquote class="signal glass"><p>"I have dived in nine countries. This is the only school that cancelled a dive because the conditions were merely fine."</p><cite>— Fun diver, 140 logged dives</cite></blockquote>
+          <blockquote class="signal glass"><p>"My mother is sixty-one and did not swim. She did a try dive, then stayed two extra days to do it again."</p><cite>— Advanced student, from Kolkata</cite></blockquote>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- ============ PROJECTS · SPECIMENS ============ -->
+  <!-- ============ COURSES ============ -->
   <section class="section" id="projects" data-ping>
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="log">Log 003 — Specimens<span class="cursor"></span></p>
-        <h2 class="sec-title">Specimens collected</h2>
-        <p class="sec-depth">Depth 4,480 m — Midnight Zone</p>
+        <p class="log">Log 003 — Courses<span class="cursor"></span></p>
+        <h2 class="sec-title">Courses, shallow to deep</h2>
+        <p class="sec-depth">Depth 12 m — the reef top</p>
         <div class="rule"></div>
       </div>
       <div class="spec-grid">
-
-        <article class="spec glass" data-reveal>
-          <p class="spec-meta">Specimen 01 — 9,120 m</p>
-          <h3>Kelp</h3>
-          <p class="tagline">"Early-warning system for coastal acidification — pH anomalies forecast up to 6 days ahead from buoy streams."</p>
-          <p class="metric">91% precision at 48 h · 40k readings/day · 14 buoys</p>
-          <div class="chips"><span class="chip">Python</span><span class="chip">scikit-learn</span><span class="chip">TimescaleDB</span><span class="chip">Grafana</span></div>
+        <article class="spec glass" data-reveal data-course="try">
+          <p class="spec-meta">Course 01 — to 12 m</p>
+          <h3>Try Dive</h3>
+          <p class="tagline">Never dived, cannot swim well, not sure about any of it. One instructor holds your tank the whole way and you breathe underwater within the hour.</p>
+          <p class="metric">Half a day · 1 dive · ₹4,500</p>
+          <div class="chips"><span class="chip">No experience</span><span class="chip">Age 10+</span><span class="chip">Shore entry</span></div>
+          <a class="spec-go" href="#finder" data-depth="12">See 12 m in the depth finder →</a>
         </article>
-
-        <article class="spec glass" data-reveal>
-          <p class="spec-meta">Specimen 02 — 7,990 m</p>
-          <h3>Kelpfield</h3>
-          <p class="tagline">"Kelp-forest regrowth tracked from space and sonar — 11 restoration sites with confidence bands."</p>
-          <p class="metric">11 sites tracked · 92% confidence · 3 NGOs</p>
-          <div class="chips"><span class="chip">Python</span><span class="chip">Sonar fusion</span><span class="chip">Dashboards</span></div>
+        <article class="spec glass" data-reveal data-course="ow">
+          <p class="spec-meta">Course 02 — to 18 m</p>
+          <h3>Open Water</h3>
+          <p class="tagline">The full licence. Four days from the classroom to planning your own dive, and a certification that is recognised anywhere you travel.</p>
+          <p class="metric">4 days · 5 dives · ₹28,000</p>
+          <div class="chips"><span class="chip">Beginner</span><span class="chip">Certification</span><span class="chip">Swim test</span></div>
+          <a class="spec-go" href="#finder" data-depth="18">See 18 m in the depth finder →</a>
         </article>
-
-        <article class="spec glass" data-reveal>
-          <p class="spec-meta">Specimen 03 — 6,400 m</p>
-          <h3>Tidewalker</h3>
-          <p class="tagline">"An underwater exploration game — a 2 km² reef generated from real depth data."</p>
-          <p class="metric">310k demo plays · 60 fps mid-range · 11 species</p>
-          <div class="chips"><span class="chip">three.js</span><span class="chip">WebAudio</span><span class="chip">Procedural reefs</span></div>
+        <article class="spec glass" data-reveal data-course="adv">
+          <p class="spec-meta">Course 03 — to 30 m</p>
+          <h3>Advanced</h3>
+          <p class="tagline">Five dives that each teach one thing: depth, navigation, buoyancy, a wreck and the reef after dark.</p>
+          <p class="metric">3 days · 5 dives · ₹22,000</p>
+          <div class="chips"><span class="chip">Certified divers</span><span class="chip">Deep dive</span><span class="chip">Night dive</span></div>
+          <a class="spec-go" href="#finder" data-depth="30">See 30 m in the depth finder →</a>
         </article>
-
-        <article class="spec glass" data-reveal>
-          <p class="spec-meta">Specimen 04 — 5,700 m</p>
-          <h3>Stratum</h3>
-          <p class="tagline">"The ground, visualized — borehole cross-sections in one command, drawn entirely from data."</p>
-          <p class="metric">400+ logs in 2 min · 480 stars</p>
-          <div class="chips"><span class="chip">Python</span><span class="chip">GDAL</span><span class="chip">PostGIS</span></div>
+        <article class="spec glass" data-reveal data-course="deep">
+          <p class="spec-meta">Course 04 — to 40 m</p>
+          <h3>Deep Specialty</h3>
+          <p class="tagline">Forty metres is where recreational diving stops. Learn what narcosis feels like and how to plan a dive around your gas.</p>
+          <p class="metric">2 days · 4 dives · ₹19,500</p>
+          <div class="chips"><span class="chip">Advanced divers</span><span class="chip">Gas planning</span><span class="chip">Limit: 40 m</span></div>
+          <a class="spec-go" href="#finder" data-depth="40">See 40 m in the depth finder →</a>
         </article>
-
-        <article class="spec glass" data-reveal>
-          <p class="spec-meta">Specimen 05 — 8,350 m</p>
-          <h3>Shortwave</h3>
-          <p class="tagline">"Voice and field-audio streaming that survives bad links — down to 4 kbps, still intelligible."</p>
-          <p class="metric">94% intelligibility at 40% loss · 340 stars</p>
-          <div class="chips"><span class="chip">C++</span><span class="chip">Opus</span><span class="chip">Jitter buffers</span></div>
+        <article class="spec glass" data-reveal data-course="night">
+          <p class="spec-meta">Course 05 — to 18 m</p>
+          <h3>Night Diver</h3>
+          <p class="tagline">The reef changes shift at sunset. Octopus hunt, coral feeds, and every kick stirs up blue sparks.</p>
+          <p class="metric">2 evenings · 3 dives · ₹13,000</p>
+          <div class="chips"><span class="chip">Certified divers</span><span class="chip">Torch provided</span><span class="chip">Bioluminescence</span></div>
+          <a class="spec-go" href="#finder" data-depth="18">See 18 m in the depth finder →</a>
         </article>
-
-        <article class="spec glass" data-reveal>
-          <p class="spec-meta">Specimen 06 — 4,800 m</p>
-          <h3>Dipole</h3>
-          <p class="tagline">"A $25 SDR dongle becomes a waterfall scanner of three bands — signal classification built in."</p>
-          <p class="metric">11,000+ hours logged · 91% accuracy</p>
-          <div class="chips"><span class="chip">C++</span><span class="chip">SDR</span><span class="chip">WebAudio</span></div>
+        <article class="spec glass" data-reveal data-course="rescue">
+          <p class="spec-meta">Course 06 — to 18 m</p>
+          <h3>Rescue</h3>
+          <p class="tagline">The course that makes you the person other divers want as a buddy. Hard work, and the one our instructors rate highest.</p>
+          <p class="metric">4 days · 6 scenarios · ₹26,000</p>
+          <div class="chips"><span class="chip">Advanced divers</span><span class="chip">First aid</span><span class="chip">Scenarios</span></div>
+          <a class="spec-go" href="#finder" data-depth="18">See 18 m in the depth finder →</a>
         </article>
-
-        <article class="spec glass" data-reveal>
-          <p class="spec-meta">Specimen 07 — 9,940 m</p>
-          <h3>Warpaint</h3>
-          <p class="tagline">"26 procedural brushes with seeded randomness — same seed, same stroke, forever."</p>
-          <p class="metric">120 fps with 800-brush strokes · 45k downloads</p>
-          <div class="chips"><span class="chip">TypeScript</span><span class="chip">Canvas 2D</span><span class="chip">WebGL</span></div>
+        <article class="spec glass" data-reveal data-course="free">
+          <p class="spec-meta">Course 07 — to 16 m</p>
+          <h3>Freediving Level 1</h3>
+          <p class="tagline">One breath, no tank, sixteen metres. Mostly it is learning to relax, which is harder than it sounds.</p>
+          <p class="metric">2 days · 4 sessions · ₹16,000</p>
+          <div class="chips"><span class="chip">No tank</span><span class="chip">Breath-hold</span><span class="chip">Line diving</span></div>
+          <a class="spec-go" href="#finder" data-depth="16">See 16 m in the depth finder →</a>
         </article>
-
-        <article class="spec glass" data-reveal>
-          <p class="spec-meta">Specimen 08 — 3,200 m</p>
-          <h3>Cusp</h3>
-          <p class="tagline">"Magnetosphere data for non-specialists — live aurora-forecast maps from 15 merged sources."</p>
-          <p class="metric">2,800 daily users during solar max · 82% correct calls</p>
-          <div class="chips"><span class="chip">Python</span><span class="chip">D3</span><span class="chip">Satellite feeds</span></div>
+        <article class="spec glass" data-reveal data-course="fun">
+          <p class="spec-meta">Course 08 — to 30 m</p>
+          <h3>Fun Dives</h3>
+          <p class="tagline">Already certified? Two boat dives a morning at the best site for the conditions, back by lunch.</p>
+          <p class="metric">1 morning · 2 dives · ₹6,500</p>
+          <div class="chips"><span class="chip">Certified divers</span><span class="chip">Boat</span><span class="chip">Gear included</span></div>
+          <a class="spec-go" href="#finder" data-depth="30">See 30 m in the depth finder →</a>
         </article>
-
       </div>
     </div>
   </section>
-
-  <!-- ============ SKILLS · CREW ============ -->
+  <!-- ============ DEPTH FINDER ============ -->
+  <section class="section" id="finder" data-ping>
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="log">Log 004 — Depth finder<span class="cursor"></span></p>
+        <h2 class="sec-title">How deep do you want to go?</h2>
+        <p class="sec-depth">Depth 18 m — where most of the life is</p>
+        <div class="rule"></div>
+      </div>
+      <div class="df glass" data-reveal>
+        <div class="df-ctl">
+          <label for="df-range" class="df-label">Drag to a depth</label>
+          <div class="df-read"><b id="df-depth">18</b><span>metres</span></div>
+          <input id="df-range" type="range" min="0" max="40" step="1" value="18" aria-describedby="df-zone">
+          <div class="df-scale" aria-hidden="true"><span>0</span><span>10</span><span>20</span><span>30</span><span>40 m</span></div>
+          <p class="df-zone" id="df-zone" aria-live="polite"></p>
+        </div>
+        <div class="df-out">
+          <div class="df-tile"><span class="k">Pressure</span><b id="df-atm"></b><span class="s" id="df-air"></span></div>
+          <div class="df-tile"><span class="k">Surface light left</span><b id="df-light"></b><span class="s">in clear water at noon</span></div>
+          <div class="df-tile"><span class="k">Water temperature</span><b id="df-temp"></b><span class="s">a 3 mm suit is enough</span></div>
+          <div class="df-tile df-colour"><span class="k">Colours you still see</span>
+            <div class="df-swatches" id="df-swatches"><i data-c="red" data-gone="5" title="Red"></i><i data-c="orange" data-gone="10" title="Orange"></i><i data-c="yellow" data-gone="20" title="Yellow"></i><i data-c="green" data-gone="30" title="Green"></i><i data-c="blue" data-gone="99" title="Blue"></i></div>
+            <span class="s" id="df-colour-note"></span></div>
+        </div>
+        <div class="df-courses">
+          <p class="k">Courses that take you here</p>
+          <ul id="df-list"></ul>
+        </div>
+        <p class="df-fine">Figures are illustrative. Every dive here is planned with a computer and led by an instructor.</p>
+      </div>
+    </div>
+  </section>
+  <!-- ============ CONDITIONS ============ -->
   <section class="section" id="skills" data-ping>
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="log">Log 004 — Crew<span class="cursor"></span></p>
-        <h2 class="sec-title">Bioluminescent crew</h2>
-        <p class="sec-depth">Depth 6,720 m — Abyssal Zone</p>
+        <p class="log">Log 005 — Conditions<span class="cursor"></span></p>
+        <h2 class="sec-title">What to expect down there</h2>
+        <p class="sec-depth">Depth 24 m — the blue</p>
         <div class="rule"></div>
       </div>
       <div class="skill-grid">
-
         <div class="skill-card glass" data-reveal>
-          <h3 class="skill-group-title">Languages</h3>
-          <div class="skill"><span class="skill-name">TypeScript</span><div class="bar"><div class="bar-fill" style="--lv:.94"></div></div><span class="skill-num">94</span></div>
-          <div class="skill"><span class="skill-name">Python</span><div class="bar"><div class="bar-fill" style="--lv:.93"></div></div><span class="skill-num">93</span></div>
-          <div class="skill"><span class="skill-name">C++</span><div class="bar"><div class="bar-fill" style="--lv:.72"></div></div><span class="skill-num">72</span></div>
-          <div class="skill"><span class="skill-name">Rust</span><div class="bar"><div class="bar-fill" style="--lv:.84"></div></div><span class="skill-num">84</span></div>
-          <div class="skill"><span class="skill-name">Go</span><div class="bar"><div class="bar-fill" style="--lv:.78"></div></div><span class="skill-num">78</span></div>
-          <div class="skill"><span class="skill-name">SQL</span><div class="bar"><div class="bar-fill" style="--lv:.88"></div></div><span class="skill-num">88</span></div>
+          <h3 class="skill-group-title">Visibility, month by month</h3>
+          <div class="skill"><span class="skill-name">November</span><div class="bar"><div class="bar-fill" style="--lv:0.64"></div></div><span class="skill-num">16 m</span></div>
+          <div class="skill"><span class="skill-name">December</span><div class="bar"><div class="bar-fill" style="--lv:0.80"></div></div><span class="skill-num">20 m</span></div>
+          <div class="skill"><span class="skill-name">January</span><div class="bar"><div class="bar-fill" style="--lv:0.92"></div></div><span class="skill-num">23 m</span></div>
+          <div class="skill"><span class="skill-name">February</span><div class="bar"><div class="bar-fill" style="--lv:1.00"></div></div><span class="skill-num">25 m</span></div>
+          <div class="skill"><span class="skill-name">March</span><div class="bar"><div class="bar-fill" style="--lv:0.96"></div></div><span class="skill-num">24 m</span></div>
+          <div class="skill"><span class="skill-name">April</span><div class="bar"><div class="bar-fill" style="--lv:0.84"></div></div><span class="skill-num">21 m</span></div>
         </div>
-
         <div class="skill-card glass" data-reveal>
-          <h3 class="skill-group-title">AI / ML</h3>
-          <div class="skill"><span class="skill-name">PyTorch</span><div class="bar"><div class="bar-fill" style="--lv:.86"></div></div><span class="skill-num">86</span></div>
-          <div class="skill"><span class="skill-name">Edge inference</span><div class="bar"><div class="bar-fill" style="--lv:.84"></div></div><span class="skill-num">84</span></div>
-          <div class="skill"><span class="skill-name">Time-series forecasting</span><div class="bar"><div class="bar-fill" style="--lv:.86"></div></div><span class="skill-num">86</span></div>
-          <div class="skill"><span class="skill-name">Retrieval systems</span><div class="bar"><div class="bar-fill" style="--lv:.88"></div></div><span class="skill-num">88</span></div>
-          <div class="skill"><span class="skill-name">Evaluation harnesses</span><div class="bar"><div class="bar-fill" style="--lv:.90"></div></div><span class="skill-num">90</span></div>
-          <div class="skill"><span class="skill-name">Model compression</span><div class="bar"><div class="bar-fill" style="--lv:.80"></div></div><span class="skill-num">80</span></div>
+          <h3 class="skill-group-title">Your chance of seeing</h3>
+          <div class="skill"><span class="skill-name">Green turtle</span><div class="bar"><div class="bar-fill" style="--lv:0.85"></div></div><span class="skill-num">85%</span></div>
+          <div class="skill"><span class="skill-name">Reef octopus</span><div class="bar"><div class="bar-fill" style="--lv:0.60"></div></div><span class="skill-num">60%</span></div>
+          <div class="skill"><span class="skill-name">Blacktip reef shark</span><div class="bar"><div class="bar-fill" style="--lv:0.40"></div></div><span class="skill-num">40%</span></div>
+          <div class="skill"><span class="skill-name">Manta ray</span><div class="bar"><div class="bar-fill" style="--lv:0.12"></div></div><span class="skill-num">12%</span></div>
+          <div class="skill"><span class="skill-name">Dugong</span><div class="bar"><div class="bar-fill" style="--lv:0.03"></div></div><span class="skill-num">3%</span></div>
+          <div class="skill"><span class="skill-name">A nudibranch</span><div class="bar"><div class="bar-fill" style="--lv:0.97"></div></div><span class="skill-num">97%</span></div>
         </div>
-
         <div class="skill-card glass" data-reveal>
-          <h3 class="skill-group-title">Web / Creative</h3>
-          <div class="skill"><span class="skill-name">React</span><div class="bar"><div class="bar-fill" style="--lv:.93"></div></div><span class="skill-num">93</span></div>
-          <div class="skill"><span class="skill-name">Next.js</span><div class="bar"><div class="bar-fill" style="--lv:.88"></div></div><span class="skill-num">88</span></div>
-          <div class="skill"><span class="skill-name">Three.js</span><div class="bar"><div class="bar-fill" style="--lv:.85"></div></div><span class="skill-num">85</span></div>
-          <div class="skill"><span class="skill-name">WebGL</span><div class="bar"><div class="bar-fill" style="--lv:.80"></div></div><span class="skill-num">80</span></div>
-          <div class="skill"><span class="skill-name">Canvas 2D</span><div class="bar"><div class="bar-fill" style="--lv:.90"></div></div><span class="skill-num">90</span></div>
-          <div class="skill"><span class="skill-name">CSS motion &amp; animation</span><div class="bar"><div class="bar-fill" style="--lv:.94"></div></div><span class="skill-num">94</span></div>
+          <h3 class="skill-group-title">How a dive day is spent</h3>
+          <div class="skill"><span class="skill-name">Underwater</span><div class="bar"><div class="bar-fill" style="--lv:0.30"></div></div><span class="skill-num">30%</span></div>
+          <div class="skill"><span class="skill-name">On the boat</span><div class="bar"><div class="bar-fill" style="--lv:0.25"></div></div><span class="skill-num">25%</span></div>
+          <div class="skill"><span class="skill-name">Between dives, on deck</span><div class="bar"><div class="bar-fill" style="--lv:0.20"></div></div><span class="skill-num">20%</span></div>
+          <div class="skill"><span class="skill-name">Logbook and chai</span><div class="bar"><div class="bar-fill" style="--lv:0.15"></div></div><span class="skill-num">15%</span></div>
+          <div class="skill"><span class="skill-name">Briefing</span><div class="bar"><div class="bar-fill" style="--lv:0.10"></div></div><span class="skill-num">10%</span></div>
+          <div class="skill"><span class="skill-name">Wishing it were longer</span><div class="bar"><div class="bar-fill" style="--lv:1.00"></div></div><span class="skill-num">100%</span></div>
         </div>
-
         <div class="skill-card glass" data-reveal>
-          <h3 class="skill-group-title">Systems / Cloud</h3>
-          <div class="skill"><span class="skill-name">Linux</span><div class="bar"><div class="bar-fill" style="--lv:.88"></div></div><span class="skill-num">88</span></div>
-          <div class="skill"><span class="skill-name">Docker</span><div class="bar"><div class="bar-fill" style="--lv:.86"></div></div><span class="skill-num">86</span></div>
-          <div class="skill"><span class="skill-name">Kubernetes</span><div class="bar"><div class="bar-fill" style="--lv:.78"></div></div><span class="skill-num">78</span></div>
-          <div class="skill"><span class="skill-name">PostgreSQL</span><div class="bar"><div class="bar-fill" style="--lv:.90"></div></div><span class="skill-num">90</span></div>
-          <div class="skill"><span class="skill-name">Redis</span><div class="bar"><div class="bar-fill" style="--lv:.84"></div></div><span class="skill-num">84</span></div>
-          <div class="skill"><span class="skill-name">AWS</span><div class="bar"><div class="bar-fill" style="--lv:.82"></div></div><span class="skill-num">82</span></div>
+          <h3 class="skill-group-title">Who learns here</h3>
+          <div class="skill"><span class="skill-name">Had never dived before</span><div class="bar"><div class="bar-fill" style="--lv:0.62"></div></div><span class="skill-num">62%</span></div>
+          <div class="skill"><span class="skill-name">Came back for Advanced</span><div class="bar"><div class="bar-fill" style="--lv:0.44"></div></div><span class="skill-num">44%</span></div>
+          <div class="skill"><span class="skill-name">Travelling alone</span><div class="bar"><div class="bar-fill" style="--lv:0.38"></div></div><span class="skill-num">38%</span></div>
+          <div class="skill"><span class="skill-name">Nervous in the water</span><div class="bar"><div class="bar-fill" style="--lv:0.31"></div></div><span class="skill-num">31%</span></div>
+          <div class="skill"><span class="skill-name">Over fifty</span><div class="bar"><div class="bar-fill" style="--lv:0.09"></div></div><span class="skill-num">9%</span></div>
+          <div class="skill"><span class="skill-name">Became instructors</span><div class="bar"><div class="bar-fill" style="--lv:0.02"></div></div><span class="skill-num">2%</span></div>
         </div>
-
       </div>
     </div>
   </section>
-
-  <!-- ============ ACHIEVEMENTS · DEPTH RECORDS ============ -->
+  <!-- ============ DIVE SITES ============ -->
   <section class="section" id="achievements" data-ping>
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="log">Log 005 — Depth records<span class="cursor"></span></p>
-        <h2 class="sec-title">Depth records</h2>
-        <p class="sec-depth">Depth 8,960 m — Deep Hadal</p>
+        <p class="log">Log 006 — Dive sites<span class="cursor"></span></p>
+        <h2 class="sec-title">Seven sites, by depth</h2>
+        <p class="sec-depth">Depth 30 m — the seamount</p>
         <div class="rule"></div>
       </div>
       <div class="recs">
-
         <article class="rec glass" data-reveal>
-          <p class="rec-depth">Depth 8,848 m · 1,086 atm</p>
-          <div><h3 class="rec-name">Top 2% — Ocean Temperature Forecasting 2024</h3><p class="rec-detail">global leaderboard · 2024</p></div>
-          <span class="ab2-gauge" data-atm="1086" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
+          <p class="rec-depth">Depth 5 m · 1.5 atm</p>
+          <div><h3 class="rec-name">The Nursery</h3><p class="rec-detail">Sandy lagoon off the school beach · where every first breath happens</p></div>
+          <span class="ab2-gauge" data-atm="1.5" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
         </article>
-
         <article class="rec glass" data-reveal>
-          <p class="rec-depth">Depth 10,102 m · 1,240 atm</p>
-          <div><h3 class="rec-name">Paper — Low-Overhead Tracing</h3><p class="rec-detail">Journal of Open Tools &amp; Systems · 2025, peer-reviewed</p></div>
-          <span class="ab2-gauge" data-atm="1240" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
+          <p class="rec-depth">Depth 12 m · 2.2 atm</p>
+          <div><h3 class="rec-name">Turtle Garden</h3><p class="rec-detail">Sloping hard coral · three resident green turtles, usually asleep</p></div>
+          <span class="ab2-gauge" data-atm="2.2" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
         </article>
-
         <article class="rec glass" data-reveal>
-          <p class="rec-depth">Depth 7,421 m · 911 atm</p>
-          <div><h3 class="rec-name">Panelist — EdgeCon India 2025</h3><p class="rec-detail">edge AI in the field</p></div>
-          <span class="ab2-gauge" data-atm="911" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
+          <p class="rec-depth">Depth 16 m · 2.6 atm</p>
+          <div><h3 class="rec-name">Lantern Rock</h3><p class="rec-detail">A lone pinnacle · the night dive, and the best bioluminescence we have</p></div>
+          <span class="ab2-gauge" data-atm="2.6" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
         </article>
-
         <article class="rec glass" data-reveal>
-          <p class="rec-depth">Depth 5,486 m · 673 atm</p>
-          <div><h3 class="rec-name">2 regional design honors</h3><p class="rec-detail">Gilded client sites · 2025</p></div>
-          <span class="ab2-gauge" data-atm="673" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
+          <p class="rec-depth">Depth 18 m · 2.8 atm</p>
+          <div><h3 class="rec-name">The Staircase</h3><p class="rec-detail">Coral terraces stepping down in threes · Open Water dive four</p></div>
+          <span class="ab2-gauge" data-atm="2.8" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
         </article>
-
         <article class="rec glass" data-reveal>
-          <p class="rec-depth">Depth 6,401 m · 786 atm</p>
-          <div><h3 class="rec-name">Winner — Monsoon Hack Jaipur 2021</h3><p class="rec-detail">data-visualization track · 180 teams</p></div>
-          <span class="ab2-gauge" data-atm="786" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
+          <p class="rec-depth">Depth 24 m · 3.4 atm</p>
+          <div><h3 class="rec-name">Blue Corridor</h3><p class="rec-detail">A sand channel between two reefs · mantas pass through from January</p></div>
+          <span class="ab2-gauge" data-atm="3.4" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
         </article>
-
         <article class="rec glass" data-reveal>
-          <p class="rec-depth">Depth 9,204 m · 1,130 atm</p>
-          <div><h3 class="rec-name">2 maintained crates</h3><p class="rec-detail">~1.1M downloads on crates.io</p></div>
-          <span class="ab2-gauge" data-atm="1130" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
+          <p class="rec-depth">Depth 30 m · 4.0 atm</p>
+          <div><h3 class="rec-name">The Anvil</h3><p class="rec-detail">Flat-topped seamount in open water · barracuda, current and blue all round</p></div>
+          <span class="ab2-gauge" data-atm="4.0" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
         </article>
-
         <article class="rec glass" data-reveal>
-          <p class="rec-depth">Depth 11,034 m · 1,354 atm</p>
-          <div><h3 class="rec-name">9,800+ GitHub stars across 12 repos</h3><p class="rec-detail">combined · 2026</p></div>
-          <span class="ab2-gauge" data-atm="1354" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
+          <p class="rec-depth">Depth 40 m · 5.0 atm</p>
+          <div><h3 class="rec-name">Paatal Wall</h3><p class="rec-detail">The wall that named the school · it keeps going and you do not</p></div>
+          <span class="ab2-gauge" data-atm="5.0" aria-hidden="true"><span class="ab2-gauge-arc"></span><span class="ab2-gauge-num">0</span><span class="ab2-gauge-unit">atm</span></span>
         </article>
-
       </div>
     </div>
   </section>
-
-  <!-- ============ EXPERIENCE · DESCENT TIMELINE ============ -->
+  <!-- ============ YOUR WEEK ============ -->
   <section class="section" id="experience" data-ping>
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="log">Log 006 — Descent timeline<span class="cursor"></span></p>
-        <h2 class="sec-title">Descent timeline</h2>
-        <p class="sec-depth">Depth 10,080 m — Hadal Plain</p>
+        <p class="log">Log 007 — Your first four days<span class="cursor"></span></p>
+        <h2 class="sec-title">Open Water, day by day</h2>
+        <p class="sec-depth">Depth 36 m — nearly there</p>
         <div class="rule"></div>
       </div>
       <div class="timeline">
-
         <div class="tl-entry glass" data-reveal>
-          <p class="tl-meta">Feb 2026 – present · Peregrine Deep</p>
-          <h3 class="tl-title">Research Engineer</h3>
-          <p class="tl-desc">"Leading the sensor-fusion model for 14 coastal buoys (40k readings/day); designing the open dataset release — every number traceable to a public source."</p>
+          <p class="tl-meta">Day 1 · the classroom and the lagoon</p>
+          <h3 class="tl-title">Breathe, clear, float</h3>
+          <p class="tl-desc">A morning on how pressure works and how the gear fits. After lunch you kneel on sand in chest-deep water and breathe underwater for the first time. Nobody goes deeper until that feels ordinary.</p>
         </div>
-
         <div class="tl-entry glass" data-reveal>
-          <p class="tl-meta">Apr 2025 – Jan 2026 · Peregrine Deep</p>
-          <h3 class="tl-title">Data Lead (contract)</h3>
-          <p class="tl-desc">"Shipped Kelp — pH anomaly warnings 6 days early, 91% precision at 48 h; built the Kelpfield monitoring dashboard for 3 restoration NGOs."</p>
+          <p class="tl-meta">Days 2 and 3 · Turtle Garden, 12 m</p>
+          <h3 class="tl-title">The first real dives</h3>
+          <p class="tl-desc">Two boat dives a day. You practise each skill once at the surface and once on the reef: clearing a mask, sharing air, hovering without your hands. The rest of the time you look at fish.</p>
         </div>
-
         <div class="tl-entry glass" data-reveal>
-          <p class="tl-meta">Apr – Jun 2025 · Larkspur Bio</p>
-          <h3 class="tl-title">Bioinformatics Contractor</h3>
-          <p class="tl-desc">"Ported the Canopy drone pipeline to a 1-GPU footprint — 40 km² mapped, 1.1M trees; published the export format, now cited by 2 papers."</p>
+          <p class="tl-meta">Day 4 · The Staircase, 18 m</p>
+          <h3 class="tl-title">You plan it, we follow</h3>
+          <p class="tl-desc">Your buddy and you plan the last dive yourselves: depth, time, air, the way back. Your instructor stays behind you and says nothing. You surface a certified diver.</p>
         </div>
-
         <div class="tl-line" aria-hidden="true"></div>
         <div class="tl-blip" aria-hidden="true"></div>
         <div class="tl-blip b2" aria-hidden="true"></div>
         <div class="tl-blip b3" aria-hidden="true"></div>
         <div class="tl-comet" aria-hidden="true"></div>
-
       </div>
     </div>
   </section>
-
   <!-- ============ CONTACT · RESURFACE ============ -->
   <section class="section" id="contact" data-ping>
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="log">Log 007 — Resurface<span class="cursor"></span></p>
-        <h2 class="sec-title">Resurface</h2>
-        <p class="sec-depth">Depth 11,204 m — Hadal Zone · The Floor</p>
+        <p class="log">Log 008 — Resurface<span class="cursor"></span></p>
+        <h2 class="sec-title">Resurface and book</h2>
+        <p class="sec-depth">Depth 40 m — the limit · time to go up</p>
         <div class="rule"></div>
-        <span class="hadal">Hadal zone — the bottom, where you resurface</span>
+        <span class="hadal">Forty metres — as deep as we go, and where you turn around</span>
       </div>
       <div class="contact-grid">
         <div data-reveal>
           <form id="buoy-form" novalidate>
             <div class="field">
               <label for="f-name">Your name</label>
-              <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Deep-sea explorer">
+              <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="First-time diver">
             </div>
             <div class="field">
               <label for="f-email">Your email</label>
-              <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@surface.net">
+              <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
             </div>
             <div class="field">
               <label for="f-msg">Message</label>
-              <textarea id="f-msg" name="message" required placeholder="Drop a line — it will surface straight into Garvit's inbox."></textarea>
+              <textarea id="f-msg" name="message" required placeholder="Which course, which dates, and anything you are nervous about."></textarea>
             </div>
             <button class="btn btn-primary" type="submit">Send a buoy ↑</button>
             <p id="form-note" aria-live="polite"></p>
           </form>
         </div>
         <div class="contact-links" data-reveal>
-          <a class="contact-link glass" href="mailto:garvit9829@gmail.com"><span class="k">Email</span><span class="v">garvit9829@gmail.com</span></a>
-          <a class="contact-link glass" href="tel:+918905402023"><span class="k">Phone</span><span class="v">+91-8905402023</span></a>
-          <a class="contact-link glass" href="https://github.com/garvit-pandia" target="_blank" rel="noopener"><span class="k">GitHub</span><span class="v">github.com/garvit-pandia</span></a>
-          <a class="contact-link glass" href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener"><span class="k">LinkedIn</span><span class="v">linkedin.com/in/garvit-pandia</span></a>
-          <a class="contact-link glass" href="Garvit_Pandia_Resume.pdf" download><span class="k">Resume</span><span class="v">Garvit_Pandia_Resume.pdf</span></a>
+          <a class="contact-link glass" href="mailto:dive@paatal.example"><span class="k">Email</span><span class="v">dive@paatal.example</span></a>
+          <a class="contact-link glass" href="#about"><span class="k">Find us</span><span class="v">Beach No. 3, Swaraj Dweep, Andaman Islands</span></a>
+          <a class="contact-link glass" href="#experience"><span class="k">Boats leave</span><span class="v">6:30 am and 11:00 am, every day</span></a>
+          <a class="contact-link glass" href="#projects"><span class="k">Book ahead</span><span class="v">Three weeks for December to February</span></a>
+          <a class="contact-link glass" href="#finder"><span class="k">Not sure?</span><span class="v">Start with a Try Dive, decide after</span></a>
         </div>
       </div>
     </div>
   </section>
-
 </main>
-
 <footer>
-  <p class="foot-name">Garvit Pandia</p>
+  <p class="foot-name">Paatal Dive Co.</p>
   <p>built with canvas — zero images, zero tracking · © 2026</p>
-  <p><a href="https://github.com/garvit-pandia" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:garvit9829@gmail.com">Email</a><a href="Garvit_Pandia_Resume.pdf" download>Resume</a></p>
+  <p><a href="#projects">Courses</a><a href="#finder">Depth finder</a><a href="#achievements">Dive sites</a><a href="#contact">Book</a></p>
+  <p class="concept">Paatal Dive Co. is a fictional school. Concept site designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a> · <a href="../index.html">Back to the gallery</a></p>
 </footer>
-
 <noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
 
 <script>
@@ -1005,7 +1041,7 @@ body.ab3-diving #rail-readout{color:var(--gold);text-shadow:0 0 12px rgba(255,21
     if (railH > 0) {
       marker.style.transform = 'translate3d(0,' + (p * (railH - 12)).toFixed(1) + 'px,0)';
     }
-    readout.textContent = Math.round(p * 11204).toLocaleString('en-US') + ' m';
+    readout.textContent = (p * 40).toFixed(1) + ' m';
     if (heroWrap) {
       heroWrap.style.transform = 'translate3d(0,' + (Math.min(y, window.innerHeight) * .16).toFixed(1) + 'px,0)';
     }
@@ -1065,7 +1101,7 @@ body.ab3-diving #rail-readout{color:var(--gold);text-shadow:0 0 12px rgba(255,21
       });
     }, { rootMargin: '-40% 0px -55% 0px' });
 
-    ['hero', 'about', 'projects', 'skills', 'achievements', 'experience', 'contact'].forEach(function (id) {
+    ['hero', 'about', 'projects', 'finder', 'skills', 'achievements', 'experience', 'contact'].forEach(function (id) {
       var el = $(id);
       if (el) { navIO.observe(el); pingIO.observe(el); }
     });
@@ -1096,11 +1132,9 @@ body.ab3-diving #rail-readout{color:var(--gold);text-shadow:0 0 12px rgba(255,21
       if (!n) { $('f-name').focus(); return; }
       if (!e) { $('f-email').focus(); return; }
       if (!m) { $('f-msg').focus(); return; }
-      var subj = encodeURIComponent('Buoy from ' + n + ' — portfolio contact');
-      var body = encodeURIComponent('Name: ' + n + '\nEmail: ' + e + '\n\n' + m);
-      window.location.href = 'mailto:garvit9829@gmail.com?subject=' + subj + '&body=' + body;
+      form.reset();
       var note = $('form-note');
-      if (note) { note.textContent = 'Buoy released — your mail client is opening. Talk soon.'; }
+      if (note) { note.textContent = 'Buoy released. Thank you, ' + n + '. This is a concept site, so the message was not sent anywhere.'; }
     });
   }
 
@@ -1156,9 +1190,9 @@ body.ab3-diving #rail-readout{color:var(--gold);text-shadow:0 0 12px rgba(255,21
   var gauges = document.querySelectorAll('.ab2-gauge');
   var active = [], raf = 0;
   function setFinal(g) {
-    var tgt = parseInt(g.getAttribute('data-atm') || '0', 10);
+    var tgt = parseFloat(g.getAttribute('data-atm') || '0');
     var num = g.querySelector('.ab2-gauge-num');
-    if (num) { num.textContent = tgt.toLocaleString('en-US'); }
+    if (num) { num.textContent = tgt.toFixed(1); }
     g.classList.add('ab2-on');
   }
   function tick(ts) {
@@ -1169,16 +1203,16 @@ body.ab3-diving #rail-readout{color:var(--gold);text-shadow:0 0 12px rgba(255,21
       c = active[i];
       k = Math.min(1, (ts - c.t0) / c.dur);
       val = c.from + (c.to - c.from) * (1 - Math.pow(1 - k, 3));
-      c.num.textContent = Math.round(val).toLocaleString('en-US');
+      c.num.textContent = val.toFixed(1);
       if (k >= 1) { active.splice(i, 1); }
     }
   }
   function startGauge(g) {
     if (g.classList.contains('ab2-on')) { return; }
     g.classList.add('ab2-on');
-    var tgt = parseInt(g.getAttribute('data-atm') || '0', 10);
+    var tgt = parseFloat(g.getAttribute('data-atm') || '0');
     var num = g.querySelector('.ab2-gauge-num');
-    if (reduce || !num) { if (num) { num.textContent = tgt.toLocaleString('en-US'); } return; }
+    if (reduce || !num) { if (num) { num.textContent = tgt.toFixed(1); } return; }
     active.push({ num: num, from: 0, to: tgt, t0: performance.now(), dur: 1000 });
     if (!raf) { raf = requestAnimationFrame(tick); }
   }
@@ -1400,6 +1434,52 @@ body.ab3-diving #rail-readout{color:var(--gold);text-shadow:0 0 12px rgba(255,21
     var all = document.querySelectorAll('[data-reveal]');
     for (var i = 0; i < all.length; i++) { all[i].classList.add('in'); }
   }, 1500);
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var COURSES = [{"n": "Try Dive", "d": 12}, {"n": "Open Water", "d": 18}, {"n": "Advanced", "d": 30}, {"n": "Deep Specialty", "d": 40}, {"n": "Night Diver", "d": 18}, {"n": "Rescue", "d": 18}, {"n": "Freediving Level 1", "d": 16}, {"n": "Fun Dives", "d": 30}];
+  var ZONES = [
+    [0, 'The surface. Mask on, regulator in, one last look at the boat. Everything below this line is quieter.'],
+    [1, 'The lagoon. White sand, knee-high seagrass and garden eels that vanish as you arrive. Every first breath happens here.'],
+    [6, 'The reef top. Hard coral in every direction, parrotfish you can hear chewing, and red has already drained out of your wetsuit.'],
+    [13, 'The slope. The most life per square metre on the reef. Turtles sleep under ledges and an octopus will be watching you from somewhere.'],
+    [19, 'The blue. The reef drops away on one side. Schools of fusilier pour past and the surface is a bright ceiling a long way up.'],
+    [26, 'The seamount. Cooler, dimmer, and big fish that do not care you are there. Your air goes four times faster than it does on the boat.'],
+    [36, 'The wall. Everything is blue or black and your thinking is slightly slow, which is narcosis. A few minutes here, then up. This is the limit.']
+  ];
+  var $ = function (id) { return document.getElementById(id); };
+  var range = $('df-range'), list = $('df-list');
+  if (!range || !list) { return; }
+  COURSES.forEach(function (c) {
+    var li = document.createElement('li'); li.textContent = c.n + ' \u00B7 ' + c.d + ' m'; li.dataset.d = c.d; list.appendChild(li);
+  });
+  function update() {
+    var d = +range.value, atm = 1 + d / 10;
+    $('df-depth').textContent = d;
+    $('df-atm').textContent = atm.toFixed(1) + ' atm';
+    $('df-air').textContent = d === 0 ? 'the same as on the boat' : 'you use air ' + atm.toFixed(1) + '\u00D7 faster than on the boat';
+    $('df-light').textContent = Math.round(100 * Math.exp(-d / 14)) + '%';
+    $('df-temp').textContent = (28 - d * 0.1).toFixed(1) + '\u00B0C';
+    var zone = ZONES[0][1];
+    for (var i = 0; i < ZONES.length; i++) { if (d >= ZONES[i][0]) { zone = ZONES[i][1]; } }
+    $('df-zone').textContent = zone;
+    var lost = [];
+    [].forEach.call($('df-swatches').children, function (sw) {
+      var gone = d >= +sw.getAttribute('data-gone');
+      sw.classList.toggle('gone', gone);
+      if (gone) { lost.push(sw.getAttribute('title').toLowerCase()); }
+    });
+    $('df-colour-note').textContent = lost.length ? 'Without a torch, ' + lost.join(', ') + (lost.length === 1 ? ' has' : ' have') + ' faded to grey.' : 'All of them. Enjoy it while it lasts.';
+    [].forEach.call(list.children, function (li) { li.classList.toggle('on', d > 0 && +li.dataset.d >= d); });
+    range.setAttribute('aria-valuetext', d + ' metres, ' + atm.toFixed(1) + ' atmospheres');
+  }
+  range.addEventListener('input', update);
+  [].forEach.call(document.querySelectorAll('[data-depth]'), function (a) {
+    a.addEventListener('click', function () { range.value = a.getAttribute('data-depth'); update(); });
+  });
+  update();
 })();
 </script>
 </body>

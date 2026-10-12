@@ -1,5 +1,19 @@
 # SYNTHETIC DATA POOL — portfolio5 content (canonical source)
 
+> ## Partly retired — read `docs/content-rules.md` first
+>
+> Since 2026-10-12 this file is no longer the source for who I am. The following parts are
+> **retired and must not be used on any page**: the location, title and studio options in
+> section 1, the persona timeline in section 2, every employer in section 6, the
+> certifications in section 10, the education options in section 11, the locations and
+> studios in section 14, and any "Role" line that names a company. Named people in the
+> testimonials are retired too.
+>
+> What is still usable: project ideas (sections 4–5) as side projects with no employer
+> attached, the numbers ledger as a starting point for placeholder stats, skills, and
+> hobbies. Real identity, education, projects, client work and certificates come from
+> `docs/content-rules.md` and are copied exactly.
+
 Created 2026-08-13. This file is the ONLY canonical content source for all 14 portfolio
 variants. Every variant's copy is curated from this pool. The ONLY real data allowed
 anywhere on the site: the name "Garvit Pandia" and the real contact block

@@ -1,6 +1,6 @@
 # Synthetic Content Update — Final Report
 
-**Project:** `/home/garvit/projects/portfolio5` (14 variants + root chooser)
+**Project:** `/home/garvit/projects2/portfolio-gallery` (14 variants + root chooser)
 **Run:** 2026-08-13 · 21:12 UTC → 23:56 UTC (session end; all phases complete)
 **Status:** ✅ COMPLETE — committed, pushed, deployed live, verified
 
@@ -143,5 +143,5 @@ HTTP 200; synthetic markers present in served HTML (v1 Vellum/Kandhari ×12,
 v9 MEMORY ARCHIVE ×11, v14 SIGNAL//DECODE ×5, root Monogram/Origami ×4).
 Live: **https://garvit-pandia.github.io/p/**
 
-Local preview: `python3 -m http.server 5176` serving the project root
+Local preview: `python3 -m http.server 5186` serving the project root
 (chooser + all `/vN-name/` folders) — verified 200.

@@ -1,8 +1,8 @@
 # Plan — v7 → Transit Map swap + Typevolt broken-text fix
 
 **Date:** 2026-08-16
-**Project:** `/home/garvit/projects/portfolio5`
-**Local server:** `python3 -m http.server 5176 --bind 0.0.0.0` (http://127.0.0.1:5176/)
+**Project:** `/home/garvit/projects2/portfolio-gallery`
+**Local server:** `python3 -m http.server 5186 --bind 0.0.0.0` (http://127.0.0.1:5186/)
 
 ## Context (verified from disk, 2026-08-16)
 
@@ -22,12 +22,12 @@
 2. **Hub card stage:** replace the v7 stage markup (isobar/dial/mast/ticks/"ISOBAR 07") with transit elements — `c15t-map`, `c15t-line-a`, `c15t-line-b`, `c15t-node n1/n2`, `c15t-transfer`, `c15t-label` (label like `ROUTE 07`) — reusing the existing `.card--v15` CSS (rename block to `.card--v7` or duplicate; keep `data-f="light"`). Keep `pvc-shot` / `pvc-live` / `pvc-open` chrome.
 3. **Card body:** meta `Material 07 / 14` + new descriptor (e.g. `Light · Cartographic`); `<h2>` → **`Transit//Map`** (matches existing naming pattern; alternative `The Transit Map` — pick one, stay consistent with hub copy); description → transit-flavored copy about route lines/stations/one long journey through the work; foot `Step inside →` unchanged.
 4. **Quick-switch:** lines 2479 + 2495: `Weather` → `Transit`. Check `.sw--v7` tile tint still fits transit palette.
-5. **Card screenshot:** replace `shots/v7-voxel.png`. Fast path: copy `shots/v15-transit-map.png` (identical site); better path: capture a fresh 1280×800 browser shot of `http://127.0.0.1:5176/v7-voxel/` and save as `shots/v7-voxel.png`. Verify the thumb renders inside the card (hover = live preview `pvc-live` already works since it loads the page).
+5. **Card screenshot:** replace `shots/v7-voxel.png`. Fast path: copy `shots/v15-transit-map.png` (identical site); better path: capture a fresh 1280×800 browser shot of `http://127.0.0.1:5186/v7-voxel/` and save as `shots/v7-voxel.png`. Verify the thumb renders inside the card (hover = live preview `pvc-live` already works since it loads the page).
 6. **Docs:** update `STATUS.md` + `HANDOFF.md` (v7 is now Transit Map; v15 folder = unlinked backup).
 
 ## Task B — Fix Typevolt (v10) broken heading text
 
-1. Reproduce at `http://127.0.0.1:5176/v10-typevolt/` (browser + screenshot). Confirm which headings break (`#work` "Case Files" per screenshot; check every `[data-split]` heading + hero `h1.name`).
+1. Reproduce at `http://127.0.0.1:5186/v10-typevolt/` (browser + screenshot). Confirm which headings break (`#work` "Case Files" per screenshot; check every `[data-split]` heading + hero `h1.name`).
 2. Root-cause: split-letter JS + `.k-l` transforms/`letterPop` + `perspective` + hover handlers (`.sec.kinetic` may have per-letter scrub). Look for: letters stuck mid-animation (animation never settling / `animation-fill-mode`), transforms causing overlap on `inline-block` spans, `white-space` collapse, or a hover distort effect applied at rest.
 3. Fix so text is **crisp and legible at rest AND on hover**, kinetic character retained (motion on entry only or subtle hover, no corruption), reduced-motion path clean, keyboard accessible. No regression to hero.
 4. Re-verify all other sections' headings + hero on the page.

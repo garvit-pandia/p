@@ -1,8 +1,8 @@
 # BRIEF — V7 VOXELWORLD "Isometric Diorama" (three.js)
 
-Build ONE standalone portfolio: `/home/garvit/projects/portfolio5/v7-voxel/index.html`
+Build ONE standalone portfolio: `/home/garvit/projects2/portfolio-gallery/v7-voxel/index.html`
 
-FIRST read `/home/garvit/projects/portfolio5/docs/fictional-resume-data.md` — it is the ONLY
+FIRST read `/home/garvit/projects2/portfolio-gallery/docs/fictional-resume-data.md` — it is the ONLY
 allowed content source. Use its data verbatim (numbers, names, links). Everything in the
 HTML/CSS/JS you write is yours to design.
 
@@ -77,7 +77,7 @@ scene background + fog color + sun color).
   content, then run `python3 /tmp/v7check.py`:
 ```python
 import re
-html = open('/home/garvit/projects/portfolio5/v7-voxel/index.html').read()
+html = open('/home/garvit/projects2/portfolio-gallery/v7-voxel/index.html').read()
 blocks = re.findall(r'<script(?![^>]*importmap)[^>]*>(.*?)</script>', html, re.S)
 for i, b in enumerate(blocks):
     open('/tmp/v7_%d.js' % i, 'w').write(b)

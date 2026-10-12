@@ -1,7 +1,7 @@
 # Plan — v7 five-system portfolio redesign
 
 Date: 2026-08-15
-Target: `/home/garvit/projects/portfolio5/v7-voxel/index.html`
+Target: `/home/garvit/projects2/portfolio-gallery/v7-voxel/index.html`
 
 ## Decision
 
@@ -71,7 +71,7 @@ make the design look fuller.
 
 ## Hub card contract
 
-Update only the v7 card/scene in `/home/garvit/projects/portfolio5/index.html` and its v7
+Update only the v7 card/scene in `/home/garvit/projects2/portfolio-gallery/index.html` and its v7
 screenshot asset as needed. Keep the hub's overall Material Index design, all other cards, filters,
 shuffle, links, and one-live-iframe behavior unchanged. Replace visible Voxel World / voxel copy
 with `Weather//Systems` and a concise atmospheric-instrument tagline. The frame must read at a
@@ -81,7 +81,7 @@ not a generic rounded card, not a pixel border, and not a reused signal/glass tr
 
 ## Typevolt audit
 
-Inspect and browser-test `/home/garvit/projects/portfolio5/v10-typevolt/index.html` because
+Inspect and browser-test `/home/garvit/projects2/portfolio-gallery/v10-typevolt/index.html` because
 some hover interactions are reported broken. Fix only real v10 interaction bugs, preserving its
 identity and content. In particular test transform ownership between scroll choreography,
 `.hov` letter hover, `.rep` pointer repulsion, `t10c` snap animation, magnetic buttons/footer

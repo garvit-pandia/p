@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Fourteen portfolio worlds by Garvit Pandia, each built from its own material — glass, paper, signal, soil, light, weather. Pick a material, step inside.">
+  <meta name="description" content="Six concept websites by Garvit Pandia, each for a different kind of business and each built from its own material: paper, glass, soil, type, stage light and deep water. Pick one and step inside.">
   <title>Garvit Pandia — The Material Index</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2089,7 +2089,7 @@
     }
     .card--v7 .c15t-line-a { left: -6%; right: -6%; top: 38%; background: linear-gradient(90deg, transparent, var(--m1) 12% 88%, transparent); transform: rotate(-14deg); opacity: .6; }
     .card--v7 .c15t-line-b { left: -6%; right: -6%; top: 56%; background: linear-gradient(90deg, transparent, var(--m2) 14% 86%, transparent); transform: rotate(10deg); opacity: .58; }
-    /* archival paper grain over the whole stage — kills the sterile AI-render look */
+    /* archival paper grain over the whole stage — keeps the stage from looking sterile */
     .card--v7 .stage::after {
       content: ""; position: absolute; z-index: 4; inset: 0; pointer-events: none;
       opacity: .05; mix-blend-mode: overlay;
@@ -2339,6 +2339,15 @@
       .card--v18:hover .c18-iris { box-shadow: 0 0 22px rgba(58, 95, 160, .8), inset 0 0 8px rgba(10, 20, 40, .55); }
       .card--v18:hover .c18-ring { outline-color: rgba(31, 110, 110, .95); }
     }
+
+    /* ---------- six-site index: commission card runs the full row ---------- */
+    .card--cta { grid-column: 1 / -1; flex-direction: row; }
+    .card--cta .stage { width: 38%; height: auto; min-height: 210px; }
+    .card--cta .body { justify-content: center; }
+    @media (max-width: 680px) {
+      .card--cta { flex-direction: column; }
+      .card--cta .stage { width: auto; height: 170px; min-height: 0; }
+    }
   </style>
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -2359,46 +2368,54 @@
 
       <div class="hero">
         <div class="rv" style="--i:0">
-          <p class="eyebrow">Portfolio index · 14 worlds · 2024—2026</p>
+          <p class="eyebrow">Concept sites · 6 businesses · 2026</p>
           <h1>Choose your <em>material.</em></h1>
         </div>
-        <p class="note rv" style="--i:1"><strong>Every portfolio here is built from a different material</strong> — glass, paper, signal, soil, light. Each card is a sample. Each sample is a door.</p>
+        <p class="note rv" style="--i:1"><strong>Every site here is for a different kind of business</strong> — a hotel, a theatre, a farm shop, a type foundry, a dive school, an invoicing app. The businesses are invented. The websites are real, and each one does something.</p>
       </div>
 
-      <div class="rail rv" style="--i:2" aria-label="All eighteen materials">
+      <div class="rail rv" style="--i:2" aria-label="All six sites">
         <div class="rail-track">
           <div class="rail-copy">
-            <a class="sw sw--v1" href="v1-light/index.html"><span class="sw__tile"></span><span class="sw__name">Archive</span></a>
-            <a class="sw sw--v2" href="v2-dark/index.html"><span class="sw__tile"></span><span class="sw__name">Midnight</span></a>
-            <a class="sw sw--v3" href="v3-wild/index.html"><span class="sw__tile"></span><span class="sw__name">Loom</span></a>
-            <a class="sw sw--v4" href="v4-brutalist/index.html"><span class="sw__tile"></span><span class="sw__name">Factory</span></a>
-            <a class="sw sw--v5" href="v5-glass/index.html"><span class="sw__tile"></span><span class="sw__name">Glass</span></a>
-            <a class="sw sw--v6" href="v6-scrollstory/index.html"><span class="sw__tile"></span><span class="sw__name">Journal</span></a>
-            <a class="sw sw--v7" href="v7-voxel/index.html"><span class="sw__tile"></span><span class="sw__name">Transit</span></a>
-            <a class="sw sw--v8" href="v8-abyss/index.html"><span class="sw__tile"></span><span class="sw__name">Abyss</span></a>
-            <a class="sw sw--v9" href="v9-ghostware/index.html"><span class="sw__tile"></span><span class="sw__name">Ghost</span></a>
-            <a class="sw sw--v10" href="v10-typevolt/index.html"><span class="sw__tile"></span><span class="sw__name">Type</span></a>
-            <a class="sw sw--v11" href="v11-event-horizon/index.html"><span class="sw__tile"></span><span class="sw__name">Horizon</span></a>
-            <a class="sw sw--v12" href="v12-mycelium/index.html"><span class="sw__tile"></span><span class="sw__name">Mycelia</span></a>
-            <a class="sw sw--v13" href="v13-origami-aurum/index.html"><span class="sw__tile"></span><span class="sw__name">Origami</span></a>
-            <a class="sw sw--v14" href="v14-signal/index.html"><span class="sw__tile"></span><span class="sw__name">Signal</span></a>
-                                                          </div>
+            <a class="sw sw--v13" href="v13-origami-aurum/index.html"><span class="sw__tile"></span><span class="sw__name">Hotel</span></a>
+            <a class="sw sw--v16" href="v16-black-box/index.html"><span class="sw__tile"></span><span class="sw__name">Theatre</span></a>
+            <a class="sw sw--v5" href="v5-glass/index.html"><span class="sw__tile"></span><span class="sw__name">Invoicing</span></a>
+            <a class="sw sw--v12" href="v12-mycelium/index.html"><span class="sw__tile"></span><span class="sw__name">Farm shop</span></a>
+            <a class="sw sw--v10" href="v10-typevolt/index.html"><span class="sw__tile"></span><span class="sw__name">Foundry</span></a>
+            <a class="sw sw--v8" href="v8-abyss/index.html"><span class="sw__tile"></span><span class="sw__name">Dive school</span></a>
+            <a class="sw sw--v13" href="v13-origami-aurum/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Hotel</span></a>
+            <a class="sw sw--v16" href="v16-black-box/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Theatre</span></a>
+            <a class="sw sw--v5" href="v5-glass/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Invoicing</span></a>
+            <a class="sw sw--v12" href="v12-mycelium/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Farm shop</span></a>
+            <a class="sw sw--v10" href="v10-typevolt/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Foundry</span></a>
+            <a class="sw sw--v8" href="v8-abyss/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Dive school</span></a>
+            <a class="sw sw--v13" href="v13-origami-aurum/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Hotel</span></a>
+            <a class="sw sw--v16" href="v16-black-box/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Theatre</span></a>
+            <a class="sw sw--v5" href="v5-glass/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Invoicing</span></a>
+            <a class="sw sw--v12" href="v12-mycelium/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Farm shop</span></a>
+            <a class="sw sw--v10" href="v10-typevolt/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Foundry</span></a>
+            <a class="sw sw--v8" href="v8-abyss/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Dive school</span></a>
+          </div>
           <div class="rail-copy" aria-hidden="true">
-            <a class="sw sw--v1" href="v1-light/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Archive</span></a>
-            <a class="sw sw--v2" href="v2-dark/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Midnight</span></a>
-            <a class="sw sw--v3" href="v3-wild/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Loom</span></a>
-            <a class="sw sw--v4" href="v4-brutalist/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Factory</span></a>
-            <a class="sw sw--v5" href="v5-glass/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Glass</span></a>
-            <a class="sw sw--v6" href="v6-scrollstory/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Journal</span></a>
-            <a class="sw sw--v7" href="v7-voxel/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Transit</span></a>
-            <a class="sw sw--v8" href="v8-abyss/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Abyss</span></a>
-            <a class="sw sw--v9" href="v9-ghostware/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Ghost</span></a>
-            <a class="sw sw--v10" href="v10-typevolt/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Type</span></a>
-            <a class="sw sw--v11" href="v11-event-horizon/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Horizon</span></a>
-            <a class="sw sw--v12" href="v12-mycelium/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Mycelia</span></a>
-            <a class="sw sw--v13" href="v13-origami-aurum/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Origami</span></a>
-            <a class="sw sw--v14" href="v14-signal/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Signal</span></a>
-                                                          </div>
+            <a class="sw sw--v13" href="v13-origami-aurum/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Hotel</span></a>
+            <a class="sw sw--v16" href="v16-black-box/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Theatre</span></a>
+            <a class="sw sw--v5" href="v5-glass/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Invoicing</span></a>
+            <a class="sw sw--v12" href="v12-mycelium/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Farm shop</span></a>
+            <a class="sw sw--v10" href="v10-typevolt/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Foundry</span></a>
+            <a class="sw sw--v8" href="v8-abyss/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Dive school</span></a>
+            <a class="sw sw--v13" href="v13-origami-aurum/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Hotel</span></a>
+            <a class="sw sw--v16" href="v16-black-box/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Theatre</span></a>
+            <a class="sw sw--v5" href="v5-glass/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Invoicing</span></a>
+            <a class="sw sw--v12" href="v12-mycelium/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Farm shop</span></a>
+            <a class="sw sw--v10" href="v10-typevolt/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Foundry</span></a>
+            <a class="sw sw--v8" href="v8-abyss/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Dive school</span></a>
+            <a class="sw sw--v13" href="v13-origami-aurum/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Hotel</span></a>
+            <a class="sw sw--v16" href="v16-black-box/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Theatre</span></a>
+            <a class="sw sw--v5" href="v5-glass/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Invoicing</span></a>
+            <a class="sw sw--v12" href="v12-mycelium/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Farm shop</span></a>
+            <a class="sw sw--v10" href="v10-typevolt/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Foundry</span></a>
+            <a class="sw sw--v8" href="v8-abyss/index.html" tabindex="-1"><span class="sw__tile"></span><span class="sw__name">Dive school</span></a>
+          </div>
         </div>
       </div>
     </header>
@@ -2407,10 +2424,10 @@
       <div class="section-head rv" style="--i:3">
         <div>
           <h2>The index</h2>
-          <p class="sub">Eighteen materials · light, dark, dimensional, alive</p>
+          <p class="sub">Six sites · six kinds of business · one thing each that works</p>
         </div>
         <div class="head-actions">
-          <nav class="filters" id="filters" aria-label="Filter materials">
+          <nav class="filters" id="filters" aria-label="Filter sites">
             <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">All</button>
             <button type="button" class="filter" data-filter="light" aria-pressed="false">Light</button>
             <button type="button" class="filter" data-filter="dark" aria-pressed="false">Dark</button>
@@ -2422,165 +2439,82 @@
       </div>
 
       <div id="grid" class="grid" aria-live="polite">
-        <a class="card card--v1 rv" data-f="light" href="v1-light/index.html" style="--i:0">
-          <div class="stage" aria-hidden="true"><span class="c1-photo c1-print"></span><span class="c1-petal"></span><span class="c1-stamp c1-lift">POSTAGE</span><span class="c1-scribble"></span><img class="pvc-shot" src="shots/v1-light.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 01 / 14</span><span>Light · Editorial</span></div>
-            <h2>Sunlit Archive</h2>
-            <p>Warm editorial light theme with paper petals, developing photographs, stamps, and handwritten archive notes.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="card card--v2 rv" data-f="dark" href="v2-dark/index.html" style="--i:1">
-          <div class="stage" aria-hidden="true"><span class="c2-zenith"></span><span class="c2-nadir"></span><span class="c2-dawn"></span><span class="c2-route c2-link"></span><span class="c2-orbit"></span><span class="c2-label c2-read">COURSE PLOT</span><span class="c2f-tl"></span><span class="c2f-tr"></span><span class="c2f-bl"></span><span class="c2f-br"></span><img class="pvc-shot" src="shots/v2-dark.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 02 / 14</span><span>Dark · Cosmic</span></div>
-            <h2>Midnight Index</h2>
-            <p>A deep-space career map with starfield drift, orbiting rings, constellations, and a self-typing terminal.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="card card--v3 rv" data-f="motion" href="v3-wild/index.html" style="--i:2">
-          <div class="stage" aria-hidden="true"><span class="c3-strand"></span><span class="c3-weft c3-tint"></span><span class="c3-warp"></span><span class="c3-blob c3-swell"></span><span class="c3-label">DREAM WEAVE</span><span class="c3f-knot"></span><span class="c3-shuttle"></span><img class="pvc-shot" src="shots/v3-wild.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 03 / 14</span><span>Wild · Fluid</span></div>
-            <h2>Dream Loom</h2>
-            <p>A living aurora, kinetic type, silk threads, and a dream palette that shifts while you explore.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="card card--v4 rv" data-f="motion" href="v4-brutalist/index.html" style="--i:3">
-          <div class="stage" aria-hidden="true"><span class="c4-grid"></span><span class="c4-letters c4-flip">MF</span><span class="c4-cursor"></span><span class="c4-scan"></span><span class="c4-label c4-live">LOADING</span><span class="c4f-bolt b1"></span><span class="c4f-bolt b2"></span><span class="c4f-bolt b3"></span><span class="c4f-bolt b4"></span><span class="c4-plate">PROTO 04 / 2026</span><img class="pvc-shot" src="shots/v4-brutalist.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 04 / 14</span><span>Brutalist · Mono</span></div>
-            <h2>Mono Factory</h2>
-            <p>A mechanical portfolio of hard borders, terminal commands, receipts, and typewriter precision.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="card card--v5 rv" data-f="3d" href="v5-glass/index.html" style="--i:4">
-          <div class="stage" aria-hidden="true"><span class="c5-prism c5-gleam"></span><span class="c5-panel c5-shine"></span><span class="c5-orb"></span><span class="c5-streak"></span><img class="pvc-shot" src="shots/v5-glass.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 05 / 14</span><span>Glass · Luminous</span></div>
-            <h2>Glass Horizon</h2>
-            <p>Light through glass: drifting orbs, refraction, prisms, frosted panels, and depth.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="card card--v6 rv" data-f="motion" href="v6-scrollstory/index.html" style="--i:5">
-          <div class="stage" aria-hidden="true"><span class="c6-paper"></span><span class="c6-route"></span><span class="c6-leaf"></span><span class="c6-pin"></span><span class="c6-leaf2"></span><span class="c6-label">FIELD NOTE</span><span class="c6f-margin"></span><img class="pvc-shot" src="shots/v6-scrollstory.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 06 / 14</span><span>Scrollytelling · Editorial</span></div>
-            <h2>The Field Journal</h2>
-            <p>A scroll-driven field log with pinned scenes, specimen collecting, and a self-drawing timeline.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="card card--v7 rv" data-f="light" href="v7-voxel/index.html" style="--i:6">
-          <div class="stage" aria-hidden="true"><span class="c15t-map"></span><span class="c15t-line-a"></span><span class="c15t-line-b"></span><span class="c15t-node n1" data-st="S1"></span><span class="c15t-node n2" data-st="S2"></span><span class="c15t-transfer"></span><span class="c15t-compass"></span><span class="c15t-scale"></span><span class="c15t-stamp">SPECIMEN 07</span><span class="c15t-label">ROUTE 07</span><img class="pvc-shot" src="shots/v7-voxel.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 07 / 14</span><span>Light · Cartographic</span></div>
-            <h2>Transit//Map</h2>
-            <p>Route lines, station nodes, and transfers map one long journey through the work — first line to final terminus.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="card card--v8 rv" data-f="dark" href="v8-abyss/index.html" style="--i:7">
-          <div class="stage" aria-hidden="true"><span class="c8-jelly"></span><span class="c8-tent"></span><span class="c8-sonar"></span><span class="c8-bub1"></span><span class="c8-bub2"></span><span class="c8-depth">-11,204 M</span><span class="c8f-ticks"></span><img class="pvc-shot" src="shots/v8-abyss.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 08 / 14</span><span>Dark · Bioluminescent</span></div>
-            <h2>The Abyss</h2>
-            <p>A deep-sea dive through glowing specimen jars, sonar pings, pressure, and light rays.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="card card--v9 rv" data-f="dark" href="v9-ghostware/index.html" style="--i:8">
-          <div class="stage" aria-hidden="true"><span class="c9-ring"></span><span class="c9-scan"></span><span class="c9-bar1"></span><span class="c9-bar2"></span><span class="c9-bar3"></span><span class="c9-serial">ARCH-0009</span><span class="c9f-tl"></span><span class="c9f-tr"></span><span class="c9f-bl"></span><span class="c9f-br"></span><span class="c9-rec"></span><span class="c9-redact">SUBJECT RECORDS · PARTIALLY CORRUPTED</span><img class="pvc-shot" src="shots/v9-ghostware.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 09 / 14</span><span>Cyber · Hologram</span></div>
-            <h2>Ghostware</h2>
-            <p>A holographic memory archive with scanlines, telemetry, recall slots, and a command bar.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="card card--v10 rv" data-f="motion" href="v10-typevolt/index.html" style="--i:9">
-          <div class="stage" aria-hidden="true"><span class="c10-ghost">V</span><span class="c10-v">V</span><span class="c10-rule"></span><span class="c10-label">LETTER/MOTION</span><span class="c10f-crop tl"></span><span class="c10f-crop tr"></span><span class="c10f-crop bl"></span><span class="c10f-crop br"></span><img class="pvc-shot" src="shots/v10-typevolt.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 10 / 14</span><span>Editorial · Kinetic</span></div>
-            <h2>Typevolt</h2>
-            <p>A kinetic editorial machine where letters stretch, respond, and choreograph the work.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="card card--v11 rv" data-f="dark" href="v11-event-horizon/index.html" style="--i:10">
-          <div class="stage" aria-hidden="true"><span class="c11-ring"></span><span class="c11-core"></span><span class="c11-dust c11-d1"></span><span class="c11-dust c11-d2"></span><span class="c11-dust c11-d3"></span><span class="c11-dust c11-d4"></span><span class="c11-label">DESCENT</span><span class="c11f-arc"></span><img class="pvc-shot" src="shots/v11-event-horizon.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 11 / 14</span><span>Dark · Cosmic</span></div>
-            <h2>Event Horizon</h2>
-            <p>A black-hole portfolio where scroll becomes descent through rings of an accretion disk.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="card card--v12 rv" data-f="dark" href="v12-mycelium/index.html" style="--i:11">
-          <div class="stage" aria-hidden="true"><span class="c12-net"></span><span class="c12-node"></span><span class="c12-fruit"></span><span class="c12-cap"></span><span class="c12-spore c12-s1"></span><span class="c12-spore c12-s2"></span><span class="c12-spore c12-s3"></span><span class="c12-mound"></span><span class="c12-sprout"></span><span class="c12-label">GROWTH NET</span><span class="c12f-thread"></span><img class="pvc-shot" src="shots/v12-mycelium.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
-          <div class="body">
-            <div class="meta"><span>Material 12 / 14</span><span>Dark · Organic</span></div>
-            <h2>Mycelium</h2>
-            <p>A living fungal network where projects fruit, skills branch, and everything grows into view.</p>
-            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="card card--v13 rv" data-f="light" href="v13-origami-aurum/index.html" style="--i:12">
+        <a class="card card--v13 rv" data-f="light" href="v13-origami-aurum/index.html" style="--i:0">
           <div class="stage" aria-hidden="true"><span class="c13-fold"></span><span class="c13-crease-a"></span><span class="c13-crease-b"></span><span class="c13-disc"></span><span class="c13-glint"></span><span class="c13-foldline"></span><span class="c13-label">FOLD/REVEAL</span><span class="c13f-corner"></span><img class="pvc-shot" src="shots/v13-origami-aurum.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 13 / 14</span><span>Light · Paper</span></div>
-            <h2>Origami Aurum</h2>
-            <p>A warm paper gallery of folded letters, dog-eared projects, gold foil, and unfolding sections.</p>
+            <div class="meta"><span>Site 01 / 06</span><span>Hotel · Booking</span></div>
+            <h2>Kaagaz Haveli</h2>
+            <p>A twelve-room heritage hotel in a paper merchant&rsquo;s house. Folded-paper sections, six rooms, and a stay calculator that prices your dates to the rupee.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
           </div>
         </a>
 
-        <a class="card card--v14 rv" data-f="dark" href="v14-signal/index.html" style="--i:13">
-          <div class="stage" aria-hidden="true"><span class="badge">New</span><span class="c14-static"></span><span class="c14-wave"></span><span class="c14-stamp">[DECODED]</span><span class="c14-freq">FREQ 91.4</span><span class="c14f-rail"></span><img class="pvc-shot" src="shots/v14-signal.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
+        <a class="card card--v16 rv" data-f="dark" href="v16-black-box/index.html" style="--i:1">
+          <div class="stage" aria-hidden="true"><span class="c16-stage"></span><span class="c16-seam s1"></span><span class="c16-seam s2"></span><span class="c16-spot"></span><span class="c16-cue">CUE 07</span><img class="pvc-shot" src="shots/v16-black-box.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 14 / 14</span><span>Dark · Radio</span></div>
-            <h2>SIGNAL//DECODE</h2>
-            <p>An intercepted transmission with static, spectrograms, decoded stamps, and a channel back out.</p>
+            <div class="meta"><span>Site 02 / 06</span><span>Theatre · Ticketing</span></div>
+            <h2>Saanjh Repertory</h2>
+            <p>An eighty-four-seat black-box theatre. A season of eight plays, a lighting desk you can run, and a seat map where you pick your own row.</p>
             <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
           </div>
         </a>
 
-
-
-
-
-        <a class="card card--cta rv" href="mailto:garvit9829@gmail.com" style="--i:18">
-          <div class="stage" aria-hidden="true"><span class="c15-frame"></span><span class="c15-plus"></span><span class="c15-vbar"></span><span class="c15-slot">SLOT 15</span><span class="c15-label">YOUR MATERIAL HERE</span></div>
+        <a class="card card--v5 rv" data-f="dark 3d" href="v5-glass/index.html" style="--i:2">
+          <div class="stage" aria-hidden="true"><span class="c5-prism c5-gleam"></span><span class="c5-panel c5-shine"></span><span class="c5-orb"></span><span class="c5-streak"></span><img class="pvc-shot" src="shots/v5-glass.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
           <div class="body">
-            <div class="meta"><span>Material 15 · Yours</span><span>Commission</span></div>
-            <h2>Your material here.</h2>
-            <p>Every world in this index started as a blank file and a strong idea. Tell me what yours should feel like.</p>
-            <span class="foot">Commission a world <span class="arr" aria-hidden="true">→</span></span>
+            <div class="meta"><span>Site 03 / 06</span><span>Software · Pricing</span></div>
+            <h2>Kanch Invoicing</h2>
+            <p>A product site for an invoicing app. Glass prisms in 3D, mock screens drawn in code, and a pricing slider that tells you which plan fits.</p>
+            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
+          </div>
+        </a>
+
+        <a class="card card--v12 rv" data-f="dark" href="v12-mycelium/index.html" style="--i:3">
+          <div class="stage" aria-hidden="true"><span class="c12-net"></span><span class="c12-node"></span><span class="c12-fruit"></span><span class="c12-cap"></span><span class="c12-spore c12-s1"></span><span class="c12-spore c12-s2"></span><span class="c12-spore c12-s3"></span><span class="c12-mound"></span><span class="c12-sprout"></span><span class="c12-label">GROWTH NET</span><span class="c12f-thread"></span><img class="pvc-shot" src="shots/v12-mycelium.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
+          <div class="body">
+            <div class="meta"><span>Site 04 / 06</span><span>Farm · Shop</span></div>
+            <h2>Dhingri &amp; Co.</h2>
+            <p>A gourmet mushroom farm with a working shop. A living fungal network behind the page, eight things to buy, and a basket that remembers you.</p>
+            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
+          </div>
+        </a>
+
+        <a class="card card--v10 rv" data-f="light motion" href="v10-typevolt/index.html" style="--i:4">
+          <div class="stage" aria-hidden="true"><span class="c10-ghost">V</span><span class="c10-v">V</span><span class="c10-rule"></span><span class="c10-label">LETTER/MOTION</span><span class="c10f-crop tl"></span><span class="c10f-crop tr"></span><span class="c10f-crop bl"></span><span class="c10f-crop br"></span><img class="pvc-shot" src="shots/v10-typevolt.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
+          <div class="body">
+            <div class="meta"><span>Site 05 / 06</span><span>Type foundry · Tester</span></div>
+            <h2>Typevolt</h2>
+            <p>An independent type foundry. Letters that move as you scroll, eight typeface families, and a live tester to set your own words in any of them.</p>
+            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
+          </div>
+        </a>
+
+        <a class="card card--v8 rv" data-f="dark motion" href="v8-abyss/index.html" style="--i:5">
+          <div class="stage" aria-hidden="true"><span class="c8-jelly"></span><span class="c8-tent"></span><span class="c8-sonar"></span><span class="c8-bub1"></span><span class="c8-bub2"></span><span class="c8-depth">-40 M</span><span class="c8f-ticks"></span><img class="pvc-shot" src="shots/v8-abyss.png" alt="" loading="lazy" decoding="async" width="1280" height="800"><span class="pvc-live"></span><span class="pvc-fx"></span><span class="pvc-open">OPEN ↗</span></div>
+          <div class="body">
+            <div class="meta"><span>Site 06 / 06</span><span>Dive school · Courses</span></div>
+            <h2>Paatal Dive Co.</h2>
+            <p>A dive school in the Andamans. A living sea on canvas, a depth rail down to forty metres, and a depth finder that shows what you would see at each one.</p>
+            <span class="foot">Step inside <span class="arr" aria-hidden="true">→</span></span>
+          </div>
+        </a>
+
+        <a class="card card--cta rv" href="mailto:garvit9829@gmail.com" style="--i:6">
+          <div class="stage" aria-hidden="true"><span class="c15-frame"></span><span class="c15-plus"></span><span class="c15-vbar"></span><span class="c15-slot">SLOT 07</span><span class="c15-label">YOUR BUSINESS HERE</span></div>
+          <div class="body">
+            <div class="meta"><span>Site 07 · Yours</span><span>Commission</span></div>
+            <h2>Your business here.</h2>
+            <p>Every site in this index started as a blank file and one kind of business. Tell me what yours does and what it should feel like.</p>
+            <span class="foot">Commission a site <span class="arr" aria-hidden="true">→</span></span>
           </div>
         </a>
       </div>
     </main>
 
     <footer>
-      <span>© 2026 Garvit Pandia · eighteen materials, one practice</span>
+      <span>© 2026 Garvit Pandia · six concept sites, one practice</span>
       <span class="f-links">
+        <a href="https://garvitpandia.me" rel="noopener">Portfolio</a>
         <a href="mailto:garvit9829@gmail.com">Email</a>
         <a href="https://github.com/garvit-pandia" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/garvit-pandia/" rel="noopener">LinkedIn</a>
@@ -2639,7 +2573,7 @@
         });
       });
 
-      // ---- shuffle: open a random visible world ----
+      // ---- shuffle: open a random visible site ----
       document.getElementById('shuffle').addEventListener('click', function () {
         var vis = [].filter.call(grid.querySelectorAll('.card:not(.is-hidden)'), function (c) { return c.href; });
         if (!vis.length) return;
@@ -2668,7 +2602,7 @@
       'use strict';
       var FINE = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
       var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var cards = [].slice.call(document.querySelectorAll('.card--v1, .card--v2, .card--v3, .card--v4, .card--v5, .card--v6, .card--v7, .card--v8, .card--v9, .card--v10, .card--v11, .card--v12, .card--v13, .card--v14'));
+      var cards = [].slice.call(document.querySelectorAll('.card--v13, .card--v16, .card--v5, .card--v12, .card--v10, .card--v8'));
       var current = null;
       var timer = null;
       var io = null;

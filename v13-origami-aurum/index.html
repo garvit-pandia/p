@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Garvit Pandia — systems that hold, interfaces that teach. A portfolio folded from paper, terracotta ink and gold foil.">
+<meta name="description" content="Kaagaz Haveli is a twelve-room boutique hotel in a paper merchant's house in the old city of Udaipur. See the rooms, price your stay and write to us.">
 <meta name="theme-color" content="#f5f4ed">
-<title>Garvit Pandia — Gilded systems, hand-finished interfaces</title>
+<title>Kaagaz Haveli — Twelve rooms in a paper merchant's house, Udaipur</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f5f4ed'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23d9a441'/%3E%3Cpath d='M16 7l3 9-3 9-3-9z' fill='%23c96442'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1133,6 +1133,39 @@ a { color: inherit; }
   }
   html { scroll-behavior: auto; }
 }
+/* ============ stay calculator ============ */
+.og-card-rate { margin-top: 16px; padding-top: 14px; border-top: 1px dashed rgba(43, 38, 32, .2); font-family: 'Inter', sans-serif; font-size: 13px; color: var(--og-ink); display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }
+.og-card-rate b { font-family: 'Fraunces', Georgia, serif; font-size: 20px; font-weight: 600; color: var(--og-terracotta); }
+.og-rate-link { margin-left: auto; font-weight: 600; color: var(--og-ink); border-bottom: 2px solid var(--og-gold); min-height: 44px; display: inline-flex; align-items: center; }
+.og-rate-link:hover, .og-rate-link:focus-visible { color: var(--og-terracotta); }
+.og-stay { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, 1fr); gap: 28px; align-items: start; }
+.og-stay-form, .og-bill { background: var(--og-paper); border: 1px solid rgba(43, 38, 32, .12); box-shadow: 0 10px 30px var(--og-shadow); padding: 28px; position: relative; }
+.og-bill { clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 0 100%); }
+.og-bill::before { content: ""; position: absolute; top: 0; right: 0; width: 26px; height: 26px; background: linear-gradient(225deg, transparent 50%, var(--og-gold) 50%); opacity: .85; }
+.og-stay-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+select.og-input, input[type="date"].og-input { min-height: 48px; appearance: auto; }
+.og-extras { border: 0; margin: 6px 0 0; padding: 0; }
+.og-extras legend { margin-bottom: 8px; padding: 0; }
+.og-check { display: flex; gap: 12px; align-items: flex-start; min-height: 44px; padding: 10px 0; border-top: 1px dashed rgba(43, 38, 32, .16); font-family: 'Inter', sans-serif; font-size: 14px; color: var(--og-ink); cursor: pointer; }
+.og-check input { width: 20px; height: 20px; margin-top: 1px; accent-color: var(--og-terracotta); flex: none; }
+.og-check b { display: block; font-weight: 500; font-size: 12.5px; color: var(--og-terracotta); margin-top: 2px; }
+.og-bill-lines { margin: 18px 0 0; }
+.og-bill-lines div { display: flex; justify-content: space-between; gap: 14px; padding: 10px 0; border-bottom: 1px dashed rgba(43, 38, 32, .18); font-family: 'Inter', sans-serif; font-size: 14px; color: var(--og-ink); }
+.og-bill-lines dt { opacity: .78; }
+.og-bill-lines dd { margin: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.og-bill-total { display: flex; justify-content: space-between; align-items: baseline; margin: 18px 0 20px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--og-ink); }
+.og-bill-total b { font-family: 'Fraunces', Georgia, serif; font-size: 34px; font-weight: 600; letter-spacing: 0; color: var(--og-terracotta); text-transform: none; }
+.og-bill .og-btn { width: 100%; justify-content: center; text-align: center; }
+.og-bill .og-btn[disabled] { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+.og-bill-status { margin-top: 14px; font-family: 'Fraunces', Georgia, serif; font-size: 15.5px; line-height: 1.5; color: var(--og-ink); }
+.og-bill-status.og-err { color: #a3401f; }
+.og-concept { margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(43, 38, 32, .14); font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--og-ink); opacity: .82; }
+.og-concept a { color: var(--og-terracotta); font-weight: 600; border-bottom: 1px solid currentColor; }
+@media (max-width: 900px) { .og-stay { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .og-stay-row { grid-template-columns: 1fr; gap: 0; } .og-stay-form, .og-bill { padding: 20px 16px; } }
+@media print { .og-stay { display: none; } }
+/* folded sections are rotated in 3D before they open; keep that from widening the page */
+main { overflow: clip; }
 </style>
 <noscript>
   <style>
@@ -1143,172 +1176,211 @@ a { color: inherit; }
       animation: none !important;
       transition: none !important;
     }
+
   </style>
 </noscript>
 </head>
 <body>
-
 <!-- ============ NAV ============ -->
 <header class="og-nav">
   <div class="og-wrap og-nav-inner">
-    <a class="og-brand" href="#og-top">Garvit<span class="og-brand-dot">.</span>Pandia</a>
+    <a class="og-brand" href="#og-top">Kaagaz<span class="og-brand-dot">.</span>Haveli</a>
     <nav class="og-nav-links" aria-label="Primary">
-      <a class="og-nav-link" href="#og-about">About</a>
-      <a class="og-nav-link" href="#og-projects">Projects</a>
-      <a class="og-nav-link" href="#og-achievements">Achievements</a>
-      <a class="og-nav-link" href="#og-experience">Experience</a>
-      <a class="og-nav-link" href="#og-contact">Contact</a>
-      <a class="og-btn og-nav-resume" href="./Garvit_Pandia_Resume.pdf" download>Resume</a>
+      <a class="og-nav-link" href="#og-about">The house</a>
+      <a class="og-nav-link" href="#og-projects">Rooms</a>
+      <a class="og-nav-link" href="#og-achievements">Things to do</a>
+      <a class="og-nav-link" href="#og-experience">A day here</a>
+      <a class="og-nav-link" href="#og-contact">Write to us</a>
+      <a class="og-btn og-nav-resume" href="#og-stay">Check dates</a>
     </nav>
   </div>
 </header>
-
 <main>
-
 <!-- ============ HERO ============ -->
 <section class="og-hero" id="og-top">
   <div class="og-sun" aria-hidden="true"></div>
   <div class="og-wrap og-hero-inner">
-    <p class="og-eyebrow">Origami Aurum &middot; a portfolio folded from paper &amp; light</p>
-    <h1 class="og-name" aria-label="Garvit Pandia">
-      <span class="og-letter" style="--og-i:0" aria-hidden="true">G</span><span class="og-letter" style="--og-i:1" aria-hidden="true">a</span><span class="og-letter" style="--og-i:2" aria-hidden="true">r</span><span class="og-letter" style="--og-i:3" aria-hidden="true">v</span><span class="og-letter" style="--og-i:4" aria-hidden="true">i</span><span class="og-letter" style="--og-i:5" aria-hidden="true">t</span><span class="og-letter og-letter-space" style="--og-i:6" aria-hidden="true">&nbsp;</span><span class="og-letter" style="--og-i:7" aria-hidden="true">P</span><span class="og-letter" style="--og-i:8" aria-hidden="true">a</span><span class="og-letter" style="--og-i:9" aria-hidden="true">n</span><span class="og-letter" style="--og-i:10" aria-hidden="true">d</span><span class="og-letter" style="--og-i:11" aria-hidden="true">i</span><span class="og-letter" style="--og-i:12" aria-hidden="true">a</span>
+    <p class="og-eyebrow">A paper merchant's house &middot; old city, Udaipur &middot; since 1887</p>
+    <h1 class="og-name" aria-label="Kaagaz Haveli">
+      <span class="og-letter" style="--og-i:0" aria-hidden="true">K</span><span class="og-letter" style="--og-i:1" aria-hidden="true">a</span><span class="og-letter" style="--og-i:2" aria-hidden="true">a</span><span class="og-letter" style="--og-i:3" aria-hidden="true">g</span><span class="og-letter" style="--og-i:4" aria-hidden="true">a</span><span class="og-letter" style="--og-i:5" aria-hidden="true">z</span><span class="og-letter og-letter-space" style="--og-i:6" aria-hidden="true">&nbsp;</span><span class="og-letter" style="--og-i:7" aria-hidden="true">H</span><span class="og-letter" style="--og-i:8" aria-hidden="true">a</span><span class="og-letter" style="--og-i:9" aria-hidden="true">v</span><span class="og-letter" style="--og-i:10" aria-hidden="true">e</span><span class="og-letter" style="--og-i:11" aria-hidden="true">l</span><span class="og-letter" style="--og-i:12" aria-hidden="true">i</span>
     </h1>
-    <p class="og-subtitle">Gilded systems, hand-finished interfaces</p>
-    <ul class="og-hero-chips" aria-label="By the numbers">
-      <li class="og-chip" style="--og-i:0"><span class="og-chip-big">200+</span> monogram lockups generated</li>
-      <li class="og-chip" style="--og-i:1"><span class="og-chip-big">3.1&times;</span> inquiry lift for artisan brands</li>
-      <li class="og-chip" style="--og-i:2"><span class="og-chip-big">61%</span> gem-build completion rate</li>
-      <li class="og-chip" style="--og-i:3"><span class="og-chip-big">5</span> boutique hotel sites</li>
-      <li class="og-chip" style="--og-i:4"><span class="og-chip-big">44%</span> direct bookings rise</li>
-      <li class="og-chip" style="--og-i:5"><span class="og-chip-big">9,800+</span> GitHub stars collected</li>
+    <p class="og-subtitle">Twelve rooms, folded around a courtyard</p>
+    <ul class="og-hero-chips" aria-label="At a glance">
+      <li class="og-chip" style="--og-i:0"><span class="og-chip-big">12</span> rooms, no two alike</li>
+      <li class="og-chip" style="--og-i:1"><span class="og-chip-big">1887</span> the year it was built</li>
+      <li class="og-chip" style="--og-i:2"><span class="og-chip-big">8 min</span> on foot to the lake</li>
+      <li class="og-chip" style="--og-i:3"><span class="og-chip-big">3</span> courtyards and a roof</li>
+      <li class="og-chip" style="--og-i:4"><span class="og-chip-big">4.9&star;</span> from 1,240 guests</li>
+      <li class="og-chip" style="--og-i:5"><span class="og-chip-big">0</span> televisions</li>
     </ul>
     <div class="og-hero-cta">
-      <a class="og-btn" href="./Garvit_Pandia_Resume.pdf" download>Download resume</a>
-      <a class="og-tab" href="#og-projects">See the work</a>
+      <a class="og-btn" href="#og-stay">Price your stay</a>
+      <a class="og-tab" href="#og-projects">See the rooms</a>
     </div>
   </div>
   <p class="og-scroll-cue" aria-hidden="true">unfold &darr;</p>
 </section>
-
-<!-- ============ ABOUT ============ -->
+<!-- ============ THE HOUSE ============ -->
 <section id="og-about" class="og-sec">
   <div class="og-sec-head">
     <span class="og-sec-no">01</span>
-    <h2 class="og-sec-title">About</h2>
+    <h2 class="og-sec-title">The house</h2>
     <span class="og-sec-line" aria-hidden="true"></span>
     <span class="og-sec-tag">fold open</span>
   </div>
   <div class="og-sec-body og-wrap">
     <div class="og-bio" style="--og-i:0">
       <p class="og-bio-text">
-        I'm Garvit Pandia — a design engineer and creative technologist from Dehradun, Uttarakhand.
-        I finished my B.Des in Creative Technology (with a CS minor) at Northern Arc Institute of Design &amp; Technology,
-        2021 – 2025, with a GPA of 3.6/4.0 and type-design coursework that grew into a toolchain. I build
-        gilded, hand-finished things: boutique-brand sites, identity systems, tokens with a gold standard,
-        and the quiet tools that hold them together. Everything here is folded from shipped work —
-        200+ monogram lockups, 3.1&times; inquiry lift, 5 boutique hotel sites, 2 regional design honors.
+        Kaagaz means paper. For four generations this house sold it: account books for the bazaar,
+        wedding cards for the city, and the handmade sheets that the palace painters asked for by name.
+        The shop closed in 1994. The family stayed, and in 2017 opened twelve of the rooms to guests.
+        The paper is still everywhere. It is in the lampshades, on the walls of the suite, and in the
+        notebook on your pillow, which is made in the back courtyard and is yours to keep.
       </p>
       <ul class="og-facts" aria-label="Facts">
-        <li class="og-chip og-fact" style="--og-i:0">Dehradun, Uttarakhand</li>
-        <li class="og-chip og-fact" style="--og-i:1">B.Des Creative Technology</li>
-        <li class="og-chip og-fact" style="--og-i:2">Northern Arc Institute of Design &amp; Technology</li>
-        <li class="og-chip og-fact" style="--og-i:3">2021 – 2025</li>
-        <li class="og-chip og-fact" style="--og-i:4">GPA 3.6/4.0</li>
-        <li class="og-chip og-fact" style="--og-i:5">Typography contest Top 10</li>
+        <li class="og-chip og-fact" style="--og-i:0">Old city, Udaipur</li>
+        <li class="og-chip og-fact" style="--og-i:1">Family-run, fourth generation</li>
+        <li class="og-chip og-fact" style="--og-i:2">Breakfast always included</li>
+        <li class="og-chip og-fact" style="--og-i:3">Check in from 1 pm</li>
+        <li class="og-chip og-fact" style="--og-i:4">Check out by 11 am</li>
+        <li class="og-chip og-fact" style="--og-i:5">Children welcome</li>
       </ul>
     </div>
     <div class="og-notes" style="--og-i:1">
       <article class="og-note" style="--og-r:-1.2deg">
-        <p class="og-note-quote">&ldquo;He built our press's website and then taught us how to update it without calling him. That second part mattered more.&rdquo;</p>
-        <footer class="og-note-who">Rahul Nambiar, Publisher, The Ghat Press</footer>
+        <p class="og-note-quote">&ldquo;We booked two nights and stayed five. By the third morning the cook knew how I take my tea and nobody had asked.&rdquo;</p>
+        <footer class="og-note-who">A guest from Pune &middot; the Jharokha Room</footer>
       </article>
       <article class="og-note" style="--og-r:1deg">
-        <p class="og-note-quote">&ldquo;He learned our clients' taste faster than any contractor we've had. The hotel sites he shipped feel like the buildings themselves.&rdquo;</p>
-        <footer class="og-note-who">Ananya Joshi, Design Director, Garnet &amp; Glass</footer>
+        <p class="og-note-quote">&ldquo;The quietest sleep I have had in a city. You hear the temple bell at six and then nothing at all until breakfast.&rdquo;</p>
+        <footer class="og-note-who">A guest from Lisbon &middot; a Neel Room</footer>
       </article>
     </div>
   </div>
 </section>
-
-<!-- ============ PROJECTS ============ -->
+<!-- ============ ROOMS ============ -->
 <section id="og-projects" class="og-sec">
   <div class="og-sec-head">
     <span class="og-sec-no">02</span>
-    <h2 class="og-sec-title">Selected projects</h2>
+    <h2 class="og-sec-title">The rooms</h2>
     <span class="og-sec-line" aria-hidden="true"></span>
     <span class="og-sec-tag">six sheets</span>
   </div>
   <div class="og-sec-body og-wrap">
     <div class="og-grid" style="--og-i:0">
       <article class="og-card" style="--og-i:0">
-        <h3 class="og-card-name">Gilded</h3>
-        <p class="og-card-tags">Next.js &middot; headless CMS &middot; motion</p>
-        <p class="og-card-desc">&ldquo;Boutique-brand sites that convert quietly — eight flagship builds, each an argument for the good thing.&rdquo;</p>
+        <h3 class="og-card-name">The Kaagaz Suite</h3>
+        <p class="og-card-tags">First floor &middot; courtyard and lane &middot; 46 m&sup2;</p>
+        <p class="og-card-desc">The merchant's own rooms: a sitting room lined with his paper samples, and a bed under the only painted ceiling in the house.</p>
         <ul class="og-card-metrics">
-          <li>8 flagship sites shipped</li>
-          <li>3.1&times; median inquiry lift</li>
-          <li>2 regional design honors</li>
+          <li>King bed and a day bed</li>
+          <li>Private jharokha balcony</li>
+          <li>Sleeps three</li>
         </ul>
+        <p class="og-card-rate"><b>&#8377;14,500</b> a night, with breakfast <a class="og-rate-link" href="#og-stay" data-room="suite">Check dates</a></p>
       </article>
       <article class="og-card" style="--og-i:1">
-        <h3 class="og-card-name">Monogram</h3>
-        <p class="og-card-tags">TypeScript &middot; SVG generation &middot; brand tokens</p>
-        <p class="og-card-desc">&ldquo;Identity systems folded from a single seed mark — 200+ lockups ranked by a taste model.&rdquo;</p>
+        <h3 class="og-card-name">Chhatri Terrace Room</h3>
+        <p class="og-card-tags">Rooftop &middot; lake view &middot; 32 m&sup2;</p>
+        <p class="og-card-desc">Alone on the roof with its own domed pavilion. You see the lake from the bed and the whole old city from the bath.</p>
         <ul class="og-card-metrics">
-          <li>200+ lockups per seed</li>
-          <li>1,900 brand seeds generated</li>
-          <li>340 stars; used by a letterpress studio</li>
+          <li>King bed</li>
+          <li>Private terrace with chhatri</li>
+          <li>Sleeps two</li>
         </ul>
+        <p class="og-card-rate"><b>&#8377;11,600</b> a night, with breakfast <a class="og-rate-link" href="#og-stay" data-room="terrace">Check dates</a></p>
       </article>
       <article class="og-card" style="--og-i:2">
-        <h3 class="og-card-name">Gilt</h3>
-        <p class="og-card-tags">Next.js &middot; Stripe &middot; inventory ledger</p>
-        <p class="og-card-desc">&ldquo;An e-commerce shell for artisan goods — checkout in three steps, never more.&rdquo;</p>
+        <h3 class="og-card-name">The Jharokha Room</h3>
+        <p class="og-card-tags">First floor &middot; over the lane &middot; 28 m&sup2;</p>
+        <p class="og-card-desc">A carved stone window seat hangs over the lane. Sit in it at seven and the whole street walks to the temple beneath you.</p>
         <ul class="og-card-metrics">
-          <li>2.8% checkout abandonment</li>
-          <li>9 maker shops launched</li>
-          <li>4.9&star; merchant satisfaction</li>
+          <li>Queen bed</li>
+          <li>Window seat for two</li>
+          <li>Sleeps two</li>
         </ul>
+        <p class="og-card-rate"><b>&#8377;9,800</b> a night, with breakfast <a class="og-rate-link" href="#og-stay" data-room="jharokha">Check dates</a></p>
       </article>
       <article class="og-card" style="--og-i:3">
-        <h3 class="og-card-name">Vermeil</h3>
-        <p class="og-card-tags">JSON schema &middot; Figma sync &middot; CI checks</p>
-        <p class="og-card-desc">&ldquo;Design tokens with a gold standard — every value carries its audit trail to the build.&rdquo;</p>
+        <h3 class="og-card-name">The Bahi-Khata Room</h3>
+        <p class="og-card-tags">Ground floor &middot; courtyard &middot; 30 m&sup2;</p>
+        <p class="og-card-desc">The old counting room. The ledgers are still on the shelves, the safe is now the wardrobe, and the desk is the one he used.</p>
         <ul class="og-card-metrics">
-          <li>3 contrast regressions caught</li>
-          <li>260 stars</li>
-          <li>2 design systems migrated</li>
+          <li>King bed</li>
+          <li>Writing desk and reading lamp</li>
+          <li>Sleeps two</li>
         </ul>
+        <p class="og-card-rate"><b>&#8377;8,400</b> a night, with breakfast <a class="og-rate-link" href="#og-stay" data-room="ledger">Check dates</a></p>
       </article>
       <article class="og-card" style="--og-i:4">
-        <h3 class="og-card-name">Auberge</h3>
-        <p class="og-card-tags">Next.js &middot; motion &middot; reservations API</p>
-        <p class="og-card-desc">&ldquo;Hospitality websites that feel like check-in — serene, sunlit, unhurried.&rdquo;</p>
+        <h3 class="og-card-name">Courtyard Rooms</h3>
+        <p class="og-card-tags">Ground floor &middot; four rooms &middot; 24 m&sup2;</p>
+        <p class="og-card-desc">Four rooms that open straight onto the main courtyard and its neem tree. The coolest rooms in the house from March on.</p>
         <ul class="og-card-metrics">
-          <li>5 boutique-hotel sites</li>
-          <li>1.9 min median booking</li>
-          <li>44% direct bookings rise</li>
+          <li>Queen or twin beds</li>
+          <li>Step-free from the door</li>
+          <li>Sleeps two</li>
         </ul>
+        <p class="og-card-rate"><b>&#8377;7,200</b> a night, with breakfast <a class="og-rate-link" href="#og-stay" data-room="courtyard">Check dates</a></p>
       </article>
       <article class="og-card" style="--og-i:5">
-        <h3 class="og-card-name">Carat</h3>
-        <p class="og-card-tags">three.js &middot; PBR materials &middot; configurator UI</p>
-        <p class="og-card-desc">&ldquo;A 3D gem configurator for a jewelry house — 24 cut styles, 60 fps on mid-range phones.&rdquo;</p>
+        <h3 class="og-card-name">The Neel Rooms</h3>
+        <p class="og-card-tags">Second floor &middot; four rooms &middot; 20 m&sup2;</p>
+        <p class="og-card-desc">Small, indigo-washed and quiet, up under the roof where the paper was hung to dry. The ones our returning guests ask for.</p>
         <ul class="og-card-metrics">
-          <li>24 cut styles rendered</li>
-          <li>61% complete a build</li>
-          <li>2,100 configs in 3 months</li>
+          <li>Double bed</li>
+          <li>Roof access by the back stair</li>
+          <li>Sleeps two</li>
         </ul>
+        <p class="og-card-rate"><b>&#8377;6,400</b> a night, with breakfast <a class="og-rate-link" href="#og-stay" data-room="neel">Check dates</a></p>
       </article>
     </div>
   </div>
 </section>
-
-<!-- ============ ACHIEVEMENTS ============ -->
-<section id="og-achievements" class="og-sec">
+<!-- ============ STAY ============ -->
+<section id="og-stay" class="og-sec">
   <div class="og-sec-head">
     <span class="og-sec-no">03</span>
-    <h2 class="og-sec-title">Achievements</h2>
+    <h2 class="og-sec-title">Price your stay</h2>
+    <span class="og-sec-line" aria-hidden="true"></span>
+    <span class="og-sec-tag">a folded bill</span>
+  </div>
+  <div class="og-sec-body og-wrap">
+    <div class="og-stay" style="--og-i:0">
+      <form class="og-stay-form" id="og-stay-form" novalidate>
+        <div class="og-stay-row">
+          <div class="og-field"><label class="og-label" for="og-in">Arriving</label><input class="og-input" id="og-in" type="date" required></div>
+          <div class="og-field"><label class="og-label" for="og-out">Leaving</label><input class="og-input" id="og-out" type="date" required></div>
+        </div>
+        <div class="og-stay-row">
+          <div class="og-field"><label class="og-label" for="og-room">Room</label>
+            <select class="og-input" id="og-room"><option value="suite">The Kaagaz Suite</option><option value="terrace">Chhatri Terrace Room</option><option value="jharokha">The Jharokha Room</option><option value="ledger">The Bahi-Khata Room</option><option value="courtyard">Courtyard Rooms</option><option value="neel">The Neel Rooms</option></select></div>
+          <div class="og-field"><label class="og-label" for="og-guests">Guests</label>
+            <select class="og-input" id="og-guests"><option value="1">One</option><option value="2" selected>Two</option><option value="3">Three</option></select></div>
+        </div>
+        <fieldset class="og-extras">
+          <legend class="og-label">Add to the stay</legend>
+          <label class="og-check"><input type="checkbox" id="og-x-dinner"><span>Dinner on the roof, one evening <b>&#8377;1,800 a guest</b></span></label>
+          <label class="og-check"><input type="checkbox" id="og-x-print"><span>Block printing at the long table <b>&#8377;900 a guest</b></span></label>
+          <label class="og-check"><input type="checkbox" id="og-x-car"><span>Car from the airport or station <b>&#8377;1,200</b></span></label>
+        </fieldset>
+      </form>
+      <aside class="og-bill" aria-labelledby="og-bill-head">
+        <h3 class="og-mail-head" id="og-bill-head">Your stay</h3>
+        <p class="og-mail-sub" id="og-bill-sub">Choose your dates to see the price.</p>
+        <dl class="og-bill-lines" id="og-bill-lines"></dl>
+        <p class="og-bill-total"><span>Total</span><b id="og-bill-total">&mdash;</b></p>
+        <button class="og-btn" type="button" id="og-bill-go" disabled>Request these dates</button>
+        <p class="og-bill-status" id="og-bill-status" role="status" aria-live="polite"></p>
+      </aside>
+    </div>
+  </div>
+</section>
+<!-- ============ THINGS TO DO ============ -->
+<section id="og-achievements" class="og-sec">
+  <div class="og-sec-head">
+    <span class="og-sec-no">04</span>
+    <h2 class="og-sec-title">Things to do</h2>
     <span class="og-sec-line" aria-hidden="true"></span>
     <span class="og-sec-tag">eleven stamps</span>
   </div>
@@ -1316,198 +1388,194 @@ a { color: inherit; }
     <div class="og-stamp-grid" style="--og-i:0">
       <div class="og-stamp" style="--og-i:0; --og-r:-1.5deg">
         <span class="og-stamp-no">01</span>
-        <p class="og-stamp-title">Top 10 — National Typography Poster Contest</p>
-        <p class="og-stamp-sub">2023 &middot; national contest</p>
+        <p class="og-stamp-title">Block printing at the long table</p>
+        <p class="og-stamp-sub">Two hours with the printer who made your bedspread</p>
       </div>
       <div class="og-stamp" style="--og-i:1; --og-r:1.4deg">
         <span class="og-stamp-no">02</span>
-        <p class="og-stamp-title">2 regional design honors</p>
-        <p class="og-stamp-sub">Gilded client sites, 2025</p>
+        <p class="og-stamp-title">The lake at six</p>
+        <p class="og-stamp-sub">A rowing boat from Gangaur Ghat before the motor boats start</p>
       </div>
       <div class="og-stamp" style="--og-i:2; --og-r:-1.2deg">
         <span class="og-stamp-no">03</span>
-        <p class="og-stamp-title">Workshop lead — Design Systems India</p>
-        <p class="og-stamp-sub">contrast math for designers, 2025</p>
+        <p class="og-stamp-title">Paper-making afternoon</p>
+        <p class="og-stamp-sub">Pulp, mould and deckle in the back courtyard</p>
       </div>
       <div class="og-stamp" style="--og-i:3; --og-r:1.5deg">
         <span class="og-stamp-no">04</span>
-        <p class="og-stamp-title">GitHub Star of the Week</p>
-        <p class="og-stamp-sub">featured project, Sep 2025</p>
+        <p class="og-stamp-title">Dinner on the roof</p>
+        <p class="og-stamp-sub">Five courses, one table, cooked on the wood fire</p>
       </div>
       <div class="og-stamp" style="--og-i:4; --og-r:-1.4deg">
         <span class="og-stamp-no">05</span>
-        <p class="og-stamp-title">176 OSS PRs merged</p>
-        <p class="og-stamp-sub">31 first-time contributors mentored</p>
+        <p class="og-stamp-title">The old city on foot</p>
+        <p class="og-stamp-sub">Ninety minutes with Hukam, who was born in this lane</p>
       </div>
       <div class="og-stamp" style="--og-i:5; --og-r:1.2deg">
         <span class="og-stamp-no">06</span>
-        <p class="og-stamp-title">Paper — Interfaces: Design Systems Review</p>
-        <p class="og-stamp-sub">generative layout prototyping, 2024</p>
+        <p class="og-stamp-title">Miniature painting lesson</p>
+        <p class="og-stamp-sub">A squirrel-hair brush and a very patient teacher</p>
       </div>
       <div class="og-stamp" style="--og-i:6; --og-r:-1.5deg">
         <span class="og-stamp-no">07</span>
-        <p class="og-stamp-title">GitHub Trending featured 3&times;</p>
-        <p class="og-stamp-sub">across 2024</p>
+        <p class="og-stamp-title">A morning in the kitchen</p>
+        <p class="og-stamp-sub">Shop the market, then cook the lunch you will eat</p>
       </div>
       <div class="og-stamp" style="--og-i:7; --og-r:1.3deg">
         <span class="og-stamp-no">08</span>
-        <p class="og-stamp-title">4 npm packages published</p>
-        <p class="og-stamp-sub">~320k combined weekly downloads</p>
+        <p class="og-stamp-title">Sunset from Sajjangarh</p>
+        <p class="og-stamp-sub">We pack the tea and book the jeep</p>
       </div>
       <div class="og-stamp" style="--og-i:8; --og-r:-1.2deg">
         <span class="og-stamp-no">09</span>
-        <p class="og-stamp-title">2 maintained crates</p>
-        <p class="og-stamp-sub">~1.1M downloads on crates.io</p>
+        <p class="og-stamp-title">Letterpress your own notepaper</p>
+        <p class="og-stamp-sub">Set in metal type on the 1921 press in the hall</p>
       </div>
       <div class="og-stamp" style="--og-i:9; --og-r:1.4deg">
         <span class="og-stamp-no">10</span>
-        <p class="og-stamp-title">9,800+ combined GitHub stars</p>
-        <p class="og-stamp-sub">across 12 repos, 2026</p>
+        <p class="og-stamp-title">Cycling the Fateh Sagar road</p>
+        <p class="og-stamp-sub">Bicycles are at the gate, flat all the way</p>
       </div>
       <div class="og-stamp" style="--og-i:10; --og-r:-1.3deg">
         <span class="og-stamp-no">11</span>
-        <p class="og-stamp-title">Featured — FOSS India top contributors</p>
-        <p class="og-stamp-sub">2025</p>
+        <p class="og-stamp-title">Nothing at all</p>
+        <p class="og-stamp-sub">A day bed, the neem tree and a pot of tea on the hour</p>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ============ EXPERIENCE & SKILLS ============ -->
+<!-- ============ A DAY HERE ============ -->
 <section id="og-experience" class="og-sec">
   <div class="og-sec-head">
-    <span class="og-sec-no">04</span>
-    <h2 class="og-sec-title">Experience &amp; skills</h2>
+    <span class="og-sec-no">05</span>
+    <h2 class="og-sec-title">A day here</h2>
     <span class="og-sec-line" aria-hidden="true"></span>
     <span class="og-sec-tag">five strips</span>
   </div>
   <div class="og-sec-body og-wrap">
     <div class="og-strips" style="--og-i:0">
       <article class="og-strip" style="--og-i:0">
-        <span class="og-strip-date">Dec 2025 &ndash; Feb 2026</span>
-        <h3 class="og-strip-role">Senior Design Engineer</h3>
-        <p class="og-strip-org">Garnet &amp; Glass (luxury brand digital)</p>
-        <p class="og-strip-desc">&ldquo;Led the Vermeil token rollout — contrast regressions now fail the build; handed the motion system over with a 60-page playbook.&rdquo;</p>
+        <span class="og-strip-date">6:30 am</span>
+        <h3 class="og-strip-role">Tea on the roof</h3>
+        <p class="og-strip-org">Chhatri terrace</p>
+        <p class="og-strip-desc">Masala chai and the first light on the lake. The parakeets arrive at about the same time you do.</p>
       </article>
       <article class="og-strip" style="--og-i:1">
-        <span class="og-strip-date">Jan 2025 &ndash; now</span>
-        <h3 class="og-strip-role">Design Lead</h3>
-        <p class="og-strip-org">Kite &amp; Crane Studio (own studio)</p>
-        <p class="og-strip-desc">&ldquo;Set the studio's motion language and WCAG AA bar audited in CI; mentored the studio's first 2 junior engineers.&rdquo;</p>
+        <span class="og-strip-date">8:00 &ndash; 10:30 am</span>
+        <h3 class="og-strip-role">Breakfast in the courtyard</h3>
+        <p class="og-strip-org">Under the neem tree</p>
+        <p class="og-strip-desc">Poha, fresh fruit, eggs any way, and a paratha that changes with the season. Included with every room.</p>
       </article>
       <article class="og-strip" style="--og-i:2">
-        <span class="og-strip-date">Feb &ndash; Nov 2025</span>
-        <h3 class="og-strip-role">Design Engineer</h3>
-        <p class="og-strip-org">Garnet &amp; Glass (contract)</p>
-        <p class="og-strip-desc">&ldquo;Shipped 5 boutique-hotel sites and the Carat gem configurator — 61% of users complete a build.&rdquo;</p>
+        <span class="og-strip-date">11:00 am</span>
+        <h3 class="og-strip-role">The long table</h3>
+        <p class="og-strip-org">Back courtyard</p>
+        <p class="og-strip-desc">Block printing, paper-making or letterpress, depending on the day. Come and watch even if you do not join.</p>
       </article>
       <article class="og-strip" style="--og-i:3">
-        <span class="og-strip-date">2022 &ndash; 2024</span>
-        <h3 class="og-strip-role">Freelance Web Engineer</h3>
-        <p class="og-strip-org">Quarry &amp; Quill (design studio)</p>
-        <p class="og-strip-desc">&ldquo;Delivered 6 client sites end-to-end, each with a written performance budget — 5 of 6 held it.&rdquo;</p>
+        <span class="og-strip-date">4:30 pm</span>
+        <h3 class="og-strip-role">Tea and something fried</h3>
+        <p class="og-strip-org">The sitting room</p>
+        <p class="og-strip-desc">Tea is poured at half past four whether or not anyone is there to drink it. Someone always is.</p>
       </article>
       <article class="og-strip" style="--og-i:4">
-        <span class="og-strip-date">2021 &ndash; now</span>
-        <h3 class="og-strip-role">Open Source Maintainer</h3>
-        <p class="og-strip-org">Independent</p>
-        <p class="og-strip-desc">&ldquo;Maintains 12 repos — flagships Inkstone and Vellum; 176 community PRs merged, 31 mentees to merge.&rdquo;</p>
+        <span class="og-strip-date">8:00 pm</span>
+        <h3 class="og-strip-role">Dinner on the roof</h3>
+        <p class="og-strip-org">By reservation, twelve seats</p>
+        <p class="og-strip-desc">One menu, written that morning after the market. Mostly vegetarian, always Mewari, cooked on wood.</p>
       </article>
     </div>
     <div class="og-skills" style="--og-i:1">
       <div class="og-skill-group" style="--og-i:0">
-        <h3 class="og-skill-group-name">Languages</h3>
-        <div class="og-skill-row" style="--og-i:0"><span class="og-skill-name">TypeScript</span><span class="og-skill-level">94</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:94%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:1"><span class="og-skill-name">Python</span><span class="og-skill-level">93</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:93%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:2"><span class="og-skill-name">C++</span><span class="og-skill-level">72</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:72%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:3"><span class="og-skill-name">Rust</span><span class="og-skill-level">84</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:84%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:4"><span class="og-skill-name">Go</span><span class="og-skill-level">78</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:78%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:5"><span class="og-skill-name">SQL</span><span class="og-skill-level">88</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:88%"></span></span></div>
+        <h3 class="og-skill-group-name">What guests rate us</h3>
+        <div class="og-skill-row" style="--og-i:0"><span class="og-skill-name">Breakfast</span><span class="og-skill-level">97%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:97%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:1"><span class="og-skill-name">The staff</span><span class="og-skill-level">98%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:98%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:2"><span class="og-skill-name">Rooms</span><span class="og-skill-level">95%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:95%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:3"><span class="og-skill-name">Quiet at night</span><span class="og-skill-level">93%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:93%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:4"><span class="og-skill-name">Location</span><span class="og-skill-level">90%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:90%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:5"><span class="og-skill-name">Value</span><span class="og-skill-level">91%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:91%"></span></span></div>
       </div>
       <div class="og-skill-group" style="--og-i:1">
-        <h3 class="og-skill-group-name">AI / ML</h3>
-        <div class="og-skill-row" style="--og-i:0"><span class="og-skill-name">PyTorch</span><span class="og-skill-level">86</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:86%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:1"><span class="og-skill-name">ONNX Runtime</span><span class="og-skill-level">84</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:84%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:2"><span class="og-skill-name">evaluation harnesses</span><span class="og-skill-level">90</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:90%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:3"><span class="og-skill-name">retrieval systems</span><span class="og-skill-level">88</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:88%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:4"><span class="og-skill-name">LLM orchestration</span><span class="og-skill-level">85</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:85%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:5"><span class="og-skill-name">edge inference</span><span class="og-skill-level">84</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:84%"></span></span></div>
+        <h3 class="og-skill-group-name">How full we are</h3>
+        <div class="og-skill-row" style="--og-i:0"><span class="og-skill-name">October to December</span><span class="og-skill-level">94%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:94%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:1"><span class="og-skill-name">January and February</span><span class="og-skill-level">89%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:89%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:2"><span class="og-skill-name">March and April</span><span class="og-skill-level">62%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:62%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:3"><span class="og-skill-name">May and June</span><span class="og-skill-level">31%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:31%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:4"><span class="og-skill-name">July to September</span><span class="og-skill-level">58%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:58%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:5"><span class="og-skill-name">Diwali week</span><span class="og-skill-level">100%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:100%"></span></span></div>
       </div>
       <div class="og-skill-group" style="--og-i:2">
-        <h3 class="og-skill-group-name">Web / Creative</h3>
-        <div class="og-skill-row" style="--og-i:0"><span class="og-skill-name">React</span><span class="og-skill-level">93</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:93%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:1"><span class="og-skill-name">Next.js</span><span class="og-skill-level">88</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:88%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:2"><span class="og-skill-name">Canvas 2D</span><span class="og-skill-level">90</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:90%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:3"><span class="og-skill-name">Three.js</span><span class="og-skill-level">85</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:85%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:4"><span class="og-skill-name">WebGL</span><span class="og-skill-level">80</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:80%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:5"><span class="og-skill-name">CSS motion</span><span class="og-skill-level">94</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:94%"></span></span></div>
+        <h3 class="og-skill-group-name">From the kitchen</h3>
+        <div class="og-skill-row" style="--og-i:0"><span class="og-skill-name">Grown within 40 km</span><span class="og-skill-level">82%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:82%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:1"><span class="og-skill-name">Vegetarian dishes</span><span class="og-skill-level">74%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:74%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:2"><span class="og-skill-name">Cooked on the wood fire</span><span class="og-skill-level">46%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:46%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:3"><span class="og-skill-name">Recipes from the family</span><span class="og-skill-level">68%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:68%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:4"><span class="og-skill-name">Made that morning</span><span class="og-skill-level">91%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:91%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:5"><span class="og-skill-name">Spice we grind ourselves</span><span class="og-skill-level">100%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:100%"></span></span></div>
       </div>
       <div class="og-skill-group" style="--og-i:3">
-        <h3 class="og-skill-group-name">Systems / Cloud</h3>
-        <div class="og-skill-row" style="--og-i:0"><span class="og-skill-name">Docker</span><span class="og-skill-level">86</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:86%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:1"><span class="og-skill-name">Kubernetes</span><span class="og-skill-level">78</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:78%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:2"><span class="og-skill-name">PostgreSQL</span><span class="og-skill-level">90</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:90%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:3"><span class="og-skill-name">Redis</span><span class="og-skill-level">84</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:84%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:4"><span class="og-skill-name">AWS</span><span class="og-skill-level">82</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:82%"></span></span></div>
-        <div class="og-skill-row" style="--og-i:5"><span class="og-skill-name">Linux</span><span class="og-skill-level">88</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:88%"></span></span></div>
+        <h3 class="og-skill-group-name">The building</h3>
+        <div class="og-skill-row" style="--og-i:0"><span class="og-skill-name">Original 1887 stonework</span><span class="og-skill-level">88%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:88%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:1"><span class="og-skill-name">Power from the roof</span><span class="og-skill-level">61%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:61%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:2"><span class="og-skill-name">Rainwater harvested</span><span class="og-skill-level">77%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:77%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:3"><span class="og-skill-name">Furniture made in Udaipur</span><span class="og-skill-level">84%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:84%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:4"><span class="og-skill-name">Linen block-printed here</span><span class="og-skill-level">100%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:100%"></span></span></div>
+        <div class="og-skill-row" style="--og-i:5"><span class="og-skill-name">Plastic bottles</span><span class="og-skill-level">0%</span><span class="og-skill-track"><span class="og-skill-fill" style="--og-w:0%"></span></span></div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ============ RATINGS STRIP ============ -->
+<!-- ============ IN BRIEF ============ -->
 <section id="og-ratings" class="og-sec">
   <div class="og-sec-head">
-    <span class="og-sec-no">05</span>
-    <h2 class="og-sec-title">Ratings</h2>
+    <span class="og-sec-no">06</span>
+    <h2 class="og-sec-title">In brief</h2>
     <span class="og-sec-line" aria-hidden="true"></span>
     <span class="og-sec-tag">gold foil</span>
   </div>
   <div class="og-sec-body og-wrap">
     <ul class="og-ratings" style="--og-i:0">
-      <li class="og-chip" style="--og-i:0">4.9&star; Gilt <span class="og-chip-sub">(14 shops surveyed)</span></li>
-      <li class="og-chip" style="--og-i:1">61% build completion <span class="og-chip-sub">(Carat configs)</span></li>
-      <li class="og-chip" style="--og-i:2">2 regional design honors</li>
-      <li class="og-chip" style="--og-i:3">1.9 min booking <span class="og-chip-sub">(hotel sites)</span></li>
-      <li class="og-chip" style="--og-i:4">340&star; Monogram <span class="og-chip-sub">(identity tooling)</span></li>
+      <li class="og-chip" style="--og-i:0">4.9&star; overall <span class="og-chip-sub">(1,240 guest reviews)</span></li>
+      <li class="og-chip" style="--og-i:1">41% of guests return <span class="og-chip-sub">(or send their parents)</span></li>
+      <li class="og-chip" style="--og-i:2">2.8 nights <span class="og-chip-sub">(average stay)</span></li>
+      <li class="og-chip" style="--og-i:3">12 seats <span class="og-chip-sub">(dinner on the roof)</span></li>
+      <li class="og-chip" style="--og-i:4">23 people <span class="og-chip-sub">(work here, all from Udaipur)</span></li>
     </ul>
   </div>
 </section>
-
-<!-- ============ CONTRIBUTIONS ============ -->
+<!-- ============ INCLUDED ============ -->
 <section id="og-contrib" class="og-sec">
   <div class="og-sec-head">
-    <span class="og-sec-no">06</span>
-    <h2 class="og-sec-title">Contributions</h2>
+    <span class="og-sec-no">07</span>
+    <h2 class="og-sec-title">Included in every stay</h2>
     <span class="og-sec-line" aria-hidden="true"></span>
-    <span class="og-sec-tag">open source</span>
+    <span class="og-sec-tag">no extras</span>
   </div>
   <div class="og-sec-body og-wrap">
     <ul class="og-contrib-tabs" style="--og-i:0">
-      <li class="og-contrib-tab" style="--og-i:0">176 PRs merged across 12 repos</li>
-      <li class="og-contrib-tab" style="--og-i:1">4 npm packages — ~320k weekly downloads</li>
-      <li class="og-contrib-tab" style="--og-i:2">2 maintained crates — 1.1M downloads</li>
-      <li class="og-contrib-tab" style="--og-i:3">31 contributors mentored to first merged PR</li>
-      <li class="og-contrib-tab" style="--og-i:4">46 projects shipped end-to-end</li>
-      <li class="og-contrib-tab" style="--og-i:5">21 client products delivered</li>
+      <li class="og-contrib-tab" style="--og-i:0">Breakfast in the courtyard, until half past ten</li>
+      <li class="og-contrib-tab" style="--og-i:1">Tea at 6:30 on the roof and 4:30 in the sitting room</li>
+      <li class="og-contrib-tab" style="--og-i:2">A handmade notebook, yours to keep</li>
+      <li class="og-contrib-tab" style="--og-i:3">Bicycles at the gate</li>
+      <li class="og-contrib-tab" style="--og-i:4">Filtered water in glass, refilled twice a day</li>
+      <li class="og-contrib-tab" style="--og-i:5">Wi-Fi in the rooms, none on the roof</li>
     </ul>
-    <p class="og-contrib-foot" style="--og-i:1">OSS footprints: GitHub &middot; crates.io &middot; npm (4 published packages, ~320k weekly downloads)</p>
+    <p class="og-contrib-foot" style="--og-i:1">Not included: televisions, a swimming pool, a lift. The Courtyard Rooms are step-free.</p>
   </div>
 </section>
-
 <!-- ============ CONTACT ============ -->
 <section id="og-contact" class="og-sec">
   <div class="og-sec-head">
-    <span class="og-sec-no">07</span>
-    <h2 class="og-sec-title">Contact</h2>
+    <span class="og-sec-no">08</span>
+    <h2 class="og-sec-title">Write to us</h2>
     <span class="og-sec-line" aria-hidden="true"></span>
     <span class="og-sec-tag">a letter</span>
   </div>
   <div class="og-sec-body og-wrap og-contact-grid">
     <div class="og-mail" style="--og-i:0">
-      <h3 class="og-mail-head">Write me a letter</h3>
-      <p class="og-mail-sub">no backend &mdash; it folds straight into your mail client</p>
-      <form id="og-contact-form" action="mailto:garvit9829@gmail.com" method="get" enctype="text/plain">
+      <h3 class="og-mail-head">Write to the haveli</h3>
+      <p class="og-mail-sub">Weddings, long stays, a room for your parents. A person answers, usually before tea.</p>
+      <form id="og-contact-form" novalidate>
         <div class="og-field">
           <label class="og-label" for="og-fname">Name</label>
           <input class="og-input" id="og-fname" name="name" type="text" required autocomplete="name">
@@ -1521,40 +1589,39 @@ a { color: inherit; }
           <textarea class="og-input og-textarea" id="og-fmsg" name="message" rows="5" required></textarea>
         </div>
         <button class="og-btn" type="submit">Send the letter</button>
+        <p class="og-bill-status" id="og-form-status" role="status" aria-live="polite"></p>
       </form>
     </div>
     <aside class="og-contact-side" style="--og-i:1">
       <div class="og-note og-note-mini" style="--og-r:-.8deg">
-        <p class="og-note-quote">&ldquo;Every site he shipped for us came with a written performance budget — and he held it. Twice he pushed back on scope and was right both times.&rdquo;</p>
-        <footer class="og-note-who">Devika Rao, Studio Director, Quarry &amp; Quill</footer>
+        <p class="og-note-quote">&ldquo;My father had not sat still for an afternoon in forty years. He sat under that neem tree for three.&rdquo;</p>
+        <footer class="og-note-who">A guest from Chandigarh &middot; two Courtyard Rooms</footer>
       </div>
-      <ul class="og-links" aria-label="Direct links">
-        <li><a class="og-tab" style="--og-i:0" href="mailto:garvit9829@gmail.com">garvit9829@gmail.com</a></li>
-        <li><a class="og-tab" style="--og-i:1" href="tel:+918905402023">+91-8905402023</a></li>
-        <li><a class="og-tab" style="--og-i:2" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">github.com/garvit-pandia</a></li>
-        <li><a class="og-tab" style="--og-i:3" href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener">linkedin.com/in/garvit-pandia</a></li>
-        <li><a class="og-tab" style="--og-i:4" href="./Garvit_Pandia_Resume.pdf" download>Garvit_Pandia_Resume.pdf</a></li>
+      <ul class="og-links" aria-label="Find us">
+        <li><a class="og-tab" style="--og-i:0" href="#og-contact">Kaagaz Gali, near Jagdish Chowk, Udaipur</a></li>
+        <li><a class="og-tab" style="--og-i:1" href="mailto:stay@kaagazhaveli.example">stay@kaagazhaveli.example</a></li>
+        <li><a class="og-tab" style="--og-i:2" href="#og-stay">Check in from 1 pm &middot; out by 11 am</a></li>
+        <li><a class="og-tab" style="--og-i:3" href="#og-contact">25 km from the airport, 3 km from the station</a></li>
+        <li><a class="og-tab" style="--og-i:4" href="#og-contact">The lane is too narrow for cars. We carry the bags.</a></li>
       </ul>
     </aside>
   </div>
 </section>
-
 </main>
-
 <!-- ============ FOOTER ============ -->
 <footer class="og-footer">
   <div class="og-wrap og-footer-inner">
-    <p class="og-footer-brand">Garvit Pandia</p>
-    <p class="og-footer-line">Folded by hand in Dehradun, Uttarakhand &mdash; one crease at a time.</p>
+    <p class="og-footer-brand">Kaagaz Haveli</p>
+    <p class="og-footer-line">Folded by hand in Udaipur, Rajasthan &mdash; one crease at a time.</p>
     <p class="og-footer-links">
-      <a href="https://github.com/garvit-pandia" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:garvit9829@gmail.com">Email</a>
+      <a href="#og-projects">Rooms</a>
+      <a href="#og-stay">Price your stay</a>
+      <a href="#og-contact">Write to us</a>
     </p>
-    <p class="og-footer-copy">&copy; <span id="og-year">2026</span> Garvit Pandia</p>
+    <p class="og-footer-copy">&copy; <span id="og-year">2026</span> Kaagaz Haveli</p>
+    <p class="og-concept">Kaagaz Haveli is a fictional hotel. Concept site designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a> &middot; <a href="../index.html">Back to the gallery</a></p>
   </div>
 </footer>
-
 <script>
 (function () {
   'use strict';
@@ -1656,16 +1723,84 @@ a { color: inherit; }
       var email = document.getElementById('og-femail').value.trim();
       var msg = document.getElementById('og-fmsg').value.trim();
       if (!name || !email || !msg) return;
-      var subject = 'Portfolio contact from ' + name;
-      var body = msg + '\n\n\u2014 ' + name + ' (' + email + ')';
-      window.location.href = 'mailto:garvit9829@gmail.com?subject=' +
-        encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      form.reset();
+      var st = document.getElementById('og-form-status');
+      if (st) st.textContent = 'Thank you, ' + name + '. This is a concept site, so the letter was not sent anywhere.';
     });
   }
 
   /* ---- footer year ---- */
   var yr = document.getElementById('og-year');
   if (yr) yr.textContent = String(new Date().getFullYear());
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var ROOMS = {"suite": {"n": "The Kaagaz Suite", "r": 14500, "max": 3}, "terrace": {"n": "Chhatri Terrace Room", "r": 11600, "max": 2}, "jharokha": {"n": "The Jharokha Room", "r": 9800, "max": 2}, "ledger": {"n": "The Bahi-Khata Room", "r": 8400, "max": 2}, "courtyard": {"n": "Courtyard Rooms", "r": 7200, "max": 2}, "neel": {"n": "The Neel Rooms", "r": 6400, "max": 2}};
+  var $ = function (id) { return document.getElementById(id); };
+  var inEl = $('og-in'), outEl = $('og-out'), roomEl = $('og-room'), guestEl = $('og-guests');
+  var lines = $('og-bill-lines'), totalEl = $('og-bill-total'), subEl = $('og-bill-sub'), goEl = $('og-bill-go'), statusEl = $('og-bill-status');
+  if (!inEl || !lines) return;
+  var DAY = 86400000;
+  function iso(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function parse(v) { var p = v.split('-'); return p.length === 3 ? new Date(+p[0], +p[1] - 1, +p[2]) : null; }
+  function rupees(n) { return '\u20B9' + Math.round(n).toLocaleString('en-IN'); }
+  function nice(d) { return d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }); }
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  var start = new Date(today.getTime() + 14 * DAY);
+  inEl.min = iso(today); inEl.value = iso(start);
+  outEl.value = iso(new Date(start.getTime() + 3 * DAY));
+  var last = null;
+
+  function line(label, value) {
+    var d = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd');
+    dt.textContent = label; dd.textContent = value; d.appendChild(dt); d.appendChild(dd); lines.appendChild(d);
+  }
+  function fail(msg) {
+    lines.innerHTML = ''; totalEl.textContent = '\u2014'; goEl.disabled = true; last = null;
+    subEl.textContent = msg; statusEl.textContent = '';
+  }
+  function calc() {
+    var a = parse(inEl.value), b = parse(outEl.value), room = ROOMS[roomEl.value], guests = +guestEl.value;
+    if (a) outEl.min = iso(new Date(a.getTime() + DAY));
+    if (!a || !b) return fail('Choose your dates to see the price.');
+    if (a < today) return fail('That arrival date has already passed.');
+    var nights = Math.round((b - a) / DAY);
+    if (nights < 1) return fail('The leaving date needs to be after the arriving date.');
+    if (nights > 21) return fail('For more than three weeks, write to us below and we will arrange a long-stay rate.');
+    if (guests > room.max) return fail(room.n + ' sleeps ' + (room.max === 2 ? 'two' : 'three') + '. Choose the Kaagaz Suite for three guests, or add a second room by letter.');
+    var weekend = 0;
+    for (var i = 0; i < nights; i++) { var dow = new Date(a.getTime() + i * DAY).getDay(); if (dow === 5 || dow === 6) weekend++; }
+    var base = room.r * nights, extraW = room.r * 0.15 * weekend, third = guests === 3 ? 1500 * nights : 0;
+    var long = nights >= 4 ? -(base + extraW) * 0.1 : 0;
+    var dinner = $('og-x-dinner').checked ? 1800 * guests : 0;
+    var print = $('og-x-print').checked ? 900 * guests : 0;
+    var car = $('og-x-car').checked ? 1200 : 0;
+    var sub = base + extraW + third + long + dinner + print + car, tax = sub * 0.12, total = sub + tax;
+    lines.innerHTML = '';
+    line(room.n + ' \u00D7 ' + nights + (nights === 1 ? ' night' : ' nights'), rupees(base));
+    if (weekend) line('Friday and Saturday nights (' + weekend + ')', '+ ' + rupees(extraW));
+    if (third) line('Third guest, day bed made up', '+ ' + rupees(third));
+    if (long) line('Four nights or more, 10% off the room', '\u2212 ' + rupees(-long));
+    if (dinner) line('Dinner on the roof \u00D7 ' + guests, '+ ' + rupees(dinner));
+    if (print) line('Block printing \u00D7 ' + guests, '+ ' + rupees(print));
+    if (car) line('Car from the airport or station', '+ ' + rupees(car));
+    line('Taxes and fees (12%)', '+ ' + rupees(tax));
+    totalEl.textContent = rupees(total);
+    subEl.textContent = nice(a) + ' to ' + nice(b) + ' \u00B7 breakfast included';
+    goEl.disabled = false; statusEl.textContent = '';
+    last = { room: room.n, nights: nights, a: nice(a), total: rupees(total) };
+  }
+  ['change', 'input'].forEach(function (ev) { $('og-stay-form').addEventListener(ev, calc); });
+  goEl.addEventListener('click', function () {
+    if (!last) return;
+    statusEl.textContent = 'Noted: ' + last.room + ', ' + last.nights + (last.nights === 1 ? ' night' : ' nights') + ' from ' + last.a + ', ' + last.total + '. This is a concept site, so no room was held and nothing was charged.';
+  });
+  [].forEach.call(document.querySelectorAll('[data-room]'), function (l) {
+    l.addEventListener('click', function () { roomEl.value = l.getAttribute('data-room'); calc(); });
+  });
+  calc();
 })();
 </script>
 </body>

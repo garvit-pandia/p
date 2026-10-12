@@ -10,6 +10,51 @@ Session: Aug 07 2026 — ROUND 7+ CAMPAIGN STARTED: 5 rounds × 10 variants, ref
 - The domain appears in some older portfolio variant contact/footer content and in the fictional resume data as an external personal-site link. Those references do not make the separate site part of this project.
 - Root index redesign deployed from commit `4aeb701` and verified live on GitHub Pages on 2026-08-11.
 
+## 2026-10-12 — CONCEPT SITES: SIX BUSINESSES, GALLERY TRIMMED TO SIX (branch `concept-sites`)
+
+The "same portfolio, many styles" idea is dropped. Each site is now a concept website for a fictional business, built to show range. My own details appear only in a footer credit on each site. Rules are in `docs/content-rules.md`, current state in `HANDOFF.md`.
+
+### What shipped
+
+| Folder | Now | Working feature |
+|--------|-----|-----------------|
+| `v13-origami-aurum/` | Kaagaz Haveli, hotel, Udaipur | Stay calculator (`#og-stay`): room, dates, guests → priced stay |
+| `v16-black-box/` | Saanjh Repertory, theatre, Chandigarh | Seat map booking (`#booking`) |
+| `v5-glass/` | Kanch Invoicing, software | Pricing slider + monthly / yearly switch (`#pricing`) |
+| `v12-mycelium/` | Dhingri & Co., mushroom farm, Solan | Shop + basket with delivery fee, saved in `localStorage` (`#myShop`, `#myBasket`) |
+| `v10-typevolt/` | Typevolt, type foundry | Live type tester (`#tester`), eight families on Google variable fonts |
+| `v8-abyss/` | Paatal Dive Co., dive school, Andamans | Depth finder slider (`#finder`); depth rail now 0 – 40 m |
+
+- **Every site:** all portfolio copy replaced; footer credit with links to `https://garvitpandia.me` and `../index.html`; forms confirm on the page and say nothing was sent; contact addresses on the `.example` domain; résumé links, my email, phone, GitHub and LinkedIn removed.
+- **Gallery (`index.html`):** six cards in the order hotel, theatre, invoicing, farm shop, foundry, dive school, plus a full-width commission card. The `v16` card is back (its styles were still in the file). Rail rebuilt for six tiles, repeated three times per copy so it loops without a gap. Copy reframed to "Concept sites · 6 businesses". Live-preview selector scoped to the six cards. Portfolio link added to the footer.
+- **Screenshots:** fresh 1280×800 captures for the six in `shots/`.
+- **Deployment:** `.vercelignore` added so a Vercel deployment carries only the gallery, the six sites and their six screenshots. GitHub Pages is unchanged and still serves `main`.
+
+### Fixes made along the way
+
+- `v16`: hero heading gap caused by a `.act` class used for two different things.
+- `v13`: sideways scroll on phones, fixed with `main{overflow:clip}`.
+- `v5`: sideways scroll on desktop, fixed with `main{overflow-x:clip}`; stock photos replaced by product screens drawn in CSS; old share tags and an unused phone-link script removed from the page.
+- `v8`: gauges now show decimals.
+
+### Verification
+
+Each of the six sites and the gallery loaded from `http://127.0.0.1:5186/` at 1280 and 390 px: zero console errors, no sideways scroll. Each feature used end to end in the browser. Gallery: filters return light 2 / dark 4 / 3D 1 / motion 2 / all 7, hover loads the live site into the card, the six local links resolve, the rail copy (1746 px) is wider than its 1340 px container at 1920 and 2560 px. Content checks from section 4 of `docs/content-rules.md` pass on all six.
+
+### Not done
+
+- The twelve other variant folders are unchanged and unlinked. They still hold the old invented career copy, and `v1`–`v14` still hold the invented résumé PDF.
+- `garvitpandia.me` still describes this repo as fourteen portfolios.
+
+## 2026-10-12 — FOLDER MOVE, PORT 5186, DOCS REFRESH, CONTENT AUDIT
+
+- **Moved:** the repo now lives at `/home/garvit/projects2/portfolio-gallery` (was `~/projects/portfolio5`). Every old path in the docs is updated.
+- **Port:** the local server is `python3 -m http.server 5186`, registered in `../PORT-REGISTRY.md`. 5176 belongs to another project in this workspace; older entries below were changed from 5176 to 5186 so nothing points at it.
+- **Docs refreshed:** `README.md` (18 folders, 14 on the chooser, v7 = transit map, standalone `v15`–`v18`, repo layout, content note), `HANDOFF.md` rewritten as the current state, `docs/content-rules.md` added, a retirement banner on `docs/synthetic-data-pool.md`.
+- **Content audit:** all 18 variants show an invented college, invented employers and none of the real projects; v1–v6 and v14 also show certificates not held; the résumé download in v1–v14 is an invented résumé and is live. Counts per variant and the cause are in `HANDOFF.md`. No variant has been changed yet.
+- **Found along the way:** `v15`–`v18` link to `Garvit_Pandia_Resume.pdf` but have no such file; the live site is three commits behind this repo (old voxel v7, no `v15`–`v18`, no Typevolt fix); `parts/` is unused.
+- **Verified:** served on 5186, `/`, `/v7-voxel/`, `/v10-typevolt/`, `/v15-transit-map/` and a screenshot returned 200; `git diff --check` clean. Only docs changed.
+
 ## 2026-08-16 — v7 SLOT SWAP: THE IMPOSSIBLE TRANSIT MAP + TYPEVOLT FIX
 
 Scope: `.hermes/plans/2026-08-16-v7-transit-map-swap-typevolt-fix.md`. The v7 hub slot is now the transit map site; the v15 folder is an unlinked backup.
@@ -37,7 +82,7 @@ Root cause: scroll-driven per-letter displacement (up to 150px translateX / 58°
 
 All four URLs 200; zero console/page errors on root, v7-voxel, v10-typevolt; zero horizontal overflow at 780px + 390px on all three; reduced-motion static (14/14 headings untransformed, transit hero visible, cards render); keyboard reaches the v7 card link (13 Tabs); 44px touch targets on all task-scoped controls (cards, sw tiles 80×83, CTA card 358×377; pre-existing small nav/footer text links noted, not task-introduced); hub = 15 cards (14 + CTA), sw--v7 = Transit; `git diff --check` clean; committed to main, NOT pushed.
 
-Timestamps: start 2026-08-15 23:40 UTC (2026-08-16 05:10 IST); end 2026-08-16 01:06 UTC (06:36 IST). Server `http://127.0.0.1:5176/`.
+Timestamps: start 2026-08-15 23:40 UTC (2026-08-16 05:10 IST); end 2026-08-16 01:06 UTC (06:36 IST). Server `http://127.0.0.1:5186/`.
 
 ## 2026-08-15 — FIVE-STANDALONE VARIANTS ROUND (v7 replacement + v15–v18)
 
@@ -123,7 +168,7 @@ User feedback: the five latest variants were visually decent but their motion wa
 
 - Earlier signature-pass hub markup and screenshot assets were intentionally left unchanged because hero compositions remained valid. The later user-requested hub trim now removes v15–v18 cards/rail links from the rendered root only; standalone pages and screenshot assets remain untouched. All variant-side additions stay namespaced and no new dependency or shared runtime was introduced.
 
-QA timestamps: start 2026-08-15T19:27:23Z (00:57:23 IST) — first upgraded-page Chromium pass; end 2026-08-15T20:01:37Z (01:31:37 IST). The local preview server remains `http://127.0.0.1:5176/`.
+QA timestamps: start 2026-08-15T19:27:23Z (00:57:23 IST) — first upgraded-page Chromium pass; end 2026-08-15T20:01:37Z (01:31:37 IST). The local preview server remains `http://127.0.0.1:5186/`.
 
 ## 2026-08-15 — HUB TRIM + v7 CARD REDESIGN
 
@@ -138,7 +183,7 @@ Timestamps: start 2026-08-15T20:03Z (01:33 IST) — hub trim request; end 2026-0
 
 - **Handoff file written:** `HANDOFF.md` at repo root with complete session context, modified files, key URLs, design tokens, active waves, and resumption instructions.
 - **All current work captured:** hub trim, v7 card redesign, signature interactions on 5 variants, Typevolt fixes, all verifications.
-- **Local server still running** on port 5176 for immediate continuation.
+- **Local server still running** on port 5186 for immediate continuation.
 
 ## Campaign wave tracker (W1–W17)
 

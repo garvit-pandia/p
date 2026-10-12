@@ -1,94 +1,78 @@
 # Garvit Pandia — The Material Index
 
-A curated collection of **fourteen completely independent portfolio websites**, each a
-different design concept built around the same fictional-but-believable career data.
-The repo root `index.html` is the **Material Index** — a museum-style chooser that
-showcases all fourteen variants with live preview cards.
+Six concept websites, each for a different kind of business and each built in its own
+visual style. The businesses are invented. The websites are real: every one has a
+working feature you can use, not just a layout to look at.
 
-> **🌐 Main website (deployed):** <https://garvit-pandia.github.io/p/> — this is the
-> root `index.html` (the chooser / Material Index), live on GitHub Pages.
-> Open the source directly: [`index.html`](./index.html)
+The repo root `index.html` is the **Material Index**, a gallery that shows the six as
+animated cards. A card shows a screenshot at rest, loads the live site when you hover
+it, and opens the site when you click.
 
-Each variant is self-contained in its own subfolder — zero shared code, zero
-cross-contamination. Each one is a production-ready portfolio; pick any and it can
-stand alone.
+> **Live:** <https://garvit-pandia.github.io/p/> (GitHub Pages, served from `main`).
+> The six concept sites are on the `concept-sites` branch and are not live yet; the
+> live site still shows the older set of fourteen portfolio experiments.
 
-## The fourteen portfolios
+I built this to show range: the same person designing and building a hotel site, a
+theatre site, a shop, a type foundry, a dive school and a software product page, with
+no shared code between them.
 
-| Folder | Theme | Brief description |
-|--------|-------|-------------------|
-| `v1-light/` | Light · Archival | **Sunlit Archive** — warm paper, ink and sunlight. Editorial archive of a careful keeper: developing-photo hero, rubber-stamp headers, handwritten marginalia, pin-able notes, solar-dial scroll progress. |
-| `v2-dark/` | Dark · Celestial | **Midnight Index** — a star chart of a career. 3D starfield with orbiting rings, comet cursor trail, self-typing terminal, star-chart scroll rail, nebula glow, star-drift parallax. |
-| `v3-wild/` | Wild · Dreamlike | **Dream Loom** — silk threads and aurora. Raw WebGL2 aurora shader, kinetic type, silk-thread cursor trail, woven scroll thread with eyelets, living-palette sections, thread tension on scroll velocity. |
-| `v4-brutalist/` | Brutalist · Industrial | **MONO_FACTORY** — the portfolio as an industrial machine. Neo-brutalism with hard shadows and Anton type, typed terminal, receipt-print spec sheets, CLI block cursor, interactive factory console, command flicker. |
-| `v5-glass/` | Glass · Elegant | **Glass Horizon** — light through glass. Premium glassmorphism, drifting orbs, Three.js glass prisms (cursor-reactive with glint), sunbeam scroll ray, 3D tilt glass cards. |
-| `v6-scrollstory/` | Scrollytelling · Organic | **The Field Journal** — a botanist's field log. Pinned parallax scenes, horizontal snap gallery, self-drawing timeline, sketch underlines, field-margin rail, press-able specimens with a collection tally. |
-| `v7-voxel/` | 3D · Voxel | **Voxel World** — a Three.js isometric voxel diorama (InstancedMesh, no shadow maps). Every section is an island; the camera flies between them on scroll; day→night sky, windmill, train, beacon, pulsing windows. Signature: clickable voxel progress rail. |
-| `v8-abyss/` | Dark · Bioluminescent | **The Abyss** — a single-canvas deep-sea dive. Plankton, jellyfish, light rays, sonar pings; depth rail 0 → 11,204 m (Challenger Deep); projects as glowing specimen jars. Signature: hover a specimen → sonar ping. |
-| `v9-ghostware/` | Cyber · Hologram | **Ghostware** — a holographic memory archive. Rotating particle hologram, scanlines, fake telemetry, ARCH-serial memory slots that glitch-load on click. Signature: `ACCESS://` command bar (help / recall ARCH-#### / jump / sync). |
-| `v10-typevolt/` | Editorial · Kinetic | **Typevolt** — the kinetic editorial machine. Pure DOM/CSS, zero canvas: split-letter headings choreographed by scroll, rotating role word, magnetic buttons, speaking cursor, spec-sheet skills. Signature: heading letters repel from the pointer. |
-| `v11-event-horizon/` | Dark · Cosmic | **Event Horizon** — the portfolio as a black hole. Scroll = falling in; content spirals inward as disk rings; canvas-2D accretion disk with pre-rendered glow sprites. Signature: gravity — depth-scaling + rotation that increases as you descend. |
-| `v12-mycelium/` | Dark · Organic | **Mycelium** — the portfolio as a living fungal network. Sections are fruiting bodies connected by hyphae that grow as you scroll; canvas-2D network with dashoffset growth, glowing node halos, drifting spores. Signature: growth — nothing appears, everything grows. |
-| `v13-origami-aurum/` | Light · Paper | **Origami Aurum** — warm paper origami gallery (parchment + terracotta + gold foil). Sections unfold like paper flaps (CSS 3D), folded-paper letter hero, stamp-grid achievements, dog-eared project cards. Zero canvas — the light perf showcase. |
-| `v14-signal/` | Dark · Radio | **SIGNAL//DECODE** — the portfolio as an intercepted cosmic transmission. The name decodes from static letter by letter, canvas static + spectrogram that gains signal on scroll, `[ DECODED ]` section headers, transmit-back contact. Signature: decode. |
+## The six sites
+
+| Folder | Business | Style | The thing that works |
+|--------|----------|-------|----------------------|
+| `v13-origami-aurum/` | **Kaagaz Haveli** — a twelve-room heritage hotel in Udaipur | Light. Folded paper, parchment and gold foil, sections that unfold in CSS 3D. No canvas. | Stay calculator: pick a room, dates and guests and it prices the stay. |
+| `v16-black-box/` | **Saanjh Repertory** — an 84-seat black-box theatre in Chandigarh | Dark. Matte black stage, bone serif, theatre-red cue marks, a moving spotlight. | Seat map: pick a show, pick your seats, see the total. |
+| `v5-glass/` | **Kanch Invoicing** — invoicing software for small businesses | Dark. Glass panels, Three.js prisms, product screens drawn in CSS. | Pricing slider with a monthly / yearly switch that picks the plan for you. |
+| `v12-mycelium/` | **Dhingri & Co.** — a gourmet mushroom farm in Solan | Dark. A fungal network on canvas that grows as you scroll. | Shop with a basket: quantities, delivery fee, total, remembered between visits. |
+| `v10-typevolt/` | **Typevolt** — an independent type foundry | Light. Kinetic type in pure DOM and CSS, letters that move with the scroll. | Type tester: set your own words in any of eight families, change size and weight. |
+| `v8-abyss/` | **Paatal Dive Co.** — a dive school in the Andaman Islands | Dark. A living sea on one canvas, a depth rail from 0 to 40 m. | Depth finder: drag to a depth and see what lives there and which course gets you to it. |
+
+Each site carries one line in its footer saying the business is fictional and that I
+designed and built the site, with a link to <https://garvitpandia.me> and a link back
+to the gallery. That line is the only place my own details appear on a concept site.
 
 ## How to preview
 
-- **Live:** the whole collection is deployed on GitHub Pages —
-  [https://garvit-pandia.github.io/p/](https://garvit-pandia.github.io/p/) (chooser)
-  with every variant at `…/p/v1-light/` … `…/p/v14-signal/` (all 14 verified live).
-- **Local:** open `index.html` in the repo root for the chooser page, or the
-  `index.html` inside any variant folder directly. No build step, no npm install,
-  no server needed. Internet required for fonts and the Three.js CDN
-  (variants 7–14 use zero external images — everything is code-drawn).
+```bash
+cd ~/projects2/portfolio-gallery
+python3 -m http.server 5186
+# open http://localhost:5186
+```
 
-## MVP features in ALL fourteen
+No build step and nothing to install. Pages also open straight from `file://`.
+Internet is needed for Google Fonts and, for `v5-glass`, Three.js from the CDN.
 
-- Animated hero (petals / starfield / aurora shader / typewriter / glass prisms /
-  scrollytelling / voxel world / deep-sea canvas / hologram / kinetic type)
-- Scroll-triggered reveals + smooth scrolling
-- Contact form with mailto fallback (works with zero backend)
-- "Download Resume" button (PDF copy in each folder: `Garvit_Pandia_Resume.pdf`)
-- Full resume content: About, Projects, Skills, Education, Achievements,
-  Experience, Contact
-- `prefers-reduced-motion` support + mobile responsive + focus-visible styles
-- Pause-heavy animations when the tab is hidden / canvas off-screen (perf)
-- Performance discipline: DPR caps (1.25–1.75), pre-rendered glow sprites (no
-  per-frame shadowBlur), InstancedMesh + no shadow maps in the voxel world,
-  transform/opacity-only DOM animation, passive listeners, capped particle counts
+## What every site has
 
-## Content note
+- An animated hero and scroll reveals in its own style
+- One interactive feature (table above) that works without a backend
+- A contact or enquiry form that confirms on the page. Nothing is sent anywhere, and
+  the form says so.
+- Fictional contact details on the `.example` domain, so no real business or inbox is
+  ever pointed at
+- `prefers-reduced-motion` support, a phone layout, and visible keyboard focus
+- Animations that pause when the tab is hidden or the canvas is off screen
 
-Per the user's brief, all content in every variant (and the chooser) is an
-intentionally exaggerated, fictional-but-believable dataset — projects, experience,
-testimonials, and stats are curated fiction. **The only real data on the site: the
-name "Garvit Pandia" and the real contact block** (email, phone, GitHub, LinkedIn).
-The canonical source is `docs/synthetic-data-pool.md`; each variant renders its
-curated subset in its own visual language. The fictional-resume-data file it
-replaced is preserved in `docs/fictional-resume-data.md` (superseded).
+## Also in the repo
 
-## Quality process
+| Folder | What it is |
+|--------|------------|
+| `v1-light/` … `v4-brutalist/`, `v6-scrollstory/`, `v7-voxel/`, `v9-ghostware/`, `v11-event-horizon/`, `v14-signal/`, `v15-transit-map/`, `v17-strata/`, `v18-optical-bench/` | Twelve older portfolio experiments. Not linked from the gallery on this branch. They still carry placeholder career copy and are waiting to be rebuilt as concept sites or removed. |
+| `shots/` | Card screenshots (1280×800) the gallery shows at rest. |
+| `docs/content-rules.md` | What a concept site may and may not say. Read this before writing copy. |
+| `HANDOFF.md`, `STATUS.md` | Current state, and the running log. |
+| `docs/` (everything else), `parts/` | Old build briefs and leftover fragments. Nothing at runtime reads them. |
 
-All fourteen sites were verified in a real browser (zero console errors,
-interactions tested — glitch-load, command bar, camera flight, rail, pings,
-kinetic letters) and rated by an independent vision model (1–10 across visual
-design, typography, layout, uniqueness, polish — average 9.32/10 after the
-synthetic content update). Audit findings were cross-checked against source before
-fixing; only verified flags were changed.
+## Quality checks
 
-## NOTE — project links
-
-Project cards link to the GitHub profile (`github.com/garvit-pandia`) for now.
-When you have the real URLs, swap the `href` on the project links (search for
-`github.com/garvit-pandia` inside each `index.html`).
+Every site and the gallery were loaded in a real browser at 1280 and 390 px wide:
+no console errors, no sideways scroll, and the feature used end to end (seats picked,
+basket filled, slider dragged, form submitted).
 
 ## Tech
 
-- Vanilla HTML / CSS / JS — no frameworks, no build tools
-- Three.js r160 via CDN (import map) — voxel world uses InstancedMesh +
-  MeshLambertMaterial, fake blob shadows instead of shadow maps
-- Canvas 2D engines for the abyss (sprite-based glow), the hologram,
-  event-horizon disk, mycelium network, and signal static
-- Raw WebGL2 shader for the aurora variant (v3)
-- Pure-DOM kinetic typography for Typevolt (zero canvas — the perf showcase)
-- Google Fonts (v1–6 also use Unsplash photography; v7–14 are 100% code-drawn)
+- Plain HTML, CSS and JavaScript. No framework, no build tools, no dependencies to install.
+- Each site is a single self-contained `index.html`.
+- Canvas 2D for the sea (`v8`) and the fungal network (`v12`); Three.js r160 from the
+  CDN for the glass prisms (`v5`); pure DOM and CSS for the rest.
+- Google Fonts. No stock photography: everything on the six sites is drawn in code.

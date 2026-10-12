@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Garvit Pandia — Mycelium</title>
-<meta name="description" content="Garvit Pandia — AI systems & creative engineer. A living portfolio grown like a fungal network: projects as fruiting bodies, skills as enzymes, achievements as spores.">
+<title>Dhingri &amp; Co. — Gourmet mushrooms grown in Solan, delivered in 36 hours</title>
+<meta name="description" content="Dhingri &amp; Co. grows fourteen kinds of gourmet mushroom in the hills above Solan. Order this week's harvest, picked at dawn and at your door the next evening.">
 <meta name="theme-color" content="#0a0d08">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='30' fill='%239be564'/><circle cx='38' cy='36' r='9' fill='%23f2ead8'/><circle cx='64' cy='62' r='6' fill='%23ffd166'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -515,6 +515,47 @@ textarea.my-input{min-height:132px;resize:vertical;line-height:1.55}
   .my-btn:hover,.my-fruiting:hover,.my-link:hover{transform:none}
   html{scroll-behavior:auto}
 }
+
+/* ---------- shop: quantity, basket ---------- */
+.my-buy{position:relative;z-index:1;display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+.my-qty{display:inline-flex;align-items:center;border:1px solid rgba(216,232,200,.22);border-radius:999px;overflow:hidden}
+.my-qty-btn{width:44px;height:44px;background:transparent;border:0;color:var(--my-cream);font-size:20px;line-height:1;cursor:pointer}
+.my-qty-btn:hover,.my-qty-btn:focus-visible{background:rgba(155,229,100,.16);outline:none}
+.my-qty-val{min-width:26px;text-align:center;font-weight:600;font-size:15px;font-variant-numeric:tabular-nums}
+.my-buy .my-add{min-height:44px;padding:9px 18px;font-size:13.5px;flex:1}
+.my-add.my-added{border-color:var(--my-gold);color:var(--my-gold)}
+.my-fruiting[data-in="1"]{border-color:rgba(255,209,102,.5)}
+.my-basket{margin-top:36px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;padding:28px;border-radius:22px;border:1px solid rgba(255,209,102,.3);background:linear-gradient(160deg,rgba(16,21,12,.96),rgba(16,21,12,.7));scroll-margin-top:24px}
+.my-basket:focus{outline:none}
+.my-basket-title{font-family:var(--my-serif);font-weight:600;font-size:1.5rem;margin-bottom:14px}
+.my-basket-list{list-style:none;margin:0;padding:0}
+.my-basket-list li{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--my-line);font-size:15px}
+.my-basket-list .my-li-n{color:var(--my-dim);font-variant-numeric:tabular-nums}
+.my-basket-list .my-li-p{font-weight:600;font-variant-numeric:tabular-nums}
+.my-basket-list button{grid-column:1/-1;justify-self:start;min-height:32px;padding:0;background:none;border:0;color:rgba(216,232,200,.6);font-family:var(--my-sans);font-size:12.5px;text-decoration:underline;cursor:pointer}
+.my-basket-list button:hover{color:var(--my-cream)}
+.my-basket-empty{color:var(--my-dim);font-size:15px;line-height:1.6}
+.my-sum-lines{margin:18px 0 0}
+.my-sum-lines div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;font-size:14.5px;color:var(--my-dim)}
+.my-sum-lines dd{margin:0;color:var(--my-cream);font-variant-numeric:tabular-nums}
+.my-sum-lines .my-sum-total{border-top:1px solid var(--my-line);margin-top:6px;padding-top:14px;font-weight:600;color:var(--my-cream)}
+.my-sum-lines .my-sum-total dd{font-family:var(--my-serif);font-size:1.7rem;color:var(--my-gold)}
+.my-basket-hint{min-height:20px;font-size:12.5px;color:var(--my-glow);margin:6px 0 14px}
+.my-basket-sum .my-btn{width:100%}
+.my-basket-sum .my-btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
+.my-basket-status{margin-top:14px;font-size:14.5px;line-height:1.6;color:var(--my-cream)}
+select.my-input{appearance:auto}
+.my-basket-fab{position:fixed;right:18px;bottom:18px;z-index:30;display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:10px 12px 10px 20px;border-radius:999px;background:var(--my-ink);border:1px solid rgba(255,209,102,.55);color:var(--my-cream);font-family:var(--my-sans);font-size:14px;font-weight:600;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.5);transition:transform .28s ease}
+.my-basket-fab:hover{transform:translateY(-2px)}
+.my-basket-fab b{min-width:28px;height:28px;display:inline-grid;place-items:center;border-radius:999px;background:var(--my-gold);color:var(--my-ink);font-size:13px;font-variant-numeric:tabular-nums}
+.my-basket-fab.my-bump b{animation:myBump .4s ease}
+@keyframes myBump{40%{transform:scale(1.35)}}
+.my-concept{margin-top:10px;font-size:12.5px;opacity:.85}
+.my-concept a{color:var(--my-glow)}
+.my-footer{padding-bottom:86px}
+@media (max-width:860px){.my-basket{grid-template-columns:1fr;padding:22px 18px}}
+@media (prefers-reduced-motion:reduce){.my-basket-fab,.my-basket-fab.my-bump b{transition:none;animation:none}}
+@media print{.my-basket-fab,.my-buy{display:none}}
 </style>
 <noscript><style>
 .my-reveal,.my-hero-stat{opacity:1!important;transform:none!important}
@@ -526,20 +567,18 @@ textarea.my-input{min-height:132px;resize:vertical;line-height:1.55}
 </style></noscript>
 </head>
 <body class="my-body">
-
 <canvas id="myCanvas" class="my-canvas" aria-hidden="true"></canvas>
-
+<a class="my-basket-fab" href="#myBasket" id="myFab" aria-label="Basket, 0 items"><span aria-hidden="true">Basket</span><b id="myFabCount" aria-hidden="true">0</b></a>
 <main class="my-shell">
-
   <!-- ============ HERO ============ -->
   <header class="my-section my-hero" data-node data-node-count="4">
-    <h1 class="my-hero-name">Garvit Pandia</h1>
+    <h1 class="my-hero-name">Dhingri &amp; Co.</h1>
     <span class="my-hero-underline" aria-hidden="true"></span>
-    <p class="my-hero-sub">Builds quiet tools and loud prototypes</p>
-    <p class="my-hero-meta">Dehradun, Uttarakhand, India &middot; B.Sc Computer Science, Uttaranga Institute of Applied Sciences</p>
+    <p class="my-hero-sub">Gourmet mushrooms, grown slowly in the hills</p>
+    <p class="my-hero-meta">Solan, Himachal Pradesh &middot; picked at dawn, at your door the next evening</p>
     <div class="my-hero-cta">
-      <a class="my-btn my-btn-primary" href="./Garvit_Pandia_Resume.pdf" download>Download resume</a>
-      <a class="my-btn" href="#myContact">Drop a seed</a>
+      <a class="my-btn my-btn-primary" href="#myShop">Shop this week&rsquo;s harvest</a>
+      <a class="my-btn" href="#myFarm">How it grows</a>
     </div>
     <div class="my-hero-stats">
       <svg class="my-hero-threads" viewBox="0 0 100 160" preserveAspectRatio="none" aria-hidden="true">
@@ -550,294 +589,393 @@ textarea.my-input{min-height:132px;resize:vertical;line-height:1.55}
         <path pathLength="100" d="M50 0 Q 50 70 75 130"/>
         <path pathLength="100" d="M50 0 Q 50 70 91.7 130"/>
       </svg>
-      <div class="my-hero-stat" style="--i:0"><span class="my-hero-stat-num">2.6k</span><span class="my-hero-stat-label">stars on the flagship network</span></div>
-      <div class="my-hero-stat" style="--i:1"><span class="my-hero-stat-num">30%</span><span class="my-hero-stat-label">node churn survived, zero loss</span></div>
-      <div class="my-hero-stat" style="--i:2"><span class="my-hero-stat-num">12k</span><span class="my-hero-stat-label">microbiome samples processed</span></div>
-      <div class="my-hero-stat" style="--i:3"><span class="my-hero-stat-num">99.1%</span><span class="my-hero-stat-label">same-day message delivery</span></div>
-      <div class="my-hero-stat" style="--i:4"><span class="my-hero-stat-num">1.1M</span><span class="my-hero-stat-label">crate downloads, combined</span></div>
-      <div class="my-hero-stat" style="--i:5"><span class="my-hero-stat-num">31</span><span class="my-hero-stat-label">first-time contributors mentored</span></div>
+      <div class="my-hero-stat" style="--i:0"><span class="my-hero-stat-num">14</span><span class="my-hero-stat-label">kinds of mushroom through the year</span></div>
+      <div class="my-hero-stat" style="--i:1"><span class="my-hero-stat-num">36 h</span><span class="my-hero-stat-label">from the block to your door</span></div>
+      <div class="my-hero-stat" style="--i:2"><span class="my-hero-stat-num">4,200</span><span class="my-hero-stat-label">home kitchens on the weekly list</span></div>
+      <div class="my-hero-stat" style="--i:3"><span class="my-hero-stat-num">61</span><span class="my-hero-stat-label">restaurants we grow for</span></div>
+      <div class="my-hero-stat" style="--i:4"><span class="my-hero-stat-num">0</span><span class="my-hero-stat-label">sprays, ever, on anything</span></div>
+      <div class="my-hero-stat" style="--i:5"><span class="my-hero-stat-num">1,520 m</span><span class="my-hero-stat-label">above sea level, and cool for it</span></div>
     </div>
   </header>
-
   <!-- ============ ABOUT ============ -->
   <section class="my-section my-about" data-node data-node-count="3">
     <div class="my-section-head my-reveal">
-      <span class="my-eyebrow">01 &middot; about</span>
+      <span class="my-eyebrow">01 &middot; the farm</span>
       <h2 class="my-title">One organism, many fruiting bodies</h2>
     </div>
     <p class="my-about-bio my-reveal">
-      I&rsquo;m <strong>Garvit Pandia</strong> &mdash; a systems &amp; data engineer who builds tools that keep
-      growing in the wild: storage that self-heals, forecasts farmers trust, messages that arrive on bad
-      networks. I studied <strong>B.Sc Computer Science at Uttaranga Institute of Applied Sciences</strong>,
-      where my independent research on agri-sensor data became the seed of everything since &mdash;
-      <strong>8.8/10</strong>, and that sensor work still feeds my field projects today. My work spreads along
-      three hyphae: resilient distributed systems (Rhizome survives 30% node churn with zero data loss),
-      environmental data (Kelp warns of acidification six days early), and open source &mdash;
-      <strong>176 PRs merged</strong>, <strong>31 first-time contributors</strong> mentored to their first
-      merge. Wherever the network spreads, I mentor: office hours by terminal, and judging rubrics that
-      teach as they score.
+      <strong>Dhingri</strong> is what an oyster mushroom is called in the hills, and it is where we started:
+      forty bags of straw in a disused apple store in 2018. Solan is cool, damp and a little short of light,
+      which is exactly what a mushroom wants. Today <strong>three growing rooms</strong> and a small lab turn out
+      about <strong>900 kg a week</strong>. Nothing is sprayed, nothing is flown, and nothing waits in a cold
+      store. A mushroom is the fruit of something much larger that lives in the block and never leaves the
+      farm. We look after that part, and it does the rest.
     </p>
     <div class="my-edu my-reveal" style="--i:1">
-      <span><b>B.Sc Computer Science</b> &middot; Uttaranga Institute of Applied Sciences &middot; 2019 &ndash; 2023</span>
-      <span><b>CGPA 8.8/10</b> &middot; independent agri-sensor research</span>
-      <span><b>Dehradun, Uttarakhand, India</b></span>
+      <span><b>Picked Tuesday and Friday</b> &middot; delivered Wednesday and Saturday</span>
+      <span><b>Free delivery over &#8377;1,200</b> &middot; in a paper box, not plastic</span>
+      <span><b>Chandigarh, Delhi NCR, Shimla</b> and pick-up at the farm gate</span>
     </div>
     <div class="my-spores">
       <blockquote class="my-spore-note my-reveal" style="--i:0">
-        <p class="my-spore-note-quote">&ldquo;The acidification warning system he built gave our biologists six days of lead time. Six days is a season in this field.&rdquo;</p>
-        <footer class="my-spore-note-who">&mdash; Kavya Menon<span class="my-spore-note-role">Marine Data Director, Peregrine Deep</span></footer>
+        <p class="my-spore-note-quote">&ldquo;I took lion&rsquo;s mane off the menu twice because I could not get it fresh. Now it arrives on Wednesday still cold from the hill.&rdquo;</p>
+        <footer class="my-spore-note-who">&mdash; Head chef<span class="my-spore-note-role">a twenty-cover restaurant in Chandigarh</span></footer>
       </blockquote>
       <blockquote class="my-spore-note my-reveal" style="--i:1">
-        <p class="my-spore-note-quote">&ldquo;My first merged PR was in his repo. He left 14 comments, all of them kind, all of them right. Now I maintain two projects myself.&rdquo;</p>
-        <footer class="my-spore-note-who">&mdash; Aisha Khan<span class="my-spore-note-role">open-source maintainer</span></footer>
+        <p class="my-spore-note-quote">&ldquo;My children would not touch a mushroom. Then they grew their own on the kitchen windowsill and ate the lot.&rdquo;</p>
+        <footer class="my-spore-note-who">&mdash; A customer in Gurugram<span class="my-spore-note-role">on the weekly list since 2023</span></footer>
       </blockquote>
       <blockquote class="my-spore-note my-reveal" style="--i:2">
-        <p class="my-spore-note-quote">&ldquo;He took our sensor mess and returned a forecast the agriculture officers actually trust. That is rarer than it sounds.&rdquo;</p>
-        <footer class="my-spore-note-who">&mdash; Nikhil Verma<span class="my-spore-note-role">CTO, Tallgrass Analytics</span></footer>
+        <p class="my-spore-note-quote">&ldquo;The pink oysters lasted exactly as long as the card said they would. I respect a farm that tells you the truth about that.&rdquo;</p>
+        <footer class="my-spore-note-who">&mdash; A customer in Shimla<span class="my-spore-note-role">Mixed Box, every Saturday</span></footer>
       </blockquote>
       <blockquote class="my-spore-note my-reveal" style="--i:3">
-        <p class="my-spore-note-quote">&ldquo;Every chart he built for us carries its parameters. Reproducibility is a personality trait for him.&rdquo;</p>
-        <footer class="my-spore-note-who">&mdash; Ishita Banerjee<span class="my-spore-note-role">Bioinformatics Engineer, Larkspur Bio</span></footer>
+        <p class="my-spore-note-quote">&ldquo;We mulch four hundred apple trees with their spent blocks. The soil under those trees is the best on the slope.&rdquo;</p>
+        <footer class="my-spore-note-who">&mdash; An orchard owner<span class="my-spore-note-role">two kilometres down the road</span></footer>
       </blockquote>
       <blockquote class="my-spore-note my-reveal" style="--i:4">
-        <p class="my-spore-note-quote">&ldquo;The review culture in Harpoon is the best I&rsquo;ve seen in any open-source project. He built that with patience, one PR at a time.&rdquo;</p>
-        <footer class="my-spore-note-who">&mdash; Arman Sheikh<span class="my-spore-note-role">maintainer, Harpoon</span></footer>
+        <p class="my-spore-note-quote">&ldquo;I asked which shiitake to buy for a broth. They told me to buy the cheaper one and keep the stems.&rdquo;</p>
+        <footer class="my-spore-note-who">&mdash; A home cook in Delhi<span class="my-spore-note-role">first order, last winter</span></footer>
       </blockquote>
     </div>
   </section>
-
-  <!-- ============ PROJECTS ============ -->
-  <section class="my-section my-projects" data-node data-node-count="3">
+  <!-- ============ SHOP ============ -->
+  <section class="my-section my-projects" id="myShop" data-node data-node-count="3">
     <div class="my-section-head my-reveal">
-      <span class="my-eyebrow">02 &middot; projects</span>
+      <span class="my-eyebrow">02 &middot; this week&rsquo;s harvest</span>
       <h2 class="my-title">Fruiting bodies</h2>
     </div>
     <div class="my-project-grid">
-
-      <article class="my-fruiting my-reveal" style="--i:0">
+      <article class="my-fruiting my-reveal" style="--i:0" data-product="oyster">
         <svg class="my-fruiting-threads" viewBox="0 0 220 170" preserveAspectRatio="none" aria-hidden="true">
           <path pathLength="100" d="M0 30 Q 70 12 220 26"/>
           <path pathLength="100" d="M0 85 Q 90 64 220 88"/>
           <path pathLength="100" d="M0 140 Q 60 158 220 132"/>
         </svg>
         <div class="my-fruiting-top">
-          <h3 class="my-fruiting-name">Rhizome</h3>
-          <span class="my-fruiting-chip">&#9733; 2.6k</span>
+          <h3 class="my-fruiting-name">Grey Oyster</h3>
+          <span class="my-fruiting-chip">&#8377;180</span>
         </div>
-        <p class="my-fruiting-stack">Go &middot; CRDTs &middot; gossip protocol</p>
-        <p class="my-fruiting-line">&ldquo;Storage that grows like a network &mdash; nodes leave, data stays, partitions merge.&rdquo;</p>
-        <p class="my-fruiting-metric">2.6k stars &middot; 1,100 forks &middot; 30% node churn, zero data loss</p>
+        <p class="my-fruiting-stack">250 g &middot; keeps 5 days</p>
+        <p class="my-fruiting-line">The one the farm is named for. Soft, savoury and forgiving. Tear it, do not cut it, and give it a very hot pan.</p>
+        <p class="my-fruiting-metric">Good for: stir-fries, omelettes, anything with garlic</p>
+        <div class="my-buy">
+          <div class="my-qty" role="group" aria-label="Quantity of Grey Oyster">
+            <button type="button" class="my-qty-btn" data-step="-1" aria-label="One less Grey Oyster">&minus;</button>
+            <output class="my-qty-val" aria-live="polite">0</output>
+            <button type="button" class="my-qty-btn" data-step="1" aria-label="One more Grey Oyster">+</button>
+          </div>
+          <button type="button" class="my-btn my-add">Add to basket</button>
+        </div>
       </article>
-
-      <article class="my-fruiting my-reveal" style="--i:1">
+      <article class="my-fruiting my-reveal" style="--i:1" data-product="pink">
         <svg class="my-fruiting-threads" viewBox="0 0 220 170" preserveAspectRatio="none" aria-hidden="true">
           <path pathLength="100" d="M0 30 Q 70 12 220 26"/>
           <path pathLength="100" d="M0 85 Q 90 64 220 88"/>
           <path pathLength="100" d="M0 140 Q 60 158 220 132"/>
         </svg>
         <div class="my-fruiting-top">
-          <h3 class="my-fruiting-name">Symbiont</h3>
-          <span class="my-fruiting-chip">12k samples</span>
+          <h3 class="my-fruiting-name">Pink Oyster</h3>
+          <span class="my-fruiting-chip">&#8377;240</span>
         </div>
-        <p class="my-fruiting-stack">Python &middot; Next.js &middot; PostgreSQL</p>
-        <p class="my-fruiting-line">&ldquo;A microbiome dashboard for researchers &mdash; every chart carries its exact parameters.&rdquo;</p>
-        <p class="my-fruiting-metric">12k samples in year one &middot; 3 labs &middot; 2 papers cite its export format</p>
+        <p class="my-fruiting-stack">200 g &middot; keeps 3 days</p>
+        <p class="my-fruiting-line">Bright coral when raw, golden when cooked, with a smoky edge people compare to bacon. Fragile, so we pick it last.</p>
+        <p class="my-fruiting-metric">Good for: frying crisp, tacos, on toast</p>
+        <div class="my-buy">
+          <div class="my-qty" role="group" aria-label="Quantity of Pink Oyster">
+            <button type="button" class="my-qty-btn" data-step="-1" aria-label="One less Pink Oyster">&minus;</button>
+            <output class="my-qty-val" aria-live="polite">0</output>
+            <button type="button" class="my-qty-btn" data-step="1" aria-label="One more Pink Oyster">+</button>
+          </div>
+          <button type="button" class="my-btn my-add">Add to basket</button>
+        </div>
       </article>
-
-      <article class="my-fruiting my-reveal" style="--i:2">
+      <article class="my-fruiting my-reveal" style="--i:2" data-product="lion">
         <svg class="my-fruiting-threads" viewBox="0 0 220 170" preserveAspectRatio="none" aria-hidden="true">
           <path pathLength="100" d="M0 30 Q 70 12 220 26"/>
           <path pathLength="100" d="M0 85 Q 90 64 220 88"/>
           <path pathLength="100" d="M0 140 Q 60 158 220 132"/>
         </svg>
         <div class="my-fruiting-top">
-          <h3 class="my-fruiting-name">Herbarium</h3>
-          <span class="my-fruiting-chip">93.7% top-3</span>
+          <h3 class="my-fruiting-name">Lion&rsquo;s Mane</h3>
+          <span class="my-fruiting-chip">&#8377;420</span>
         </div>
-        <p class="my-fruiting-stack">Python &middot; PyTorch &middot; Django &middot; PostGIS</p>
-        <p class="my-fruiting-line">&ldquo;Specimen identification for pressed plants &mdash; phone photos in, species and range shifts out.&rdquo;</p>
-        <p class="my-fruiting-metric">93.7% top-3 &middot; 5,800 specimens in 8 months &middot; 2 botany departments</p>
+        <p class="my-fruiting-stack">200 g &middot; keeps 6 days</p>
+        <p class="my-fruiting-line">A white, shaggy pom-pom that pulls apart like crab. Press it flat in a pan with butter until the edges brown.</p>
+        <p class="my-fruiting-metric">Good for: steaks, &ldquo;crab&rdquo; cakes, slow roasting</p>
+        <div class="my-buy">
+          <div class="my-qty" role="group" aria-label="Quantity of Lion&rsquo;s Mane">
+            <button type="button" class="my-qty-btn" data-step="-1" aria-label="One less Lion&rsquo;s Mane">&minus;</button>
+            <output class="my-qty-val" aria-live="polite">0</output>
+            <button type="button" class="my-qty-btn" data-step="1" aria-label="One more Lion&rsquo;s Mane">+</button>
+          </div>
+          <button type="button" class="my-btn my-add">Add to basket</button>
+        </div>
       </article>
-
-      <article class="my-fruiting my-reveal" style="--i:3">
+      <article class="my-fruiting my-reveal" style="--i:3" data-product="king">
         <svg class="my-fruiting-threads" viewBox="0 0 220 170" preserveAspectRatio="none" aria-hidden="true">
           <path pathLength="100" d="M0 30 Q 70 12 220 26"/>
           <path pathLength="100" d="M0 85 Q 90 64 220 88"/>
           <path pathLength="100" d="M0 140 Q 60 158 220 132"/>
         </svg>
         <div class="my-fruiting-top">
-          <h3 class="my-fruiting-name">Springline</h3>
-          <span class="my-fruiting-chip">87% seasonal</span>
+          <h3 class="my-fruiting-name">King Trumpet</h3>
+          <span class="my-fruiting-chip">&#8377;320</span>
         </div>
-        <p class="my-fruiting-stack">Python &middot; Pandas &middot; D3 &middot; PostGIS</p>
-        <p class="my-fruiting-line">&ldquo;Hydrology data that tells a story &mdash; six feeds, one forecast surface, three river basins.&rdquo;</p>
-        <p class="my-fruiting-metric">87% seasonal accuracy &middot; monsoon onset within 4 days &middot; 12 dashboards</p>
+        <p class="my-fruiting-stack">300 g &middot; keeps 8 days</p>
+        <p class="my-fruiting-line">Thick ivory stems with almost no cap. Slice into rounds, score them, and sear like scallops.</p>
+        <p class="my-fruiting-metric">Good for: grilling, skewers, slicing thin for pasta</p>
+        <div class="my-buy">
+          <div class="my-qty" role="group" aria-label="Quantity of King Trumpet">
+            <button type="button" class="my-qty-btn" data-step="-1" aria-label="One less King Trumpet">&minus;</button>
+            <output class="my-qty-val" aria-live="polite">0</output>
+            <button type="button" class="my-qty-btn" data-step="1" aria-label="One more King Trumpet">+</button>
+          </div>
+          <button type="button" class="my-btn my-add">Add to basket</button>
+        </div>
       </article>
-
-      <article class="my-fruiting my-reveal" style="--i:4">
+      <article class="my-fruiting my-reveal" style="--i:4" data-product="shiitake">
         <svg class="my-fruiting-threads" viewBox="0 0 220 170" preserveAspectRatio="none" aria-hidden="true">
           <path pathLength="100" d="M0 30 Q 70 12 220 26"/>
           <path pathLength="100" d="M0 85 Q 90 64 220 88"/>
           <path pathLength="100" d="M0 140 Q 60 158 220 132"/>
         </svg>
         <div class="my-fruiting-top">
-          <h3 class="my-fruiting-name">Ferry</h3>
-          <span class="my-fruiting-chip">99.1% delivery</span>
+          <h3 class="my-fruiting-name">Shiitake</h3>
+          <span class="my-fruiting-chip">&#8377;360</span>
         </div>
-        <p class="my-fruiting-stack">Go &middot; local relays &middot; E2E encryption</p>
-        <p class="my-fruiting-line">&ldquo;Offline-first messaging that always arrives &mdash; phones relay for each other, zero servers.&rdquo;</p>
-        <p class="my-fruiting-metric">99.1% same-day delivery &middot; 610 stars &middot; pilot village on phone relays</p>
+        <p class="my-fruiting-stack">250 g &middot; keeps 7 days</p>
+        <p class="my-fruiting-line">Grown on oak sawdust for eleven weeks, which is why it tastes like more than a mushroom. The stems make the best stock.</p>
+        <p class="my-fruiting-metric">Good for: broths, rice, anything simmered</p>
+        <div class="my-buy">
+          <div class="my-qty" role="group" aria-label="Quantity of Shiitake">
+            <button type="button" class="my-qty-btn" data-step="-1" aria-label="One less Shiitake">&minus;</button>
+            <output class="my-qty-val" aria-live="polite">0</output>
+            <button type="button" class="my-qty-btn" data-step="1" aria-label="One more Shiitake">+</button>
+          </div>
+          <button type="button" class="my-btn my-add">Add to basket</button>
+        </div>
       </article>
-
-      <article class="my-fruiting my-reveal" style="--i:5">
+      <article class="my-fruiting my-reveal" style="--i:5" data-product="chestnut">
         <svg class="my-fruiting-threads" viewBox="0 0 220 170" preserveAspectRatio="none" aria-hidden="true">
           <path pathLength="100" d="M0 30 Q 70 12 220 26"/>
           <path pathLength="100" d="M0 85 Q 90 64 220 88"/>
           <path pathLength="100" d="M0 140 Q 60 158 220 132"/>
         </svg>
         <div class="my-fruiting-top">
-          <h3 class="my-fruiting-name">Kelp</h3>
-          <span class="my-fruiting-chip">6 days early</span>
+          <h3 class="my-fruiting-name">Chestnut</h3>
+          <span class="my-fruiting-chip">&#8377;260</span>
         </div>
-        <p class="my-fruiting-stack">Python &middot; scikit-learn &middot; TimescaleDB &middot; Grafana</p>
-        <p class="my-fruiting-line">&ldquo;Early warning for coastal acidification &mdash; buoy streams, six days of lead time.&rdquo;</p>
-        <p class="my-fruiting-metric">91% precision at 48 h &middot; 40k readings/day &middot; 2 research stations</p>
+        <p class="my-fruiting-stack">250 g &middot; keeps 6 days</p>
+        <p class="my-fruiting-line">Small, firm and nutty, in tight clusters. It holds its bite through long cooking where others give up.</p>
+        <p class="my-fruiting-metric">Good for: risotto, curries, pickling</p>
+        <div class="my-buy">
+          <div class="my-qty" role="group" aria-label="Quantity of Chestnut">
+            <button type="button" class="my-qty-btn" data-step="-1" aria-label="One less Chestnut">&minus;</button>
+            <output class="my-qty-val" aria-live="polite">0</output>
+            <button type="button" class="my-qty-btn" data-step="1" aria-label="One more Chestnut">+</button>
+          </div>
+          <button type="button" class="my-btn my-add">Add to basket</button>
+        </div>
       </article>
-
+      <article class="my-fruiting my-reveal" style="--i:6" data-product="box">
+        <svg class="my-fruiting-threads" viewBox="0 0 220 170" preserveAspectRatio="none" aria-hidden="true">
+          <path pathLength="100" d="M0 30 Q 70 12 220 26"/>
+          <path pathLength="100" d="M0 85 Q 90 64 220 88"/>
+          <path pathLength="100" d="M0 140 Q 60 158 220 132"/>
+        </svg>
+        <div class="my-fruiting-top">
+          <h3 class="my-fruiting-name">The Mixed Box</h3>
+          <span class="my-fruiting-chip">&#8377;690</span>
+        </div>
+        <p class="my-fruiting-stack">900 g &middot; five kinds</p>
+        <p class="my-fruiting-line">Whatever is best that morning, chosen by the person who picked it. Comes with a card saying what each one is and what to do with it.</p>
+        <p class="my-fruiting-metric">Good for: a week of dinners for two</p>
+        <div class="my-buy">
+          <div class="my-qty" role="group" aria-label="Quantity of The Mixed Box">
+            <button type="button" class="my-qty-btn" data-step="-1" aria-label="One less The Mixed Box">&minus;</button>
+            <output class="my-qty-val" aria-live="polite">0</output>
+            <button type="button" class="my-qty-btn" data-step="1" aria-label="One more The Mixed Box">+</button>
+          </div>
+          <button type="button" class="my-btn my-add">Add to basket</button>
+        </div>
+      </article>
+      <article class="my-fruiting my-reveal" style="--i:7" data-product="kit">
+        <svg class="my-fruiting-threads" viewBox="0 0 220 170" preserveAspectRatio="none" aria-hidden="true">
+          <path pathLength="100" d="M0 30 Q 70 12 220 26"/>
+          <path pathLength="100" d="M0 85 Q 90 64 220 88"/>
+          <path pathLength="100" d="M0 140 Q 60 158 220 132"/>
+        </svg>
+        <div class="my-fruiting-top">
+          <h3 class="my-fruiting-name">Grow-at-home Kit</h3>
+          <span class="my-fruiting-chip">&#8377;550</span>
+        </div>
+        <p class="my-fruiting-stack">One block &middot; fruits twice</p>
+        <p class="my-fruiting-line">A colonised oyster block in a box. Cut a cross, mist it morning and night, and harvest in about ten days.</p>
+        <p class="my-fruiting-metric">Good for: children, windowsills, the curious</p>
+        <div class="my-buy">
+          <div class="my-qty" role="group" aria-label="Quantity of Grow-at-home Kit">
+            <button type="button" class="my-qty-btn" data-step="-1" aria-label="One less Grow-at-home Kit">&minus;</button>
+            <output class="my-qty-val" aria-live="polite">0</output>
+            <button type="button" class="my-qty-btn" data-step="1" aria-label="One more Grow-at-home Kit">+</button>
+          </div>
+          <button type="button" class="my-btn my-add">Add to basket</button>
+        </div>
+      </article>
+    </div>
+    <div class="my-basket my-reveal" id="myBasket" tabindex="-1">
+      <div class="my-basket-items">
+        <h3 class="my-basket-title">Your basket</h3>
+        <ul class="my-basket-list" id="myBasketList"></ul>
+        <p class="my-basket-empty" id="myBasketEmpty">Nothing in it yet. Add something from the harvest above.</p>
+      </div>
+      <div class="my-basket-sum">
+        <div class="my-field">
+          <label for="myCity">Deliver to</label>
+          <select class="my-input" id="myCity">
+            <option value="chd" data-fee="90">Chandigarh &middot; Wednesday or Saturday</option>
+            <option value="ncr" data-fee="140">Delhi NCR &middot; Wednesday or Saturday</option>
+            <option value="sml" data-fee="70">Shimla &middot; Wednesday or Saturday</option>
+            <option value="gate" data-fee="0">Pick up at the farm gate, Solan</option>
+          </select>
+        </div>
+        <dl class="my-sum-lines">
+          <div><dt>Mushrooms</dt><dd id="mySub">&#8377;0</dd></div>
+          <div><dt id="myFeeLabel">Delivery</dt><dd id="myFee">&#8377;0</dd></div>
+          <div class="my-sum-total"><dt>Total</dt><dd id="myTotal">&#8377;0</dd></div>
+        </dl>
+        <p class="my-basket-hint" id="myHint"></p>
+        <button type="button" class="my-btn my-btn-primary" id="myOrder" disabled>Place the order</button>
+        <p class="my-basket-status" id="myStatus" role="status" aria-live="polite"></p>
+      </div>
     </div>
   </section>
-
-  <!-- ============ ACHIEVEMENTS ============ -->
+  <!-- ============ KITCHEN NOTES ============ -->
   <section class="my-section my-achievements" data-node data-node-count="3">
     <div class="my-section-head my-reveal">
-      <span class="my-eyebrow">03 &middot; achievements</span>
-      <h2 class="my-title">Spores released into the network</h2>
+      <span class="my-eyebrow">03 &middot; kitchen notes</span>
+      <h2 class="my-title">Spores of advice, free with every box</h2>
     </div>
     <div class="my-spore-row my-reveal">
-      <div class="my-spore" style="--i:0"><span class="my-spore-idx">01</span><p class="my-spore-txt"><b>2.6k&#9733; Rhizome &mdash; flagship OSS</b><em>1,100 forks &middot; 30% node-churn survival</em></p></div>
-      <div class="my-spore" style="--i:1"><span class="my-spore-idx">02</span><p class="my-spore-txt"><b>176 OSS pull requests merged</b><em>31 first-time contributors mentored to merge</em></p></div>
-      <div class="my-spore" style="--i:2"><span class="my-spore-idx">03</span><p class="my-spore-txt"><b>2 maintained crates on crates.io</b><em>~1.1M downloads combined</em></p></div>
-      <div class="my-spore" style="--i:3"><span class="my-spore-idx">04</span><p class="my-spore-txt"><b>State Innovation Council 2024</b><em>Best Student Agri-Tech Innovation</em></p></div>
-      <div class="my-spore" style="--i:4"><span class="my-spore-idx">05</span><p class="my-spore-txt"><b>9,800+ GitHub stars</b><em>across 12 repos</em></p></div>
-      <div class="my-spore" style="--i:5"><span class="my-spore-idx">06</span><p class="my-spore-txt"><b>4 npm packages published</b><em>~320k combined weekly downloads</em></p></div>
-      <div class="my-spore" style="--i:6"><span class="my-spore-idx">07</span><p class="my-spore-txt"><b>GitHub Trending, 3&times; in 2024</b><em>featured projects across the year</em></p></div>
-      <div class="my-spore" style="--i:7"><span class="my-spore-idx">08</span><p class="my-spore-txt"><b>GitHub Star of the Week</b><em>Rhizome, Sep 2025</em></p></div>
-      <div class="my-spore" style="--i:8"><span class="my-spore-idx">09</span><p class="my-spore-txt"><b>Winner &mdash; Monsoon Hack Jaipur 2021</b><em>data-visualization track &middot; 180 teams</em></p></div>
-      <div class="my-spore" style="--i:9"><span class="my-spore-idx">10</span><p class="my-spore-txt"><b>Workshop paper &mdash; agri-sensor streams</b><em>Field Data Systems Workshop, 2023</em></p></div>
-      <div class="my-spore" style="--i:10"><span class="my-spore-idx">11</span><p class="my-spore-txt"><b>FOSS India &mdash; top contributors</b><em>featured list, 2025</em></p></div>
+      <div class="my-spore" style="--i:0"><span class="my-spore-idx">01</span><p class="my-spore-txt"><b>Do not wash them</b><em>A dry brush or a damp cloth. Water is what makes mushrooms slimy.</em></p></div>
+      <div class="my-spore" style="--i:1"><span class="my-spore-idx">02</span><p class="my-spore-txt"><b>Hot pan, then fat</b><em>Dry-fry for two minutes first so they brown before they stew.</em></p></div>
+      <div class="my-spore" style="--i:2"><span class="my-spore-idx">03</span><p class="my-spore-txt"><b>Do not crowd the pan</b><em>One layer, with gaps. Cook in two batches if you have to.</em></p></div>
+      <div class="my-spore" style="--i:3"><span class="my-spore-idx">04</span><p class="my-spore-txt"><b>Salt at the end</b><em>Salt early and they give up their water and boil in it.</em></p></div>
+      <div class="my-spore" style="--i:4"><span class="my-spore-idx">05</span><p class="my-spore-txt"><b>Paper bag, not plastic</b><em>In the fridge door, not the drawer. They need to breathe.</em></p></div>
+      <div class="my-spore" style="--i:5"><span class="my-spore-idx">06</span><p class="my-spore-txt"><b>Tear oysters by hand</b><em>Along the gills. Ragged edges catch more of the pan.</em></p></div>
+      <div class="my-spore" style="--i:6"><span class="my-spore-idx">07</span><p class="my-spore-txt"><b>Keep the stems</b><em>Shiitake and king trumpet stems make a stock in twenty minutes.</em></p></div>
+      <div class="my-spore" style="--i:7"><span class="my-spore-idx">08</span><p class="my-spore-txt"><b>Lion&rsquo;s mane likes a weight</b><em>Press it under a second pan for the first three minutes.</em></p></div>
+      <div class="my-spore" style="--i:8"><span class="my-spore-idx">09</span><p class="my-spore-txt"><b>Past their best?</b><em>Slice thin, dry in a low oven, and grind into a seasoning.</em></p></div>
+      <div class="my-spore" style="--i:9"><span class="my-spore-idx">10</span><p class="my-spore-txt"><b>They freeze, cooked</b><em>Fry first, cool, then freeze flat. Never freeze them raw.</em></p></div>
+      <div class="my-spore" style="--i:10"><span class="my-spore-idx">11</span><p class="my-spore-txt"><b>Sunlight helps</b><em>Twenty minutes gills-up on a windowsill raises their vitamin D.</em></p></div>
     </div>
   </section>
-
-  <!-- ============ EXPERIENCE + SKILLS ============ -->
-  <section class="my-section my-growth" data-node data-node-count="3">
+  <!-- ============ HOW IT GROWS ============ -->
+  <section class="my-section my-growth" id="myFarm" data-node data-node-count="3">
     <div class="my-section-head my-reveal">
-      <span class="my-eyebrow">04 &middot; experience</span>
+      <span class="my-eyebrow">04 &middot; how it grows</span>
       <h2 class="my-title">Growth rings</h2>
     </div>
     <div class="my-rings">
       <div class="my-ring my-reveal">
-        <h3 class="my-ring-role">Field Data Intern &mdash; Tallgrass Analytics <span class="my-ring-meta">(agri-climate data) &middot; Jun&ndash;Aug 2021</span></h3>
-        <p class="my-ring-desc">Built the sensor-ingestion path 40+ farm trials run on; caught 3 faulty probe batches before they poisoned a season&rsquo;s model.</p>
+        <h3 class="my-ring-role">Day 0 &mdash; The substrate <span class="my-ring-meta">(wheat straw and oak sawdust)</span></h3>
+        <p class="my-ring-desc">Straw from farms in the valley is chopped, soaked and steamed for six hours to clear out everything that is not a mushroom.</p>
       </div>
       <div class="my-ring my-reveal" style="--i:1">
-        <h3 class="my-ring-role">Data Engineer (contract) &mdash; Larkspur Bio <span class="my-ring-meta">(bioinformatics) &middot; Aug&ndash;Dec 2024</span></h3>
-        <p class="my-ring-desc">Built the pipeline behind Symbiont &mdash; 12k microbiome samples in year one; cut pipeline cost 44% with caching, not hardware.</p>
+        <h3 class="my-ring-role">Day 1 &mdash; Inoculation <span class="my-ring-meta">(grain spawn, mixed in by hand)</span></h3>
+        <p class="my-ring-desc">We fold in spawn raised in our own lab, bag it, and move the blocks to a dark room held at twenty-four degrees.</p>
       </div>
       <div class="my-ring my-reveal" style="--i:2">
-        <h3 class="my-ring-role">Open Source Maintainer <span class="my-ring-meta">&middot; 2021 &ndash; now</span></h3>
-        <p class="my-ring-desc">Flagships Harpoon (3.2k&#9733;) and Rhizome (2.6k&#9733;); 176 PRs merged, 31 first-time contributors mentored to merge.</p>
+        <h3 class="my-ring-role">Days 2 to 21 &mdash; The run <span class="my-ring-meta">(nothing to see, everything happening)</span></h3>
+        <p class="my-ring-desc">The mycelium threads through the block until the whole thing turns white. We check it and otherwise leave it alone.</p>
       </div>
       <div class="my-ring my-reveal" style="--i:3">
-        <h3 class="my-ring-role">Data Lead (contract) &mdash; Peregrine Deep <span class="my-ring-meta">(ocean data) &middot; Apr 2025&ndash;Jan 2026</span></h3>
-        <p class="my-ring-desc">Shipped Kelp: pH warnings 6 days early, 91% precision at 48 h; integrated Atlas offline maps for survey teams.</p>
+        <h3 class="my-ring-role">Days 22 to 26 &mdash; Pinning <span class="my-ring-meta">(cold air, light and mist)</span></h3>
+        <p class="my-ring-desc">A drop to sixteen degrees and a little daylight tells the block it is autumn. Pins the size of match heads appear overnight.</p>
       </div>
       <div class="my-ring my-reveal" style="--i:4">
-        <h3 class="my-ring-role">Network Engineer (contract) &mdash; Fernbank Networks <span class="my-ring-meta">(rural connectivity) &middot; Sep 2025 &ndash; now</span></h3>
-        <p class="my-ring-desc">Tuned the Ferry relay for a pilot village &mdash; 99.1% same-day delivery; battery-budget guide doubled field-device lifetime.</p>
+        <h3 class="my-ring-role">Days 27 to 30 &mdash; Harvest <span class="my-ring-meta">(picked at five in the morning)</span></h3>
+        <p class="my-ring-desc">They double in size every day. We pick by hand at dawn, pack in paper, and the van leaves for the plains at eight.</p>
       </div>
     </div>
-
     <div class="my-section-head my-reveal" style="--i:1">
-      <span class="my-eyebrow">05 &middot; skills</span>
+      <span class="my-eyebrow">05 &middot; the numbers</span>
       <h2 class="my-title">Enzymes</h2>
     </div>
     <div class="my-enzymes">
       <div class="my-enzyme my-reveal">
-        <h3 class="my-enzyme-name">Languages</h3>
-        <div class="my-skillbar"><span class="my-skillbar-name">TypeScript</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.95;--i:0"></span></span><span class="my-skillbar-val">95</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">Python</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.92;--i:1"></span></span><span class="my-skillbar-val">92</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">C++</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.80;--i:2"></span></span><span class="my-skillbar-val">80</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">Rust</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.78;--i:3"></span></span><span class="my-skillbar-val">78</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">Go</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.68;--i:4"></span></span><span class="my-skillbar-val">68</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">SQL</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.88;--i:5"></span></span><span class="my-skillbar-val">88</span></div>
+        <h3 class="my-enzyme-name">Left from this week&rsquo;s harvest</h3>
+        <div class="my-skillbar"><span class="my-skillbar-name">Grey Oyster</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.72;--i:0"></span></span><span class="my-skillbar-val">72%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Pink Oyster</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.18;--i:1"></span></span><span class="my-skillbar-val">18%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Lion&rsquo;s Mane</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.35;--i:2"></span></span><span class="my-skillbar-val">35%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">King Trumpet</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.64;--i:3"></span></span><span class="my-skillbar-val">64%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Shiitake</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.51;--i:4"></span></span><span class="my-skillbar-val">51%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Chestnut</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.88;--i:5"></span></span><span class="my-skillbar-val">88%</span></div>
       </div>
       <div class="my-enzyme my-reveal" style="--i:1">
-        <h3 class="my-enzyme-name">AI / ML</h3>
-        <div class="my-skillbar"><span class="my-skillbar-name">PyTorch</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.88;--i:0"></span></span><span class="my-skillbar-val">88</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">TensorFlow Lite</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.84;--i:1"></span></span><span class="my-skillbar-val">84</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">LangChain</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.90;--i:2"></span></span><span class="my-skillbar-val">90</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">RAG systems</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.92;--i:3"></span></span><span class="my-skillbar-val">92</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">LoRA fine-tuning</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.85;--i:4"></span></span><span class="my-skillbar-val">85</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">ONNX + WebGPU</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.80;--i:5"></span></span><span class="my-skillbar-val">80</span></div>
+        <h3 class="my-enzyme-name">Fruiting room 2, right now</h3>
+        <div class="my-skillbar"><span class="my-skillbar-name">Humidity</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.91;--i:0"></span></span><span class="my-skillbar-val">91%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Fresh air exchange</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.70;--i:1"></span></span><span class="my-skillbar-val">70%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Light, of full daylight</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.12;--i:2"></span></span><span class="my-skillbar-val">12%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Blocks in fruit</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.58;--i:3"></span></span><span class="my-skillbar-val">58%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Blocks pinning</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.27;--i:4"></span></span><span class="my-skillbar-val">27%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Blocks resting</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.15;--i:5"></span></span><span class="my-skillbar-val">15%</span></div>
       </div>
       <div class="my-enzyme my-reveal" style="--i:2">
-        <h3 class="my-enzyme-name">Web / Creative</h3>
-        <div class="my-skillbar"><span class="my-skillbar-name">React</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.94;--i:0"></span></span><span class="my-skillbar-val">94</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">Next.js</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.90;--i:1"></span></span><span class="my-skillbar-val">90</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">Node.js</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.90;--i:2"></span></span><span class="my-skillbar-val">90</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">Three.js</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.86;--i:3"></span></span><span class="my-skillbar-val">86</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">WebGL</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.78;--i:4"></span></span><span class="my-skillbar-val">78</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">CSS motion</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.92;--i:5"></span></span><span class="my-skillbar-val">92</span></div>
+        <h3 class="my-enzyme-name">In 100 g of oyster, of a day&rsquo;s need</h3>
+        <div class="my-skillbar"><span class="my-skillbar-name">Niacin (B3)</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.31;--i:0"></span></span><span class="my-skillbar-val">31%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Riboflavin (B2)</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.27;--i:1"></span></span><span class="my-skillbar-val">27%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Pantothenic acid (B5)</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.26;--i:2"></span></span><span class="my-skillbar-val">26%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Potassium</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.09;--i:3"></span></span><span class="my-skillbar-val">9%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Fibre</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.08;--i:4"></span></span><span class="my-skillbar-val">8%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Protein</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.07;--i:5"></span></span><span class="my-skillbar-val">7%</span></div>
       </div>
       <div class="my-enzyme my-reveal" style="--i:3">
-        <h3 class="my-enzyme-name">Systems / Cloud</h3>
-        <div class="my-skillbar"><span class="my-skillbar-name">Docker</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.84;--i:0"></span></span><span class="my-skillbar-val">84</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">Kubernetes</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.70;--i:1"></span></span><span class="my-skillbar-val">70</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">PostgreSQL</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.88;--i:2"></span></span><span class="my-skillbar-val">88</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">Redis</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.85;--i:3"></span></span><span class="my-skillbar-val">85</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">AWS</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.78;--i:4"></span></span><span class="my-skillbar-val">78</span></div>
-        <div class="my-skillbar"><span class="my-skillbar-name">Vercel</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:.90;--i:5"></span></span><span class="my-skillbar-val">90</span></div>
+        <h3 class="my-enzyme-name">Where a spent block goes</h3>
+        <div class="my-skillbar"><span class="my-skillbar-name">Apple orchards as mulch</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.62;--i:0"></span></span><span class="my-skillbar-val">62%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Our own compost</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.24;--i:1"></span></span><span class="my-skillbar-val">24%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Neighbours&rsquo; kitchen gardens</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.11;--i:2"></span></span><span class="my-skillbar-val">11%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Grow-at-home kits</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.03;--i:3"></span></span><span class="my-skillbar-val">3%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Landfill</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:0.00;--i:4"></span></span><span class="my-skillbar-val">0%</span></div>
+        <div class="my-skillbar"><span class="my-skillbar-name">Reused in some form</span><span class="my-skillbar-track"><span class="my-skillbar-fill" style="--w:1.00;--i:5"></span></span><span class="my-skillbar-val">100%</span></div>
       </div>
     </div>
   </section>
-
-  <!-- ============ CONTRIBUTIONS STRIP ============ -->
+  <!-- ============ WEEKLY LIST ============ -->
   <section class="my-section my-contributions" data-node data-node-count="2">
     <div class="my-section-head my-reveal">
-      <span class="my-eyebrow">06 &middot; contributions</span>
+      <span class="my-eyebrow">06 &middot; the weekly list</span>
       <h2 class="my-title">Network traffic</h2>
     </div>
     <div class="my-con-chips">
-      <span class="my-con-chip my-reveal" style="--i:0"><b>176 PRs merged across 12 repos</b> &middot; 9,800&#9733; combined across the network</span>
-      <span class="my-con-chip my-reveal" style="--i:1"><b>Rhizome + Harpoon flagships</b> (2.6k&#9733; + 3.2k&#9733;) &middot; 2 maintained crates, ~1.1M downloads</span>
-      <span class="my-con-chip my-reveal" style="--i:2"><b>31 students mentored</b> to first merged PR &middot; 46 projects shipped end-to-end</span>
-      <span class="my-con-chip my-reveal" style="--i:3">OSS footprints: <b>GitHub</b> &middot; <b>crates.io</b> &middot; <b>npm</b> (4 published packages, ~320k weekly downloads)</span>
+      <span class="my-con-chip my-reveal" style="--i:0"><b>A Mixed Box every week</b> &middot; &#8377;620 instead of &#8377;690, skip any week by Monday night</span>
+      <span class="my-con-chip my-reveal" style="--i:1"><b>Every other week</b> &middot; &#8377;650, for households of one or two</span>
+      <span class="my-con-chip my-reveal" style="--i:2"><b>Restaurants</b> &middot; standing orders from 3 kg, grown to the size and stage you ask for</span>
+      <span class="my-con-chip my-reveal" style="--i:3">Farm visits: <b>Saturdays at 10 am</b> &middot; free, twelve people, wear something warm</span>
     </div>
   </section>
-
-  <!-- ============ RATINGS STRIP ============ -->
+  <!-- ============ SIGNALS ============ -->
   <section class="my-section my-ratings" data-node data-node-count="2">
     <div class="my-section-head my-reveal">
-      <span class="my-eyebrow">07 &middot; ratings</span>
+      <span class="my-eyebrow">07 &middot; what people say</span>
       <h2 class="my-title">Signals from the network</h2>
     </div>
     <div class="my-rating-chips">
-      <span class="my-rating-chip my-reveal" style="--i:0"><b>4.9&#9733;</b> Rhizome (2.6k stars, 1,100 forks)</span>
-      <span class="my-rating-chip my-reveal" style="--i:1"><b>93.7%</b> Herbarium top-3 accuracy (5,800 specimens)</span>
-      <span class="my-rating-chip my-reveal" style="--i:2"><b>99.1%</b> Ferry same-day delivery (pilot village)</span>
-      <span class="my-rating-chip my-reveal" style="--i:3"><b>6 days</b> Kelp early warning (91% precision at 48 h)</span>
-      <span class="my-rating-chip my-reveal" style="--i:4"><b>87%</b> Springline monsoon accuracy (3 river basins)</span>
+      <span class="my-rating-chip my-reveal" style="--i:0"><b>4.8&#9733;</b> from 2,900 orders rated</span>
+      <span class="my-rating-chip my-reveal" style="--i:1"><b>71%</b> of first orders become a second</span>
+      <span class="my-rating-chip my-reveal" style="--i:2"><b>98.6%</b> of boxes arrive on the promised day</span>
+      <span class="my-rating-chip my-reveal" style="--i:3"><b>36 hours</b> is the longest a mushroom waits</span>
+      <span class="my-rating-chip my-reveal" style="--i:4"><b>&#8377;0</b> charged if a box arrives less than perfect</span>
     </div>
   </section>
-
   <!-- ============ CONTACT ============ -->
   <section class="my-section my-contact" id="myContact" data-node data-node-count="3">
     <div class="my-section-head my-reveal">
-      <span class="my-eyebrow">08 &middot; contact</span>
+      <span class="my-eyebrow">08 &middot; write to the farm</span>
       <h2 class="my-title">Drop a seed</h2>
     </div>
     <div class="my-contact-grid">
-      <form class="my-seed-form my-reveal" id="mySeedForm" action="mailto:garvit9829@gmail.com" method="post" enctype="text/plain">
+      <form class="my-seed-form my-reveal" id="mySeedForm" novalidate>
         <div class="my-field">
           <label for="my-name">Name</label>
           <input class="my-input" id="my-name" name="my-name" type="text" placeholder="Your name" required>
@@ -848,30 +986,28 @@ textarea.my-input{min-height:132px;resize:vertical;line-height:1.55}
         </div>
         <div class="my-field">
           <label for="my-message">Message</label>
-          <textarea class="my-input" id="my-message" name="my-message" placeholder="What should we grow together?" required></textarea>
+          <textarea class="my-input" id="my-message" name="my-message" placeholder="A restaurant order, a farm visit, a mushroom you cannot find&hellip;" required></textarea>
         </div>
         <button class="my-btn my-btn-primary" type="submit">Send the seed</button>
-        <p class="my-form-note">Zero backend &mdash; submitting opens your mail app with the message pre-filled.</p>
+        <p class="my-form-note" id="myFormNote" role="status" aria-live="polite">Someone on the farm reads every message, usually after the morning pick.</p>
       </form>
       <div class="my-links">
-        <a class="my-link my-reveal" style="--i:0" href="mailto:garvit9829@gmail.com"><span>Email</span><b>garvit9829@gmail.com</b></a>
-        <a class="my-link my-reveal" style="--i:1" href="tel:+918905402023"><span>Phone</span><b>+91-8905402023</b></a>
-        <a class="my-link my-reveal" style="--i:2" href="https://github.com/garvit-pandia" target="_blank" rel="noopener"><span>GitHub</span><b>github.com/garvit-pandia</b></a>
-        <a class="my-link my-reveal" style="--i:3" href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener"><span>LinkedIn</span><b>linkedin.com/in/garvit-pandia/</b></a>
-        <a class="my-link my-reveal" style="--i:4" href="./Garvit_Pandia_Resume.pdf" target="_blank" rel="noopener"><span>Resume</span><b>Garvit_Pandia_Resume.pdf</b></a>
+        <a class="my-link my-reveal" style="--i:0" href="#myContact"><span>Farm</span><b>Old Apple Store, Barog Road, Solan</b></a>
+        <a class="my-link my-reveal" style="--i:1" href="mailto:hello@dhingri.example"><span>Email</span><b>hello@dhingri.example</b></a>
+        <a class="my-link my-reveal" style="--i:2" href="#myShop"><span>Orders close</span><b>Monday and Thursday, 8 pm</b></a>
+        <a class="my-link my-reveal" style="--i:3" href="#myContact"><span>Farm gate</span><b>Open daily, 8 am to 1 pm</b></a>
+        <a class="my-link my-reveal" style="--i:4" href="#myFarm"><span>Visits</span><b>Saturdays at 10 am, free</b></a>
       </div>
       <div class="my-contact-extra">
-        <a class="my-btn my-btn-primary my-reveal" href="./Garvit_Pandia_Resume.pdf" download>Download resume (PDF)</a>
+        <a class="my-btn my-btn-primary my-reveal" href="#myShop">Back to the harvest</a>
       </div>
     </div>
   </section>
-
 </main>
-
 <footer class="my-footer">
-  <p>&copy; 2026 Garvit Pandia &middot; grown, not built &middot; Dehradun, Uttarakhand, India &middot; <a href="mailto:garvit9829@gmail.com">garvit9829@gmail.com</a></p>
+  <p>&copy; 2026 Dhingri &amp; Co. &middot; grown, not made &middot; Solan, Himachal Pradesh</p>
+  <p class="my-concept">Dhingri &amp; Co. is a fictional farm. Concept site designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a> &middot; <a href="../index.html">Back to the gallery</a></p>
 </footer>
-
 <script>
 (function () {
   'use strict';
@@ -1161,9 +1297,10 @@ textarea.my-input{min-height:132px;resize:vertical;line-height:1.55}
       var name = String(fd.get('my-name') || '').trim();
       var email = String(fd.get('my-email') || '').trim();
       var msg = String(fd.get('my-message') || '').trim();
-      var subject = 'Seed from ' + (name || 'a visitor') + (email ? ' (' + email + ')' : '');
-      var body = (msg || 'Hello Garvit,') + '\n\n\u2014 ' + (name || 'anonymous') + (email ? '\n' + email : '');
-      window.location.href = 'mailto:garvit9829@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      if (!name || !msg) { return; }
+      form.reset();
+      var note = document.getElementById('myFormNote');
+      if (note) { note.textContent = 'Thank you, ' + name + '. This is a concept site, so the message was not sent anywhere.'; }
     });
   }
 
@@ -1206,6 +1343,82 @@ textarea.my-input{min-height:132px;resize:vertical;line-height:1.55}
   }
 
   init();
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var CAT = {"oyster": {"n": "Grey Oyster", "p": 180}, "pink": {"n": "Pink Oyster", "p": 240}, "lion": {"n": "Lion’s Mane", "p": 420}, "king": {"n": "King Trumpet", "p": 320}, "shiitake": {"n": "Shiitake", "p": 360}, "chestnut": {"n": "Chestnut", "p": 260}, "box": {"n": "The Mixed Box", "p": 690}, "kit": {"n": "Grow-at-home Kit", "p": 550}};
+  var FREE = 1200, KEY = 'dhingri-basket-v1';
+  var $ = function (id) { return document.getElementById(id); };
+  var listEl = $('myBasketList'), emptyEl = $('myBasketEmpty'), subEl = $('mySub'), feeEl = $('myFee'), totalEl = $('myTotal');
+  var hintEl = $('myHint'), orderEl = $('myOrder'), statusEl = $('myStatus'), cityEl = $('myCity'), fab = $('myFab'), fabCount = $('myFabCount');
+  if (!listEl) { return; }
+  var basket = {};
+  try { var saved = JSON.parse(localStorage.getItem(KEY) || '{}'); for (var k in saved) { if (CAT[k] && saved[k] > 0) { basket[k] = Math.min(20, saved[k] | 0); } } } catch (e) {}
+  function rupees(n) { return '\u20B9' + n.toLocaleString('en-IN'); }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(basket)); } catch (e) {} }
+
+  function render() {
+    var sub = 0, count = 0;
+    listEl.innerHTML = '';
+    Object.keys(CAT).forEach(function (id) {
+      var q = basket[id] || 0;
+      var card = document.querySelector('[data-product="' + id + '"]');
+      if (card) { card.setAttribute('data-in', q ? '1' : '0'); }
+      if (!q) { return; }
+      sub += q * CAT[id].p; count += q;
+      var li = document.createElement('li');
+      var n = document.createElement('span'); n.textContent = CAT[id].n;
+      var c = document.createElement('span'); c.className = 'my-li-n'; c.textContent = '\u00D7 ' + q;
+      var p = document.createElement('span'); p.className = 'my-li-p'; p.textContent = rupees(q * CAT[id].p);
+      var rm = document.createElement('button'); rm.type = 'button'; rm.textContent = 'Remove'; rm.setAttribute('aria-label', 'Remove ' + CAT[id].n); rm.dataset.rm = id;
+      li.appendChild(n); li.appendChild(c); li.appendChild(p); li.appendChild(rm); listEl.appendChild(li);
+    });
+    emptyEl.hidden = count > 0;
+    var opt = cityEl.options[cityEl.selectedIndex], base = +opt.getAttribute('data-fee');
+    var fee = count === 0 ? 0 : (sub >= FREE ? 0 : base);
+    subEl.textContent = rupees(sub);
+    feeEl.textContent = count && fee === 0 ? 'Free' : rupees(fee);
+    totalEl.textContent = rupees(sub + fee);
+    if (!count) { hintEl.textContent = ''; }
+    else if (base === 0) { hintEl.textContent = 'Ready at the gate from 8 am on pick days.'; }
+    else if (sub >= FREE) { hintEl.textContent = 'Delivery is on us.'; }
+    else { hintEl.textContent = rupees(FREE - sub) + ' more for free delivery.'; }
+    orderEl.disabled = count === 0;
+    fabCount.textContent = count;
+    fab.setAttribute('aria-label', 'Basket, ' + count + (count === 1 ? ' item' : ' items'));
+  }
+  function bump() { fab.classList.remove('my-bump'); void fab.offsetWidth; fab.classList.add('my-bump'); }
+
+  document.querySelector('.my-project-grid').addEventListener('click', function (ev) {
+    var card = ev.target.closest('[data-product]'); if (!card) { return; }
+    var out = card.querySelector('.my-qty-val'), step = ev.target.closest('[data-step]'), add = ev.target.closest('.my-add');
+    var q = parseInt(out.textContent, 10) || 0;
+    if (step) { q = Math.max(0, Math.min(20, q + (+step.getAttribute('data-step')))); out.textContent = q; }
+    if (add) {
+      var id = card.getAttribute('data-product'), n = q || 1;
+      basket[id] = Math.min(20, (basket[id] || 0) + n);
+      out.textContent = 0; statusEl.textContent = '';
+      add.classList.add('my-added'); add.textContent = 'Added \u2713';
+      setTimeout(function () { add.classList.remove('my-added'); add.textContent = 'Add to basket'; }, 1400);
+      save(); render(); bump();
+    }
+  });
+  listEl.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-rm]'); if (!b) { return; }
+    delete basket[b.dataset.rm]; save(); render();
+  });
+  cityEl.addEventListener('change', render);
+  orderEl.addEventListener('click', function () {
+    var count = 0; for (var k in basket) { count += basket[k]; }
+    if (!count) { return; }
+    var where = cityEl.options[cityEl.selectedIndex].textContent.split('\u00B7')[0].trim();
+    var total = totalEl.textContent;
+    basket = {}; save(); render();
+    statusEl.textContent = 'Order noted: ' + count + (count === 1 ? ' pack' : ' packs') + ', ' + total + ', ' + where + '. This is a concept site, so nothing was charged and no mushrooms are on their way.';
+  });
+  render();
 })();
 </script>
 </body>

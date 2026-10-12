@@ -1,0 +1,32 @@
+# Vercel serves the gallery and the six concept sites only.
+# Working notes, old briefs and the older portfolio experiments stay out of the deployment.
+/.hermes
+/.superpowers
+/docs
+/parts
+/AGENTS.md
+/HANDOFF.md
+/README.md
+/STATUS.md
+*.pdf
+
+/v1-light
+/v2-dark
+/v3-wild
+/v4-brutalist
+/v6-scrollstory
+/v7-voxel
+/v9-ghostware
+/v11-event-horizon
+/v14-signal
+/v15-transit-map
+/v17-strata
+/v18-optical-bench
+
+/shots/*
+!/shots/v5-glass.png
+!/shots/v8-abyss.png
+!/shots/v10-typevolt.png
+!/shots/v12-mycelium.png
+!/shots/v13-origami-aurum.png
+!/shots/v16-black-box.png

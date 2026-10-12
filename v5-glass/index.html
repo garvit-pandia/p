@@ -3,21 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Garvit Pandia — Systems that hold, interfaces that teach</title>
-<meta name="description" content="Portfolio of Garvit Pandia — design engineer building legible interfaces: glassmorphism design systems that hold WCAG AA, handoff tools that end the guessing.">
+<title>Kanch — Invoicing you can see through, for small businesses in India</title>
+<meta name="description" content="Kanch is invoicing software for freelancers, shops and studios. A GST-ready invoice in under a minute, a payment link on every one, and books your accountant can see straight through.">
 <meta name="theme-color" content="#0b0d2a">
 <!-- OG / social -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Garvit Pandia — Systems that hold, interfaces that teach">
-<meta property="og:description" content="Design engineer — design systems with contrast math built in, and handoff tools that end the guessing.">
-<meta property="og:url" content="https://github.com/garvit-pandia">
-<meta property="og:image" content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&auto=format&fit=crop">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Kanch — Invoicing you can see through">
+<meta property="og:description" content="A GST-ready invoice in under a minute, a payment link on every one, and a price that fits how many you send.">
+<meta name="twitter:card" content="summary">
 <!-- Inline SVG favicon: gradient circle -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236be8ff'/%3E%3Cstop offset='.5' stop-color='%23a78bff'/%3E%3Cstop offset='1' stop-color='%23ff7a6b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <!-- Three.js via import map (jsdelivr sends ACAO:*, works from file://) -->
 <script type="importmap">
@@ -356,6 +353,64 @@ footer{position:relative;z-index:2;padding:90px 0 46px}
   .sky{animation:none}
   .reveal{opacity:1;transform:none;filter:none}
 }
+/* the decorative glow orbs hang past the right edge; keep them from adding a sideways scroll */
+main{overflow-x:clip}
+/* ================= mock screens, pricing ================= */
+.kn-mock{background:linear-gradient(150deg,rgba(107,232,255,.16),rgba(167,139,255,.14) 55%,rgba(255,122,107,.14));display:grid;place-items:center;padding:16px}
+.kn-mock::after{background:none}
+.kn-inv,.kn-feed{width:min(100%,330px);background:rgba(11,13,42,.72);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:12px;color:var(--txt-2);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 18px 40px rgba(2,4,32,.5)}
+.kn-inv-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--txt)}
+.kn-line{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line-soft)}
+.kn-line span:last-child{font-family:var(--mono);color:var(--txt);white-space:nowrap}
+.kn-tax{color:var(--txt-3)}
+.kn-total{border-bottom:0;font-weight:700;color:var(--txt);font-size:13.5px}
+.kn-pay{margin-top:8px;text-align:center;padding:8px;border-radius:10px;background:var(--grad);color:#0b0d2a;font-weight:700;font-size:12px}
+.kn-pill{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.kn-due{background:rgba(255,217,122,.16);color:var(--gold)}
+.kn-paid{background:rgba(107,232,255,.16);color:var(--cyan)}
+.kn-over{background:rgba(255,122,107,.18);color:var(--coral)}
+.kn-row{display:grid;grid-template-columns:8px 1fr auto auto;gap:9px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line-soft)}
+.kn-row b{font-family:var(--mono);font-weight:500;color:var(--txt)}
+.kn-dot{width:8px;height:8px;border-radius:50%}
+.kn-ok{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}.kn-wait{background:var(--gold)}.kn-late{background:var(--coral);box-shadow:0 0 8px var(--coral)}
+.kn-bar{height:6px;border-radius:6px;background:var(--line-soft);margin-top:12px;overflow:hidden}
+.kn-bar span{display:block;height:100%;background:var(--grad)}
+.kn-cap{margin-top:6px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--txt-3)}
+.kn-price{margin-top:44px;padding:26px 28px}
+.kn-ctl{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end}
+.kn-slider label{display:flex;justify-content:space-between;align-items:baseline;gap:14px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt-2)}
+.kn-slider label b{font-family:var(--font);font-size:2.2rem;font-weight:800;letter-spacing:-.02em;color:var(--txt);font-variant-numeric:tabular-nums;text-transform:none}
+#kn-vol{width:100%;height:44px;margin:4px 0 0;background:transparent;accent-color:#a78bff;cursor:pointer}
+#kn-vol:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:8px}
+.kn-ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-3)}
+.kn-toggle{display:inline-flex;padding:4px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.05)}
+.kn-seg{min-height:44px;padding:0 18px;border:0;border-radius:999px;background:transparent;color:var(--txt-2);font-family:var(--font);font-size:13.5px;font-weight:600;cursor:pointer;transition:background .25s,color .25s;white-space:nowrap}
+.kn-seg em{font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--gold);margin-left:6px}
+.kn-seg[aria-pressed="true"]{background:var(--grad);color:#0b0d2a}
+.kn-seg[aria-pressed="true"] em{color:#0b0d2a}
+.kn-seg:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.kn-advice{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft);font-size:1rem;color:var(--txt);min-height:3.2em;line-height:1.55}
+.kn-advice b{color:var(--cyan)}
+.kn-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px}
+.kn-plan{padding:26px 24px 24px;display:flex;flex-direction:column;position:relative;transition:transform .4s,border-color .4s,box-shadow .4s,opacity .4s}
+.kn-plan h3{font-size:1.5rem;font-weight:800;letter-spacing:-.02em}
+.kn-for{color:var(--txt-3);font-size:13.5px;margin:4px 0 18px}
+.kn-amt{display:flex;align-items:baseline;gap:10px;margin-bottom:18px}
+.kn-amt b{font-size:2.6rem;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.kn-per{font-family:var(--mono);font-size:11.5px;color:var(--txt-3);letter-spacing:.06em}
+.kn-plan ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin:0 0 24px;padding:0;font-size:14px;color:var(--txt-2)}
+.kn-plan li{padding-left:22px;position:relative}
+.kn-plan li::before{content:'';position:absolute;left:0;top:.5em;width:10px;height:5px;border-left:2px solid var(--cyan);border-bottom:2px solid var(--cyan);transform:rotate(-45deg)}
+.kn-plan .btn{margin-top:auto;justify-content:center;text-align:center}
+.kn-badge{position:absolute;top:-12px;left:24px;padding:4px 12px;border-radius:999px;background:var(--grad);color:#0b0d2a;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s}
+.kn-plan.kn-fit{border-color:rgba(107,232,255,.7);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 0 0 1px rgba(107,232,255,.35),0 30px 70px rgba(107,232,255,.16)}
+.kn-plan.kn-fit .kn-badge{opacity:1;transform:none}
+.kn-plan.kn-small{opacity:.55}
+.kn-concept{margin-top:18px;text-align:center;font-size:12.5px;color:var(--txt-3);line-height:1.6}
+.kn-concept a{color:var(--cyan);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:900px){.kn-plans{grid-template-columns:1fr}.kn-ctl{grid-template-columns:1fr}.kn-toggle{justify-self:start}}
+@media (max-width:420px){.kn-price{padding:20px 16px}.kn-seg{padding:0 12px;font-size:12.5px}.kn-row{grid-template-columns:8px 1fr auto;}.kn-row .kn-pill{grid-column:2/-1;justify-self:start}}
+@media (prefers-reduced-motion:reduce){.kn-plan,.kn-badge,.kn-seg{transition:none}}
 </style>
 <style>
 /* ============================================================
@@ -713,17 +768,17 @@ html.gh-js .sec-title.gh-in{opacity:1; transform:none}
 
 <!-- ================= NAV ================= -->
 <header class="nav" role="banner">
-  <a class="wordmark" href="#hero">GARVIT<b class="grad">&nbsp;PANDIA</b></a>
+  <a class="wordmark" href="#hero">KANCH<b class="grad">&nbsp;INVOICING</b></a>
   <nav aria-label="Primary">
     <ul class="nav-links">
-      <li><a href="#about">about</a></li>
-      <li><a href="#projects">projects</a></li>
-      <li><a href="#skills">skills</a></li>
-      <li><a href="#education">education</a></li>
+      <li><a href="#about">product</a></li>
+      <li><a href="#projects">features</a></li>
+      <li><a href="#pricing">pricing</a></li>
+      <li><a href="#skills">works with</a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
   </nav>
-  <a class="btn btn-ghost" href="Garvit_Pandia_Resume.pdf" download>↧ Resume</a>
+  <a class="btn btn-ghost" href="#pricing">Start free</a>
 </header>
 
 <main>
@@ -731,177 +786,251 @@ html.gh-js .sec-title.gh-in{opacity:1; transform:none}
   <section id="hero" aria-label="Intro">
     <canvas id="hero-scene" aria-hidden="true"></canvas>
     <div class="hero-left container">
-      <p class="hero-tag"><span class="dot"></span>PORTFOLIO — 2026</p>
-      <h1 class="hero-name">GARVIT<br><span class="grad">PANDIA</span></h1>
-      <p class="hero-sub">Design engineer building interfaces that stay legible through the glass. Design systems with contrast math built in; handoff tools that end the guessing.</p>
+      <p class="hero-tag"><span class="dot"></span>INVOICING — MADE CLEAR</p>
+      <h1 class="hero-name">GET PAID<br><span class="grad">CLEARLY</span></h1>
+      <p class="hero-sub">Kanch is invoicing for freelancers, shops and small studios. A GST-ready invoice in under a minute, a payment link on every one, and books your accountant can see straight through.</p>
       <div class="hero-cta">
-        <a class="btn btn-solid" href="#projects">view work</a>
-        <a class="btn btn-ghost" href="Garvit_Pandia_Resume.pdf" download>download resume</a>
+        <a class="btn btn-solid" href="#pricing">see pricing</a>
+        <a class="btn btn-ghost" href="#projects">how it works</a>
       </div>
     </div>
+
     <!-- floating stat chips (over the prisms) -->
     <div class="chips" aria-hidden="true">
-      <span class="chip chip-1"><i style="background:#6be8ff;box-shadow:0 0 10px #6be8ff"></i>60+ components</span>
-      <span class="chip chip-2"><i style="background:#a78bff;box-shadow:0 0 10px #a78bff"></i>71% fewer AA issues</span>
-      <span class="chip chip-3"><i style="background:#ff7a6b;box-shadow:0 0 10px #ff7a6b"></i>3.1× inquiry lift</span>
-      <span class="chip chip-4"><i style="background:#ffd97a;box-shadow:0 0 10px #ffd97a"></i>1.9 min booking flow</span>
+      <span class="chip chip-1"><i style="background:#6be8ff;box-shadow:0 0 10px #6be8ff"></i>58 sec to a first invoice</span>
+      <span class="chip chip-2"><i style="background:#a78bff;box-shadow:0 0 10px #a78bff"></i>paid 9 days sooner</span>
+      <span class="chip chip-3"><i style="background:#ff7a6b;box-shadow:0 0 10px #ff7a6b"></i>42,000 businesses</span>
+      <span class="chip chip-4"><i style="background:#ffd97a;box-shadow:0 0 10px #ffd97a"></i>₹240 Cr invoiced</span>
     </div>
     <div class="scroll-hint" aria-hidden="true">scroll</div>
   </section>
 
-  <!-- ================= ABOUT ================= -->
+  <!-- ================= PRODUCT ================= -->
   <section id="about">
     <div class="gh-orb gh-orb-a" aria-hidden="true"></div>
     <div class="container">
-      <p class="eyebrow">01 / About</p>
-      <h2 class="sec-title">Legible at <span class="grad">every layer</span> of glass</h2>
-      <p class="sec-sub">Design systems, accessibility, and interfaces that keep their promises.</p>
+      <p class="eyebrow">01 / Product</p>
+      <h2 class="sec-title">Clear at <span class="grad">every layer</span> of glass</h2>
+      <p class="sec-sub">Who owes you, how much, and since when. On one screen, without a spreadsheet.</p>
+
       <div class="about-grid glass reveal">
         <div>
-          <p class="about-statement">I'm <strong>Garvit</strong> — a design engineer who builds interfaces that stay legible at every layer of glass. My work sits where design systems meet accessibility: tokenized blur and depth, contrast math that holds WCAG AA by construction, and handoff tools that end the guessing. I go end-to-end — from Figma tokens to shipped TypeScript — and every audit I write traces an issue to a root cause, not a symptom.</p>
+          <p class="about-statement"><strong>Kanch</strong> means glass. We built it because most small businesses find out they have a cash problem three weeks after it starts. Kanch puts every invoice, payment and reminder where you can see it: what went out, what came in, and what is quietly going overdue. You make an invoice in less time than it takes to find last month's template, and the customer pays from the same message.</p>
           <div class="about-divider" style="margin-top:26px"></div>
-          <p class="about-statement" style="font-size:1rem">Open to design-engineering and design-systems work where the bar is legibility and the deliverable ships.</p>
+          <p class="about-statement" style="font-size:1rem">Free for your first twenty invoices a month, for as long as you like.</p>
         </div>
         <div class="about-details">
-          <div class="about-row"><span class="k">Degree</span><span class="v"><b>B.Des Creative Technology</b> · GPA 3.6/4.0</span></div>
-          <div class="about-row"><span class="k">Location</span><span class="v">Dehradun, Uttarakhand · India</span></div>
-          <div class="about-row"><span class="k">Email</span><span class="v"><b>garvit9829@gmail.com</b></span></div>
-          <div class="about-row"><span class="k">Focus</span><span class="v">Design systems · Accessibility · Handoff</span></div>
-          <div class="about-row"><span class="k">Available</span><span class="v"><b>Contracts &amp; full-time — 2026</b></span></div>
+          <div class="about-row"><span class="k">Made for</span><span class="v"><b>Freelancers, shops, studios</b></span></div>
+          <div class="about-row"><span class="k">Get paid by</span><span class="v">UPI · cards · net banking</span></div>
+          <div class="about-row"><span class="k">Tax</span><span class="v"><b>GST invoices and returns-ready exports</b></span></div>
+          <div class="about-row"><span class="k">Your data</span><span class="v">Stored in India · export any time</span></div>
+          <div class="about-row"><span class="k">Support</span><span class="v"><b>A person, in Hindi or English</b></span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= PROJECTS ================= -->
+  <!-- ================= FEATURES ================= -->
   <section id="projects">
     <div class="gh-orb gh-orb-b" aria-hidden="true"></div>
     <div class="container">
-      <p class="eyebrow">02 / Projects</p>
-      <h2 class="sec-title">Shipped, not <span class="grad">staged</span></h2>
-      <p class="sec-sub">Two design-engineering builds — one system that holds AA, one handoff tool that settles.</p>
+      <p class="eyebrow">02 / Features</p>
+      <h2 class="sec-title">Sent, seen, <span class="grad">settled</span></h2>
+      <p class="sec-sub">Two things it does properly: making the invoice, and getting it paid.</p>
+
       <div class="projects-grid">
-        <!-- Refraction -->
         <article class="project glass reveal">
-          <a class="project-media" href="https://github.com/garvit-pandia" target="_blank" rel="noopener" aria-label="Refraction design system on GitHub">
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&auto=format&fit=crop" alt="Glass surface tokens on a dark screen — Refraction design system" loading="lazy" decoding="async">
-          </a>
-          <div class="project-body">
-            <p class="project-meta">2025 · Design Systems</p>
-            <h3>Refraction — <span class="grad">legible glass</span></h3>
-            <ul>
-              <li>Tokenized blur and depth with contrast math built in — every surface passes WCAG AA by construction.</li>
-              <li>60+ components documented with dark, light, and translucent states.</li>
-              <li>Adopted by 3 product teams; accessibility audit findings on surfaces dropped 71%.</li>
-            </ul>
-            <div class="tags">
-              <span class="tag">TypeScript</span><span class="tag">CSS</span><span class="tag">Figma</span><span class="tag">WCAG AA</span><span class="tag">Design Systems</span>
+          <div class="project-media kn-mock" aria-hidden="true">
+            <div class="kn-inv">
+              <div class="kn-inv-top"><b>INVOICE #0412</b><span class="kn-pill kn-due">Due in 7 days</span></div>
+              <div class="kn-line"><span>Brand identity, phase two</span><span>₹48,000</span></div>
+              <div class="kn-line"><span>Packaging mock-ups × 6</span><span>₹21,000</span></div>
+              <div class="kn-line kn-tax"><span>GST 18%</span><span>₹12,420</span></div>
+              <div class="kn-line kn-total"><span>Total</span><span>₹81,420</span></div>
+              <div class="kn-pay">Pay with UPI →</div>
             </div>
-            <a class="project-link" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">view on github →</a>
+          </div>
+          <div class="project-body">
+            <p class="project-meta">Invoices · under a minute</p>
+            <h3>Invoice — <span class="grad">in four fields</span></h3>
+            <ul>
+              <li>Pick a customer, add the lines, and Kanch works out the GST, the HSN codes and the invoice number.</li>
+              <li>Recurring invoices send themselves on the first of the month. You get a note, not a task.</li>
+              <li>Send by email or as a chat link. No PDF for anyone to lose in their downloads.</li>
+            </ul>
+            <div class="tags"><span class="tag">GST</span><span class="tag">Recurring</span><span class="tag">Estimates</span><span class="tag">Credit notes</span><span class="tag">Your logo</span></div>
+            <a class="project-link" href="#pricing">included in every plan →</a>
           </div>
         </article>
-        <!-- Harbor -->
+
         <article class="project glass reveal" style="transition-delay:.1s">
-          <a class="project-media" href="https://github.com/garvit-pandia" target="_blank" rel="noopener" aria-label="Harbor handoff tool on GitHub">
-            <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200&q=80&auto=format&fit=crop" alt="Design specs pinned to a canvas — Harbor handoff tool" loading="lazy" decoding="async">
-          </a>
-          <div class="project-body">
-            <p class="project-meta">2024 · Design Tooling</p>
-            <h3>Harbor — <span class="grad">no more guessing</span></h3>
-            <ul>
-              <li>Live component specs pinned to a design canvas — engineers open one URL instead of six tools.</li>
-              <li>41% faster average handoff cycle across 12 studio projects.</li>
-              <li>720 stars; used by 4 agencies and 2 in-house teams.</li>
-            </ul>
-            <div class="tags">
-              <span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">WebSocket</span><span class="tag">Figma</span><span class="tag">Design Handoff</span>
+          <div class="project-media kn-mock" aria-hidden="true">
+            <div class="kn-feed">
+              <div class="kn-row"><i class="kn-dot kn-ok"></i><span>Meera Textiles</span><b>₹81,420</b><span class="kn-pill kn-paid">Paid</span></div>
+              <div class="kn-row"><i class="kn-dot kn-ok"></i><span>Studio Ochre</span><b>₹14,000</b><span class="kn-pill kn-paid">Paid</span></div>
+              <div class="kn-row"><i class="kn-dot kn-wait"></i><span>Northline Cafe</span><b>₹6,750</b><span class="kn-pill kn-due">Viewed</span></div>
+              <div class="kn-row"><i class="kn-dot kn-late"></i><span>Harbour Print Co.</span><b>₹32,900</b><span class="kn-pill kn-over">12 days late</span></div>
+              <div class="kn-bar"><span style="width:68%"></span></div>
+              <div class="kn-cap">68% of this month collected</div>
             </div>
-            <a class="project-link" href="https://github.com/garvit-pandia" target="_blank" rel="noopener">view on github →</a>
+          </div>
+          <div class="project-body">
+            <p class="project-meta">Payments · 9 days sooner</p>
+            <h3>Payments — <span class="grad">without chasing</span></h3>
+            <ul>
+              <li>Every invoice carries a pay button. Money lands in your bank account, and the invoice marks itself paid.</li>
+              <li>Polite reminders go out at three, seven and fourteen days, in your words, signed with your name.</li>
+              <li>See who has opened an invoice and not paid it, which is usually all you needed to know.</li>
+            </ul>
+            <div class="tags"><span class="tag">Payment links</span><span class="tag">Reminders</span><span class="tag">Part payments</span><span class="tag">Read receipts</span><span class="tag">Statements</span></div>
+            <a class="project-link" href="#pricing">from the Growth plan →</a>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ================= SKILLS ================= -->
+  <!-- ================= PRICING ================= -->
+  <section id="pricing">
+    <div class="container">
+      <p class="eyebrow">03 / Pricing</p>
+      <h2 class="sec-title">Priced so you can <span class="grad">see the bottom</span></h2>
+      <p class="sec-sub">Tell us how many invoices you send. We will tell you what it costs, to the rupee.</p>
+
+      <div class="kn-price glass reveal">
+        <div class="kn-ctl">
+          <div class="kn-slider">
+            <label for="kn-vol">Invoices you send in a month <b id="kn-vol-out">40</b></label>
+            <input id="kn-vol" type="range" min="0" max="100" step="1" value="34" aria-describedby="kn-advice">
+            <div class="kn-ticks" aria-hidden="true"><span>5</span><span>50</span><span>300</span><span>1,000+</span></div>
+          </div>
+          <div class="kn-toggle" role="group" aria-label="Billing period">
+            <button type="button" class="kn-seg" data-period="month" aria-pressed="true">Monthly</button>
+            <button type="button" class="kn-seg" data-period="year" aria-pressed="false">Yearly <em>2 months free</em></button>
+          </div>
+        </div>
+        <p class="kn-advice" id="kn-advice" role="status" aria-live="polite"></p>
+      </div>
+
+      <div class="kn-plans">
+        <article class="kn-plan glass reveal" data-plan="starter">
+          <span class="kn-badge">Fits you</span>
+          <h3>Starter</h3>
+          <p class="kn-for">For trying it properly</p>
+          <p class="kn-amt"><b data-m="0" data-y="0">₹0</b><span class="kn-per">forever</span></p>
+          <ul>
+            <li>20 invoices a month</li>
+            <li>One user</li>
+            <li>GST invoices and estimates</li>
+            <li>Email delivery</li>
+          </ul>
+          <a class="btn btn-ghost" href="#contact">start free</a>
+        </article>
+        <article class="kn-plan glass reveal" data-plan="growth" style="transition-delay:.06s">
+          <span class="kn-badge">Fits you</span>
+          <h3>Growth</h3>
+          <p class="kn-for">For a business that invoices weekly</p>
+          <p class="kn-amt"><b data-m="499" data-y="4990">₹499</b><span class="kn-per">a month</span></p>
+          <ul>
+            <li>300 invoices a month</li>
+            <li>Three users</li>
+            <li>Payment links and reminders</li>
+            <li>Recurring invoices</li>
+            <li>Accountant access, free</li>
+          </ul>
+          <a class="btn btn-solid" href="#contact">choose growth</a>
+        </article>
+        <article class="kn-plan glass reveal" data-plan="scale" style="transition-delay:.12s">
+          <span class="kn-badge">Fits you</span>
+          <h3>Scale</h3>
+          <p class="kn-for">For a team with a finance person</p>
+          <p class="kn-amt"><b data-m="1499" data-y="14990">₹1,499</b><span class="kn-per">a month</span></p>
+          <ul>
+            <li>Unlimited invoices</li>
+            <li>Ten users, with roles</li>
+            <li>e-Invoicing and e-way bills</li>
+            <li>Bank feeds and reconciliation</li>
+            <li>API and priority support</li>
+          </ul>
+          <a class="btn btn-ghost" href="#contact">choose scale</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WORKS WITH ================= -->
   <section id="skills">
     <div class="gh-orb gh-orb-c" aria-hidden="true"></div>
     <div class="container">
-      <p class="eyebrow">03 / Skills</p>
-      <h2 class="sec-title">The <span class="grad">stack</span> I build with</h2>
-      <p class="sec-sub">The languages, frameworks and platforms behind legible, shippable interfaces.</p>
+      <p class="eyebrow">04 / Works with</p>
+      <h2 class="sec-title">Fits the <span class="grad">stack</span> you already have</h2>
+      <p class="sec-sub">Kanch does not ask you to change your bank, your accountant or your habits.</p>
+
       <div class="skills-grid">
         <div class="skill-tile glass reveal">
           <div class="tile-bar"></div>
-          <h3>Languages</h3>
-          <div class="tags">
-            <span class="tag">TypeScript</span><span class="tag">JavaScript</span><span class="tag">Python</span><span class="tag">Rust</span><span class="tag">Go</span><span class="tag">SQL</span><span class="tag">HTML/CSS</span>
-          </div>
+          <h3>Ways to get paid</h3>
+          <div class="tags"><span class="tag">UPI</span><span class="tag">QR code</span><span class="tag">Debit and credit cards</span><span class="tag">Net banking</span><span class="tag">Bank transfer</span><span class="tag">Part payments</span><span class="tag">Cash, recorded</span></div>
         </div>
         <div class="skill-tile glass reveal" style="transition-delay:.08s">
           <div class="tile-bar"></div>
-          <h3>Frameworks</h3>
-          <div class="tags">
-            <span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Three.js</span><span class="tag">WebGL</span><span class="tag">Canvas 2D</span><span class="tag">CSS Motion</span><span class="tag">Figma</span><span class="tag">Design Systems</span>
-          </div>
+          <h3>Tax and compliance</h3>
+          <div class="tags"><span class="tag">GST invoices</span><span class="tag">HSN and SAC codes</span><span class="tag">GSTR-1 export</span><span class="tag">e-Invoice (IRN)</span><span class="tag">e-Way bill</span><span class="tag">TDS tracking</span><span class="tag">Credit notes</span><span class="tag">Multi-GSTIN</span></div>
         </div>
         <div class="skill-tile glass reveal" style="transition-delay:.04s">
           <div class="tile-bar"></div>
-          <h3>Tools &amp; Platforms</h3>
-          <div class="tags">
-            <span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Redis</span><span class="tag">AWS</span><span class="tag">Terraform</span><span class="tag">Nix</span><span class="tag">gRPC</span><span class="tag">Linux</span><span class="tag">D3</span><span class="tag">Pandas</span><span class="tag">Observability</span><span class="tag">ETL</span>
-          </div>
+          <h3>In and out</h3>
+          <div class="tags"><span class="tag">Spreadsheet import</span><span class="tag">CSV export</span><span class="tag">Accounting-software export</span><span class="tag">Bank statement feeds</span><span class="tag">Email</span><span class="tag">Chat links</span><span class="tag">SMS</span><span class="tag">Webhooks</span><span class="tag">REST API</span><span class="tag">Print</span><span class="tag">PDF</span><span class="tag">Android</span><span class="tag">iPhone</span></div>
         </div>
         <div class="skill-tile glass reveal" style="transition-delay:.12s">
           <div class="tile-bar"></div>
-          <h3>Soft Skills</h3>
-          <div class="tags">
-            <span class="tag">Technical Writing</span><span class="tag">Mentoring</span><span class="tag">Project Scoping</span><span class="tag">Public Speaking</span><span class="tag">Incident Response</span>
-          </div>
+          <h3>People</h3>
+          <div class="tags"><span class="tag">Accountant seat, free</span><span class="tag">Roles and approvals</span><span class="tag">Audit trail</span><span class="tag">Hindi and English</span><span class="tag">Phone support</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= EDUCATION ================= -->
+  <!-- ================= TIMELINE ================= -->
   <section id="education">
     <div class="container">
-      <p class="eyebrow">04 / Education</p>
-      <h2 class="sec-title">The <span class="grad">path</span> so far</h2>
+      <p class="eyebrow">05 / A first week</p>
+      <h2 class="sec-title">The <span class="grad">path</span> from sign-up to paid</h2>
+
       <div class="timeline">
         <div class="tl-item reveal">
           <span class="tl-node"></span>
           <div class="tl-card">
             <div class="tl-top">
-              <span class="tl-date">Aug 2021 — May 2025</span>
-              <span class="tl-now">DONE</span>
+              <span class="tl-date">Minute 0</span>
+              <span class="tl-now">NO CARD</span>
             </div>
-            <h3>B.Des in Creative Technology (CS minor)</h3>
-            <p>Northern Arc Institute of Design &amp; Technology · Dehradun · GPA 3.6/4.0</p>
+            <h3>Sign up with a phone number</h3>
+            <p>Add your business name and GSTIN, or skip the GSTIN if you do not have one yet.</p>
           </div>
         </div>
         <div class="tl-item reveal">
           <span class="tl-node"></span>
           <div class="tl-card">
-            <div class="tl-top"><span class="tl-date">Jun 2022 — Dec 2024</span></div>
-            <h3>Freelance Web Engineer — Quarry &amp; Quill</h3>
-            <p>6 client sites shipped end-to-end, each with a written performance budget</p>
+            <div class="tl-top"><span class="tl-date">Minute 1</span></div>
+            <h3>Send the first invoice</h3>
+            <p>Customer, two lines, send. The median new user does it in 58 seconds.</p>
           </div>
         </div>
         <div class="tl-item reveal">
           <span class="tl-node"></span>
           <div class="tl-card">
-            <div class="tl-top"><span class="tl-date">Feb 2025 — Nov 2025</span></div>
-            <h3>Design Engineer — Garnet &amp; Glass</h3>
-            <p>5 boutique-hotel sites; booking completion 1.9 min median</p>
+            <div class="tl-top"><span class="tl-date">Day 3</span></div>
+            <h3>The first reminder goes out for you</h3>
+            <p>Polite, in your name, with the pay button attached. Most invoices are settled before the second one.</p>
           </div>
         </div>
         <div class="tl-item reveal">
           <span class="tl-node"></span>
           <div class="tl-card">
-            <div class="tl-top"><span class="tl-date">Jan 2025 — present</span></div>
-            <h3>Design Lead — Kite &amp; Crane Studio</h3>
-            <p>WCAG AA bar across all client work, audited in CI</p>
+            <div class="tl-top"><span class="tl-date">Day 9</span></div>
+            <h3>Paid, and the books already know</h3>
+            <p>The payment matches itself to the invoice. At month end your accountant exports the lot in one click.</p>
           </div>
         </div>
       </div>
@@ -911,43 +1040,48 @@ html.gh-js .sec-title.gh-in{opacity:1; transform:none}
   <!-- ================= PROOF ================= -->
   <section id="proof">
     <div class="container">
-      <p class="eyebrow">05 / Proof</p>
-      <h2 class="sec-title">Certificates &amp; <span class="grad">achievements</span></h2>
+      <p class="eyebrow">06 / Trust</p>
+      <h2 class="sec-title">Safeguards &amp; <span class="grad">what people say</span></h2>
+
       <div class="proof-grid">
         <div class="proof-panel glass reveal">
           <div class="tile-bar"></div>
-          <h3>Certificates</h3>
+          <h3>Safeguards</h3>
           <div class="cert-row">
-            <div><div class="c-name">AWS Certified Developer – Associate</div><div class="c-issuer">AWS</div></div>
-            <span class="c-date">2024</span>
+            <div><div class="c-name">Your data is stored in India</div><div class="c-issuer">Two regions, encrypted at rest</div></div>
+            <span class="c-date">Always</span>
           </div>
           <div class="cert-row">
-            <div><div class="c-name">Meta Front-End Developer</div><div class="c-issuer">Meta</div></div>
-            <span class="c-date">2021</span>
+            <div><div class="c-name">Two-step sign-in</div><div class="c-issuer">For every user, on every plan</div></div>
+            <span class="c-date">On</span>
           </div>
           <div class="cert-row">
-            <div><div class="c-name">Adobe Certified Professional — Visual Design</div><div class="c-issuer">Adobe</div></div>
-            <span class="c-date">2023</span>
+            <div><div class="c-name">Backups</div><div class="c-issuer">Kept for thirty-five days</div></div>
+            <span class="c-date">Hourly</span>
           </div>
           <div class="cert-row">
-            <div><div class="c-name">MongoDB Associate Developer</div><div class="c-issuer">MongoDB</div></div>
-            <span class="c-date">2023</span>
+            <div><div class="c-name">We never hold your money</div><div class="c-issuer">Payments settle straight to your bank</div></div>
+            <span class="c-date">Never</span>
           </div>
           <div class="cert-row">
-            <div><div class="c-name">DeepLearning.AI — Machine Learning Specialization</div><div class="c-issuer">DeepLearning.AI</div></div>
-            <span class="c-date">2021</span>
+            <div><div class="c-name">Leave whenever you like</div><div class="c-issuer">Full export, no questions</div></div>
+            <span class="c-date">1 click</span>
           </div>
         </div>
         <div class="proof-panel glass reveal" style="transition-delay:.1s">
           <div class="tile-bar"></div>
-          <h3>Achievements</h3>
+          <h3>What people say</h3>
           <div class="achv">
-            <span class="achv-stars">★★★★</span>
-            <div><h4>Peer-reviewed paper — layout for screen readers</h4><p>Interfaces: Design Systems Review · 2024</p></div>
+            <span class="achv-stars">★★★★★</span>
+            <div><h4>“I used to do invoices on Sunday night. Now I do them in the auto on the way home.”</h4><p>A freelance illustrator · Starter plan</p></div>
+          </div>
+          <div class="achv">
+            <span class="achv-stars">★★★★★</span>
+            <div><h4>“The reminders are politer than I am, and they work better.”</h4><p>Owner of a print shop · Growth plan</p></div>
           </div>
           <div class="achv">
             <span class="achv-stars">★★★★</span>
-            <div><h4>2 regional design honors</h4><p>Gilded client sites · 2025</p></div>
+            <div><h4>4.8 out of 5, from 6,200 reviews</h4><p>Across both app stores · updated monthly</p></div>
           </div>
         </div>
       </div>
@@ -957,13 +1091,14 @@ html.gh-js .sec-title.gh-in{opacity:1; transform:none}
   <!-- ================= CONTACT ================= -->
   <section id="contact">
     <div class="container">
-      <p class="eyebrow">06 / Contact</p>
-      <h2 class="sec-title">Let's <span class="grad">build</span> something</h2>
-      <p class="sec-sub">Have a design system that needs to hold, or a handoff that needs to settle? My inbox is open.</p>
+      <p class="eyebrow">07 / Contact</p>
+      <h2 class="sec-title">Let's get you <span class="grad">paid</span></h2>
+      <p class="sec-sub">Moving from another tool, or from a notebook? Tell us what you use today and we will set it up with you.</p>
+
       <div class="contact-grid">
         <div class="form-panel glass reveal">
-          <h3>Send a message</h3>
-          <p class="form-note">Straight to my inbox — no backend, no tracking.</p>
+          <h3>Talk to a person</h3>
+          <p class="form-note">A reply within one working day. No sales calls unless you ask for one.</p>
           <form id="contact-form" novalidate>
             <div class="field">
               <label for="f-name">Name</label>
@@ -975,20 +1110,21 @@ html.gh-js .sec-title.gh-in{opacity:1; transform:none}
             </div>
             <div class="field">
               <label for="f-msg">Message</label>
-              <textarea id="f-msg" name="message" rows="5" placeholder="What are we building?" required></textarea>
+              <textarea id="f-msg" name="message" rows="5" placeholder="What do you invoice for, and how do you do it today?" required></textarea>
             </div>
             <button class="btn btn-solid" type="submit">send message</button>
-            <p class="form-ok" id="form-ok" role="status">Opening your mail app — thanks for reaching out.</p>
+            <p class="form-ok" id="form-ok" role="status">Thank you. This is a concept site, so the message was not sent anywhere.</p>
           </form>
         </div>
+
         <div class="channels glass reveal" style="transition-delay:.1s">
           <div class="tile-bar"></div>
           <h3>Channels</h3>
-          <div class="ch-row"><span class="k">Email</span><a href="mailto:garvit9829@gmail.com">garvit9829@gmail.com</a></div>
-          <div class="ch-row"><span class="k">Phone</span><a href="tel:+918905402023">+91-8905402023</a></div>
-          <div class="ch-row"><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener">linkedin.com/in/garvit-pandia</a></div>
-          <div class="ch-row"><span class="k">GitHub</span><a href="https://github.com/garvit-pandia" target="_blank" rel="noopener">github.com/garvit-pandia</a></div>
-          <div class="ch-row"><span class="k">Resume</span><a href="Garvit_Pandia_Resume.pdf" download>Garvit_Pandia_Resume.pdf</a></div>
+          <div class="ch-row"><span class="k">Email</span><a href="mailto:hello@kanch.example">hello@kanch.example</a></div>
+          <div class="ch-row"><span class="k">Support</span><a href="#contact">Mon to Sat · 9 am to 8 pm</a></div>
+          <div class="ch-row"><span class="k">Languages</span><a href="#contact">Hindi · English</a></div>
+          <div class="ch-row"><span class="k">Moving in</span><a href="#skills">Free import from a spreadsheet</a></div>
+          <div class="ch-row"><span class="k">Pricing</span><a href="#pricing">Free up to 20 invoices a month</a></div>
         </div>
       </div>
     </div>
@@ -999,10 +1135,11 @@ html.gh-js .sec-title.gh-in{opacity:1; transform:none}
 <footer>
   <div class="container">
     <div class="foot glass">
-      <span class="wordmark">GARVIT <b class="grad">PANDIA</b></span>
-      <span class="mono">Design · Systems · Web</span>
-      <span class="mono">© 2026 — glass horizon</span>
+      <span class="wordmark">KANCH <b class="grad">INVOICING</b></span>
+      <span class="mono">Invoices · Payments · Clarity</span>
+      <span class="mono">© 2026 — see-through billing</span>
     </div>
+    <p class="kn-concept">Kanch is a fictional product. Concept site designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a> · <a href="../index.html">Back to the gallery</a></p>
   </div>
 </footer>
 
@@ -1054,9 +1191,7 @@ html.gh-js .sec-title.gh-in{opacity:1; transform:none}
     var name = document.getElementById('f-name').value.trim();
     var email = document.getElementById('f-email').value.trim();
     var msg = document.getElementById('f-msg').value.trim();
-    var subject = encodeURIComponent('Portfolio contact from ' + (name || 'someone'));
-    var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + msg);
-    window.location.href = 'mailto:garvit9829@gmail.com?subject=' + subject + '&body=' + body;
+    form.reset();
     ok.classList.add('show');
   });
 })();
@@ -1734,10 +1869,6 @@ import * as THREE from 'three';
         bad.addEventListener('input', clear, { passive: true });
       }, true);
     }
-
-    /* --- B: repair the masked tel: href (display text is +91-8905402023) --- */
-    var tel = document.querySelector('a[href="tel:+91' + '8905402023"]');
-    if (tel) tel.setAttribute('href', 'tel:+91' + '8905402023');
   } catch (err) {
     console.warn('round-3 fixes disabled:', err.message);
   }
@@ -1864,6 +1995,52 @@ import * as THREE from 'three';
   } catch (err) {
     console.warn('blur budget audit disabled:', err.message);
   }
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var vol = document.getElementById('kn-vol'), out = document.getElementById('kn-vol-out'), advice = document.getElementById('kn-advice');
+  if (!vol || !advice) { return; }
+  var plans = [].slice.call(document.querySelectorAll('.kn-plan'));
+  var segs = [].slice.call(document.querySelectorAll('.kn-seg'));
+  var LIMIT = { starter: 20, growth: 300, scale: Infinity };
+  var NAME = { starter: 'Starter', growth: 'Growth', scale: 'Scale' };
+  var period = 'month';
+  function rupees(n) { return '\u20B9' + Math.round(n).toLocaleString('en-IN'); }
+  /* the slider is logarithmic: 0 → 5 invoices, 100 → 1,000 */
+  function invoices() { var v = 5 * Math.pow(200, vol.value / 100); return v < 50 ? Math.round(v) : v < 300 ? Math.round(v / 5) * 5 : Math.round(v / 25) * 25; }
+  function render() {
+    var n = invoices(), fit = n <= 20 ? 'starter' : n <= 300 ? 'growth' : 'scale';
+    out.textContent = n >= 1000 ? '1,000+' : n;
+    vol.setAttribute('aria-valuetext', n + ' invoices a month');
+    var cost = 0;
+    plans.forEach(function (p) {
+      var id = p.getAttribute('data-plan'), b = p.querySelector('.kn-amt b'), per = p.querySelector('.kn-per');
+      var m = +b.getAttribute('data-m'), y = +b.getAttribute('data-y');
+      if (m === 0) { b.textContent = rupees(0); per.textContent = 'forever'; }
+      else if (period === 'year') { b.textContent = rupees(y / 12); per.textContent = 'a month, ' + rupees(y) + ' billed yearly'; }
+      else { b.textContent = rupees(m); per.textContent = 'a month'; }
+      p.classList.toggle('kn-fit', id === fit);
+      p.classList.toggle('kn-small', LIMIT[id] < n);
+      if (id === fit) { cost = period === 'year' ? y / 12 : m; }
+    });
+    var each = cost / n;
+    if (fit === 'starter') {
+      advice.innerHTML = 'At ' + n + ' invoices a month you fit <b>Starter</b>, which is free. You would start paying at twenty-one.';
+    } else {
+      advice.innerHTML = 'At ' + (n >= 1000 ? 'a thousand or more' : n) + ' invoices a month you fit <b>' + NAME[fit] + '</b>: ' + rupees(cost) + ' a month, or about <b>' + (each < 1 ? Math.round(each * 100) + ' paise' : '\u20B9' + each.toFixed(2)) + '</b> an invoice' + (period === 'year' ? ', billed yearly.' : '. Paying yearly saves ' + rupees(cost * 2) + '.');
+    }
+  }
+  vol.addEventListener('input', render);
+  segs.forEach(function (sg) {
+    sg.addEventListener('click', function () {
+      period = sg.getAttribute('data-period');
+      segs.forEach(function (x) { x.setAttribute('aria-pressed', String(x === sg)); });
+      render();
+    });
+  });
+  render();
 })();
 </script>
 </body>

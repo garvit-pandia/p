@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Garvit Pandia — Black Box / Act I</title>
-<meta name="description" content="Black Box / Act I — a premium black-box theatre staging of Garvit Pandia's technical works. Acts, cues, spotlights, and playbill credits.">
-<meta property="og:title" content="Garvit Pandia — Black Box / Act I">
-<meta property="og:description" content="A portfolio staged as a sequence of technical works. House lights down.">
+<title>Saanjh Repertory — Season 2026–27 · Black-box theatre, Chandigarh</title>
+<meta name="description" content="Saanjh Repertory is an 84-seat black-box theatre in Chandigarh. Eight new productions this season: see what is on, pick your seats, and come sit close to the work.">
+<meta property="og:title" content="Saanjh Repertory — Season 2026–27">
+<meta property="og:description" content="An 84-seat black-box theatre. Eight productions, one room. House lights down.">
 <meta name="theme-color" content="#0C0C0D">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230C0C0D'/%3E%3Cpath d='M4 6 L28 6 L28 10 L4 10 Z' fill='%23EDE6D8'/%3E%3Ccircle cx='16' cy='20' r='7' fill='%23C23321'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -146,7 +146,7 @@ img{max-width:100%}
   font-size:clamp(48px,8.6vw,118px);color:var(--bone);margin-bottom:26px;
   text-shadow:0 0 60px rgba(237,230,216,.16), 0 2px 30px rgba(237,230,216,.1);
 }
-#hero h1 .act{display:block;font-style:italic;color:var(--red-hot);text-shadow:0 0 44px rgba(194,51,33,.35);margin-top:2px}
+#hero h1 .act{padding:0;border-top:0;display:block;font-style:italic;color:var(--red-hot);text-shadow:0 0 44px rgba(194,51,33,.35);margin-top:2px}
 .hero-title{font-family:var(--serif);font-size:clamp(19px,2.5vw,26px);font-style:italic;color:var(--bone-dim);margin-bottom:14px}
 .hero-sub{color:var(--bone-dim);font-size:clamp(12px,1.4vw,14.5px);max-width:58ch;margin:0 auto 36px}
 .hero-sub b{color:var(--bone)}
@@ -523,6 +523,61 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
   #hero[data-c16-cue="crossfade"] .spot{transform:translateX(12vw) rotate(8deg) scaleX(.48)!important}
 }
 @media print{.c16-console{display:none!important}}
+
+/* ---------- box office ---------- */
+.book-link{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:12px;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--bone);border-bottom:1px solid var(--red);transition:color .25s,gap .25s}
+.book-link:hover,.book-link:focus-visible{color:var(--red-hot);gap:13px}
+.bo{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,1fr);gap:18px;align-items:start}
+.bo-plan,.bo-slip{background:var(--panel);border:1px solid var(--line);padding:24px;position:relative}
+.bo-slip::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),transparent 60%)}
+.bo-pick{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field select{width:100%;min-height:44px;background:var(--charcoal);border:1px solid var(--line);color:var(--bone);font-family:var(--mono);font-size:12px;padding:0 12px;border-radius:0}
+.field select:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(194,51,33,.2)}
+.bo-stage{margin:8px auto 18px;width:72%;text-align:center;font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:var(--brass);border:1px solid var(--brass-dim);border-bottom-width:3px;padding:7px 0;background:linear-gradient(180deg,rgba(169,138,91,.14),transparent)}
+.bo-seats{display:grid;gap:6px;justify-content:center}
+.bo-row{display:grid;grid-template-columns:18px repeat(12,minmax(0,30px)) 18px;gap:5px;align-items:center}
+.bo-row .rl{font-size:8px;letter-spacing:.1em;color:var(--brass-dim);text-align:center}
+.bo-row .gap{visibility:hidden}
+.seat{aspect-ratio:1;min-width:0;width:100%;border:1px solid var(--bone-dim);background:transparent;border-radius:5px 5px 2px 2px;cursor:pointer;padding:0;position:relative;transition:background .18s,border-color .18s,transform .18s}
+.seat::after{content:"";position:absolute;inset:-7px}
+.seat:hover{border-color:var(--bone);transform:translateY(-2px)}
+.seat:focus-visible{outline:2px solid var(--red-hot);outline-offset:2px}
+.seat[aria-pressed="true"]{background:var(--red);border-color:var(--red-hot);box-shadow:0 0 12px rgba(232,74,46,.55)}
+.seat[disabled]{border-color:var(--line);background:repeating-linear-gradient(45deg,var(--line) 0 2px,transparent 2px 5px);cursor:not-allowed;transform:none}
+.bo-key{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:20px;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-dim);align-items:center}
+.bo-key i{display:inline-block;width:11px;height:11px;border-radius:3px 3px 1px 1px;margin-right:6px;vertical-align:-1px;border:1px solid var(--bone-dim)}
+.bo-key .k-sel{background:var(--red);border-color:var(--red-hot)}
+.bo-key .k-taken{border-color:var(--line);background:repeating-linear-gradient(45deg,var(--line) 0 2px,transparent 2px 5px)}
+.bo-key .k-price{margin-left:auto;color:var(--brass)}
+.bo-slip .sh-head{font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--brass);margin-bottom:16px}
+.bo-show-name{font-family:var(--serif);font-size:24px;color:var(--bone);line-height:1.15}
+.bo-when{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--red-hot);margin:6px 0 16px}
+.bo-list{list-style:none;border-top:1px solid var(--line);margin:0;padding:0;min-height:74px}
+.bo-list li{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--bone)}
+.bo-list li span{color:var(--bone-dim)}
+.bo-list .bo-empty{color:var(--bone-dim);font-family:var(--serif);font-style:italic;font-size:14px;border-bottom:0}
+.bo-total{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--bone-dim)}
+.bo-total b{font-family:var(--serif);font-size:30px;font-weight:500;letter-spacing:0;color:var(--bone)}
+.bo-slip .btn{width:100%;justify-content:center;text-align:center}
+.bo-slip .btn[disabled]{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.bo-clear{display:block;width:100%;min-height:44px;margin-top:8px;background:transparent;border:0;color:var(--bone-dim);font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.bo-clear:hover{color:var(--bone)}
+.bo-status{font-family:var(--serif);font-size:14.5px;line-height:1.55;color:var(--bone);margin-top:10px}
+.bo-status b{color:var(--red-hot);font-family:var(--mono);font-size:12px;letter-spacing:.12em}
+.concept-credit{width:100%;text-align:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:8.5px;letter-spacing:.14em;color:var(--bone-dim)}
+.concept-credit a{color:var(--bone);border-bottom:1px solid var(--brass-dim)}
+.concept-credit a:hover{color:var(--red-hot)}
+@media (max-width:980px){.bo{grid-template-columns:1fr}}
+@media (max-width:560px){
+  .bo-plan,.bo-slip{padding:16px 12px}
+  .bo-pick{grid-template-columns:1fr}
+  .bo-row{grid-template-columns:12px repeat(12,minmax(0,1fr)) 12px;gap:3px}
+  .bo-seats{justify-content:stretch}
+  .bo-key .k-price{margin-left:0;width:100%}
+}
+@media (prefers-reduced-motion:reduce){.seat,.book-link{transition:none}.seat:hover{transform:none}}
+@media print{.bo{display:none}}
+#hero h1 .act::before,#hero h1 .act::after{content:none}
 </style>
 </head>
 <body>
@@ -530,17 +585,18 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
 <div class="haze-layer" aria-hidden="true"></div>
 <div class="curtain-top" aria-hidden="true"></div>
 
-<nav id="topnav" aria-label="Performance navigation">
-  <a class="brand" href="#hero"><span class="mark" aria-hidden="true"></span>BB<small>/ACT I</small></a>
+<nav id="topnav" aria-label="Site navigation">
+  <a class="brand" href="#hero"><span class="mark" aria-hidden="true"></span>SAANJH<small>/REP</small></a>
   <div class="nav-links">
-    <a href="#about"><i>P</i>Prologue</a>
-    <a href="#projects"><i>I</i>Act I</a>
-    <a href="#skills"><i>II</i>Lighting</a>
-    <a href="#achievements"><i>III</i>Awards</a>
-    <a href="#experience"><i>IV</i>Company</a>
-    <a href="#contact"><i>V</i>Curtain Call</a>
+    <a href="#about"><i>P</i>Company</a>
+    <a href="#projects"><i>I</i>Season</a>
+    <a href="#booking"><i>II</i>Seats</a>
+    <a href="#skills"><i>III</i>The house</a>
+    <a href="#achievements"><i>IV</i>Press</a>
+    <a href="#experience"><i>V</i>Workshops</a>
+    <a href="#contact"><i>VI</i>Visit</a>
   </div>
-  <a class="nav-resume" href="Garvit_Pandia_Resume.pdf" download>↓ Resume</a>
+  <a class="nav-resume" href="#booking">Book seats</a>
 </nav>
 
 <header id="hero">
@@ -551,20 +607,20 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
   <div class="rig-line" aria-hidden="true"><span>TRUSS 01</span><span>TRUSS 02</span><span>TRUSS 03</span></div>
   <div class="spot" aria-hidden="true"></div>
   <div class="hero-inner">
-    <p class="kicker reveal"><span></span>House lights down · <b>Production no. 16</b><span></span></p>
-    <h1 class="reveal" style="--d:.1s">Black Box<span class="act">/ Act I</span></h1>
-    <p class="hero-title reveal" style="--d:.18s">A technical career, staged</p>
-    <p class="hero-sub reveal" style="--d:.24s"><b>Garvit Pandia</b> — engineer, builder, and occasional stagehand. This production presents a sequence of technical works: systems, tools, and games as <b>acts</b>, each lit, blocked, and rehearsed.</p>
+    <p class="kicker reveal"><span></span>House lights down · <b>Season 2026–27</b><span></span></p>
+    <h1 class="reveal" style="--d:.1s">Saanjh<span class="act">/ Repertory</span></h1>
+    <p class="hero-title reveal" style="--d:.18s">Eighty-four seats. No bad one.</p>
+    <p class="hero-sub reveal" style="--d:.24s"><b>A black-box theatre in Chandigarh</b> where the farthest seat is seven rows from the actors. Eight new productions this season, in <b>Hindi, Punjabi and English</b>, each one built for a room this small.</p>
     <div class="cta reveal" style="--d:.3s">
-      <a class="btn" href="#about">Raise the curtain ↓</a>
-      <a class="btn ghost" href="Garvit_Pandia_Resume.pdf" download>Download resume</a>
+      <a class="btn" href="#projects">See the season ↓</a>
+      <a class="btn ghost" href="#booking">Choose your seats</a>
     </div>
     <aside class="c16-console reveal" id="c16-cue-console" style="--d:.36s" aria-labelledby="c16-console-title">
       <div class="c16-console-head">
-        <h2 class="c16-console-title" id="c16-console-title">Director's cue console</h2>
-        <span class="c16-console-mark">Cue board · BB-16</span>
+        <h2 class="c16-console-title" id="c16-console-title">Try the lighting desk</h2>
+        <span class="c16-console-mark">Cue board · house rig</span>
       </div>
-      <div class="c16-cue-grid" role="group" aria-label="Director cues">
+      <div class="c16-cue-grid" role="group" aria-label="Lighting cues">
         <button class="c16-cue" type="button" data-c16-cue="house" aria-pressed="true" aria-keyshortcuts="1" aria-controls="hero">
           <span class="c16-cue-num">Q1</span><span class="c16-cue-label">House</span><span class="c16-cue-note">Opening look</span>
         </button>
@@ -579,53 +635,53 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
         </button>
       </div>
       <div class="c16-console-foot">
-        <p class="c16-cue-status" id="c16-cue-status" role="status" aria-live="polite">Q1 HOUSE — opening look: soft white pool, wings open, playbill ready.</p>
+        <p class="c16-cue-status" id="c16-cue-status" role="status" aria-live="polite">Q1 HOUSE — opening look: soft white pool, wings open, programmes on the seats.</p>
         <span class="c16-console-keys">Keys 1–4 · arrows step · R reset</span>
         <button class="c16-reset" id="c16-reset" type="button">Reset opening cue</button>
       </div>
     </aside>
   </div>
-  <div class="scroll-cue">Scroll — the show moves on<b></b></div>
+  <div class="scroll-cue">Scroll — the season follows<b></b></div>
 </header>
 
 <main>
   <section id="about" class="act">
     <div class="wrap">
       <div class="sec-head">
-        <p class="sec-kicker reveal"><span class="cue">PROLOGUE</span> About · <b>The cast list</b></p>
-        <h2 class="sec-title reveal" style="--d:.05s">The player <em>behind the works</em></h2>
+        <p class="sec-kicker reveal"><span class="cue">PROLOGUE</span> The company · <b>Who we are</b></p>
+        <h2 class="sec-title reveal" style="--d:.05s">A small room, <em>on purpose</em></h2>
         <p class="sec-note reveal" style="--d:.1s"><code>PROGRAMME NOTE</code> Read before the lights go down.</p>
       </div>
       <div class="about-grid">
         <div class="playbill reveal" style="--d:.1s">
-          <div class="pb-head"><span>Playbill · Biography</span><span>Vol. 16 — 2026</span></div>
-          <p><b>Garvit Pandia</b> is an engineer &amp; builder based in <span class="hl">Dehradun, Uttarakhand, India</span>. He holds a B.Des Creative Technology from Northern Arc Institute of Design &amp; Technology (2021–2025, GPA 3.6/4.0), where the type-design coursework taught him that <span class="hl">measurement is a creative act</span>.</p>
-          <p>His company credits span games, editorial systems, and developer tools — <b>46 projects</b> shipped, <b>21 clients</b>, <b>31 mentees</b>, <b>6 hackathon wins</b>, <b>9 talks</b>, and <b>3 papers</b>. He believes tools should be quiet: they should work, then get out of the way.</p>
+          <div class="pb-head"><span>Playbill · The company</span><span>Season 8 — 2026–27</span></div>
+          <p><b>Saanjh Repertory</b> is a resident company of fourteen actors, two writers and one very tired stage manager, working out of a converted printing press in <span class="hl">Sector 10, Chandigarh</span>. We opened in 2019 with borrowed lights and forty folding chairs.</p>
+          <p>Saanjh means dusk, and it also means something shared. We make new plays for a room where <span class="hl">nobody can hide</span>, the actors least of all. Every production is new writing or newly devised, and every Thursday is pay what you can.</p>
           <div class="stats">
-            <div class="stat"><b>46</b><span>projects shipped</span></div>
-            <div class="stat"><b>21</b><span>clients served</span></div>
-            <div class="stat"><b>31</b><span>mentees</span></div>
-            <div class="stat"><b>6</b><span>hackathon wins</span></div>
-            <div class="stat"><b>9</b><span>talks given</span></div>
-            <div class="stat"><b>3</b><span>papers published</span></div>
+            <div class="stat"><b>84</b><span>seats in the house</span></div>
+            <div class="stat"><b>31</b><span>productions staged</span></div>
+            <div class="stat"><b>19</b><span>new plays commissioned</span></div>
+            <div class="stat"><b>412</b><span>performances</span></div>
+            <div class="stat"><b>38k</b><span>tickets sold</span></div>
+            <div class="stat"><b>7</b><span>rows, front to back</span></div>
           </div>
         </div>
         <div class="programme reveal" style="--d:.18s">
-          <div class="pg-top"><span>Programme</span><span>GP-01</span></div>
-          <h3>Tonight's <em>production</em></h3>
-          <p>Scroll advances through acts. Projects carry cue numbers and playbill metadata. Scene notes appear where the archive has something to whisper.</p>
+          <div class="pg-top"><span>Programme</span><span>SR-08</span></div>
+          <h3>This <em>season</em></h3>
+          <p>Eight productions between November and April. Doors open forty minutes before curtain, latecomers are seated at the first blackout, and the bar stays open after every show.</p>
           <div class="cast">
-            <span>Starring <b>Garvit Pandia</b></span>
-            <span>Written &amp; directed by <b>the work itself</b></span>
-            <span>Lighting <b>CSS + JS</b></span>
-            <span>No images · no tracking <b>house policy</b></span>
+            <span>Evenings <b>Tue – Sat · 7:30 pm</b></span>
+            <span>Matinees <b>Sun · 4:00 pm</b></span>
+            <span>Late show <b>Fri · 10:15 pm</b></span>
+            <span>Pay what you can <b>every Thursday</b></span>
           </div>
         </div>
       </div>
       <div class="quotes">
-        <div class="quote reveal" style="--d:.14s">“He made the hardest part of our game (the echo mechanic) feel inevitable. I still don't know how he debugged that save file.”<footer><b>Samir Chowdhury</b> — Co-founder, Straybeam Games</footer></div>
-        <div class="quote reveal" style="--d:.2s">“He listens to the room before he opens the laptop. Our audio demos went from 'impressive' to 'how is that possible' in one engagement.”<footer><b>Sara Fernandes</b> — Founder, Windchime Audio</footer></div>
-        <div class="quote reveal" style="--d:.26s">“Every site he shipped for us came with a written performance budget — and he held it. Twice he pushed back on scope and was right both times.”<footer><b>Devika Rao</b> — Studio Director, Quarry &amp; Quill</footer></div>
+        <div class="quote reveal" style="--d:.14s">“You do not watch a play at Saanjh so much as get caught in one. I was close enough to see the actor decide to cry.”<footer><b>Tricity Stage Review</b> — on Khali Kursi</footer></div>
+        <div class="quote reveal" style="--d:.2s">“The most alive eighty-four seats in the north. Book the front row and bring nothing you mind getting wet.”<footer><b>The Sunday Supplement</b> — on Monsoon Ledger</footer></div>
+        <div class="quote reveal" style="--d:.26s">“A company that treats a small budget as a style, not an excuse. Seven doors made of sound, and I believed every one.”<footer><b>Rangmanch Quarterly</b> — on Baraat Without a Groom</footer></div>
       </div>
     </div>
   </section>
@@ -633,75 +689,118 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
   <section id="projects" class="act">
     <div class="wrap">
       <div class="sec-head">
-        <p class="sec-kicker reveal"><span class="cue">ACT I</span> Projects · <b>Staged case files</b></p>
-        <h2 class="sec-title reveal" style="--d:.05s">Eight works, <em>fully staged</em></h2>
-        <p class="sec-note reveal" style="--d:.1s"><code>REPERTOIRE</code> Each file is complete at rest — the spotlight is decoration, never the source of information.</p>
+        <p class="sec-kicker reveal"><span class="cue">ACT I</span> The season · <b>What is on</b></p>
+        <h2 class="sec-title reveal" style="--d:.05s">Eight productions, <em>one room</em></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>REPERTOIRE</code> All shows run without interval unless marked. Running times include applause.</p>
       </div>
       <div class="grid-2">
         <article class="casefile reveal" style="--d:.05s">
-          <div class="cf-top"><span class="cue-no"><em>CUE 01</em>PLAY</span><span class="run">RUN 3 MIN</span></div>
-          <h3>Stagelight</h3>
-          <p>A narrative scrolling engine for long reads — scenes pause and resume cleanly, even after tab switches.</p>
-          <div class="scene-note">The scene-change engine that taught the studio its motion language.</div>
-          <div class="chips"><span class="chip">TypeScript</span><span class="chip">Web Animations</span><span class="chip">Vite</span></div>
-          <div class="metric"><b>60 fps</b> · <b class="br">12</b> pinned scenes · <b class="br">9</b> long-form pieces<span class="suf">ACT I · OPENER</span></div>
+          <div class="cf-top"><span class="cue-no"><em>CUE 01</em>NOW BOOKING</span><span class="run">RUN 85 MIN</span></div>
+          <h3>Teen Baje Ki Chai</h3>
+          <p>Three sisters, one kettle, and the will their mother never signed. A chamber comedy that turns at the second cup.</p>
+          <div class="scene-note">Played in the round. The tea is real and the front row is offered some.</div>
+          <div class="chips"><span class="chip">Hindi · Punjabi</span><span class="chip">Comedy</span><span class="chip">12+</span></div>
+          <div class="metric"><b>14 Nov – 7 Dec</b> · <b class="br">from ₹300</b><span class="suf">SEASON OPENER</span></div>
+          <a class="book-link" href="#booking" data-book="chai">Choose seats <span aria-hidden="true">→</span></a>
         </article>
         <article class="casefile reveal" style="--d:.1s">
-          <div class="cf-top"><span class="cue-no"><em>CUE 02</em>PLAY</span><span class="run">RUN 4 MIN</span></div>
-          <h3>Ghostlight</h3>
-          <p>A puzzle game about echoes — solve rooms by replaying a previous visitor's footsteps.</p>
-          <div class="scene-note">The save-file debug took three nights and one very patient producer.</div>
-          <div class="chips"><span class="chip">TypeScript</span><span class="chip">Canvas 2D</span><span class="chip">WebAudio</span></div>
-          <div class="metric"><b>96%</b> positive · <b class="br">1,300</b> ratings · <b class="br">140k</b> demo plays<span class="suf">ACT I · HOUSE FAVOURITE</span></div>
+          <div class="cf-top"><span class="cue-no"><em>CUE 02</em>NOW BOOKING</span><span class="run">RUN 70 MIN</span></div>
+          <h3>Khali Kursi</h3>
+          <p>One actor, one empty chair, and forty years of a marriage told to whoever is not sitting in it.</p>
+          <div class="scene-note">A solo piece. The chair has not been moved since the first rehearsal.</div>
+          <div class="chips"><span class="chip">Hindi</span><span class="chip">Solo</span><span class="chip">14+</span></div>
+          <div class="metric"><b>21 Nov – 30 Nov</b> · <b class="br">from ₹300</b><span class="suf">HOUSE FAVOURITE</span></div>
+          <a class="book-link" href="#booking" data-book="kursi">Choose seats <span aria-hidden="true">→</span></a>
         </article>
         <article class="casefile reveal" style="--d:.05s">
-          <div class="cf-top"><span class="cue-no"><em>CUE 03</em>PLAY</span><span class="run">RUN 2 MIN</span></div>
-          <h3>Quatrain</h3>
-          <p>Constrained text generation — verse with real meter and rhyme, not just plausible words.</p>
-          <div class="scene-note">A beat-sheet editor still used by two ad agencies, unannounced.</div>
-          <div class="chips"><span class="chip">Python</span><span class="chip">transformers</span><span class="chip">rule layer</span></div>
-          <div class="metric"><b>82%</b> pass blind test · <b class="br">650★</b> · 2 agencies<span class="suf">ACT I · CURTAIN 1</span></div>
+          <div class="cf-top"><span class="cue-no"><em>CUE 03</em>NOW BOOKING</span><span class="run">RUN 110 MIN</span></div>
+          <h3>Monsoon Ledger</h3>
+          <p>A cloth merchant counts his debts while the street outside floods. A family drama kept in double entry.</p>
+          <div class="scene-note">Forty litres of water fall in the second act. Rows A and B get a towel.</div>
+          <div class="chips"><span class="chip">English</span><span class="chip">Drama</span><span class="chip">Interval</span></div>
+          <div class="metric"><b>12 Dec – 4 Jan</b> · <b class="br">from ₹300</b><span class="suf">MAIN STAGE</span></div>
+          <a class="book-link" href="#booking" data-book="ledger">Choose seats <span aria-hidden="true">→</span></a>
         </article>
         <article class="casefile reveal" style="--d:.1s">
-          <div class="cf-top"><span class="cue-no"><em>CUE 04</em>PLAY</span><span class="run">RUN 3 MIN</span></div>
-          <h3>Warpaint</h3>
-          <p>Generative brushes that respond to gesture — 26 procedural brushes, live at 120 fps.</p>
-          <div class="scene-note">Perf rehearsal: 800-brush live strokes without dropping a frame.</div>
-          <div class="chips"><span class="chip">TypeScript</span><span class="chip">Canvas 2D</span><span class="chip">WebGL</span></div>
-          <div class="metric"><b>120 fps</b> · <b class="br">26</b> brushes · <b class="br">1,900</b>-strong gallery<span class="suf">ACT I · CURTAIN 2</span></div>
+          <div class="cf-top"><span class="cue-no"><em>CUE 04</em>NOW BOOKING</span><span class="run">RUN 95 MIN</span></div>
+          <h3>Baraat Without a Groom</h3>
+          <p>The band is booked, the horse has arrived, and nobody can find Vikram. A farce in one long night.</p>
+          <div class="scene-note">Eleven doors on a stage with room for four. We built seven of them out of sound.</div>
+          <div class="chips"><span class="chip">Punjabi · Hindi</span><span class="chip">Farce</span><span class="chip">All ages</span></div>
+          <div class="metric"><b>9 Jan – 1 Feb</b> · <b class="br">from ₹300</b><span class="suf">FAMILY NIGHTS</span></div>
+          <a class="book-link" href="#booking" data-book="baraat">Choose seats <span aria-hidden="true">→</span></a>
         </article>
         <article class="casefile reveal" style="--d:.05s">
-          <div class="cf-top"><span class="cue-no"><em>CUE 05</em>PLAY</span><span class="run">RUN 2 MIN</span></div>
-          <h3>Silhouette</h3>
-          <p>A motion playground for CSS choreography — 120 curated micro-interaction patterns.</p>
-          <div class="scene-note">The pattern library the studio hands to every new designer.</div>
-          <div class="chips"><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">pattern library</span></div>
-          <div class="metric"><b>120</b> patterns · <b class="br">1,600★</b> · 60 fps verified<span class="suf">ACT I · LIGHTING CUE</span></div>
+          <div class="cf-top"><span class="cue-no"><em>CUE 05</em>NOW BOOKING</span><span class="run">RUN 75 MIN</span></div>
+          <h3>Ghar Ki Chaabi</h3>
+          <p>Devised with twelve tenants of one building: every key they have ever lost, and what it used to open.</p>
+          <div class="scene-note">Made over six months of Sunday interviews. Every line was said by a neighbour first.</div>
+          <div class="chips"><span class="chip">Hindustani</span><span class="chip">Devised</span><span class="chip">12+</span></div>
+          <div class="metric"><b>6 Feb – 22 Feb</b> · <b class="br">from ₹300</b><span class="suf">NEW WORK</span></div>
+          <a class="book-link" href="#booking" data-book="chaabi">Choose seats <span aria-hidden="true">→</span></a>
         </article>
         <article class="casefile reveal" style="--d:.1s">
-          <div class="cf-top"><span class="cue-no"><em>CUE 06</em>PLAY</span><span class="run">RUN 3 MIN</span></div>
-          <h3>Switchback</h3>
-          <p>Scroll-driven story components — eight patterns that shipped in six studio client sites.</p>
-          <div class="scene-note">Scroll-jank complaints on client work: zero, post-release.</div>
-          <div class="chips"><span class="chip">TypeScript</span><span class="chip">IntersectionObserver</span><span class="chip">GSAP-free</span></div>
-          <div class="metric"><b>8</b> patterns · <b class="br">6</b> client sites · <b class="br">480★</b><span class="suf">ACT I · BLOCKED</span></div>
+          <div class="cf-top"><span class="cue-no"><em>CUE 06</em>NOW BOOKING</span><span class="run">RUN 80 MIN</span></div>
+          <h3>Night Bus to Amritsar</h3>
+          <p>Two strangers, the last two seats, and five hours of road. A two-hander that never leaves the bus.</p>
+          <div class="scene-note">The whole set is two seats and a window. The window is a light.</div>
+          <div class="chips"><span class="chip">Punjabi · English</span><span class="chip">Two-hander</span><span class="chip">14+</span></div>
+          <div class="metric"><b>27 Feb – 15 Mar</b> · <b class="br">from ₹300</b><span class="suf">ON TOUR AFTER</span></div>
+          <a class="book-link" href="#booking" data-book="bus">Choose seats <span aria-hidden="true">→</span></a>
         </article>
         <article class="casefile reveal" style="--d:.05s">
-          <div class="cf-top"><span class="cue-no"><em>CUE 07</em>PLAY</span><span class="run">RUN 2 MIN</span></div>
-          <h3>Scrapbook</h3>
-          <p>A shared memory journal — multi-author books that merge without conflict.</p>
-          <div class="scene-note">The studio's first product, and the reason the studio exists.</div>
-          <div class="chips"><span class="chip">TypeScript</span><span class="chip">CRDT merge</span><span class="chip">PWA</span></div>
-          <div class="metric"><b>4,100</b> households · <b class="br">320</b> family books printed<span class="suf">ACT I · ENCORE</span></div>
+          <div class="cf-top"><span class="cue-no"><em>CUE 07</em>NOW BOOKING</span><span class="run">RUN 90 MIN</span></div>
+          <h3>The Lamp Seller of Sector 17</h3>
+          <p>A man sells lamps in a plaza that has just been fitted with streetlights. A fable for a planned city.</p>
+          <div class="scene-note">Lit only by what the actors carry. Your eyes adjust by the second scene.</div>
+          <div class="chips"><span class="chip">English · Hindi</span><span class="chip">Fable</span><span class="chip">All ages</span></div>
+          <div class="metric"><b>20 Mar – 12 Apr</b> · <b class="br">from ₹300</b><span class="suf">LIGHTING CUE</span></div>
+          <a class="book-link" href="#booking" data-book="lamp">Choose seats <span aria-hidden="true">→</span></a>
         </article>
         <article class="casefile reveal" style="--d:.1s">
-          <div class="cf-top"><span class="cue-no"><em>CUE 08</em>PLAY</span><span class="run">RUN 3 MIN</span></div>
-          <h3>Ligature</h3>
-          <p>An editorial layout engine — grid-rhythm long-form web with 12 ready templates.</p>
-          <div class="scene-note">Two indie magazines relaunched on it; their writers call it “quiet”.</div>
-          <div class="chips"><span class="chip">TypeScript</span><span class="chip">CSS grid</span><span class="chip">variable fonts</span></div>
-          <div class="metric"><b>96</b> Lighthouse · <b class="br">12</b> templates · <b class="br">2</b> magazines<span class="suf">ACT I · CLOSER</span></div>
+          <div class="cf-top"><span class="cue-no"><em>CUE 08</em>NOW BOOKING</span><span class="run">RUN 60 MIN</span></div>
+          <h3>Small Hours</h3>
+          <p>Five short plays by five new writers, each written to start after ten at night.</p>
+          <div class="scene-note">A different running order every evening, drawn from a hat at the door.</div>
+          <div class="chips"><span class="chip">Mixed</span><span class="chip">New writing</span><span class="chip">16+</span></div>
+          <div class="metric"><b>Fridays, all season</b> · <b class="br">from ₹200</b><span class="suf">LATE SHOW</span></div>
+          <a class="book-link" href="#booking" data-book="hours">Choose seats <span aria-hidden="true">→</span></a>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking" class="act">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-kicker reveal"><span class="cue">ACT II</span> Box office · <b>Choose your seats</b></p>
+        <h2 class="sec-title reveal" style="--d:.05s">Pick a show, <em>pick a seat</em></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>SEATING PLAN</code> Up to eight seats per booking. Rows A and B are closest and cost a little more.</p>
+      </div>
+      <div class="bo reveal" style="--d:.08s">
+        <div class="bo-plan">
+          <div class="bo-pick">
+            <div class="field"><label for="bo-show">Production</label>
+              <select id="bo-show"><option value="chai">Teen Baje Ki Chai</option><option value="kursi">Khali Kursi</option><option value="ledger">Monsoon Ledger</option><option value="baraat">Baraat Without a Groom</option><option value="chaabi">Ghar Ki Chaabi</option><option value="bus">Night Bus to Amritsar</option><option value="lamp">The Lamp Seller of Sector 17</option><option value="hours">Small Hours</option></select></div>
+            <div class="field"><label for="bo-date">Performance</label><select id="bo-date"></select></div>
+          </div>
+          <div class="bo-stage" aria-hidden="true">Stage</div>
+          <div class="bo-seats" id="bo-seats" role="group" aria-label="Seating plan, stage at the top"></div>
+          <div class="bo-key" aria-hidden="true">
+            <span><i class="k-free"></i>Available</span><span><i class="k-sel"></i>Yours</span><span><i class="k-taken"></i>Taken</span>
+            <span class="k-price">A–B ₹600 · C–E ₹450 · F–G ₹300</span>
+          </div>
+        </div>
+        <aside class="bo-slip" aria-labelledby="bo-slip-title">
+          <div class="sh-head" id="bo-slip-title">Your booking</div>
+          <p class="bo-show-name" id="bo-show-name"></p>
+          <p class="bo-when" id="bo-when"></p>
+          <ul class="bo-list" id="bo-list"><li class="bo-empty">No seats chosen yet. Tap a seat on the plan.</li></ul>
+          <div class="bo-total"><span>Total</span><b id="bo-total">₹0</b></div>
+          <button class="btn" type="button" id="bo-hold" disabled>Hold these seats</button>
+          <button class="bo-clear" type="button" id="bo-clear">Clear selection</button>
+          <p class="bo-status" id="bo-status" role="status" aria-live="polite"></p>
+        </aside>
       </div>
     </div>
   </section>
@@ -709,46 +808,46 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
   <section id="skills" class="act">
     <div class="wrap">
       <div class="sec-head">
-        <p class="sec-kicker reveal"><span class="cue">ACT II</span> Lighting plot — Skills · <b>Fader positions</b></p>
-        <h2 class="sec-title reveal" style="--d:.05s">The lighting <em>plot</em></h2>
-        <p class="sec-note reveal" style="--d:.1s"><code>LIGHTING PLOT 0–100</code> Faders set per instrument, per act. Positions are current.</p>
+        <p class="sec-kicker reveal"><span class="cue">ACT III</span> The house · <b>In numbers</b></p>
+        <h2 class="sec-title reveal" style="--d:.05s">The house, <em>on the fader</em></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>HOUSE REPORT</code> How the season is selling, who came last year, and where a ticket goes.</p>
       </div>
       <div class="skills-grid">
         <div class="plot reveal" style="--d:.05s">
-          <h3>Creative &amp; Frontend</h3><span class="plot-no">PLOT/01</span>
-          <div class="lt-row"><label>CSS motion &amp; animation</label><div class="fader"><i></i></div><b>94</b></div>
-          <div class="lt-row"><label>Canvas 2D</label><div class="fader"><i></i></div><b>90</b></div>
-          <div class="lt-row"><label>design systems</label><div class="fader"><i></i></div><b>86</b></div>
-          <div class="lt-row"><label>web accessibility</label><div class="fader"><i></i></div><b>88</b></div>
-          <div class="lt-row"><label>Figma</label><div class="fader"><i></i></div><b>80</b></div>
-          <div class="lt-row"><label>kinetic typography</label><div class="fader"><i></i></div><b>78</b></div>
+          <h3>Seats sold this season</h3><span class="plot-no">PLOT/01</span>
+          <div class="lt-row"><label>Teen Baje Ki Chai</label><div class="fader"><i style="width:82%"></i></div><b>82%</b></div>
+          <div class="lt-row"><label>Khali Kursi</label><div class="fader"><i style="width:94%"></i></div><b>94%</b></div>
+          <div class="lt-row"><label>Monsoon Ledger</label><div class="fader"><i style="width:71%"></i></div><b>71%</b></div>
+          <div class="lt-row"><label>Baraat Without a Groom</label><div class="fader"><i style="width:64%"></i></div><b>64%</b></div>
+          <div class="lt-row"><label>Night Bus to Amritsar</label><div class="fader"><i style="width:48%"></i></div><b>48%</b></div>
+          <div class="lt-row"><label>Small Hours</label><div class="fader"><i style="width:77%"></i></div><b>77%</b></div>
         </div>
         <div class="plot reveal" style="--d:.1s">
-          <h3>Languages</h3><span class="plot-no">PLOT/02</span>
-          <div class="lt-row"><label>TypeScript</label><div class="fader"><i></i></div><b>94</b></div>
-          <div class="lt-row"><label>JavaScript</label><div class="fader"><i></i></div><b>96</b></div>
-          <div class="lt-row"><label>Python</label><div class="fader"><i></i></div><b>93</b></div>
-          <div class="lt-row"><label>Rust</label><div class="fader"><i></i></div><b>84</b></div>
-          <div class="lt-row"><label>SQL</label><div class="fader"><i></i></div><b>88</b></div>
-          <div class="lt-row"><label>HTML/CSS</label><div class="fader"><i></i></div><b>97</b></div>
+          <h3>Where your ticket goes</h3><span class="plot-no">PLOT/02</span>
+          <div class="lt-row"><label>Actors and writers</label><div class="fader"><i style="width:46%"></i></div><b>46%</b></div>
+          <div class="lt-row"><label>The room and the rig</label><div class="fader"><i style="width:21%"></i></div><b>21%</b></div>
+          <div class="lt-row"><label>Sets and costume</label><div class="fader"><i style="width:14%"></i></div><b>14%</b></div>
+          <div class="lt-row"><label>Pay-what-you-can fund</label><div class="fader"><i style="width:9%"></i></div><b>9%</b></div>
+          <div class="lt-row"><label>Workshops</label><div class="fader"><i style="width:6%"></i></div><b>6%</b></div>
+          <div class="lt-row"><label>Everything else</label><div class="fader"><i style="width:4%"></i></div><b>4%</b></div>
         </div>
         <div class="plot reveal" style="--d:.05s">
-          <h3>Web &amp; 3D</h3><span class="plot-no">PLOT/03</span>
-          <div class="lt-row"><label>React</label><div class="fader"><i></i></div><b>93</b></div>
-          <div class="lt-row"><label>Next.js</label><div class="fader"><i></i></div><b>88</b></div>
-          <div class="lt-row"><label>Three.js</label><div class="fader"><i></i></div><b>85</b></div>
-          <div class="lt-row"><label>WebGL</label><div class="fader"><i></i></div><b>80</b></div>
-          <div class="lt-row"><label>WebGPU</label><div class="fader"><i></i></div><b>72</b></div>
-          <div class="lt-row"><label>PWA / offline-first</label><div class="fader"><i></i></div><b>82</b></div>
+          <h3>Who came last season</h3><span class="plot-no">PLOT/03</span>
+          <div class="lt-row"><label>First visit to a theatre</label><div class="fader"><i style="width:41%"></i></div><b>41%</b></div>
+          <div class="lt-row"><label>Under twenty-five</label><div class="fader"><i style="width:38%"></i></div><b>38%</b></div>
+          <div class="lt-row"><label>Came back for a second show</label><div class="fader"><i style="width:57%"></i></div><b>57%</b></div>
+          <div class="lt-row"><label>Paid what they could</label><div class="fader"><i style="width:22%"></i></div><b>22%</b></div>
+          <div class="lt-row"><label>Came alone</label><div class="fader"><i style="width:29%"></i></div><b>29%</b></div>
+          <div class="lt-row"><label>Stayed for the talkback</label><div class="fader"><i style="width:63%"></i></div><b>63%</b></div>
         </div>
         <div class="plot reveal" style="--d:.1s">
-          <h3>Craft</h3><span class="plot-no">PLOT/04</span>
-          <div class="lt-row"><label>technical writing</label><div class="fader"><i></i></div><b>90</b></div>
-          <div class="lt-row"><label>public speaking</label><div class="fader"><i></i></div><b>78</b></div>
-          <div class="lt-row"><label>mentoring</label><div class="fader"><i></i></div><b>84</b></div>
-          <div class="lt-row"><label>project scoping</label><div class="fader"><i></i></div><b>85</b></div>
-          <div class="lt-row"><label>sketching &amp; notation</label><div class="fader"><i></i></div><b>72</b></div>
-          <div class="lt-row"><label>incident response</label><div class="fader"><i></i></div><b>80</b></div>
+          <h3>Workshop places taken</h3><span class="plot-no">PLOT/04</span>
+          <div class="lt-row"><label>Voice, Saturday mornings</label><div class="fader"><i style="width:90%"></i></div><b>90%</b></div>
+          <div class="lt-row"><label>Writing for a small room</label><div class="fader"><i style="width:75%"></i></div><b>75%</b></div>
+          <div class="lt-row"><label>Lighting with six lamps</label><div class="fader"><i style="width:55%"></i></div><b>55%</b></div>
+          <div class="lt-row"><label>Youth company, 14 to 18</label><div class="fader"><i style="width:85%"></i></div><b>85%</b></div>
+          <div class="lt-row"><label>Movement for non-dancers</label><div class="fader"><i style="width:40%"></i></div><b>40%</b></div>
+          <div class="lt-row"><label>Stage management</label><div class="fader"><i style="width:60%"></i></div><b>60%</b></div>
         </div>
       </div>
     </div>
@@ -757,18 +856,18 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
   <section id="achievements" class="act">
     <div class="wrap">
       <div class="sec-head">
-        <p class="sec-kicker reveal"><span class="cue">ACT III</span> Awards night — Achievements · <b>The honours</b></p>
+        <p class="sec-kicker reveal"><span class="cue">ACT IV</span> Press and honours · <b>The bows</b></p>
         <h2 class="sec-title reveal" style="--d:.05s">Bows, <em>by year</em></h2>
-        <p class="sec-note reveal" style="--d:.1s"><code>HONOURS LIST</code> Each bow verified by the house archivist.</p>
+        <p class="sec-note reveal" style="--d:.1s"><code>HONOURS LIST</code> Kept by the stage manager, who does not exaggerate.</p>
       </div>
       <div class="ach-list">
-        <div class="recital reveal" style="--d:.04s"><span class="bow brass">✶</span><div class="r-body"><h3>Top 10 — National Typography Poster Contest</h3><p>national · type &amp; code · 2023</p></div><span class="r-year">2023</span></div>
-        <div class="recital reveal" style="--d:.08s"><span class="bow bone">P</span><div class="r-body"><h3>Paper — “Generative Layout Prototyping for Screen Readers”</h3><p>Interfaces: Design Systems Review · peer-reviewed · 2024</p></div><span class="r-year">2024</span></div>
-        <div class="recital reveal" style="--d:.12s"><span class="bow red">UI</span><div class="r-body"><h3>Winner — Moonlight Hack 2024</h3><p>best UI award</p></div><span class="r-year">2024</span></div>
-        <div class="recital reveal" style="--d:.16s"><span class="bow brass">T</span><div class="r-body"><h3>“Toolmaker of the Month” — dev-tools newsletter</h3><p>Harpoon feature · Mar 2024</p></div><span class="r-year">2024</span></div>
-        <div class="recital reveal" style="--d:.2s"><span class="bow bone">D</span><div class="r-body"><h3>2 regional design honors</h3><p>client sites · Gilded motion system · 2025</p></div><span class="r-year">2025</span></div>
-        <div class="recital reveal" style="--d:.24s"><span class="bow brass">W</span><div class="r-body"><h3>Workshop lead — Design Systems India 2025</h3><p>contrast math for designers</p></div><span class="r-year">2025</span></div>
-        <div class="recital reveal" style="--d:.28s"><span class="bow red">T</span><div class="r-body"><h3>Speaker — CLI Fest 2024</h3><p>“Terminals as Product”</p></div><span class="r-year">2024</span></div>
+        <div class="recital reveal" style="--d:.04s"><span class="bow brass">✶</span><div class="r-body"><h3>Best Ensemble — Northern Small Stages Festival</h3><p>Monsoon Ledger · the full company of nine</p></div><span class="r-year">2026</span></div>
+        <div class="recital reveal" style="--d:.08s"><span class="bow bone">W</span><div class="r-body"><h3>New Writing Prize — Khali Kursi</h3><p>Doaba Playwrights' Circle · judged blind</p></div><span class="r-year">2025</span></div>
+        <div class="recital reveal" style="--d:.12s"><span class="bow red">L</span><div class="r-body"><h3>Best Lighting Design on a budget under ₹20,000</h3><p>The Lamp Seller of Sector 17 · Tricity Stage Review readers' poll</p></div><span class="r-year">2025</span></div>
+        <div class="recital reveal" style="--d:.16s"><span class="bow brass">T</span><div class="r-body"><h3>Fourteen-city tour — Night Bus to Amritsar</h3><p>Sold out in eleven of them · two seats and a window fit in one van</p></div><span class="r-year">2024</span></div>
+        <div class="recital reveal" style="--d:.2s"><span class="bow bone">Y</span><div class="r-body"><h3>Youth company founded</h3><p>Sixty places a year, free for anyone aged 14 to 18</p></div><span class="r-year">2023</span></div>
+        <div class="recital reveal" style="--d:.24s"><span class="bow brass">100</span><div class="r-body"><h3>One hundredth performance of Teen Baje Ki Chai</h3><p>Roughly four hundred cups of tea poured on stage</p></div><span class="r-year">2022</span></div>
+        <div class="recital reveal" style="--d:.28s"><span class="bow red">I</span><div class="r-body"><h3>Opening night</h3><p>Forty folding chairs, six borrowed lamps, one power cut</p></div><span class="r-year">2019</span></div>
       </div>
     </div>
   </section>
@@ -776,40 +875,40 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
   <section id="experience" class="act">
     <div class="wrap">
       <div class="sec-head">
-        <p class="sec-kicker reveal"><span class="cue">ACT IV</span> Company notes — Experience · <b>The roster</b></p>
-        <h2 class="sec-title reveal" style="--d:.05s">Company <em>notes</em></h2>
-        <p class="sec-note reveal" style="--d:.1s"><code>REHEARSAL RECORD</code> Postings in order of appearance, with the notes the stage manager kept.</p>
+        <p class="sec-kicker reveal"><span class="cue">ACT V</span> Workshops · <b>Come and make something</b></p>
+        <h2 class="sec-title reveal" style="--d:.05s">Company <em>classes</em></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>REHEARSAL ROOM</code> Taught by the people you saw on stage last night. No experience needed for any of them.</p>
       </div>
       <div class="notes">
         <div class="note-card reveal" style="--d:.05s">
-          <div class="nc-top"><h3>Game Engineer (contract)</h3><span class="dates">Sep 2023–Feb 2024</span></div>
-          <span class="org">Straybeam Games · indie studio</span>
-          <p>Built the echo-recording core of Ghostlight — 40 rooms, zero memory leaks across sessions. Shipped the browser demo that reached 140k plays. Introduced deterministic undo, which saved the save-file design.</p>
-          <span class="run-tag">COMPANY · STRAYBEAM</span>
+          <div class="nc-top"><h3>Voice, for people who talk for a living</h3><span class="dates">Saturdays · 10 am</span></div>
+          <span class="org">Eight weeks · ₹3,200 · twelve places</span>
+          <p>Breath, pace and how to be heard in the back row without shouting. Teachers, lawyers and one auctioneer have taken it so far.</p>
+          <span class="run-tag">STARTS 22 NOV</span>
         </div>
         <div class="note-card reveal" style="--d:.11s">
-          <div class="nc-top"><h3>Creative Technologist (part-time)</h3><span class="dates">Aug 2024–Jan 2025</span></div>
-          <span class="org">Straybeam Games · creative tech</span>
-          <p>Prototyped the procedural reef for Tidewalker from real depth data; designed “no damage, only discovery” dive physics with 3 freediver playtesters; cut the game's mobile frame budget in half with a texture-atlas pass.</p>
-          <span class="run-tag">COMPANY · STRAYBEAM</span>
+          <div class="nc-top"><h3>Writing for a small room</h3><span class="dates">Wednesdays · 6:30 pm</span></div>
+          <span class="org">Ten weeks · ₹4,500 · ten places</span>
+          <p>Write a twenty-minute play for two actors and no set. The best five are staged in Small Hours at the end of the season.</p>
+          <span class="run-tag">STARTS 3 DEC</span>
         </div>
         <div class="note-card reveal" style="--d:.17s">
-          <div class="nc-top"><h3>Design Lead</h3><span class="dates">Jan 2025 – present</span></div>
-          <span class="org">Kite &amp; Crane Studio · own studio</span>
-          <p>Established the studio's motion language (borrowed from Stagelight) across all client work; set the accessibility bar — every shipped site passes WCAG AA, audited in CI; hired and mentored the studio's first 2 junior engineers.</p>
-          <span class="run-tag">COMPANY · KITE &amp; CRANE</span>
+          <div class="nc-top"><h3>Lighting with six lamps</h3><span class="dates">One weekend</span></div>
+          <span class="org">Two days · ₹2,400 · eight places</span>
+          <p>Learn the house rig, plot a scene and run your own cues from the desk. You leave able to light a college production properly.</p>
+          <span class="run-tag">17 – 18 JAN</span>
         </div>
         <div class="note-card reveal" style="--d:.23s">
-          <div class="nc-top"><h3>Freelance Web Engineer</h3><span class="dates">2022–2024</span></div>
-          <span class="org">Quarry &amp; Quill · editorial &amp; product builds</span>
-          <p>Delivered 6 client sites end-to-end — 2 editorial, 2 product, 1 arts nonprofit, 1 small press. Every engagement fixed-price with a written scope; 12 of 14 ended with repeat work.</p>
-          <span class="run-tag">COMPANY · QUARRY &amp; QUILL</span>
+          <div class="nc-top"><h3>Youth company</h3><span class="dates">Sundays · 11 am</span></div>
+          <span class="org">All season · free · ages 14 to 18</span>
+          <p>Sixty young people make one full production a year and perform it on the main stage in April. Paid for by the pay-what-you-can fund.</p>
+          <span class="run-tag">AUDITIONS 9 NOV</span>
         </div>
       </div>
       <div class="edu reveal" style="--d:.18s">
-        <span class="e-mark">N</span>
-        <div><h3>B.Des Creative Technology (with CS minor)</h3><p>Northern Arc Institute of Design &amp; Technology · 2021–2025 · type-design coursework</p></div>
-        <span class="gpa">3.6<small>/ 4.0 GPA</small></span>
+        <span class="e-mark">H</span>
+        <div><h3>Hire the room</h3><p>Rehearsals, readings and recordings · weekday mornings · rig and technician included</p></div>
+        <span class="gpa">₹1,800<small>per hour</small></span>
       </div>
     </div>
   </section>
@@ -817,13 +916,13 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
   <section id="contact" class="act">
     <div class="wrap">
       <div class="sec-head">
-        <p class="sec-kicker reveal"><span class="cue">ACT V</span> Curtain call — Contact · <b>The encore</b></p>
-        <h2 class="sec-title reveal" style="--d:.05s">Take your <em>bow</em></h2>
-        <p class="sec-note reveal" style="--d:.1s"><code>STAGE DOOR</code> All notes and bookings accepted — the house replies within one performance.</p>
+        <p class="sec-kicker reveal"><span class="cue">ACT VI</span> Visit · <b>The stage door</b></p>
+        <h2 class="sec-title reveal" style="--d:.05s">Find the <em>door</em></h2>
+        <p class="sec-note reveal" style="--d:.1s"><code>STAGE DOOR</code> Group bookings, school visits, access needs and scripts you would like us to read.</p>
       </div>
       <div class="contact-grid">
         <form class="sheet reveal" id="contact-form" style="--d:.08s" novalidate>
-          <div class="sh-head">Stage door pass · BB-16</div>
+          <div class="sh-head">Note to the box office</div>
           <div class="field">
             <label for="cf-name">Name</label>
             <input id="cf-name" name="name" type="text" placeholder="Your name" autocomplete="name">
@@ -834,20 +933,20 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
           </div>
           <div class="field">
             <label for="cf-msg">Message</label>
-            <textarea id="cf-msg" name="message" placeholder="Book the house, pitch a role, send a note…"></textarea>
+            <textarea id="cf-msg" name="message" placeholder="A group of twenty, a wheelchair space, a play you have written…"></textarea>
           </div>
           <button class="btn" type="submit">Send the note ✦</button>
           <p id="form-status" role="status"></p>
         </form>
         <div class="sheet reveal" style="--d:.15s">
-          <div class="sh-head">Direct channels · no usher needed</div>
+          <div class="sh-head">Getting here</div>
           <div class="links">
-            <div class="linkrow"><span>Email</span><a href="mailto:garvit9829@gmail.com">garvit9829@gmail.com</a></div>
-            <div class="linkrow"><span>Phone</span><a href="tel:+918905402023">+91-8905402023</a></div>
-            <div class="linkrow"><span>GitHub</span><a href="https://github.com/garvit-pandia" target="_blank" rel="noopener">github.com/garvit-pandia</a></div>
-            <div class="linkrow"><span>LinkedIn</span><a href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener">linkedin.com/in/garvit-pandia</a></div>
-            <div class="linkrow"><span>Location</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Dehradun%2C+Uttarakhand" target="_blank" rel="noopener">Dehradun, Uttarakhand, India</a></div>
-            <div class="linkrow"><span>Resume</span><a href="Garvit_Pandia_Resume.pdf" download>Garvit_Pandia_Resume.pdf ↓</a></div>
+            <div class="linkrow"><span>Address</span><a href="#contact">The Old Press, Sector 10, Chandigarh</a></div>
+            <div class="linkrow"><span>Box office</span><a href="#booking">Tue – Sun · 3 pm to curtain</a></div>
+            <div class="linkrow"><span>Email</span><a href="mailto:boxoffice@saanjhrep.example">boxoffice@saanjhrep.example</a></div>
+            <div class="linkrow"><span>Doors</span><a href="#about">40 minutes before every show</a></div>
+            <div class="linkrow"><span>Access</span><a href="#contact">Step-free entrance · two wheelchair spaces in row A</a></div>
+            <div class="linkrow"><span>Parking</span><a href="#contact">Free after 6 pm in the lane behind the press</a></div>
           </div>
         </div>
       </div>
@@ -856,14 +955,15 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
 </main>
 
 <footer>
-  <div class="playbill-rule">★ ★ ★ PLAYBILL — GARVIT PANDIA · VOL. 16 · HOUSE LIGHTS DOWN ★ ★ ★</div>
-  <div><b>GARVIT PANDIA</b> — © 2026 · <span class="red">Black Box / Act I</span> · no images, no tracking</div>
+  <div class="playbill-rule">★ ★ ★ SAANJH REPERTORY · SEASON 8 · HOUSE LIGHTS DOWN ★ ★ ★</div>
+  <div><b>SAANJH REPERTORY</b> — © 2026 · <span class="red">Eighty-four seats, no bad one</span></div>
   <div class="foot-links">
-    <a href="https://github.com/garvit-pandia" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://www.linkedin.com/in/garvit-pandia/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="mailto:garvit9829@gmail.com">Email</a>
+    <a href="#projects">Season</a>
+    <a href="#booking">Seats</a>
+    <a href="#contact">Visit</a>
     <a href="#hero">Back to the stage</a>
   </div>
+  <p class="concept-credit">Saanjh Repertory is a fictional company. Concept site designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a> · <a href="../index.html">Back to the gallery</a></p>
 </footer>
 
 <script>
@@ -894,7 +994,7 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
   }
 
   /* ---------- nav active (IntersectionObserver) ---------- */
-  var ids = ['about', 'projects', 'skills', 'achievements', 'experience', 'contact'];
+  var ids = ['about', 'projects', 'booking', 'skills', 'achievements', 'experience', 'contact'];
   var linkEls = {};
   for (var li = 0; li < ids.length; li++) {
     var a = document.querySelector('.nav-links a[href="#' + ids[li] + '"]');
@@ -945,10 +1045,8 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
       var email = (document.getElementById('cf-email').value || '').trim();
       var msg = (document.getElementById('cf-msg').value || '').trim();
       if (!name || !msg) { setStatus('Please add your name and a message.', true); return; }
-      var subject = 'Portfolio contact from ' + name;
-      var body = msg + '\n\n\u2014 ' + name + (email ? ' (' + email + ')' : '');
-      setStatus('Opening your mail app\u2026');
-      window.location.href = 'mailto:garvit9829@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      form.reset();
+      setStatus('Thank you, ' + name + '. This is a concept site, so the note was not sent anywhere.');
     });
   }
 })();
@@ -964,10 +1062,10 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
 
   var cueNames = ['house', 'left', 'right', 'crossfade'];
   var cueCopy = {
-    house: 'Q1 HOUSE — opening look: soft white pool, wings open, playbill ready.',
-    left: 'Q2 STAGE LEFT — the left wing clears; Stagelight takes the mark.',
-    right: 'Q3 STAGE RIGHT — a brass cross finds Ghostlight in the wings.',
-    crossfade: 'Q4 CROSSFADE — narrow amber beam; Ghostlight holds the cue.'
+    house: 'Q1 HOUSE — opening look: soft white pool, wings open, programmes on the seats.',
+    left: 'Q2 STAGE LEFT — the left wing clears; Teen Baje Ki Chai takes the mark.',
+    right: 'Q3 STAGE RIGHT — a brass cross finds Khali Kursi in the wings.',
+    crossfade: 'Q4 CROSSFADE — narrow amber beam; Khali Kursi holds the cue.'
   };
   var buttons = Array.prototype.slice.call(consoleEl.querySelectorAll('[data-c16-cue]'));
 
@@ -1021,6 +1119,121 @@ body[data-c16-cue="crossfade"] #projects .casefile:nth-child(2)::before{opacity:
   });
 
   activate('house', false);
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var SHOWS = {"chai": {"t": "Teen Baje Ki Chai", "late": false}, "kursi": {"t": "Khali Kursi", "late": false}, "ledger": {"t": "Monsoon Ledger", "late": false}, "baraat": {"t": "Baraat Without a Groom", "late": false}, "chaabi": {"t": "Ghar Ki Chaabi", "late": false}, "bus": {"t": "Night Bus to Amritsar", "late": false}, "lamp": {"t": "The Lamp Seller of Sector 17", "late": false}, "hours": {"t": "Small Hours", "late": true}};
+  var DATES = ['Fri 14 Nov', 'Sat 15 Nov', 'Sun 16 Nov', 'Thu 20 Nov', 'Fri 21 Nov', 'Sat 22 Nov'];
+  var ROWS = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+  var PRICE = { A: 600, B: 600, C: 450, D: 450, E: 450, F: 300, G: 300 };
+  var MAX = 8;
+  var showEl = document.getElementById('bo-show');
+  var dateEl = document.getElementById('bo-date');
+  var seatsEl = document.getElementById('bo-seats');
+  var listEl = document.getElementById('bo-list');
+  var totalEl = document.getElementById('bo-total');
+  var holdEl = document.getElementById('bo-hold');
+  var clearEl = document.getElementById('bo-clear');
+  var statusEl = document.getElementById('bo-status');
+  var nameEl = document.getElementById('bo-show-name');
+  var whenEl = document.getElementById('bo-when');
+  if (!showEl || !seatsEl) { return; }
+  var picked = [];
+
+  function rupees(n) { return '\u20B9' + n.toLocaleString('en-IN'); }
+  /* the same show and night always has the same seats taken */
+  function taken(key, row, n) {
+    var h = 2166136261, str = key + row + n;
+    for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return ((h >>> 0) % 100) < 38;
+  }
+  function timeFor(show, date) {
+    if (SHOWS[show].late) { return '10:15 pm'; }
+    return date.indexOf('Sun') === 0 ? '4:00 pm' : '7:30 pm';
+  }
+  function fillDates() {
+    var late = SHOWS[showEl.value].late;
+    dateEl.innerHTML = '';
+    DATES.forEach(function (d) {
+      if (late && d.indexOf('Fri') !== 0) { return; }
+      var o = document.createElement('option');
+      o.value = d; o.textContent = d + ' · ' + timeFor(showEl.value, d) + (d.indexOf('Thu') === 0 ? ' · pay what you can' : '');
+      dateEl.appendChild(o);
+    });
+  }
+  function drawSeats() {
+    picked = [];
+    statusEl.textContent = '';
+    seatsEl.innerHTML = '';
+    var key = showEl.value + dateEl.value;
+    ROWS.forEach(function (row) {
+      var r = document.createElement('div'); r.className = 'bo-row';
+      var l1 = document.createElement('span'); l1.className = 'rl'; l1.textContent = row; l1.setAttribute('aria-hidden', 'true'); r.appendChild(l1);
+      for (var n = 1; n <= 12; n++) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'seat'; b.dataset.row = row; b.dataset.n = n;
+        var gone = taken(key, row, n);
+        b.setAttribute('aria-pressed', 'false');
+        b.setAttribute('aria-label', 'Row ' + row + ' seat ' + n + ', ' + rupees(PRICE[row]) + (gone ? ', taken' : ', available'));
+        if (gone) { b.disabled = true; }
+        r.appendChild(b);
+      }
+      var l2 = l1.cloneNode(true); r.appendChild(l2);
+      seatsEl.appendChild(r);
+    });
+    renderSlip();
+  }
+  function renderSlip() {
+    nameEl.textContent = SHOWS[showEl.value].t;
+    whenEl.textContent = dateEl.options[dateEl.selectedIndex] ? dateEl.options[dateEl.selectedIndex].textContent : '';
+    listEl.innerHTML = '';
+    var total = 0;
+    if (!picked.length) {
+      var e = document.createElement('li'); e.className = 'bo-empty'; e.textContent = 'No seats chosen yet. Tap a seat on the plan.'; listEl.appendChild(e);
+    }
+    picked.slice().sort().forEach(function (id) {
+      var row = id.charAt(0), li = document.createElement('li');
+      li.innerHTML = '<span>Row ' + row + ' · seat ' + id.slice(1) + '</span>' + rupees(PRICE[row]);
+      listEl.appendChild(li); total += PRICE[row];
+    });
+    totalEl.textContent = rupees(total);
+    holdEl.disabled = !picked.length;
+  }
+  seatsEl.addEventListener('click', function (ev) {
+    var b = ev.target.closest('.seat');
+    if (!b || b.disabled) { return; }
+    var id = b.dataset.row + (b.dataset.n.length < 2 ? '0' : '') + b.dataset.n;
+    var at = picked.indexOf(id);
+    if (at === -1) {
+      if (picked.length >= MAX) { statusEl.textContent = 'Eight seats is the most one booking can hold. For a bigger group, leave a note at the stage door below.'; return; }
+      picked.push(id); b.setAttribute('aria-pressed', 'true');
+    } else {
+      picked.splice(at, 1); b.setAttribute('aria-pressed', 'false');
+    }
+    statusEl.textContent = '';
+    renderSlip();
+  });
+  showEl.addEventListener('change', function () { fillDates(); drawSeats(); });
+  dateEl.addEventListener('change', drawSeats);
+  clearEl.addEventListener('click', drawSeats);
+  holdEl.addEventListener('click', function () {
+    if (!picked.length) { return; }
+    var ref = 'SR-' + showEl.value.slice(0, 2).toUpperCase() + '-' + (1000 + picked.length * 137 + picked.join('').length * 53 + picked[0].charCodeAt(0));
+    var n = picked.length;
+    [].forEach.call(seatsEl.querySelectorAll('.seat[aria-pressed="true"]'), function (b) { b.disabled = true; b.setAttribute('aria-pressed', 'false'); });
+    statusEl.innerHTML = 'Held: ' + n + (n === 1 ? ' seat' : ' seats') + ' for ' + SHOWS[showEl.value].t + '. Reference <b>' + ref + '</b>. This is a concept site, so nothing was charged and no real seats exist.';
+    picked = [];
+    renderSlip();
+  });
+  [].forEach.call(document.querySelectorAll('[data-book]'), function (a) {
+    a.addEventListener('click', function () {
+      showEl.value = a.getAttribute('data-book');
+      fillDates(); drawSeats();
+    });
+  });
+  fillDates(); drawSeats();
 })();
 </script>
 </body>

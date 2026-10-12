@@ -10,18 +10,18 @@ Material Index home page. This is not one composite site and not a theme switche
 Replace the existing v7 Voxel World page with Weather//Systems while preserving the existing
 public folder path for compatibility:
 
-`/home/garvit/projects/portfolio5/v7-voxel/index.html`
+`/home/garvit/projects2/portfolio-gallery/v7-voxel/index.html`
 
 Create four fully built standalone variants:
 
-- `/home/garvit/projects/portfolio5/v15-transit-map/index.html`
-- `/home/garvit/projects/portfolio5/v16-black-box/index.html`
-- `/home/garvit/projects/portfolio5/v17-strata/index.html`
-- `/home/garvit/projects/portfolio5/v18-optical-bench/index.html`
+- `/home/garvit/projects2/portfolio-gallery/v15-transit-map/index.html`
+- `/home/garvit/projects2/portfolio-gallery/v16-black-box/index.html`
+- `/home/garvit/projects2/portfolio-gallery/v17-strata/index.html`
+- `/home/garvit/projects2/portfolio-gallery/v18-optical-bench/index.html`
 
 Update the main home page:
 
-`/home/garvit/projects/portfolio5/index.html`
+`/home/garvit/projects2/portfolio-gallery/index.html`
 
 The final index must contain 18 standalone variants, v1 through v14 plus v7's replacement and
 v15 through v18, followed by the existing commission card. In practical terms it has 18 variant
@@ -35,14 +35,14 @@ static shells, or duplicated v7 pages with recolored backgrounds.
 Read:
 
 1. This brief.
-2. `/home/garvit/projects/portfolio5/.hermes/plans/2026-08-15-v7-v15-v18-five-standalone-variants.md`
-3. `/home/garvit/projects/portfolio5/docs/synthetic-data-pool.md`
-4. `/home/garvit/projects/portfolio5/docs/fictional-resume-data.md`
+2. `/home/garvit/projects2/portfolio-gallery/.hermes/plans/2026-08-15-v7-v15-v18-five-standalone-variants.md`
+3. `/home/garvit/projects2/portfolio-gallery/docs/synthetic-data-pool.md`
+4. `/home/garvit/projects2/portfolio-gallery/docs/fictional-resume-data.md`
 5. The complete current v7 page.
 6. The complete current root `index.html`.
-7. `/home/garvit/projects/portfolio5/docs/goal-hub-card-previews.md`.
+7. `/home/garvit/projects2/portfolio-gallery/docs/goal-hub-card-previews.md`.
 8. The complete current v10 Typevolt page.
-9. `/home/garvit/projects/portfolio5/STATUS.md`.
+9. `/home/garvit/projects2/portfolio-gallery/STATUS.md`.
 
 The old `docs/brief-v7-voxel.md` is a description of the theme being removed. Do not follow its
 voxel implementation or its code-only/no-browser instruction. The old composite brief
@@ -380,7 +380,7 @@ Generate and verify:
 
 Audit:
 
-`/home/garvit/projects/portfolio5/v10-typevolt/index.html`
+`/home/garvit/projects2/portfolio-gallery/v10-typevolt/index.html`
 
 The user reports broken hover animations. Do not redesign Typevolt or change its canonical copy.
 Fix only reproducible bugs.
@@ -461,7 +461,7 @@ For the root hub:
 
 ## 14. Completion report
 
-Update `/home/garvit/projects/portfolio5/STATUS.md` with:
+Update `/home/garvit/projects2/portfolio-gallery/STATUS.md` with:
 
 - v7 replacement summary
 - v15–v18 paths and names
