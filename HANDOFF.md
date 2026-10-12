@@ -2,9 +2,10 @@
 
 **Last updated:** 2026-10-12
 **Folder:** `/home/garvit/projects2/portfolio-gallery`
-**Branch:** `concept-sites` (from `main`). Nothing on it is committed yet.
+**Branch:** `concept-sites` (from `main`). Committed and pushed to GitHub, ten sites, as of 2026-10-12.
 **Local server:** `http://127.0.0.1:5186/` (`python3 -m http.server 5186`, registered in `../PORT-REGISTRY.md`)
 **Live:** https://garvit-pandia.github.io/p/ (GitHub Pages, serves `origin/main` from the repo root)
+**Preview:** https://material-index-git-concept-sites-garvits-projects-1883ee4b.vercel.app/ (Vercel project `material-index`, connected to the GitHub repo; every push to `concept-sites` rebuilds it, and it opens without a login)
 
 ---
 
@@ -66,7 +67,8 @@ Shared pattern on the six sites:
 
 The live site is `origin/main`: the fourteen-portfolio gallery, three commits behind
 local `main`, with the invented career copy and résumé PDFs. None of the concept-site
-work is live.
+work is on GitHub Pages. The ten sites are on the Vercel preview above;
+`material-index.vercel.app` still serves the earlier six-site deployment.
 
 `garvitpandia.me` (project `../garvit`, `src/lib/data.ts`) describes this repo as
 fourteen portfolios and shows a strip of them. That text and strip need updating when
@@ -74,7 +76,7 @@ this branch ships.
 
 ## Next
 
-0. Review the three people sites. Not committed yet. Still open: plainer names for the six
+0. Review the three people sites and Hitesh Clinic on the Vercel preview. Still open: plainer names for the six
    business sites (Kaagaz Haveli, Saanjh, Kanch, Dhingri, Paatal read as forced), and which
    professions come next (fashion designer, author, music producer, filmmaker, travel
    planner, garden designer, podcast host were on the list).

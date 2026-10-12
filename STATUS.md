@@ -21,6 +21,7 @@ A tenth demo site, built from scratch in `v22-clinic/`: a neighbourhood chemist 
 - **Photos:** 14 Unsplash photographs in `v22-clinic/img/` (1.9 MB), credited in the notice.
 - **Gallery:** card 07 of 10, a rail tile, the live-preview selector, `shots/v22-clinic.png`, and a `.vercelignore` entry for the screenshot. The commission card now sits beside the tenth card on desktop instead of taking a row to itself.
 - **Verified:** site and gallery at 1280 and 390 px with zero console errors and no sideways scroll; every feature above driven end to end in a headless browser at both widths; reduced motion shows everything with no running animations. Checks in section 4 of `docs/content-rules.md` pass.
+- **Deployed:** committed on `concept-sites` with the three people sites and pushed to GitHub. The Vercel project `material-index` is connected to the repo and built the push as a preview: https://material-index-git-concept-sites-garvits-projects-1883ee4b.vercel.app/v22-clinic/ returns 200 without a login. `main`, GitHub Pages and `material-index.vercel.app` were not touched.
 
 ## 2026-10-12 — THREE PEOPLE SITES BUILT FROM SCRATCH; GALLERY NOW NINE
 
