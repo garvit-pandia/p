@@ -10,6 +10,10 @@ Session: Aug 07 2026 — ROUND 7+ CAMPAIGN STARTED: 5 rounds × 10 variants, ref
 - The domain appears in some older portfolio variant contact/footer content and in the fictional resume data as an external personal-site link. Those references do not make the separate site part of this project.
 - Root index redesign deployed from commit `4aeb701` and verified live on GitHub Pages on 2026-08-11.
 
+## 2026-10-13 — HITESH CLINIC: NEW HERO PHOTO
+
+The photograph in the hero capsule is replaced: the pharmacist at the shelves is out, and a young woman in a white coat standing in front of green trees is in, because its greens sit with the site's own colours. It is `v22-clinic/img/hero.webp` (900 px wide, 48 KB, Unsplash, photographer Ike Ellyana); `counter.webp` is removed. The file has a new name on purpose: browsers keep `/img/` files for a week on the site's own address, so a changed photo needs a changed name to show up. `shots/v22-clinic.png` is retaken. Checked at 390, 768, 1024, 1280 and 1920 px with no console errors and no sideways scroll.
+
 ## 2026-10-13 — THREE SITES ON THEIR OWN ADDRESSES; PHOTOS MADE LIGHTER
 
 The photographer, the architect and the clinic each have a short address of their own, and their photographs load faster.
