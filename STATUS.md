@@ -10,6 +10,16 @@ Session: Aug 07 2026 — ROUND 7+ CAMPAIGN STARTED: 5 rounds × 10 variants, ref
 - The domain appears in some older portfolio variant contact/footer content and in the fictional resume data as an external personal-site link. Those references do not make the separate site part of this project.
 - Root index redesign deployed from commit `4aeb701` and verified live on GitHub Pages on 2026-08-11.
 
+## 2026-10-13 — THREE SITES ON THEIR OWN ADDRESSES; PHOTOS MADE LIGHTER
+
+The photographer, the architect and the clinic each have a short address of their own, and their photographs load faster.
+
+- **Addresses:** https://meera-kapoor.vercel.app (`v19-photographer`), https://arjun-sethi.vercel.app (`v20-architect`), https://hitesh-clinic.vercel.app (`v22-clinic`). Each is a separate Vercel project connected to this same GitHub repo, with its Root Directory set to the site's folder and `concept-sites` as its production branch. There is still one copy of each site: a push updates the gallery preview and the three addresses together. All three open without a login.
+- **Photos:** converted from JPG to WebP and sized for where they are shown; the JPGs are removed. The clinic has one file per photo (1.9 MB down to 0.45 MB for the whole page). The photographer and the architect have three per photo: `name-xs.webp` (560 px) and `name-s.webp` (800 px) for the grids, picked by the browser through `srcset`, and `name.webp` at full size for the viewer, the project sheet and the hero. A full scroll of the photographer now loads about 0.5 MB on a phone or ordinary screen and 0.9 MB on a high-density laptop screen, against 2.4 MB before; the architect loads 0.45 to 0.65 MB against 1.5 MB.
+- **Also:** each hero photo is preloaded, images decode off the main thread, and a `vercel.json` in each of the three folders lets browsers keep `/img/` files for a week. That file only takes effect on the site's own address.
+- **Footer link:** "See more demo sites" now points at `https://material-index.vercel.app/`, because `../index.html` would lead a stand-alone site back to itself. A line of script switches it back to `../index.html` when the page is opened from inside the gallery (any `/vN-name/` path, including `file://`).
+- **Verified:** locally at 390, 1280 and 1440 px (the last at double density) with zero console errors, no broken images and no sideways scroll; the photo viewer and the project sheet open the full-size file.
+
 ## 2026-10-12 — HITESH CLINIC ADDED; GALLERY NOW TEN
 
 A tenth demo site, built from scratch in `v22-clinic/`: a neighbourhood chemist with its own sample room and doctor's room, set in Indore.

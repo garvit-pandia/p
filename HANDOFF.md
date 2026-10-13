@@ -1,11 +1,12 @@
 # The Material Index — current state
 
-**Last updated:** 2026-10-12
+**Last updated:** 2026-10-13
 **Folder:** `/home/garvit/projects2/portfolio-gallery`
 **Branch:** `concept-sites` (from `main`). Committed and pushed to GitHub, ten sites, as of 2026-10-12.
 **Local server:** `http://127.0.0.1:5186/` (`python3 -m http.server 5186`, registered in `../PORT-REGISTRY.md`)
 **Live:** https://garvit-pandia.github.io/p/ (GitHub Pages, serves `origin/main` from the repo root)
 **Preview:** https://material-index-git-concept-sites-garvits-projects-1883ee4b.vercel.app/ (Vercel project `material-index`, connected to the GitHub repo; every push to `concept-sites` rebuilds it, and it opens without a login)
+**Own addresses:** https://meera-kapoor.vercel.app, https://arjun-sethi.vercel.app and https://hitesh-clinic.vercel.app (three more Vercel projects on the same repo, each with its Root Directory set to the site's folder and `concept-sites` as production branch; the same push rebuilds them)
 
 ---
 
@@ -68,7 +69,9 @@ Shared pattern on the six sites:
 The live site is `origin/main`: the fourteen-portfolio gallery, three commits behind
 local `main`, with the invented career copy and résumé PDFs. None of the concept-site
 work is on GitHub Pages. The ten sites are on the Vercel preview above;
-`material-index.vercel.app` still serves the earlier six-site deployment.
+`material-index.vercel.app` still serves the earlier six-site deployment. The footer
+link of the three stand-alone sites points there, so it shows six sites until the
+gallery's production address is moved to this branch.
 
 `garvitpandia.me` (project `../garvit`, `src/lib/data.ts`) describes this repo as
 fourteen portfolios and shows a strip of them. That text and strip need updating when

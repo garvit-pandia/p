@@ -10,6 +10,7 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#f6f1e9">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%23f6f1e9'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia' font-size='30' font-style='italic' fill='%23a85d48'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="preload" as="image" href="img/hero.webp" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -280,8 +281,8 @@ footer h2 em{color:var(--gold)}
       </div>
     </div>
     <div class="plates">
-      <div class="plate a wipe"><img src="img/hero.jpg" alt="A couple seen from behind in late sunlight, the bride holding a bouquet" width="1800" height="1200" fetchpriority="high"></div>
-      <div class="plate b wipe" style="--d:4" id="plateB"><img src="img/bride.jpg" alt="A bride in a red and gold lehenga looking down" width="1100" height="1650"></div>
+      <div class="plate a wipe"><img src="img/hero.webp" alt="A couple seen from behind in late sunlight, the bride holding a bouquet" width="1800" height="1200" fetchpriority="high" decoding="async"></div>
+      <div class="plate b wipe" style="--d:4" id="plateB"><img src="img/bride-xs.webp" alt="A bride in a red and gold lehenga looking down" width="560" height="840" decoding="async"></div>
       <svg class="seal" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="ring" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1 -92 0"/></defs><text><textPath href="#ring">booking 2027 &#10022; a few dates left in 2026 &#10022; </textPath></text></svg>
       <span class="plate-tag">Plate 01 &mdash; golden hour</span>
     </div>
@@ -310,7 +311,7 @@ footer h2 em{color:var(--gold)}
 <section class="approach" id="approach">
   <div class="shell">
     <div class="spread">
-      <figure class="wipe"><img src="img/kiss.jpg" alt="Black and white: a veil caught by the wind around a couple" width="1100" height="641" loading="lazy"></figure>
+      <figure class="wipe"><img src="img/kiss.webp" alt="Black and white: a veil caught by the wind around a couple" width="1100" height="641" loading="lazy" decoding="async"></figure>
       <div>
         <p class="eyebrow rv">How I work</p>
         <blockquote class="rv" style="--d:1">I never ask anyone to look at the camera twice.</blockquote>
@@ -408,7 +409,7 @@ footer h2 em{color:var(--gold)}
       <div>Studio in Jaipur<br>Travelling everywhere</div>
       <div>Replies within two days<br>Booking 2026 and 2027</div>
     </div>
-    <p class="fine">Demo site. Meera Kapoor is a fictional photographer, and the names, prices, dates and reviews here are made up for illustration. Photographs are from Unsplash. Designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a>, who can build one like this for you. <a href="../index.html">See more demo sites</a>.</p>
+    <p class="fine">Demo site. Meera Kapoor is a fictional photographer, and the names, prices, dates and reviews here are made up for illustration. Photographs are from Unsplash. Designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a>, who can build one like this for you. <a href="https://material-index.vercel.app/" id="moreSites">See more demo sites</a>.</p>
   </div>
 </footer>
 
@@ -429,6 +430,9 @@ footer h2 em{color:var(--gold)}
 'use strict';
 var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 var $ = function(s, r){ return (r || document).querySelector(s); };
+
+/* opened from inside the gallery, the footer link goes back up to it */
+var more = $('#moreSites'); if(more && /\/v\d+-[\w-]+\/(index\.html)?$/.test(location.pathname)) more.setAttribute('href', '../index.html');
 
 /* ---------- reveals ---------- */
 var io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){
@@ -486,7 +490,7 @@ SHOTS.forEach(function(s, i){
   var b = document.createElement('button');
   b.type = 'button'; b.className = 'shot rv'; b.dataset.cat = s[3]; b.dataset.i = i; b.style.setProperty('--d', i % 3);
   b.setAttribute('aria-label', 'Open photo: ' + s[4] + ', ' + s[5]);
-  b.innerHTML = '<img src="img/' + s[0] + '.jpg" alt="' + s[6] + '" width="' + s[1] + '" height="' + s[2] + '" loading="lazy" decoding="async">' +
+  b.innerHTML = '<img src="img/' + s[0] + '-s.webp" srcset="img/' + s[0] + '-xs.webp 560w, img/' + s[0] + '-s.webp 800w" sizes="(max-width: 960px) 44vw, 400px" alt="' + s[6] + '" width="' + s[1] + '" height="' + s[2] + '" loading="lazy" decoding="async">' +
     '<figcaption><small>Plate ' + pad(i + 1) + ' &middot; ' + s[5] + '</small><span>' + s[4] + '</span></figcaption>';
   shots.push(b);
 });
@@ -536,7 +540,7 @@ function show(k){
   var s = SHOTS[visible[pos]];
   lbImg.classList.add('swap');
   setTimeout(function(){
-    lbImg.src = 'img/' + s[0] + '.jpg'; lbImg.alt = s[6];
+    lbImg.src = 'img/' + s[0] + '.webp'; lbImg.alt = s[6];
     $('#lbCount').textContent = pad(pos + 1) + ' / ' + pad(visible.length);
     $('#lbTitle').textContent = s[4]; $('#lbPlace').textContent = s[5];
     lbImg.onload = function(){ lbImg.classList.remove('swap'); };

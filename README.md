@@ -48,7 +48,9 @@ python3 -m http.server 5186
 
 No build step and nothing to install. Pages also open straight from `file://`.
 Internet is needed for Google Fonts and, for `v5-glass`, Three.js from the CDN.
-The three newest sites keep their photographs in an `img/` folder beside the page.
+The four newest sites keep their photographs in an `img/` folder beside the page.
+Three of them also have an address of their own: <https://meera-kapoor.vercel.app>,
+<https://arjun-sethi.vercel.app> and <https://hitesh-clinic.vercel.app>.
 
 ## What every site has
 

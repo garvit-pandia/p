@@ -10,6 +10,7 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#f6f4ec">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%230d6b57'/%3E%3Cpath d='M26 14h12v12h12v12H38v12H26V38H14V26h12z' fill='%23fffdf8'/%3E%3C/svg%3E">
+<link rel="preload" as="image" href="img/counter.webp" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400..600&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
@@ -571,7 +572,7 @@ html.js .stop.on{opacity:1}
     </div>
 
     <div class="art" id="art">
-      <div class="art__main"><img src="img/counter.jpg" alt="A pharmacist in a white coat reaching for a box on the dispensary shelves" fetchpriority="high"></div>
+      <div class="art__main"><img src="img/counter.webp" alt="A pharmacist in a white coat reaching for a box on the dispensary shelves" fetchpriority="high"></div>
       <svg class="badge" viewBox="0 0 120 120" aria-hidden="true">
         <defs><path id="circ" d="M60 60m-45 0a45 45 0 1 1 90 0a45 45 0 1 1-90 0"/></defs>
         <circle cx="60" cy="60" r="60" fill="#ffc84a"/>
@@ -584,7 +585,7 @@ html.js .stop.on{opacity:1}
         <div class="rng" style="--p:44"><span class="rng__name">Fasting sugar</span><span class="rng__val">92 <small>mg/dL</small></span><div class="rng__bar"><i></i></div></div>
         <div class="rng" style="--p:61"><span class="rng__name">TSH</span><span class="rng__val">2.4 <small>mIU/L</small></span><div class="rng__bar"><i></i></div></div>
       </div>
-      <div class="art__dot"><img src="img/capsules.jpg" alt="Orange and white capsules spilling from a bottle"></div>
+      <div class="art__dot"><img src="img/capsules.webp" alt="Orange and white capsules spilling from a bottle"></div>
       <span class="pill fl" data-depth=".05" style="right:-2%;top:70px;--r:-24deg;--t:6s" aria-hidden="true"></span>
       <span class="tab fl hide-s" data-depth=".08" style="left:35%;top:318px;--c1:#ffc84a;--t:8s" aria-hidden="true"></span>
       <span class="pill fl hide-s" data-depth=".07" style="left:46%;bottom:0;--c1:#b9a8ee;--r:18deg;--t:7.5s" aria-hidden="true"></span>
@@ -624,21 +625,21 @@ html.js .stop.on{opacity:1}
     <div class="doors">
       <a class="door door--a rv" href="#pharmacy">
         <span class="door__n">ROOM 01</span>
-        <div class="door__pic"><img src="img/shelves.jpg" alt="Dispensary shelves stacked with medicine boxes" loading="lazy"></div>
+        <div class="door__pic"><img src="img/shelves.webp" alt="Dispensary shelves stacked with medicine boxes" loading="lazy" decoding="async"></div>
         <h3>The chemist counter</h3>
         <p>Prescription medicines, generics if you ask, and a pharmacist who reads the whole prescription before reaching for the shelf.</p>
         <span class="door__go">Refills and delivery <i aria-hidden="true">↓</i></span>
       </a>
       <a class="door door--b rv" style="--d:1" href="#tests">
         <span class="door__n">ROOM 02</span>
-        <div class="door__pic"><img src="img/tubes.jpg" alt="Rows of blood collection tubes with coloured caps" loading="lazy"></div>
+        <div class="door__pic"><img src="img/tubes.webp" alt="Rows of blood collection tubes with coloured caps" loading="lazy" decoding="async"></div>
         <h3>The sample room</h3>
         <p>Blood and urine tests, at the clinic or at your door from 6:30 in the morning. Most reports are ready the same evening.</p>
         <span class="door__go">Build a test slip <i aria-hidden="true">↓</i></span>
       </a>
       <a class="door door--c rv" style="--d:2" href="#checkups">
         <span class="door__n">ROOM 03</span>
-        <div class="door__pic"><img src="img/bp.jpg" alt="A digital blood pressure monitor on someone's arm" loading="lazy"></div>
+        <div class="door__pic"><img src="img/bp.webp" alt="A digital blood pressure monitor on someone's arm" loading="lazy" decoding="async"></div>
         <h3>The check-up room</h3>
         <p>Blood pressure, sugar, ECG and full-body packages, with a doctor on the other side of the wall to explain the numbers.</p>
         <span class="door__go">See the packages <i aria-hidden="true">↓</i></span>
@@ -656,8 +657,8 @@ html.js .stop.on{opacity:1}
     <div class="rx">
       <div>
         <div class="rx__pics rv">
-          <div><img src="img/organiser.jpg" alt="A hand filling a weekly pill organiser" loading="lazy"></div>
-          <div><img src="img/stethoscope.jpg" alt="A stethoscope on a pale blue surface" loading="lazy"></div>
+          <div><img src="img/organiser.webp" alt="A hand filling a weekly pill organiser" loading="lazy" decoding="async"></div>
+          <div><img src="img/stethoscope.webp" alt="A stethoscope on a pale blue surface" loading="lazy" decoding="async"></div>
         </div>
         <ul class="rxlist">
           <li class="rv"><i>Rx</i><b>Generics, if you want them</b><span>We tell you the generic for your medicine and what it saves. You decide; the doctor&rsquo;s brand is always in stock too.</span></li>
@@ -784,7 +785,7 @@ html.js .stop.on{opacity:1}
     <div class="packs" id="packs"></div>
     <noscript><p class="tl__none">Starter ₹749 · Sugar Watch ₹1,199 · Full Body ₹2,499 · Sixty Plus ₹2,899. Ask at the counter for what each one covers.</p></noscript>
     <div class="room">
-      <div class="room__pic rv"><img src="img/checkup.jpg" alt="A doctor taking an older patient's blood pressure across a desk" loading="lazy"></div>
+      <div class="room__pic rv"><img src="img/checkup.webp" alt="A doctor taking an older patient's blood pressure across a desk" loading="lazy" decoding="async"></div>
       <div class="room__list rv" style="--d:1">
         <h3>No appointment needed for these</h3>
         <p>Walk into the check-up room any time the chemist is open.</p>
@@ -808,10 +809,10 @@ html.js .stop.on{opacity:1}
       <p class="rv" style="--d:1">A report is only as good as the twelve hours before it. This is what happens between the needle and the message on your phone.</p>
     </div>
     <div class="jr__pics rv">
-      <div><img src="img/collection.jpg" alt="A gloved health worker drawing blood from a person's arm" loading="lazy"></div>
-      <div><img src="img/rack.jpg" alt="A gloved hand placing a sample tube into a rack" loading="lazy"></div>
-      <div><img src="img/sample.jpg" alt="A gloved hand lifting a blood sample tube from a tray" loading="lazy"></div>
-      <div><img src="img/microscope.jpg" alt="A person in a lab coat looking through a microscope" loading="lazy"></div>
+      <div><img src="img/collection.webp" alt="A gloved health worker drawing blood from a person's arm" loading="lazy" decoding="async"></div>
+      <div><img src="img/rack.webp" alt="A gloved hand placing a sample tube into a rack" loading="lazy" decoding="async"></div>
+      <div><img src="img/sample.webp" alt="A gloved hand lifting a blood sample tube from a tray" loading="lazy" decoding="async"></div>
+      <div><img src="img/microscope.webp" alt="A person in a lab coat looking through a microscope" loading="lazy" decoding="async"></div>
     </div>
     <ol class="track" id="track">
       <li class="stop"><time>6:30 AM</time><h3>Collected</h3><p>One needle, one try. Your name and a barcode go on the tube while you are still in the chair.</p></li>
@@ -855,7 +856,7 @@ html.js .stop.on{opacity:1}
       <p class="rv" style="--d:1">Five visiting doctors share the room at the back. No appointment: take a token at the counter and wait your turn. The list below knows what time it is in Indore.</p>
     </div>
     <div class="docs">
-      <div class="docs__pic rv"><img src="img/doctor.jpg" alt="A doctor in a white shirt with a stethoscope around his neck, arms folded" loading="lazy"><span>Any report made here is explained free of charge on your next visit.</span></div>
+      <div class="docs__pic rv"><img src="img/doctor.webp" alt="A doctor in a white shirt with a stethoscope around his neck, arms folded" loading="lazy" decoding="async"><span>Any report made here is explained free of charge on your next visit.</span></div>
       <div class="tt rv" style="--d:1" id="tt"></div>
     </div>
     <noscript><p class="tl__none">General physician: Monday to Saturday, 10 am to 1 pm and 6 pm to 9 pm. Other clinics run on fixed days; ask at the counter.</p></noscript>
@@ -885,7 +886,7 @@ html.js .stop.on{opacity:1}
     <div>
       <p class="eyebrow rv"><b>09</b> Before you come</p>
       <h2 class="rv">Asked at the <em>counter daily.</em></h2>
-      <div class="faq__pic rv" style="--d:1"><img src="img/ecg.jpg" alt="Gloved hands marking an ECG printout beside a stethoscope" loading="lazy"></div>
+      <div class="faq__pic rv" style="--d:1"><img src="img/ecg.webp" alt="Gloved hands marking an ECG printout beside a stethoscope" loading="lazy" decoding="async"></div>
     </div>
     <div class="rv" style="--d:1">
       <details open><summary>Do I need to fast before my test?</summary><p>Only for tests marked as fasting on the list, such as fasting sugar and the lipid profile. Water is fine. Tea, coffee and breakfast are not. Ask your doctor whether to take your morning medicines before or after the sample.</p></details>
@@ -948,7 +949,7 @@ html.js .stop.on{opacity:1}
       <span>Hitesh Clinic · Chemist, lab and check-ups · Indore</span>
       <nav aria-label="Footer"><a href="#pharmacy">Chemist</a><a href="#tests">Blood tests</a><a href="#checkups">Check-ups</a><a href="#reports">Reports</a><a href="#doctors">Doctors</a><a href="#visit">Visit</a></nav>
     </div>
-    <p class="fine">Demo site. Hitesh Clinic is a fictional clinic and chemist, and the address, phone number, prices, timings, reports and quotes here are made up for illustration. Nothing on this page is medical advice, and no booking, reminder or message is sent or saved. Photographs are from Unsplash. Designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a>, who can build one like this for you. <a href="../index.html">See more demo sites</a>.</p>
+    <p class="fine">Demo site. Hitesh Clinic is a fictional clinic and chemist, and the address, phone number, prices, timings, reports and quotes here are made up for illustration. Nothing on this page is medical advice, and no booking, reminder or message is sent or saved. Photographs are from Unsplash. Designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a>, who can build one like this for you. <a href="https://material-index.vercel.app/" id="moreSites">See more demo sites</a>.</p>
   </div>
 </footer>
 
@@ -970,6 +971,9 @@ html.js .stop.on{opacity:1}
   function niceDate(d) { return d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }); }
   function clock(h) { var hh = Math.floor(h), m = Math.round((h - hh) * 60); return ((hh + 11) % 12 + 1) + (m ? ':' + (m < 10 ? '0' : '') + m : '') + (hh < 12 ? ' am' : ' pm'); }
   function pad(n) { return (n < 10 ? '0' : '') + n; }
+  // Opened from inside the gallery, the footer link goes back up to it.
+  var more = $('#moreSites');
+  if (more && /\/v\d+-[\w-]+\/(index\.html)?$/.test(location.pathname)) more.setAttribute('href', '../index.html');
 
   var toastT;
   function toast(msg) {

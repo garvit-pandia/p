@@ -10,6 +10,7 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#fbfbf9">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23fbfbf9'/%3E%3Cpath d='M12 50L32 12l20 38M21 36h22' fill='none' stroke='%23111' stroke-width='4'/%3E%3Ccircle cx='50' cy='14' r='5' fill='%23e4572e'/%3E%3C/svg%3E">
+<link rel="preload" as="image" href="img/courtyard.webp" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -295,7 +296,7 @@ form.write input::placeholder{color:#7f7f79}
     <div class="rv" style="--d:3"><b>1:1</b>mock-ups before site</div>
   </div>
   <figure class="plate cut" id="plate">
-    <img src="img/courtyard.jpg" alt="A low modern house at dusk, lit from inside, under a large tree" width="1400" height="933" fetchpriority="high">
+    <img src="img/courtyard.webp" alt="A low modern house at dusk, lit from inside, under a large tree" width="1400" height="933" fetchpriority="high" decoding="async">
     <span class="corner tl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
     <figcaption class="mono"><span>P-01 &middot; Courtyard House</span><span>Pune &middot; 2023 &middot; 420 m&sup2;</span></figcaption>
   </figure>
@@ -345,7 +346,7 @@ form.write input::placeholder{color:#7f7f79}
     <p class="rv" style="--d:2">One long table, nine people, a workshop at the back.</p>
   </div>
   <div class="studio">
-    <figure class="cut"><img src="img/studio.jpg" alt="Hands marking up a drawing on a wooden desk" width="1100" height="619" loading="lazy"></figure>
+    <figure class="cut"><img src="img/studio.webp" alt="Hands marking up a drawing on a wooden desk" width="1100" height="619" loading="lazy" decoding="async"></figure>
     <div class="txt">
       <p class="rv">Arjun started the practice in 2014 with one house for a friend and a borrowed drawing board. The board is still here.</p>
       <p class="rv" style="--d:1">We keep the studio small on purpose, so the person who draws your staircase is also the one who checks it on site.</p>
@@ -395,7 +396,7 @@ form.write input::placeholder{color:#7f7f79}
     <a href="mailto:studio@arjunsethi.example">studio@arjunsethi.example</a>
     <span>Mon to Fri, 10 to 6</span>
   </div>
-  <p class="fine">Demo site. Arjun Sethi Architects is a fictional practice, and the projects, places, figures and awards here are made up for illustration. Photographs are from Unsplash. Designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a>, who can build one like this for you. <a href="../index.html">See more demo sites</a>.</p>
+  <p class="fine">Demo site. Arjun Sethi Architects is a fictional practice, and the projects, places, figures and awards here are made up for illustration. Photographs are from Unsplash. Designed and built by <a href="https://garvitpandia.me" rel="noopener">Garvit Pandia</a>, who can build one like this for you. <a href="https://material-index.vercel.app/" id="moreSites">See more demo sites</a>.</p>
 </section>
 
 <div class="block" id="block" aria-hidden="true">
@@ -434,6 +435,9 @@ var fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
 var $ = function(s, r){ return (r || document).querySelector(s); };
 var fmt = function(n){ return n.toLocaleString('en-IN'); };
 var mm = function(n){ return String(n).replace(/\B(?=(\d{3})+$)/g, ' '); };   /* drawing style: 12 400 */
+
+/* opened from inside the gallery, the footer link goes back up to it */
+var more = $('#moreSites'); if(more && /\/v\d+-[\w-]+\/(index\.html)?$/.test(location.pathname)) more.setAttribute('href', '../index.html');
 
 /* ---------- reveals ---------- */
 var io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){
@@ -491,7 +495,7 @@ TYPES.forEach(function(t){
 P.forEach(function(p, i){
   var b = document.createElement('button'); b.type = 'button'; b.className = 'card'; b.dataset.i = i;
   b.setAttribute('aria-label', p.n + ', ' + p.t + ', ' + p.loc + ', ' + p.y + '. Open project sheet');
-  b.innerHTML = '<span class="ph"><img src="img/' + p.img + '.jpg" alt="' + p.alt + '" loading="lazy" decoding="async"><span class="no mono">' + p.no + '</span><span class="open mono">Open sheet &rarr;</span></span>' +
+  b.innerHTML = '<span class="ph"><img src="img/' + p.img + '-s.webp" srcset="img/' + p.img + '-xs.webp 560w, img/' + p.img + '-s.webp 800w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 52vw, 35vw" alt="' + p.alt + '" loading="lazy" decoding="async"><span class="no mono">' + p.no + '</span><span class="open mono">Open sheet &rarr;</span></span>' +
     '<h3>' + p.n + '</h3><span class="meta mono"><span>' + p.t + '</span><span>' + p.loc + '</span><span>' + p.y + '</span><span>' + fmt(p.a) + ' m&sup2;</span></span>';
   p.el = b; grid.appendChild(b);
 });
@@ -527,7 +531,7 @@ if(fine && !reduced){
   grid.addEventListener('pointermove', function(e){
     var c = e.target.closest('.card');
     if(!grid.classList.contains('list') || !c){ ghost.classList.remove('on'); return; }
-    var img = ghost.firstElementChild, src = 'img/' + P[+c.dataset.i].img + '.jpg';
+    var img = ghost.firstElementChild, src = 'img/' + P[+c.dataset.i].img + '-s.webp';
     if(img.getAttribute('src') !== src) img.src = src;
     ghost.style.left = Math.min(e.clientX + 24, innerWidth - 324) + 'px'; ghost.style.top = Math.min(e.clientY + 18, innerHeight - 250) + 'px'; ghost.classList.add('on');
   });
@@ -563,7 +567,7 @@ function plan(p, idx){
 function fill(k){
   at = (k + shown.length) % shown.length; var p = shown[at];
   $('#sNo').textContent = p.no + ' \u00b7 ' + (at + 1) + ' of ' + shown.length;
-  $('#sImg').src = 'img/' + p.img + '.jpg'; $('#sImg').alt = p.alt;
+  $('#sImg').src = 'img/' + p.img + '.webp'; $('#sImg').alt = p.alt;
   $('#sType').textContent = p.t + ' · ' + p.s; $('#sName').textContent = p.n; $('#sText').textContent = p.d;
   $('#sSpec').innerHTML = [['Location', p.loc], ['Completed', p.s === 'Built' ? p.y : 'Due ' + p.y], ['Floor area', fmt(p.a) + ' m²'], ['Status', p.s], ['Materials', p.m], ['Our role', 'Architecture, interiors, site']].map(function(r){ return '<div><dt class="mono">' + r[0] + '</dt><dd>' + r[1] + '</dd></div>'; }).join('');
   var box = $('#sPlan'); box.classList.remove('on'); box.innerHTML = plan(p, P.indexOf(p));
